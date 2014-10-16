@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/jqmobile/jquery.mobile-1.4.4.min.css" />
+    <script src="js/jq.min.js"></script>
+    <script src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/objects.css">
+</head>
+<body style="max-width: 2048px; max-height: 1536px;   border: 1px solid;">
+     <div id="left-menu">
+          <ul>
+              <li class="main-menu-item">
+                  <div class="main-menu-item-image"></div>
+                  <div class="main-menu-item-text">Кадры</div>
+              </li>
+          </ul>
+     </div>
+    <div class="right-side" data-role="page" id='charts'>
+        <!--<div data-role="header" data-position="fixed">-->
+        <div data-role="header">
+            <h1>Объекты</h1>
+        </div>
+        <div data-role="content" >
+            <div class="content-side" data-role="none">
+                <div>
+                    <form>
+                        <fieldset data-role="controlgroup" data-type="horizontal" id="documents-filter">
+                            <input type="radio" name="document" id="radio-choice-h-2a" data-title="ГПЗУ" data-value="GPZU" checked="checked">
+                            <label for="radio-choice-h-2a">ГПЗУ</label>
+                            <input type="radio" name="document" id="radio-choice-h-2b" data-title="Экспертиза" data-value="MGE" >
+                            <label for="radio-choice-h-2b">Экспертиза</label>
+                            <input type="radio" name="document" id="radio-choice-h-2c" data-title="Разрешение на строительство" data-value="razresh" >
+                            <label for="radio-choice-h-2c">Разрешение</label>
+                            <input type="radio" name="document" id="radio-choice-h-3c" data-title="Погашение банковской гарантии" data-value="bank_garant" >
+                            <label for="radio-choice-h-3c">Банковская гарантия</label>
+                            <input type="radio" name="document" id="radio-choice-h-4c" data-title="Выполнение сноса" data-value="destroy" >
+                            <label for="radio-choice-h-4c">Снос</label>
+                        </fieldset>
+                    </form>
+                </div>
+                <div>
+                    <div id='document-chart' style="width: 600px; height: 900px; float: left "></div>
+                    <div id='finance-chart' style="width: 600px; height: 900px; float: right"></div>
+                </div>
+            </div>
+            <div class="filter-side" data-role="none" id = "filter">
+                  <div class="">Вид данных:
+                      <button class="ui-btn ui-btn-inline ui-btn-b">График</button>
+                      <button class="ui-btn ui-btn-inline">Списком</button>
+                      <button class="ui-btn ui-btn-inline">На карте</button>
+                  </div>
+                 <div class="appointment-filter filter" >
+                         <input type="checkbox" data-role="none" checked>ОБЪЕКТЫ
+                         <span id="select-all-appointments" class="add-filters-action">Выделить все</span>
+                         <div class="horizontal-line"></div>
+                         <div class="group-filter">
+                            <input type="checkbox" data-role="none" checked>Жилище
+                            <span class="add-filters-action">Выделить все</span>
+                            <div class="appointments">
+                                <input type="checkbox" data-role="none" data-value="жилье" checked>Жилье
+                                <input type="checkbox" data-role="none" data-value="инженерия" checked>Инженирия
+                            </div>
+                         </div>
+
+                         <div class="horizontal-line small-line"></div>
+                            <div class="group-filter">
+                             <input type="checkbox" data-role="none" checked>Социальные объекты
+                             <span class="add-filters-action">Выделить все</span>
+                             <div class="appointments">
+                                 <input type="checkbox" data-role="none" data-value="БНК" checked>БНК
+                                 <input type="checkbox" data-role="none" data-value="ДОУ" checked>ДОУ
+                                 <input type="checkbox" data-role="none" data-value="ФОК" checked>ФОК
+                                 <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked>Спорт-ФОК
+                                 <input type="checkbox" data-role="none" data-value="школа" checked>Школа
+                                 <input type="checkbox" data-role="none" data-value="Поликлиника" checked>Поликлиника
+                             </div>
+                         </div>
+                         <div class="horizontal-line small-line"></div>
+                         <div class="group-filter">
+                             <input type="checkbox" data-role="none" checked>Прочие
+                             <span class="add-filters-action">Выделить все</span>
+                             <div class="appointments">
+                                 <input type="checkbox" data-role="none" data-value="Поликлиника" checked>Дороги
+                                 <input type="checkbox" data-role="none" data-value="переход" checked>Переход
+                                 <input type="checkbox" data-role="none" data-value="Прочие объекты" checked>Прочие
+                             </div>
+                         </div>
+                 </div>
+                <div class="distinct-filter filter">
+                    <input type="checkbox" data-role="none" checked>Округ
+                    <span id="select-all-distincts" class="add-filters-action">Выделить все</span>
+                    <div class="horizontal-line"></div>
+                    <div class="group-filter">
+                        <div class="distincts"></div>
+                    </div>
+                </div>
+                <div class="year-filter filter">
+                    <input type="checkbox" data-role="none" checked>Годы
+                    <span id="select-all-years" class="add-filters-action">Выделить все</span>
+                    <div class="horizontal-line"></div>
+                    <div class="group-filter">
+                        <div class="years"></div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /content -->
+    </div>
+</body>
+
+
+<script type="text/javascript" src="js/data/objects.js"></script>
+<script type="text/javascript" src="js/objects/filter.js"></script>
+<script type="text/javascript" src="js/objects/charts.js"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+        filter.init('filter');
+        charts.init(filter);
+    })
+
+    $(function(){
+        $('.filter input').change(charts.redrawAllCharts)
+        $('#documents-filter input').change(charts.redrawDocumentChart)
+    })
+</script>
+</html>

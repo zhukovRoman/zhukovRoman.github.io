@@ -10,6 +10,7 @@
     <file path="/objects.js" changelist="a65043f7-c692-4d21-9954-b65648874aba" time="1413491497430" ignored="false" />
     <file path="/filter.js" changelist="a65043f7-c692-4d21-9954-b65648874aba" time="1413493715603" ignored="false" />
     <file path="/charts.js" changelist="a65043f7-c692-4d21-9954-b65648874aba" time="1413494319632" ignored="false" />
+    <file path="/index.html" changelist="a65043f7-c692-4d21-9954-b65648874aba" time="1413495474269" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,13 +85,22 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="charts.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="charts.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/js/objects/charts.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="73" column="9" selection-start="2262" selection-end="2262" vertical-scroll-proportion="0.5124836">
+                <state line="73" column="9" selection-start="2262" selection-end="2262" vertical-scroll-proportion="0.0">
                   <folding>
                     <element signature="n#!!block;n#createDocumentChart#0;n#createDocumentChart#0;n#!!block;n#charts#0;n#!!top" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="6" column="14" selection-start="79" selection-end="79" vertical-scroll-proportion="0.12">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -115,6 +125,7 @@
         <option value="$PROJECT_DIR$/js/objects/filter.js" />
         <option value="$PROJECT_DIR$/objects.html" />
         <option value="$PROJECT_DIR$/js/objects/charts.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -429,10 +440,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/objects/charts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="9" selection-start="2262" selection-end="2262" vertical-scroll-proportion="0.5124836">
+        <state line="73" column="9" selection-start="2262" selection-end="2262" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!block;n#createDocumentChart#0;n#createDocumentChart#0;n#!!block;n#charts#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="14" selection-start="79" selection-end="79" vertical-scroll-proportion="0.12">
+          <folding />
         </state>
       </provider>
     </entry>

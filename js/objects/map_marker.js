@@ -75,9 +75,9 @@ PieChartClusterer.COLOURS = {
  * @constant
  */
 PieChartClusterer.SIZES = [
-    [60, 60],
-    [75, 75],
-    [90, 90]
+    [100, 100],
+    [125, 125],
+    [150, 150]
 ];
 
 

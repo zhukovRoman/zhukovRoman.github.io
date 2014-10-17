@@ -36,8 +36,15 @@ ul{
 .right-side  {
     margin-left: 200px;
     max-width: 1848px;
+    min-width: 1848px;
     margin-top: 1px;
     /*max-height: 1536px;*/
     min-height: 1536px;
     margin-left: 202px;
+    font-size: 1.8em;
 }
+
+.ui-title{
+    font-size: 3em;
+}
+

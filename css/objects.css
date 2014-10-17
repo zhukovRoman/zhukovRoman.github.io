@@ -6,7 +6,8 @@
 
 .filter-side{
     float: right;
-    width: 500px
+    width: 500px;
+    font-size: 17pt;
 }
 
 .add-filters-action{
@@ -37,5 +38,13 @@
 
 .group-filter{
     margin-top: 20px;
+}
+
+#documents-filter label {
+    font-size: 19pt;
+}
+#documents-filter  {
+    margin-top: 0px;
+    text-align: center;
 }
 

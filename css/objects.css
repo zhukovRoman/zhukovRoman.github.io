@@ -48,3 +48,12 @@
     text-align: center;
 }
 
+#map-content, #list-content{
+    display: none;
+}
+
+#charts-content{
+    display: block;
+}
+
+

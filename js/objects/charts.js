@@ -76,7 +76,7 @@ var charts ={
         charts.document_chart.series[0].setData(series, true);
         allTitle.attr({
             text: summ
-        });
+        }).css({"font-size" : "70pt"});
 //        charts.document_chart.setTitle({ text: charts.filter.getCurrentDocumentTitle() })
         charts.document_chart.setTitle({ text: ''})
 
@@ -120,7 +120,7 @@ var charts ={
             series: [{
                 type: 'pie',
                 name: 'Сумма',
-                innerSize: '50%',
+                innerSize: '60%',
                 data: [ ]
             }]
         });
@@ -176,7 +176,7 @@ var charts ={
            series: [{
                type: 'pie',
                name: 'Сумма',
-               innerSize: '50%',
+               innerSize: '60%',
                data: [
                    ['Не оплачено',   0],
                    ['Выполнено и оплачено',       0],

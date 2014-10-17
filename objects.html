@@ -7,6 +7,7 @@
     <script src="js/jq.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
+    <script src="http://api-maps.yandex.ru/2.0.18/?load=package.standard,package.clusters&lang=ru-RU" type="text/javascript"></script>
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/objects.css">
@@ -25,8 +26,8 @@
         <div data-role="header">
             <h1>Объекты</h1>
         </div>
-        <div data-role="content" >
-            <div class="content-side" data-role="none">
+        <div data-role="content" style="background-color: #ffffff">
+            <div class="content-side" data-role="none" id="charts-content">
                 <div>
                     <form>
                         <fieldset data-role="controlgroup" data-type="horizontal" id="documents-filter">
@@ -49,11 +50,27 @@
                     <div id='work-chart' style="width: 1250px; height: 400px; float: left"></div>
                 </div>
             </div>
+            <div class="content-side" data-role="none" id="list-content">
+                <div>
+                   Список объектов
+                </div>
+            </div>
+            <div class="content-side" data-role="none" id="map-content">
+               <div id='map' style="height: 1200px"></div>
+                <div id="legend">
+                    <div class="row"><div style="height:10px; width:20px; background:#158B02; float: left; margin-top: 5px;"></div><div>Жилой дом</div></div>
+                    <div class="row"><div style="height:10px; width:20px; background:#A41DE2; float: left; margin-top: 5px;"></div><div>Дошкольное образовательное учреждение</div></div>
+                    <div class="row"><div style="height:10px; width:20px; background:#E666DD; float: left; margin-top: 5px;"></div><div>Блок начальных классов</div></div>
+                    <div class="row"><div style="height:10px; width:20px; background:#E03632; float: left; margin-top: 5px;"></div><div>Школа</div></div>
+                    <div class="row"><div style="height:10px; width:20px; background:#0A6CC8; float: left; margin-top: 5px;"></div><div>Физкультурно-оздоровительный комплекс</div></div>
+                    <div class="row"><div style="height:10px; width:20px; background:#143A6B; float: left; margin-top: 5px;"></div><div>Переход</div></div>
+                </div>
+            </div>
             <div class="filter-side" data-role="none" id = "filter">
                   <div class="">Вид данных:
-                      <button class="ui-btn ui-btn-inline ui-btn-b">График</button>
-                      <button class="ui-btn ui-btn-inline">Списком</button>
-                      <button class="ui-btn ui-btn-inline">На карте</button>
+                      <button id='chart-button' class="ui-btn ui-btn-inline ui-btn-b">График</button>
+                      <button id='list-button' class="ui-btn ui-btn-inline">Списком</button>
+                      <button id='map-button' class="ui-btn ui-btn-inline">На карте</button>
                   </div>
                  <div class="appointment-filter filter" >
                          <input type="checkbox" data-role="none" checked>ОБЪЕКТЫ
@@ -117,6 +134,8 @@
 <script type="text/javascript" src="js/data/objects.js"></script>
 <script type="text/javascript" src="js/objects/filter.js"></script>
 <script type="text/javascript" src="js/objects/charts.js"></script>
+<script type="text/javascript" src="js/objects/map_marker.js"></script>
+<script type="text/javascript" src="js/objects/objects_logic.js"></script>
 
 <script type="text/javascript">
 
@@ -127,7 +146,12 @@
 
     $(function(){
         $('.filter input').change(charts.redrawAllCharts)
+        $('.filter input').change(map.rebindMarkers)
         $('#documents-filter input').change(charts.redrawDocumentChart)
+        $('#map-button').click(objects_logic.showMap)
+        $('#chart-button').click(objects_logic.showCharts)
+        $('#list-button').click(objects_logic.showList)
+
     })
 </script>
 </html>

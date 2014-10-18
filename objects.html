@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/jqmobile/jquery.mobile-1.4.4.min.css" />
     <script src="js/jq.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
@@ -52,7 +53,7 @@
             </div>
             <div class="content-side" data-role="none" id="list-content">
                 <div>
-                   Список объектов
+                    <ul data-role="listview" id="objects-list"></ul>
                 </div>
             </div>
             <div class="content-side" data-role="none" id="map-content">
@@ -64,6 +65,12 @@
                     <div class="row"><div style="height:10px; width:20px; background:#E03632; float: left; margin-top: 5px;"></div><div>Школа</div></div>
                     <div class="row"><div style="height:10px; width:20px; background:#0A6CC8; float: left; margin-top: 5px;"></div><div>Физкультурно-оздоровительный комплекс</div></div>
                     <div class="row"><div style="height:10px; width:20px; background:#143A6B; float: left; margin-top: 5px;"></div><div>Переход</div></div>
+                </div>
+            </div>
+            <div class="content-side" data-role="none" id="list-overdue-content">
+                <div>
+                    <ul data-role="listview" id="ovedue-objects-list">
+                    </ul>
                 </div>
             </div>
             <div class="filter-side" data-role="none" id = "filter">
@@ -147,6 +154,8 @@
     $(function(){
         $('.filter input').change(charts.redrawAllCharts)
         $('.filter input').change(map.rebindMarkers)
+        $('.filter input').change(objects_logic.bindOverdueObjects)
+        $('.filter input').change(objects_logic.bindObjectsList)
         $('#documents-filter input').change(charts.redrawDocumentChart)
         $('#map-button').click(objects_logic.showMap)
         $('#chart-button').click(objects_logic.showCharts)

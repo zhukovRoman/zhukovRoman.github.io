@@ -76,6 +76,10 @@ var charts ={
            }]
        });
        allTitle = this.document_chart.renderer.text(this.count, this.all_title_x, this.all_title_y).css({color: "black","font-size" : "70pt"}).add();
+       this.document_chart.renderer.button('Список просроченных',
+            30,
+            800,
+            objects_logic.showOverdues).add();
     },
     redrawDocumentChart: function(){
         var currentDocument = filter.getCurrentDocument()

@@ -48,7 +48,7 @@
     text-align: center;
 }
 
-#map-content, #list-content{
+#map-content, #list-content, #list-overdue-content{
     display: none;
 }
 
@@ -58,6 +58,15 @@
 
 .ymaps-default-cluster{
     font-size: 25px !important;
+}
+
+#list-content{
+    max-height: 1400px;
+    overflow-y: scroll;
+}
+
+.ui-content .ui-listview{
+    margin: 0em;
 }
 
 

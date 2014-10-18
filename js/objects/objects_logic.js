@@ -59,7 +59,7 @@ var objects_logic = {
         var $ul = $("#ovedue-objects-list")
         var html = ''
         $.each (overdues_objects, function(i,val){
-            html+='<li><a href="#">'+
+            html+='<li><a href="object_view.html">'+
                 '<h1>'+val.adress+'</h1>'+
                 '<p>'+val.plansDates[document]+'</p>'+
                 '</a></li>'
@@ -73,7 +73,7 @@ var objects_logic = {
         $("#charts-content").hide();
         $("#list-overdue-content").show();
 
-        $("#charts h1.ui-title").before('<a href="#" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-arrow-l">Назад</a>')
+        $("#charts h1.ui-title").before('<a href="#" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l">Назад</a>')
         $("#charts div.ui-header a.ui-btn").click(objects_logic.returnFromOverdue)
         objects_logic.bindOverdueObjects();
 

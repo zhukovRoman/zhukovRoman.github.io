@@ -4,6 +4,7 @@ body{
     width: 2048px;
     height: 1536px;
     border: 1px solid;
+    font-family: 'PT Sans', serif;
 }
 
 #left-menu{

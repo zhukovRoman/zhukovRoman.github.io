@@ -47,16 +47,32 @@ var charts ={
            plotOptions: {
                pie: {
                    center: ['50%', '32%'],
+                   showInLegend: true,
                    dataLabels: {
                        enabled: false
                    }
+               }
+           },
+           legend: {
+               layout: 'vertical',
+               backgroundColor: '#FFFFFF',
+               align: 'left',
+               verticalAlign: 'top',
+               floating: true,
+               x: 30,
+               y: 600,
+               useHTML: true,
+               itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+               labelFormatter: function () {
+                   return '<div style="width: 500px;border-bottom: 1px solid;"><div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
+                       '<div style="text-align: right; float: right; width: 200px"> '+ ((this.y)) +'</div></div>';
                }
            },
            series: [{
                type: 'pie',
                name: 'Статус получения: ',
                innerSize: '50%',
-               data: [ ]
+               data: [['получено', 10] ]
            }]
        });
        allTitle = this.document_chart.renderer.text(this.count, this.all_title_x, this.all_title_y).css({color: "black","font-size" : "70pt"}).add();
@@ -117,6 +133,23 @@ var charts ={
                 }
 
             },
+
+            legend: {
+                layout: 'vertical',
+                backgroundColor: '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'top',
+                floating: true,
+                x: 30,
+                y: 600,
+                useHTML: true,
+                itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+                labelFormatter: function () {
+                    return '<div style="width: 500px;border-bottom: 1px solid;display: block"><div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
+                        '<div style="text-align: right; float: right; width: 200px"> '+ thousands_sep((this.y/1000000).toFixed(0)) +' млн ₽ </div></div>';
+                }
+            },
+
             series: [{
                 type: 'pie',
                 name: 'Сумма',
@@ -150,39 +183,50 @@ var charts ={
                renderTo: charts.work_id,
                plotBackgroundColor: null,
                plotBorderWidth: null,
-               plotShadow: false
+               plotShadow: false,
+               type: 'bar'
            },
            title: {
                text: 'Выполнение работ'
            },
-           tooltip: {
-               formatter: function () {
-                   var s ="";
-                   $.each(this.series.points, function (i, point) {
-                       s += "<b>"+point.name + '</b> ' + thousands_sep((point.y/1000000).toFixed(0)) + ' млн ₽ <br/>';
-                   });
-                   return s;
-               },
-               shared: true,
-               useHTML: true
-           },
-           plotOptions: {
-               pie: {
-                   center: ['50%', '50%'],
-                   showInLegend: true
+           legend:{
+               align: 'left',
+               useHTML: true,
+               floating: true,
+               layout: 'horizontal',
+               itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+               labelFormatter: function () {
+                   console.log(this)
+                   return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal">'+this.name +
+                       ' <span id="work-chart-values'+this._i+'"> '+ ((this.userOptions.data[0])) +'</span> </div>';
                }
-
            },
-           series: [{
-               type: 'pie',
-               name: 'Сумма',
-               innerSize: '60%',
-               data: [
-                   ['Не оплачено',   0],
-                   ['Выполнено и оплачено',       0],
-                   ['Оплачено, но не выполнено',    0]
 
-               ]
+//           tooltip: {
+//               formatter: function () {
+//                   var s ="";
+//                   $.each(this.series.points, function (i, point) {
+//                       s += "<b>"+point.name + '</b> ' + thousands_sep((point.y/1000000).toFixed(0)) + ' млн ₽ <br/>';
+//                   });
+//                   return s;
+//               },
+//               shared: true,
+//               useHTML: true
+//           },
+
+           plotOptions: {
+               series: {
+                   stacking: 'percent'
+               }
+           },
+
+
+           series: [{
+               name: 'Выполнено',
+               data: [111]
+           }, {
+               name: 'Остаток выполнения',
+               data: [222]
            }]
        });
     },
@@ -197,10 +241,15 @@ var charts ={
             //data[1][1]+=obj.avans_pogasheno
             data[1][1]+=obj.work_left
         });
-        charts.work_chart.series[0].setData(data, true);
+
+        charts.work_chart.series[0].setData([data[0][1]], false);
+        charts.work_chart.series[1].setData([data[1][1]], false);
+        $("#work-chart-values1").text(thousands_sep(data[1][1]/1000000)+'млн')
+        $("#work-chart-values0").text(thousands_sep(data[0][1]/1000000)+'млн')
+        charts.work_chart.redraw();
+
     },
     redrawAllCharts:function(){
-        console.log('fsad');
         charts.filter.filter_objects();
         charts.redrawDocumentChart();
         charts.redrawFinanceChart();

@@ -13,7 +13,7 @@ var object_shower = {
         if (this.object==null) return;
 
         $("#tabs input").change(object_shower.changeContent);
-        this.initMap();
+
         this.fillTeps();
         this.createWorkChart();
         this.createFinanceChart();
@@ -22,6 +22,8 @@ var object_shower = {
         this.fillDocuments();
         this.fillPlan();
         this.fillVisitInfo();
+
+        this.initMap();
     },
     changeContent: function(){
 
@@ -226,18 +228,21 @@ var object_shower = {
         });
     },
     initMap: function(){
+        console.log('into map init')
+        var center = [55.76954, 37.621587];
         ymaps.ready (function(){
-            this.map = new ymaps.Map("map", {
+            console.log('ymap ready')
+            object_shower.map = new ymaps.Map("map_detail", {
                 center: [object_shower.object.lat,object_shower.object.lng],
                 zoom: 13,
-                controls: ['smallMapDefaultSet']
+                controls: ["default"]
             });
-            map.controls.remove('fullscreenControl');
-            map.controls.remove('geolocationControl');
-            map.controls.remove('searchControl');
-            map.controls.remove('typeSelector');
+            object_shower.map.controls.remove('fullscreenControl');
+            object_shower.map.controls.remove('geolocationControl');
+            object_shower.map.controls.remove('searchControl');
+            object_shower.map.controls.remove('typeSelector');
             var marker = new ymaps.Placemark([object_shower.object.lat,object_shower.object.lng]);
-            map.geoObjects.add(marker);
+            object_shower.map.geoObjects.add(marker);
         })
     },
     fillTeps: function(){

@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/objects.css">
+
+    <link rel="stylesheet" type="text/css" href="css/object_view.css">
 </head>
 <body style="max-width: 2048px; max-height: 1536px;   border: 1px solid;">
      <div id="left-menu">
@@ -53,7 +55,7 @@
             </div>
             <div class="content-side" data-role="none" id="list-content">
                 <div>
-                    <ul data-role="listview" id="objects-list"></ul>
+                    <ul data-role="listview" id="objects-list" class="object-list"></ul>
                 </div>
             </div>
             <div class="content-side" data-role="none" id="map-content">
@@ -69,7 +71,7 @@
             </div>
             <div class="content-side" data-role="none" id="list-overdue-content">
                 <div>
-                    <ul data-role="listview" id="ovedue-objects-list">
+                    <ul data-role="listview" id="ovedue-objects-list" class="object-list">
                     </ul>
                 </div>
             </div>
@@ -147,6 +149,8 @@
 <script type="text/javascript" src="js/objects/map_marker.js"></script>
 <script type="text/javascript" src="js/objects/objects_logic.js"></script>
 
+<script type="text/javascript" src="js/objects/obj_view.js"></script>
+
 <script type="text/javascript">
 
     $(function(){
@@ -163,6 +167,13 @@
         $('#map-button').click(objects_logic.showMap)
         $('#chart-button').click(objects_logic.showCharts)
         $('#list-button').click(objects_logic.showList)
+
+
+
+        $(document).on('pagebeforeshow', "#object_detail", function (event, data) {
+            object_shower.init($(this).data("url"))
+        });
+
 
     })
 </script>

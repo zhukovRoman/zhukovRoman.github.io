@@ -1,0 +1,60 @@
+.left-content{
+    width: 1200px;
+    float: left;
+}
+
+.right-content{
+    width: 500px;
+    float: right;
+}
+
+.smr-title{
+  text-align: center;
+}
+
+.tep-name{
+    width: 260px;
+    float: left;
+    text-align: right;
+    margin-right: 10px;
+}
+.tep-value{
+    width: 230px;
+    float: right;
+}
+.tep{
+    clear: both;
+}
+
+
+#documents_info{
+    width: 850px;
+    float: left;
+}
+.document-date-label{
+    text-align: right;
+    float: left;
+    width: 500px;
+}
+.document-date{
+    text-align: left;
+    float: left;
+    width: 250px;
+    padding-left: 20px;
+}
+
+#delaies_info, #destroy_info{
+    width: 850px;
+    float: right;
+}
+
+.left-side-panel{
+    width: 850px;
+    float: left;
+}
+
+.right-side-panel{
+    width: 850px;
+    float: right;
+}
+

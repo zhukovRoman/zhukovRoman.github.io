@@ -38,7 +38,7 @@ var objects_logic = {
         var $ul = $("#objects-list")
         var html = ''
         $.each (filter.filtered_objects, function(i,val){
-            html+='<li><a href="#">'+
+            html+='<li><a href="object_view.html?id=168">'+
                 '<h1>'+val.adress+'</h1>'+
                 '<p>'+val.okrug+'</p>'+
                 '</a></li>'
@@ -59,7 +59,7 @@ var objects_logic = {
         var $ul = $("#ovedue-objects-list")
         var html = ''
         $.each (overdues_objects, function(i,val){
-            html+='<li><a href="object_view.html">'+
+            html+='<li><a href="object_view.html?id=168">'+
                 '<h1>'+val.adress+'</h1>'+
                 '<p>'+val.plansDates[document]+'</p>'+
                 '</a></li>'

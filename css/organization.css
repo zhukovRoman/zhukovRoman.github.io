@@ -1,0 +1,51 @@
+#organization-name{
+    float: left;
+}
+.organization_tabs{
+    float: right;
+}
+
+#common_and_finance_info{
+    clear: both;
+}
+
+.my-panel{
+    /*width: 850px;*/
+    /*float: left;*/
+    border-radius: 10px;
+    background-color: #e9e9e9;
+    padding: 10px;
+    margin: 5px;
+    /*clear: left;*/
+}
+.my-panel-right{
+    /*float: right;*/
+    /*clear: right;*/
+}
+.tabs-counter{
+    background-color: #eaeaea;
+    padding: 8px;
+    margin-left: 5px;
+    border-radius: 12px;
+}
+.content{
+    clear: both;
+    overflow-y: scroll;
+    height: 1200px;
+}
+.organization-left-side{
+  float: left;
+  width: 870px;
+  clear: both;
+}
+.organization-right-side{
+    float: right;
+    width: 870px;
+
+}
+
+#org_list{
+    height: 1300px;
+    overflow-y: scroll;
+}
+

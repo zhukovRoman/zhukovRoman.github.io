@@ -1,0 +1,30 @@
+.filter{
+    font-size: 20pt;
+    background-color: #e9e9e9;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    padding: 9px;
+}
+
+.add-filters-action{
+    font-size: 18pt;
+    color: gray;
+}
+
+.horizontal-line{
+    width: 100%;
+    border-bottom: 4px solid;
+}
+
+.small-line{
+    border-bottom: 3px solid dimgray;
+}
+
+.group-filter{
+    margin-top: 20px;
+}
+
+#sales-filter{
+    width: 550px;
+    float: right;
+}

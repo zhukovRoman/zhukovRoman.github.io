@@ -19,15 +19,12 @@ var tenders_logic = {
     init: function(id){
         this.id = '#'+id;
         this.el = $("#id");
-
-
         $(".tenders-tabs input").change(tenders_logic.changeActiveChart)
         $('#tender-filter input').change(tenders_logic.redrawAllCharts)
         this.redrawAllCharts();
 
     },
     redrawAllCharts: function(){
-
         tenders_logic.filterTenders();
         tenders_logic.createPriceM2HouseChart();
         tenders_logic.createPriceSocialPrice();

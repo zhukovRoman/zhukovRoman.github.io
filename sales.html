@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/jqmobile/jquery.mobile-1.4.4.min.css" />
+    <script src="js/jq.min.js"></script>
+    <script src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/highcharts-more.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+
+
+
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/sales.css">
+
+
+
+</head>
+<body style="max-width: 2048px; max-height: 1536px;   border: 1px solid;">
+<div id="left-menu">
+    <ul>
+        <li class="main-menu-item">
+            <div class="main-menu-item-image"></div>
+            <div class="main-menu-item-text">Кадры</div>
+        </li>
+    </ul>
+</div>
+<div class="right-side" data-role="page" id='sales'>
+    <!--<div data-role="header" data-position="fixed">-->
+    <div data-role="header">
+        <h1>Продажи</h1>
+    </div>
+    <div data-role="content" style="background-color: #ffffff">
+        <div class='tenders-tabs'>
+            <form>
+                <fieldset data-role="controlgroup" data-type="horizontal" id="sales-charts-tabs">
+                    <input type="radio" name="sales_chart" id="radio-choice-h-1a" data-div="status_charts" data-chart="statusChart" checked="checked">
+                    <label for="radio-choice-h-1a">Динамика продаж</label>
+                    <input type="radio" name="sales_chart" id="radio-choice-h-1b" data-div="avg_m2_price" data-chart="avgM2Price" >
+                    <label for="radio-choice-h-1b">Средняя стоимость м2</label>
+                    <input type="radio" name="sales_chart" id="radio-choice-h-1c" data-div="plan_fact_chart" data-chart="planFactChart">
+                    <label for="radio-choice-h-1c">Выполнение плана</label>
+                    <input type="radio" name="sales_chart" id="radio-choice-h-1d" data-div="add_price_chart" data-chart="addPriceChart">
+                    <label for="radio-choice-h-1d">Добавочная стоимость</label>
+                    <input type="radio" name="sales_chart" id="radio-choice-h-1e" data-div="finance_chart" data-chart="financeChart">
+                    <label for="radio-choice-h-1e">Накопление финансов</label>
+                    <input type="radio" name="sales_chart" id="radio-choice-h-1f" data-div="hypotect_chart" data-chart="hypotecChart">
+                    <label for="radio-choice-h-1f">Ипотека</label>
+                    <input type="radio" name="sales_chart" id="radio-choice-h-1j" data-div="floors_price" data-chart="floorPriceChart" >
+                    <label for="radio-choice-h-1j">Этажность</label>
+                </fieldset>
+            </form>
+        </div>
+        <div id="sales-charts-content">
+            <div>
+                <div id="status_charts" class="sales_chart" style="float: left; display: none;">
+                    <div id="status_chart" style="height: 600px; width: 1200px; float: left;"></div>
+                    <h3>Динамика статусов</h3>
+                    <form>
+                        <fieldset data-role="controlgroup" data-type="horizontal" id="statuses_detail_charts_tabs">
+                            <input type="radio" name="detatil_chart" id="status_free" data-div="status_charts" data-status="Свободна" checked="checked">
+                            <label for="status_free">Свободна</label>
+                            <input type="radio" name="detatil_chart" id="status_has_qty" data-status="Имеет заявку">
+                            <label for="status_has_qty">Имеет заявку</label>
+                            <input type="radio" name="detatil_chart" id="status_auction" data-status="Аукцион">
+                            <label for="status_auction">Аукцион</label>
+                            <input type="radio" name="detatil_chart" id="status_dkp" data-status="ДКП">
+                            <label for="status_dkp">Подписан ДКП</label>
+                            <input type="radio" name="detatil_chart" id="status_ps" data-status="ПС">
+                            <label for="status_ps">Передано ПС</label>
+                        </fieldset>
+                    </form>
+                    <div id="status_detail_chart" style="height: 600px; width: 1200px; float: left;"></div>
+                </div>
+
+                <div id="avg_m2_price" class="sales_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
+                <div id="uk_notuk_chart" class="sales_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
+                <div id="plan_fact_chart" class="sales_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
+                <div id="add_price_chart" class="sales_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
+                <div id="finance_chart" class="sales_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
+                <div id="hypotect_chart" class="sales_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
+                <div id="floors_price"  class="sales_chart" style="height: 1000px; width: 1200px; float: left; "></div>
+            </div>
+
+            <div id="sales-filter">
+                <div class="sales-filter filter">
+                    <div id="measure-filter">
+                        <div>Показывать данные</div>
+                        <div class="horizontal-line"></div>
+                        <form>
+                            <fieldset data-role="controlgroup" data-type="horizontal" id="mesure-tabs">
+                                <input type="radio" name="measure" id="pcs" checked="checked">
+                                <label for="pcs">В квартирах</label>
+                                <input type="radio" name="measure" id="m2" >
+                                <label for="m2">В м2</label>
+                                <input type="radio" name="measure" id="fin">
+                                <label for="fin">В финансах</label>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <input type="checkbox" data-role="none" checked>Объект
+                    <span id="select-all-objects" class="add-filters-action">Выделить все</span>
+                    <div class="horizontal-line"></div>
+                    <div class="group-filter">
+                        <div class="objects">
+                        </div>
+                    </div>
+
+                    <div id="interval-filter">
+                        <div>Интервал</div>
+                        <div class="horizontal-line"></div>
+                        <select name="select-native-2" id="interval-select">
+                            <option value="week" selected>Неделя</option>
+                            <option value="month">Месяц</option>
+                            <option value="qartal">Квартал</option>
+                            <option value="half_year">Полугодие</option>
+                            <option value="year">Год</option>
+                        </select>
+                    </div>
+                    <div>Квартирность</div>
+                    <div class="horizontal-line"></div>
+                    <form>
+                        <fieldset data-role="controlgroup" data-type="horizontal" id="rooms-tabs">
+                            <input type="radio" name="rooms" id="all" data-room='all' checked="checked">
+                            <label for="all">Все</label>
+                            <input type="radio" name="rooms" id="room1" data-room='1'>
+                            <label for="room1">Одна</label>
+                            <input type="radio" name="rooms" id="room2" data-room='2'>
+                            <label for="room2">Две</label>
+                            <input type="radio" name="rooms" id="room3" data-room='3'>
+                            <label for="room3">Три</label>
+                            <input type="radio" name="rooms" id="room4" data-room='4'>
+                            <label for="room4">Четыре</label>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="js/sales.js"></script>
+<script type="text/javascript" src="js/my_common_scripts.js"></script>
+<script type="text/javascript" src="js/data/sales.js"></script>
+
+
+<script type="text/javascript">
+
+    $(function(){
+        sales_filter.initFilter();
+        sales_logic.init();
+
+    })
+
+
+</script>
+</html>

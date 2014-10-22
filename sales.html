@@ -31,9 +31,14 @@
 <div class="right-side" data-role="page" id='sales'>
     <!--<div data-role="header" data-position="fixed">-->
     <div data-role="header">
+        <a href="#" id='back-button' data-icon="arrow-l" class="ui-btn-left" onclick="sales_logic.showChartsPart()" style="display: none">Назад</a>
         <h1>Продажи</h1>
+        <a href="#" data-icon="grid" class="ui-btn-right" onclick="sales_logic.showCommonInfo()">Сводка по квартирам</a>
     </div>
-    <div data-role="content" style="background-color: #ffffff">
+    <div id="common_content" data-role="content" style="background-color: #ffffff; display: none;">
+        <div id="sales_common_info_chart" style="width: 1500px; height: 1000px;"></div>
+    </div>
+    <div id="main_content"  data-role="content" style="background-color: #ffffff">
         <div class='tenders-tabs'>
             <form>
                 <fieldset data-role="controlgroup" data-type="horizontal" id="sales-charts-tabs">

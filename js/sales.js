@@ -1,7 +1,6 @@
 var sales_logic = {
     current_chart: null,
     init: function(){
-
         this.setCurrentChart();
         $('#rooms-tabs input, #sales-filter div.objects input').change(sales_logic.applyFilters);
         $('#mesure-tabs input, #interval-select, #statuses_detail_charts_tabs input').change(sales_logic.applyFilters);
@@ -24,6 +23,116 @@ var sales_logic = {
     },
     applyFilters: function(){
         sales_logic.current_chart.redrawChart();
+    },
+    showCommonInfo: function(){
+        $('#main_content').hide();
+        $('#common_content').show();
+        $('#back-button').show();
+        sales_logic.createAndFillCommonChart();
+    },
+    showChartsPart: function(){
+        $('#common_content').hide();
+        $('#back-button').hide();
+        $('#main_content').show();
+    },
+    createAndFillCommonChart: function(){
+        apartment_all_sell_status_chart = new Highcharts.Chart({
+            credits:  {
+                enabled: false
+            },
+            chart: {
+                type: 'column',
+                renderTo:'sales_common_info_chart'
+            },
+            title: {
+                text: 'Всего продано квартир'
+            },
+            xAxis: {
+                categories: sales_objects
+            },
+            yAxis: {
+                title: {
+                    text: 'Количество'
+                }
+            },
+            tooltip:{
+                shared: true,
+                valueSuffix: " кв"
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent'
+                }
+            },
+            series: [{
+                name: '1-ком осталось',
+                data: [10, 32, 0],
+                stack: "1k",
+                color: 'rgba(124, 181, 236, 0.5)'
+            },{
+                name: '1-ком продано',
+                data: [32, 0, 0],
+                stack: "1k",
+                color: 'rgb(124, 181, 236)'
+
+            },{
+                name: '2-ком осталось ',
+                data: [18, 64, 86],
+                stack: "2k",
+                color: 'rgba(187, 83, 236, 0.5)'
+            },{
+                name: '2-ком продано ',
+                data: [46, 0, 42],
+                stack: "2k",
+                color: 'rgb(187, 83, 236)'
+            },{
+                name: '3-ком осталось',
+                data: [10, 33, 109],
+                stack: '3k',
+                color: "rgba(144, 237, 125, 0.5)"
+            },{
+                name: '3-ком продано',
+                data: [23, 0, 19],
+                stack: '3k',
+                color: "rgb(144, 237, 125)"
+            }]
+        });
+
+        var data = {}
+
+        $.each(apartments, function(i,apart){
+            if(data[apart.object]==null) data[apart.object]={sell:[0,0,0,0], not_sell:[0,0,0,0]}
+            if (apart.status=="ДКП" || apart.status=="ПС")
+                data[apart.object]['sell'][apart.rooms-1]++ ;
+            else data[apart.object]['not_sell'][apart.rooms-1]++;
+        })
+
+        var k1_sell = [];
+        var k2_sell = [];
+        var k3_sell = [];
+        var k1_not_sell = [];
+        var k2_not_sell = [];
+        var k3_not_sell = [];
+        var objs = []
+        $.each (data, function(obj,val){
+            objs.push(obj);
+            k1_sell.push(val.sell[0]);
+            k2_sell.push(val.sell[1]);
+            k3_sell.push(val.sell[2]);
+
+            k1_not_sell.push( val.not_sell[0]);
+            k2_not_sell.push( val.not_sell[1]);
+            k3_not_sell.push( val.not_sell[2]);
+        })
+
+        var data = [k1_not_sell, k1_sell, k2_not_sell, k2_sell, k3_not_sell, k3_sell, objs];
+        apartment_all_sell_status_chart.xAxis[0].setCategories(data[6],false);
+        apartment_all_sell_status_chart.series[0].setData(data[0],false);
+        apartment_all_sell_status_chart.series[1].setData(data[1],false);
+        apartment_all_sell_status_chart.series[2].setData(data[2],false);
+        apartment_all_sell_status_chart.series[3].setData(data[3],false);
+        apartment_all_sell_status_chart.series[4].setData(data[4],false);
+        apartment_all_sell_status_chart.series[5].setData(data[5]);
     },
     getWeeksCategories: function(){
         res = []

@@ -1,0 +1,9 @@
+.empl-tabs-group-name{
+    float: left;
+    margin-left: 30px;
+}
+#empl-charts-tabs2, #empl-charts-tabs{
+    float: left;
+    margin-left: 20px;
+    margin-top: 0;
+}

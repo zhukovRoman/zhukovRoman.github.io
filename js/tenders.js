@@ -1,24 +1,14 @@
 var tenders_logic = {
 
     chart_div_content: 'tender-current-chart',
-    year_enter: null,
-    year_tender: null,
-    month_tender: null,
-    // charts
-    m2_price_chart: null,
-    m2_social_price_chart: null,
-    uk_notuk_chart: null,
-    uk_notuk_social_chart: null,
-    price_percent_chart: null,
-    qty_line_chart: null,
-    summ_chart: null,
     current_chart: null,
 
     ///
     init: function(){
 
-        $(".tenders-tabs input").change(tenders_logic.changeActiveChart)
-        $('#tender-filter input').change(tenders_logic.applyFilter)
+        $(".tenders-tabs input").change(tenders_logic.changeActiveChart);
+        $('#tender-filter input').change(tenders_logic.applyFilter);
+        $('#show_table_button').click(tenders_logic.showTendersTable)
         this.changeActiveChart();
 
     },
@@ -28,15 +18,156 @@ var tenders_logic = {
         tenders_logic.current_chart =  tenders_charts[active_tab.attr('data-chart')]
         tenders_logic.current_chart.redrawChart();
         $("#"+active_tab.attr('data-div')).show();
+        tenders_logic.changeDetailButtonText();
     },
     applyFilter: function(){
         tenders_logic.current_chart.redrawChart();
     },
-    setEnterYearForTable: function(type, category){
-        console.log(type, category);
+    setEnterYearForTable: function(type, category, uk){
+        tenders_logic.current_chart.selectedYear = category;
+        tenders_logic.changeDetailButtonText();
     },
+    changeDetailButtonText: function(){
+        var btn = $('#show_table_button');
+        var text = 'Посмотреть список конкурсов';
+
+        if(this.current_chart.selectedYear==null) {
+            btn.hide(); return;
+        }
+        else btn.show();
+
+        if(this.current_chart.select_type =='enter_year' && this.current_chart.selectedYear!=null)
+        {
+            text+= ' по '+ (this.current_chart.type=='social' ? ' социальным ' : ' жилым ') +'объектам '+ this.current_chart.selectedYear+' года ввода'
+
+            if (this.current_chart.isUKAnalys)
+            text+= ' (УК/не УК)'
+        }
+
+        if(this.current_chart.select_type=='year' && this.current_chart.selectedYear!=null){
+            text+= ' заврешившихся в '
+            if (this.current_chart.selectedMonth!=null)
+                text+= this.current_chart.selectedMonth
+            if (this.current_chart.selectedYear!=null)
+                text+= ' '+this.current_chart.selectedYear+' году'
+        }
+        btn.text(text);
+    },
+    getObjectSeries: function(tender){
+        if(tender.series!=null)
+            return " ("+tender.series+")"
+        return "";
+    } ,
+    showChartsPart: function(){
+        $('#table_content').hide();
+        $('#common_charts').hide();
+        $('#charts_content').show();
+    },
+    showCommonInfo: function(){
+        $('#charts_content').hide();
+        $('#common_charts').show();
+        $('#back-button').show();
+    },
+    showTendersTable: function(){
+        var type = tenders_logic.current_chart.type||null
+        var month = tenders_logic.current_chart.selectedMonth||null
+        var year = tenders_logic.current_chart.selectedYear||null
+        var uk_flag = tenders_logic.current_chart.isUKAnalys||null
+        var data =  tenders_logic.filterTendersForTable(type, month, year, year, uk_flag);
+        tenders_logic.bindTableRows(data);
+        $('#charts_content').hide();
+        $('#table_content').show();
+        $('#back-button').show();
+        console.log(data);
+    },
+    bindTableRows: function(data){
+        var tbody = $("#tenders_table tbody")
+        var rows = '';
+        $.each(data, function(i,t){
+            rows += "<tr><td>"+ t.object_address+tenders_logic.getObjectSeries(t)+"</td>" +
+                "<td>"+ t.object_power+"</td>"+
+                "<td>"+ t.type+"</td>"+
+                "<td>"+ t.organization+"</td>"+
+                "<td>"+ t.date_finish+"</td>"+
+                "<td>"+ t.bid_accept+"/"+t.bid_all+"</td>"+
+                "<td>"+ thousands_sep(t.price_start.toFixed(0))+" ₽</td>"+
+                "<td>"+ thousands_sep(t.price_end.toFixed(0))+" ("+
+                thousands_sep((t.price_end/t.object_power).toFixed(0))+") ₽</td>"+
+                "<td>"+ t.percent.toFixed(2)+"</td></tr>"
+
+        })
+        tbody[0].innerHTML = rows;
+    } ,
+    filterTendersForTable: function(type, month, year, enter_year, uk_flag){
+//        console.log(type, month, year, enter_year, uk_flag );
+        var tenders = [];
+        if (type!=''||type!=null){
+            //iterate by objsData and social or house
+            $.each(objects_tenders, function (i,obj){
+
+                var year = obj.year_enter||"----";
+                if (year!=enter_year) return;
+
+                if ( type == 'social'){
+                    if ($.inArray(obj.appointment, tender_filter.getSocialFilter())==-1) return;
+                }
+                if (type == 'house'){
+//                    console.log(obj.appointment, tender_filter.getHouseAppointmentsFilter(),$.inArray(obj.appointment, tender_filter.getHouseAppointmentsFilter()))
+                    if ($.inArray(obj.appointment, tender_filter.getHouseAppointmentsFilter())==-1) return;
+                    if ($.inArray(obj.series, tender_filter.getLivingTypeFilter())==-1) return;
+
+                }
+
+//                console.log(uk_flag,tenders_logic.objectHaveUKTenderOnly(obj), tenders_logic.objectDontHaveUKTenders(obj))
+                if (uk_flag && !(tenders_logic.objectHaveUKTenderOnly(obj) || tenders_logic.objectDontHaveUKTenders(obj))) return;
+
+                $.each(obj.tenders, function(i,t){
+                    if ($.inArray( t.type, tender_filter.getTypesFilter() )==-1) return;
+                    tenders.push({
+                        object_address: obj.address,
+                        series: obj.series,
+                        type: t.type,
+                        object_power: obj.power,
+                        organization: t.organization,
+                        date_finish: t.date_finish,
+                        bid_accept: t.bid_accept,
+                        bid_all: t.bid_all,
+                        price_start: t.price_start,
+                        price_end: t.price_end,
+                        percent: t.percent
+                    })
+                })
+
+            })
+            return tenders;
+        }
+        $.each(tender_filter.getFilteredTenders(), function (i, t){
+            if(year!='' && t.year_finish!=year) return;
+            if (month!='' && t.month_finish!=month) return;
+            tenders.push({
+                object_address: t.object_address,
+                series: t.series,
+                type: t.type,
+                object_power: t.object_power,
+                organization: t.organization,
+                date_finish: t.date_finish,
+                bid_accept: t.bid_accept,
+                bid_all: t.bid_all,
+                price_start: t.price_start,
+                price_end: t.price_end,
+                percent: t.percent
+            })
+        })
+        return tenders;
+    } ,
     setAttrYearOrMonthFotTable: function(cat){
-      console.log(cat);
+        if(tenders_logic.current_chart.is_drilldown)
+            tenders_logic.current_chart.selectedMonth = cat;
+        else
+            tenders_logic.current_chart.selectedYear = cat;
+
+        tenders_logic.changeDetailButtonText();
+
     },
     objectHaveUKTenderOnly : function(obj){
         var not_uk_exist = false;
@@ -64,6 +195,10 @@ var tenders_logic = {
 var tenders_charts={
     PriceM2HouseChart: {
         chart: null,
+        select_type: "enter_year",
+        selectedYear: null,
+        isUKAnalys: false,
+        type: 'house',
         createChart: function(){
             this.chart = new Highcharts.Chart({
                 credits:  {
@@ -164,6 +299,10 @@ var tenders_charts={
     },
     PriceSocialPrice:{
         chart: null,
+        select_type: "enter_year",
+        selectedYear: null,
+        isUKAnalys: false,
+        type: 'social',
         createChart: function(){
             this.chart = new Highcharts.Chart({
                 credits:  {
@@ -260,6 +399,10 @@ var tenders_charts={
     },
     UKHouseChart:{
         chart:null,
+        select_type: "enter_year",
+        selectedYear: null,
+        isUKAnalys: true,
+        type: 'house',
         createChart: function(){
             this.chart = new Highcharts.Chart({
                 credits:  {
@@ -390,6 +533,10 @@ var tenders_charts={
     },
     UKSocialChart:{
         chart:null,
+        select_type: "enter_year",
+        selectedYear: null,
+        isUKAnalys: true,
+        type: 'social',
         createChart: function(){
              this.chart = new Highcharts.Chart({
                  credits:  {
@@ -518,6 +665,9 @@ var tenders_charts={
     },
     PricePercentChart: {
         chart: null,
+        select_type: "year",
+        selectedYear: null,
+        selectedMonth: null,
         is_drilldown: false,
         current_year: null,
         createChart: function(){
@@ -575,6 +725,8 @@ var tenders_charts={
                 }]
             });
             tenders_charts.PricePercentChart.is_drilldown = false;
+            tenders_charts.PricePercentChart.selectedMonth= null;
+            tenders_logic.changeDetailButtonText();
             var data = tenders_charts.PricePercentChart.getData();
             tenders_charts.PricePercentChart.chart.series[0].setData(data) ;
             tenders_charts.PricePercentChart.bindDrilldownEvents();
@@ -604,6 +756,8 @@ var tenders_charts={
             $('#price_percent_chart .highcharts-xaxis-labels > text').click(function(){
                 tenders_charts.PricePercentChart.current_year =  $(this).text();
                 tenders_charts.PricePercentChart.is_drilldown = true;
+                tenders_charts.PricePercentChart.selectedYear =   $(this).text();
+                tenders_logic.changeDetailButtonText();
                 tenders_charts.PricePercentChart.redrawChart();
             });
         },
@@ -660,6 +814,9 @@ var tenders_charts={
     },
     QtyChart: {
         chart: null,
+        select_type: "year",
+        selectedYear: null,
+        selectedMonth: null,
         is_drilldown: false,
         current_year: null,
         createChart: function(){
@@ -723,7 +880,10 @@ var tenders_charts={
 
             });
             tenders_charts.QtyChart.is_drilldown = false;
+            tenders_charts.QtyChart.selectedMonth= null;
+            tenders_logic.changeDetailButtonText();
             var data = tenders_charts.QtyChart.getData();
+
             tenders_charts.QtyChart.chart.series[0].setData(data[0],false)
             tenders_charts.QtyChart.chart.series[1].setData(data[1])
             tenders_charts.QtyChart.bindDrilldownEvents();
@@ -758,6 +918,8 @@ var tenders_charts={
             $('#qty_line_chart .highcharts-xaxis-labels > text').click(function(){
                 tenders_charts.QtyChart.current_year =  $(this).text();
                 tenders_charts.QtyChart.is_drilldown = true;
+                tenders_charts.QtyChart.selectedYear =   $(this).text();
+                tenders_logic.changeDetailButtonText();
                 tenders_charts.QtyChart.redrawChart();
             });
         },
@@ -808,6 +970,9 @@ var tenders_charts={
     },
     SummChart: {
         chart: null,
+        select_type: "year",
+        selectedYear: null,
+        selectedMonth: null,
         is_drilldown: false,
         current_year: null,
         createChart: function(){
@@ -882,6 +1047,8 @@ var tenders_charts={
             });
             var data =  tenders_charts.SummChart.getData();
             tenders_charts.SummChart.is_drilldown = false;
+            tenders_charts.SummChart.selectedMonth= null;
+            tenders_logic.changeDetailButtonText();
             tenders_charts.SummChart.chart.series[0].setData(data[0],false)
             tenders_charts.SummChart.chart.series[1].setData(data[1],false)
             tenders_charts.SummChart.chart.series[2].setData(data[2])
@@ -923,6 +1090,8 @@ var tenders_charts={
             $('#sum_chart .highcharts-xaxis-labels > text').click(function(){
                 tenders_charts.SummChart.current_year =  $(this).text();
                 tenders_charts.SummChart.is_drilldown = true;
+                tenders_charts.SummChart.selectedYear =   $(this).text();
+                tenders_logic.changeDetailButtonText();
                 tenders_charts.SummChart.redrawChart();
             });
         },
@@ -984,6 +1153,9 @@ var tenders_charts={
     },
     CountChart: {
         chart: null,
+        select_type: "year",
+        selectedYear: null,
+        selectedMonth: null,
         is_drilldown: false,
         current_year: null,
         createChart: function(){
@@ -1039,7 +1211,9 @@ var tenders_charts={
                 },
                 series: []
             });
-            tenders_charts.SummChart.CountChart = false;
+            tenders_charts.CountChart.is_drilldown = false;
+            tenders_charts.CountChart.selectedMonth= null;
+            tenders_logic.changeDetailButtonText();
             var chart = tenders_charts.CountChart.chart;
             while(chart.series.length > 0)
                 chart.series[0].remove(false);
@@ -1085,6 +1259,8 @@ var tenders_charts={
             $('#count_chart .highcharts-xaxis-labels > text').click(function(){
                 tenders_charts.CountChart.current_year =  $(this).text();
                 tenders_charts.CountChart.is_drilldown = true;
+                tenders_charts.CountChart.selectedYear =   $(this).text();
+                tenders_logic.changeDetailButtonText();
                 tenders_charts.CountChart.redrawChart();
             });
         },
@@ -1135,12 +1311,6 @@ var tenders_charts={
         }
 
     }
-
-
-
-
-
-
 }
 
 
@@ -1150,6 +1320,7 @@ var tender_filter={
     id: '#tender-filter',
     filtered_objects: [],
     filtered_tenders: [],
+
     getAppointmetsFilter: function(){
         var res = []
         $.each($(this.id+" div.appointments input:checked"), function(i,val){
@@ -1204,4 +1375,305 @@ var tender_filter={
     getFilteredTenders: function(){
         return this.filterTenders();
     }
+}
+
+var tenders_common_charts = {
+    prices_chart: null,
+    qty_chart: null,
+    qty_drilldown_category: 'sum',
+    init:function(){
+      this.createCharts();
+        this.fillCharts();
+        this.bindDrilldownEvents();
+    },
+    createCharts:function(){
+        this.prices_chart = new Highcharts.Chart({
+            credits:  {
+                enabled: false
+            },
+            chart: {
+                type: 'column',
+                renderTo:'prices_chart'
+            },
+            title: {
+                text: 'Общая стоимость конкурсов'
+            },
+            xAxis: {
+                categories: tenders_data.years
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Сумма конкурсов '
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value/1000 + ' млрд ₽';
+                    }
+                }
+            }],
+            plotOptions: {
+                column: {
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                        }
+                    }
+                }
+            },
+            tooltip:{
+                formatter: function() {
+                    var result = '<b>' + this.x + '</b>';
+                    $.each(this.points, function(i, datum) {
+
+                        result += '<br /> <i style="color: '+datum.point.series.color+'">' + datum.series.name + '</i>: ' + thousands_sep(datum.y) + ' млн ₽';
+
+                    });
+                    result += '<br />Среднее снижение цены ' + this.points[0].point.percent + '%'
+
+                    return result;
+                },
+                shared: true,
+                useHTML: true
+            },
+            series: [{
+                name: 'Начальная цена',
+                data: []
+
+            }, {
+                name: 'Итоговая цена',
+                data: []
+            }]
+        });
+
+        this.qty_chart = new Highcharts.Chart({
+            credits:  {
+                enabled: false
+            },
+            chart: {
+                type: 'column',
+                renderTo:'qty_chart'
+            },
+            title: {
+                text: 'Конкурсы по числу допущенных заявок'
+            },
+            xAxis: {
+                categories: tenders_data.qty_years
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: '%'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+
+                }
+            }],
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} </b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+                //valueSuffix: " конкурсов"
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black, 0 0 3px black'
+                        },
+                        formatter: function(){
+                            if ($("#qty_percent_button").hasClass('btn-danger'))
+                                return this.percentage.toFixed(0)+ ' %'
+                            else
+                                return (this.y||0).toFixed(0)+ ''
+                            //return ""
+                        }
+                    }
+                }
+            },
+            series: []
+        });
+    },
+    fillCharts: function(){
+        var series = this.getPricesChartData();
+        this.prices_chart.series[0].setData(series[0], false);
+        this.prices_chart.series[1].setData(series[1]);
+
+        while(this.qty_chart.series.length > 0)
+            this.qty_chart.series[0].remove(false);
+        $.each (tenders_data.qty_sum, function (i,qty){
+            tenders_common_charts.qty_chart.addSeries({data: qty.data, name: qty.name, tooltip: { valueSuffix: ' млрд ₽'}}, false);
+        })
+        this.qty_chart.xAxis[0].setCategories(tenders_data.qty_years, false)
+        this.qty_chart.redraw();
+    },
+    bindDrilldownEvents: function(){
+        $('#prices_chart .highcharts-xaxis-labels text').click(this.drilldownSummChart)
+        $('#qty_chart .highcharts-xaxis-labels  text').click(this.drilldownQtyChart)
+    },
+    getPricesChartData: function(){
+        var res =[];
+        res[0] = [];
+        res[1] = [];
+//        res[2] = [];
+//        res[3] = [];
+//        res[4] = [];
+//        res[5] = [];
+//        res[6] = [];
+
+        $.each (tenders_data.prices_begin, function (i,val){
+            res[0].push({y: (tenders_data.prices_begin[i]), percent: tenders_data.prices_percent[i]/tenders_data.count[i], drilldown:i})
+            res[1].push({y: (tenders_data.prices_end[i]), percent: tenders_data.prices_percent[i]/tenders_data.count[i], drilldown:i});
+//            res[2].push(toFixedAndParse(data.prices_percent[i]/data.count[i],2));
+//            res[3].push(toFixedAndParse(data.one_start[i],2))
+//            res[4].push(toFixedAndParse(data.one_end[i],2))
+//            res[5].push(toFixedAndParse(data.one_end[i]/data.count[i],2))
+        })
+
+        //console.log(res);
+        return res;
+    },
+    drilldownSummChart: function(){
+        var drilldownsSumm = {
+            '2012': [[
+                {y:0, percent:0},
+                {y:9557, percent:4.48},
+                {y:15294, percent:7.30},
+                {y:559, percent:0.49},
+                {y:5801, percent:0.67},
+                {y:4474, percent:2.03},
+                {y:8136, percent:2.95},
+                {y:2511, percent:0.59},
+                {y:925, percent:4.0},
+                {y:2364, percent:4.45},
+                {y:4611, percent:5.24},
+                {y:14434, percent:8.29}
+            ],
+                [
+                    {y:0, percent:0},
+                    {y:9123, percent:4.48},
+                    {y:14159, percent:7.30},
+                    {y:557, percent:0.49},
+                    {y:5749, percent:0.67},
+                    {y:4330, percent:2.03},
+                    {y:7792, percent:2.95},
+                    {y:2490, percent:0.59},
+                    {y:848, percent:4.0},
+                    {y:2256, percent:4.45},
+                    {y:4282, percent:5.24},
+                    {y:12793, percent:8.29}]
+            ],
+            '2013': [[
+                {y:5381, percent:3.35},
+                {y:3672, percent:4.44},
+                {y:27431, percent:5.18},
+                {y:25706, percent:4.94},
+                {y:3206, percent:4.18},
+                {y:259, percent:0},
+                {y:4003, percent:2.92},
+                {y:7214, percent:4.40},
+                {y:1251, percent:3.},
+                {y:2053, percent:3.49},
+                {y:942, percent:3.86},
+                {y:13544, percent:5.04}        ],
+                [
+                    {y:5202, percent:3.35},
+                    {y:3417, percent:4.44},
+                    {y:25414, percent:5.18},
+                    {y:23576, percent:4.94},
+                    {y:2996, percent:4.18},
+                    {y:0, percent:0},
+                    {y:3797, percent:2.92},
+                    {y:6572, percent:4.40},
+                    {y:1182, percent:3.28},
+                    {y:1983, percent:3.49},
+                    {y:913, percent:3.86},
+                    {y:12798, percent:5.04}]
+            ],
+            '2014': [[
+                {y:4846, percent:5.75},
+                {y:7985, percent:5.11},
+                {y:4061, percent:4.67},
+                {y:1997, percent:3.51},
+                {y:44558, percent:5.55},
+                {y:1700, percent:5.70},
+                {y:892, percent:5.08},
+                {y:2596, percent:7.13},
+                {y:14673, percent:3.35},
+                {y:342, percent:0}
+            ],
+                [
+                    {y:4499, percent:5.75},
+                    {y:7592, percent:5.11},
+                    {y:4014, percent:4.67},
+                    {y:1942, percent:3.51},
+                    {y:42445, percent:5.55},
+                    {y:1641, percent:5.70},
+                    {y:848, percent:5.08},
+                    {y:2412, percent:7.13},
+                    {y:51, percent:3.35},
+                    {y:0, percent:0}]
+            ]
+        }
+        var months = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+        tenders_common_charts.prices_chart.xAxis[0].setCategories(months, false)
+        tenders_common_charts.prices_chart.series[0].setData(drilldownsSumm[$(this).text()][0], false);
+        tenders_common_charts.prices_chart.series[1].setData(drilldownsSumm[$(this).text()][1], true);
+        tenders_common_charts.prices_chart.renderer.button('Назад',
+            200,
+            10,
+            tenders_common_charts.returnYearChart).add();
+    },
+    drilldownQtyChart: function(){
+        var months = ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"];
+
+        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
+        tenders_common_charts.qty_chart.xAxis[0].setCategories(months, false)
+        $.each (tenders_data['qty_drilldowns'][$(this).text()][tenders_common_charts.qty_drilldown_category]['one'], function(i,val){
+            series[months.indexOf(val[0])]=val[1];
+        })
+
+        tenders_common_charts.qty_chart.series[2].setData(series, false);
+
+        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
+        tenders_common_charts.qty_chart.xAxis[0].setCategories(months, false)
+        $.each (tenders_data['qty_drilldowns'][$(this).text()][tenders_common_charts.qty_drilldown_category]['two_four'], function(i,val){
+            series[months.indexOf(val[0])]=val[1];
+        })
+        tenders_common_charts.qty_chart.series[1].setData(series, false);
+
+        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
+        tenders_common_charts.qty_chart.xAxis[0].setCategories(months, false)
+        $.each (tenders_data['qty_drilldowns'][$(this).text()][tenders_common_charts.qty_drilldown_category]['g_four'], function(i,val){
+            series[months.indexOf(val[0])]=val[1];
+        })
+        tenders_common_charts.qty_chart.series[0].setData(series, true);
+
+
+        tenders_common_charts.qty_chart.renderer.button('Назад',
+            200,
+            10,
+            tenders_common_charts.returnYearQtyChart).add();
+    },
+    returnYearChart: function(){
+        $('#prices_chart .highcharts-button').remove();
+        var series = tenders_common_charts.getPricesChartData();
+        tenders_common_charts.prices_chart.xAxis[0].setCategories(tenders_data.years, false)
+        tenders_common_charts.prices_chart.series[0].setData(series[0], false);
+        tenders_common_charts.prices_chart.series[1].setData(series[1],false);
+        tenders_common_charts.prices_chart.redraw();
+        $('#prices_chart .highcharts-xaxis-labels text').click(tenders_common_charts.drilldownSummChart)
+    },
+    returnYearQtyChart:function(){
+        console.log('year return')
+    }
+
 }

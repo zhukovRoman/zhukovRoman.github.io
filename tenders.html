@@ -16,7 +16,7 @@
 
 
 </head>
-<body style="max-width: 2048px; max-height: 1536px;   border: 1px solid;">
+<body>
 <div id="left-menu">
     <div id='logo' class="menu-item"></div>
     <hr class="under-logo">
@@ -50,9 +50,12 @@
 <div class="right-side" data-role="page" id='charts'>
     <!--<div data-role="header" data-position="fixed">-->
     <div data-role="header">
+        <a href="#" id='back-button' data-icon="arrow-l" class="ui-btn-left" onclick="tenders_logic.showChartsPart()" style="display: none">Назад</a>
         <h1>Конкурсы</h1>
+        <a href="#" data-icon="grid" class="ui-btn-right" onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>
+
     </div>
-    <div data-role="content" style="background-color: #ffffff">
+    <div data-role="content" style="background-color: #ffffff;" id="charts_content">
          <div class='tenders-tabs'>
              <form>
                  <div class="tender-tabs-group-name">Стоимость</div>
@@ -152,8 +155,42 @@
             </div>
         </div>
         <div style="clear: both">
-            <a href="#" data-role="button" data-icon="delete">Посмотреть список конкурсов</a>
+            <a id='show_table_button' href="#" data-role="button" data-icon="search">Посмотреть список конкурсов</a>
         </div>
+    </div>
+    <div data-role="content" style="background-color: #ffffff; display: none;" id="table_content">
+        <table class="table" id="tenders_table">
+            <thead>
+            <tr>
+                <th>Адрес (серия)</th>
+                <th>Мощность</th>
+                <th>Тип</th>
+                <th>Организация</th>
+                <th>Дата окончания</th>
+                <th>Число заявок подано/допущено</th>
+                <th>НМЦК</th>
+                <th>Итоговая цена (на ед мощности)</th>
+                <th>%</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <div data-role="content" style="background-color: #ffffff; display: none;" id="common_charts">
+         <h3>Общая стоимость конкурсов</h3>
+         <div id="prices_chart" style="width: 1800px; height: 600px;"></div>
+         <h3>Конкурсы по числу допущенных заявок</h3>
+            <form>
+                <fieldset data-role="controlgroup" data-type="horizontal" id="qty-measure-tabs">
+                    <input type="radio" name="tender-chart" id="summ" checked="checked">
+                    <label for="summ">Сумма</label>
+                    <input type="radio" name="tender-chart" id="count" >
+                    <label for="count">Количество</label>
+                </fieldset>
+            </form>
+         <div id="qty_chart" style="width: 1800px; height: 600px;"></div>
     </div>
 </div>
 </body>
@@ -167,9 +204,8 @@
 
     $(function(){
         tenders_logic.init();
-
+        tenders_common_charts.init();
     })
-
 
 </script>
 </html>

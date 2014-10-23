@@ -189,6 +189,7 @@ var charts ={
                plotBorderWidth: null,
                plotShadow: false,
                type: 'bar'
+
            },
            title: {
                text: 'Выполнение работ'
@@ -198,10 +199,15 @@ var charts ={
                useHTML: true,
                floating: true,
                layout: 'horizontal',
-               itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+               itemStyle: { "color": "#333333",
+                            "fontSize": "18pt",
+                            "fontWeight": "bold",
+                            "white-space": "normal" ,
+                            font: '18pt Helvetica, Arial, sans-serif'
+               },
                labelFormatter: function () {
                    console.log(this)
-                   return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal">'+this.name +
+                   return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal; ">'+this.name +
                        ' <span id="work-chart-values'+this._i+'"> '+ million_to_text((this.userOptions.data[0])) +'</span> </div>';
                }
            },

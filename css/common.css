@@ -20,6 +20,7 @@ body{
 
 #logo{
     background-image: url("images/logo.png");
+    margin-bottom: 35px;
 }
 
 .menu-item{
@@ -27,6 +28,9 @@ body{
     width: 150px;
     height: 150px;
     margin-top:35px;
+}
+.menu>a{
+    text-decoration: none;
 }
 .menu-item-text{
     text-shadow: none;
@@ -64,6 +68,12 @@ body{
 }
 .contractors-menu-item-active{
     background-image: url("images/contractors-active.png");
+}
+.tenders-menu-item-active{
+    background-image: url("images/tenders-active.png");
+}
+.sales-menu-item-active{
+    background-image: url("images/sales-active.png");
 }
 
 

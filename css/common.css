@@ -3,8 +3,10 @@ body{
     margin-left: 20px;
     width: 2048px;
     height: 1536px;
-    border: 1px solid;
+    /*border: 1px solid;*/
     font-family: 'PT Sans', serif;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
 }
 #left-menu{
     width: 180px;
@@ -76,9 +78,6 @@ body{
     background-image: url("images/sales-active.png");
 }
 
-
-
-
 ul{
     margin-top: 0;
 }
@@ -90,7 +89,7 @@ ul{
     margin-top: 1px;
     /*max-height: 1536px;*/
     min-height: 1536px;
-
+    height: 1536px;
     font-size: 1.8em;
 }
 

@@ -26,11 +26,11 @@ var tenders_logic = {
         $("#tender-charts-content div.tender_chart").hide();
         var active_tab =   $(".tenders-tabs input:checked")
         tenders_logic.current_chart =  tenders_charts[active_tab.attr('data-chart')]
-        tenders_logic.current_chart.createChart();
+        tenders_logic.current_chart.redrawChart();
         $("#"+active_tab.attr('data-div')).show();
     },
     applyFilter: function(){
-        tenders_logic.current_chart.createChart();
+        tenders_logic.current_chart.redrawChart();
     },
     setEnterYearForTable: function(type, category){
         console.log(type, category);
@@ -157,6 +157,9 @@ var tenders_charts={
                 data[i]= parseFloat((prices[year].sum/(prices[year].power||1)).toFixed(0))
             })
             return [years, data];
+        },
+        redrawChart: function(){
+            this.createChart();
         }
     },
     PriceSocialPrice:{
@@ -250,6 +253,9 @@ var tenders_charts={
                 data[i]= parseFloat((prices[year].sum/(prices[year].power||1)).toFixed(0))
             })
             return [years, data];
+        },
+        redrawChart: function(){
+            this.createChart();
         }
     },
     UKHouseChart:{
@@ -377,6 +383,9 @@ var tenders_charts={
                 data_not_uk[i] = price_not_uk;
             })
             return [years, data_uk, data_not_uk];
+        },
+        redrawChart: function(){
+            this.createChart();
         }
     },
     UKSocialChart:{
@@ -502,12 +511,17 @@ var tenders_charts={
                 data_not_uk[i] = price_not_uk;
             })
             return [years, data_uk, data_not_uk];
+        },
+        redrawChart: function(){
+            this.createChart();
         }
     },
     PricePercentChart: {
         chart: null,
+        is_drilldown: false,
+        current_year: null,
         createChart: function(){
-            this.chart = new Highcharts.Chart({
+            tenders_charts.PricePercentChart.chart = new Highcharts.Chart({
                 credits:  {
                     enabled: false
                 },
@@ -529,8 +543,7 @@ var tenders_charts={
                         formatter: function () {
                             return this.value + '% ';
                         }
-                    },
-                    min: 0
+                    }
                 },
                 tooltip: {
                     crosshairs: true,
@@ -561,9 +574,10 @@ var tenders_charts={
                     data: []
                 }]
             });
-            var data = this.getData();
-            this.chart.series[0].setData(data)
-
+            tenders_charts.PricePercentChart.is_drilldown = false;
+            var data = tenders_charts.PricePercentChart.getData();
+            tenders_charts.PricePercentChart.chart.series[0].setData(data) ;
+            tenders_charts.PricePercentChart.bindDrilldownEvents();
         },
         getData: function(){
             var res = []
@@ -579,12 +593,77 @@ var tenders_charts={
                 res.push({y:parseFloat((val.percent/val.count).toFixed(0)), name: i});
             })
             return res
+        },
+        redrawChart: function(){
+            if (this.is_drilldown==false)
+                this.createChart();
+            else
+                this.drilldownChart()
+        },
+        bindDrilldownEvents: function(){
+            $('#price_percent_chart .highcharts-xaxis-labels > text').click(function(){
+                tenders_charts.PricePercentChart.current_year =  $(this).text();
+                tenders_charts.PricePercentChart.is_drilldown = true;
+                tenders_charts.PricePercentChart.redrawChart();
+            });
+        },
+        drilldownChart:function(){
+
+            var chart = tenders_charts.PricePercentChart
+            var year =  chart.current_year
+
+            chart.chart.renderer.button('Назад',
+                150,
+                10,
+                chart.createChart).add();
+            chart.chart.xAxis[0].setCategories(months,false);
+            var series = chart.getDrilldownData()[year]
+            var data = [];
+
+            $.each(series.data, function(i,val){
+                if (val[1]!=null)
+                    data.push([months.indexOf(val[0]), val[1]])
+            })
+
+            chart.chart.series[0].setData(data);
+        },
+        getDrilldownData: function(){
+            percents_data={};
+            avgs = {};
+            $.each(tender_filter.getFilteredTenders(), function(i,val){
+                if (avgs[val.year_finish]==null)
+                    avgs[val.year_finish] = {}
+
+                if (avgs[val.year_finish][val.month_finish]==null)
+                    avgs[val.year_finish][val.month_finish]={ count:0, percent: 0}
+
+                //avgs[val.year_finish][val.month_finish]['m2']+=val.price_m2_end
+                avgs[val.year_finish][val.month_finish]['percent']+=val.percent
+                avgs[val.year_finish][val.month_finish]['count']++;
+            })
+
+            $.each (avgs, function(year,val){
+                if(percents_data[val.year_finish]==null)
+                    percents_data[year]={name: year+'', data:[
+                        ['Янв',null],['Фев',null],['Март',null],['Апр',null],['Май',null],['Июнь',null],['Июль',null],['Авг',null],['Сен',null],['Окт',null],['Ноя',null],['Дек',null]
+                    ]}
+                $.each(val, function(month, month_data){
+                    percents_data[year]['data'][month-1][1]=parseFloat((month_data.percent/(month_data['count'])).toFixed(2))||0
+                    if (percents_data[year]['data'][month-1][1]==0) {
+                        percents_data[year]['data'][month-1][1]=null
+                    }
+                })
+            })
+            return percents_data;
         }
+
     },
     QtyChart: {
         chart: null,
+        is_drilldown: false,
+        current_year: null,
         createChart: function(){
-            this.chart = new Highcharts.Chart({
+            tenders_charts.QtyChart.chart = new Highcharts.Chart({
                 credits:  {
                     enabled: false
                 },
@@ -643,9 +722,10 @@ var tenders_charts={
                     }]
 
             });
-            var data = this.getData();
-            this.chart.series[0].setData(data[0],false)
-            this.chart.series[1].setData(data[1])
+            var data = tenders_charts.QtyChart.getData();
+            tenders_charts.QtyChart.chart.series[0].setData(data[0],false)
+            tenders_charts.QtyChart.chart.series[1].setData(data[1])
+            tenders_charts.QtyChart.bindDrilldownEvents();
         },
         getData:function(){
             var res_all = [];
@@ -666,12 +746,71 @@ var tenders_charts={
             });
 
             return [res_all, res_accept];
+        },
+        redrawChart: function(){
+            if (this.is_drilldown==false)
+                this.createChart();
+            else
+                this.drilldownChart()
+        },
+        bindDrilldownEvents: function(){
+            $('#qty_line_chart .highcharts-xaxis-labels > text').click(function(){
+                tenders_charts.QtyChart.current_year =  $(this).text();
+                tenders_charts.QtyChart.is_drilldown = true;
+                tenders_charts.QtyChart.redrawChart();
+            });
+        },
+        drilldownChart:function(){
+
+            var chart = tenders_charts.QtyChart
+            var year =  chart.current_year
+
+            chart.chart.renderer.button('Назад',
+                150,
+                10,
+                chart.createChart).add();
+            chart.chart.xAxis[0].setCategories(months,false);
+            var series = chart.getDrilldownData()[year]
+
+            chart.chart.series[0].setData(series['data_all'], false)
+            chart.chart.series[1].setData(series['data_accept'] )
+
+
+        },
+        getDrilldownData: function(){
+            avgs = {};
+            qty_data={};
+
+            $.each(tender_filter.getFilteredTenders(), function(i,val){
+                if (avgs[val.year_finish]==null)
+                    avgs[val.year_finish] = {}
+
+                if (avgs[val.year_finish][val.month_finish]==null)
+                    avgs[val.year_finish][val.month_finish]={ count:0, qty_all: 0, qty_accept:0}
+
+                //avgs[val.year_finish][val.month_finish]['m2']+=val.price_m2_end
+                avgs[val.year_finish][val.month_finish]['qty_all']+=val.bid_all
+                avgs[val.year_finish][val.month_finish]['qty_accept']+=val.bid_accept
+                avgs[val.year_finish][val.month_finish]['count']++;
+            })
+
+            $.each (avgs, function(year,val){
+                if(qty_data[val.year_finish]==null)
+                    qty_data[year]={name: year+'', data_all:[], data_accept:[]}
+                $.each(val, function(month, month_data){
+                    qty_data[year]['data_all'][month-1]=parseFloat((month_data.qty_all/(month_data['count'])).toFixed(1))||null
+                    qty_data[year]['data_accept'][month-1]=parseFloat((month_data.qty_accept/(month_data['count'])).toFixed(1))||null
+                })
+            })
+            return qty_data;
         }
     },
     SummChart: {
         chart: null,
+        is_drilldown: false,
+        current_year: null,
         createChart: function(){
-            this.chart = new Highcharts.Chart({
+            tenders_charts.SummChart.chart = new Highcharts.Chart({
                 credits:  {
                     enabled: false
                 },
@@ -740,10 +879,11 @@ var tenders_charts={
                         data: []
                     }]
             });
-            var data =  this.getData();
-            this.chart.series[0].setData(data[0],false)
-            this.chart.series[1].setData(data[1],false)
-            this.chart.series[2].setData(data[2])
+            var data =  tenders_charts.SummChart.getData();
+            tenders_charts.SummChart.chart.series[0].setData(data[0],false)
+            tenders_charts.SummChart.chart.series[1].setData(data[1],false)
+            tenders_charts.SummChart.chart.series[2].setData(data[2])
+            tenders_charts.SummChart.bindDrilldownEvents();
         },
         getData: function(){
             var tmp_res = {};
@@ -770,12 +910,80 @@ var tenders_charts={
             })
             //Другое, ГП, УК
             return [summ_data['Другое'],summ_data['генподрядчик'],summ_data['управляющая компания']]
+        } ,
+        redrawChart: function(){
+            if (this.is_drilldown==false)
+                this.createChart();
+            else
+                this.drilldownChart()
+        },
+        bindDrilldownEvents: function(){
+            $('#sum_chart .highcharts-xaxis-labels > text').click(function(){
+                tenders_charts.SummChart.current_year =  $(this).text();
+                tenders_charts.SummChart.is_drilldown = true;
+                tenders_charts.SummChart.redrawChart();
+            });
+        },
+        drilldownChart:function(){
+
+            var chart = tenders_charts.SummChart
+            chart.chart.renderer.button('Назад',
+                150,
+                10,
+                chart.createChart).add();
+            var data= chart.getDrilldownData(chart.current_year);
+
+
+            chart.chart.xAxis[0].setCategories(months,false)
+            chart.chart.series[0].setData(data['sum'][0],false)
+            chart.chart.series[1].setData(data['sum'][1],false)
+            chart.chart.series[2].setData(data['sum'][2],true)
+
+
+        },
+        getDrilldownData: function(year){
+
+            var tmp_res = {};
+
+            $.each(tender_filter.getFilteredTenders(), function(i,val){
+                if (val.year_finish != year)
+                    return;
+
+                if (tmp_res[val.month_finish]==null)
+                    tmp_res[val.month_finish]={}
+                var type = (val.type=="управляющая компания"||val.type=="генподрядчик") ? val.type : 'Другое'
+                if(tmp_res[val.month_finish][type]==null)
+                    tmp_res[val.month_finish][type]={sum:0}
+
+                tmp_res[val.month_finish][type]['sum'] += val.price_end;
+
+            });
+
+
+            summ_data = {}
+
+            $.each(tmp_res, function(month, month_data){
+                $.each(month_data, function(type, data){
+                    if(summ_data[type]==null)
+                        summ_data[type]=[]
+                    summ_data[type][month-1]=(data.sum/1000000)
+                })
+            })
+
+            $.each(summ_data, function(type, type_data){
+                for(var i = 0; i<12; i++)
+                {
+                    if (type_data[i]==null) type_data[i]=null
+                }
+            })
+            //Другое, ГП, УК
+            return {sum: [summ_data['Другое'],summ_data['генподрядчик'],summ_data['управляющая компания']]}
         }
     },
     CountChart: {
         chart: null,
         createChart: function(){
-            this.chart = new Highcharts.Chart({
+            tenders_charts.CountChart.chart = new Highcharts.Chart({
                 credits:  {
                     enabled: false
                 },
@@ -828,15 +1036,16 @@ var tenders_charts={
                 series: []
             });
 
-            var chart = this.chart;
+            var chart = tenders_charts.CountChart.chart;
             while(chart.series.length > 0)
                 chart.series[0].remove(false);
-            var count_data=this.getData();
+            var count_data=tenders_charts.CountChart.getData();
 
             $.each(count_data, function(type,type_data){
                 chart.addSeries(type_data,false)
             })
             chart.redraw();
+            tenders_charts.CountChart.bindDrilldownEvents();
 
         },
         getData: function(){
@@ -861,6 +1070,64 @@ var tenders_charts={
                 })
             })
             return count_data;
+        },
+        redrawChart: function(){
+            if (this.is_drilldown==false)
+                this.createChart();
+            else
+                this.drilldownChart()
+        },
+        bindDrilldownEvents: function(){
+            $('#count_chart .highcharts-xaxis-labels > text').click(function(){
+                tenders_charts.CountChart.current_year =  $(this).text();
+                tenders_charts.CountChart.is_drilldown = true;
+                tenders_charts.CountChart.redrawChart();
+            });
+        },
+        drilldownChart:function(){
+
+            var chart = tenders_charts.CountChart
+            chart.chart.renderer.button('Назад',
+                150,
+                10,
+                chart.createChart).add();
+            var data= chart.getDrilldownData(chart.current_year);
+            chart.chart.xAxis[0].setCategories(months,false)
+            while(chart.chart.series.length > 0)
+                chart.chart.series[0].remove(false);
+
+
+            $.each(data, function(type,type_data){
+                chart.chart.addSeries(type_data,false)
+            })
+            chart.chart.redraw();
+        },
+        getDrilldownData: function(year){
+            var tmp_res = {};
+            $.each(tender_filter.getFilteredTenders(), function(i,val){
+
+                if (val.year_finish != year)
+                    return;
+
+                if (tmp_res[val.month_finish]==null)
+                    tmp_res[val.month_finish]={}
+                var type = val.type
+                if(tmp_res[val.month_finish][type]==null)
+                    tmp_res[val.month_finish][type]={count:0}
+
+
+                tmp_res[val.month_finish][type]['count'] ++;
+            });
+            var count_data = {}
+            $.each(tmp_res, function(month, month_data){
+                $.each(month_data, function(type, data){
+                    if(count_data[type]==null)
+                        count_data[type]={name: type, data:[]}
+                    count_data[type]['data'].push([parseInt(month-1), data.count])
+                })
+            })
+            return count_data;
+
         }
 
     }

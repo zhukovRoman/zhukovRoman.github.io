@@ -722,6 +722,7 @@ var tenders_charts={
                     }]
 
             });
+            tenders_charts.QtyChart.is_drilldown = false;
             var data = tenders_charts.QtyChart.getData();
             tenders_charts.QtyChart.chart.series[0].setData(data[0],false)
             tenders_charts.QtyChart.chart.series[1].setData(data[1])
@@ -880,6 +881,7 @@ var tenders_charts={
                     }]
             });
             var data =  tenders_charts.SummChart.getData();
+            tenders_charts.SummChart.is_drilldown = false;
             tenders_charts.SummChart.chart.series[0].setData(data[0],false)
             tenders_charts.SummChart.chart.series[1].setData(data[1],false)
             tenders_charts.SummChart.chart.series[2].setData(data[2])
@@ -982,6 +984,8 @@ var tenders_charts={
     },
     CountChart: {
         chart: null,
+        is_drilldown: false,
+        current_year: null,
         createChart: function(){
             tenders_charts.CountChart.chart = new Highcharts.Chart({
                 credits:  {
@@ -1035,7 +1039,7 @@ var tenders_charts={
                 },
                 series: []
             });
-
+            tenders_charts.SummChart.CountChart = false;
             var chart = tenders_charts.CountChart.chart;
             while(chart.series.length > 0)
                 chart.series[0].remove(false);

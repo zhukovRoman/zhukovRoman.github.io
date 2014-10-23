@@ -57,24 +57,24 @@
              <form>
                  <div class="tender-tabs-group-name">Стоимость</div>
                  <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs">
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1a" data-div="house_m2_price" checked="checked">
+                     <input type="radio" name="tender-chart" id="radio-choice-h-1a" data-div="house_m2_price" data-chart="PriceM2HouseChart" checked="checked">
                      <label for="radio-choice-h-1a">м2 жилья</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1b" data-div="social_place_price"  >
+                     <input type="radio" name="tender-chart" id="radio-choice-h-1b" data-div="social_place_price"  data-chart="PriceSocialPrice" >
                      <label for="radio-choice-h-1b">место социалки</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1c" data-div="uk_notuk_chart" >
+                     <input type="radio" name="tender-chart" id="radio-choice-h-1c" data-div="uk_notuk_chart"  data-chart="UKHouseChart">
                      <label for="radio-choice-h-1c">м2 жилья по УК/не УК</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1d" data-div="uk_notuk_social_chart" >
+                     <input type="radio" name="tender-chart" id="radio-choice-h-1d" data-div="uk_notuk_social_chart"  data-chart="UKSocialChart">
                      <label for="radio-choice-h-1d">место социалки по УК/не УК</label>
                  </fieldset>
                  <div class="tender-tabs-group-name">Конкурсы</div>
                  <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs2">
-                     <input type="radio" name="tender-chart" id="radio-choice-h-2a" data-div="price_percent_chart">
+                     <input type="radio" name="tender-chart" id="radio-choice-h-2a" data-div="price_percent_chart" data-chart="PricePercentChart">
                      <label for="radio-choice-h-2a">среднее снижение</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-2b" data-div="qty_line_chart" >
+                     <input type="radio" name="tender-chart" id="radio-choice-h-2b" data-div="qty_line_chart" data-chart="QtyChart">
                      <label for="radio-choice-h-2b">завки</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-2c" data-div="sum_chart">
+                     <input type="radio" name="tender-chart" id="radio-choice-h-2c" data-div="sum_chart" data-chart="SummChart">
                      <label for="radio-choice-h-2c">сумма</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-3c" data-div="count_chart">
+                     <input type="radio" name="tender-chart" id="radio-choice-h-3c" data-div="count_chart" data-chart="CountChart">
                      <label for="radio-choice-h-3c">число</label>
                  </fieldset>
              </form>
@@ -166,7 +166,7 @@
 <script type="text/javascript">
 
     $(function(){
-        tenders_logic.init('tender-filter');
+        tenders_logic.init();
 
     })
 

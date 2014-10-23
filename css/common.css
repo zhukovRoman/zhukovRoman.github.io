@@ -7,6 +7,10 @@ body{
     font-family: 'PT Sans', serif;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
+    max-width: 2048px;
+    max-height: 1536px;
+    min-width: 2048px;
+    min-height: 1536px;
 }
 #left-menu{
     width: 180px;
@@ -44,11 +48,15 @@ body{
 
 .menu-item-devider{
     margin: 0 10px;
-    border-color: rgb(114,144,154);
+    border: none;
     margin-top: 30px;
+    border-top: 1px solid rgb(114,144,154);
+    border-bottom: 1px solid rgb(172,178,189);
 }
 .empl-menu-item{
     background-image: url("images/human-resources.png");
+    width: 152px;
+    height: 152px;
 }
 .obj-menu-item{
     background-image: url("images/objects.png");
@@ -64,18 +72,28 @@ body{
 }
 .empl-menu-item-active{
     background-image: url("images/human-resources-active.png");
+    width: 152px;
+    height: 152px;
 }
 .obj-menu-item-active{
     background-image: url("images/objects-active.png");
+    width: 152px;
+    height: 152px;
 }
 .contractors-menu-item-active{
     background-image: url("images/contractors-active.png");
+    width: 152px;
+    height: 152px;
 }
 .tenders-menu-item-active{
     background-image: url("images/tenders-active.png");
+    width: 152px;
+    height: 152px;
 }
 .sales-menu-item-active{
     background-image: url("images/sales-active.png");
+    width: 152px;
+    height: 152px;
 }
 
 ul{

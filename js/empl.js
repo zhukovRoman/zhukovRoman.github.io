@@ -450,11 +450,11 @@ var empl_logic = {
                     borderWidth: 0,
                     stacking: 'percent',
                     dataLabels: {
-                        enabled: true
-//                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-//                        style: {
-//                            textShadow: '0 0 3px black, 0 0 3px black'
-//                        }
+                        enabled: true,
+                        color:  'white',
+                        style: {
+                            textShadow: '0 0 3px black, 0 0 3px black'
+                        }
                     }
                 }
             },

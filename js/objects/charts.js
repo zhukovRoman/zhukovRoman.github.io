@@ -202,7 +202,7 @@ var charts ={
                labelFormatter: function () {
                    console.log(this)
                    return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal">'+this.name +
-                       ' <span id="work-chart-values'+this._i+'"> '+ ((this.userOptions.data[0])) +'</span> </div>';
+                       ' <span id="work-chart-values'+this._i+'"> '+ million_to_text((this.userOptions.data[0])) +'</span> </div>';
                }
            },
 
@@ -248,8 +248,8 @@ var charts ={
 
         charts.work_chart.series[0].setData([data[0][1]], false);
         charts.work_chart.series[1].setData([data[1][1]], false);
-        $("#work-chart-values1").text(thousands_sep(data[1][1]/1000000)+'млн')
-        $("#work-chart-values0").text(thousands_sep(data[0][1]/1000000)+'млн')
+        $("#work-chart-values1").text(million_to_text(data[1][1]))
+        $("#work-chart-values0").text(million_to_text(data[0][1]))
         charts.work_chart.redraw();
 
     },

@@ -62,6 +62,7 @@ var tenders_logic = {
         $('#table_content').hide();
         $('#common_charts').hide();
         $('#charts_content').show();
+        $('#back-button').hide();
     },
     showCommonInfo: function(){
         $('#charts_content').hide();
@@ -78,7 +79,7 @@ var tenders_logic = {
         $('#charts_content').hide();
         $('#table_content').show();
         $('#back-button').show();
-        console.log(data);
+
     },
     bindTableRows: function(data){
         var tbody = $("#tenders_table tbody")
@@ -1408,7 +1409,7 @@ var tenders_common_charts = {
                 },
                 labels: {
                     formatter: function () {
-                        return this.value/1000 + ' млрд ₽';
+                        return this.value/(1000*1000*1000) + ' млрд ₽';
                     }
                 }
             }],
@@ -1427,10 +1428,10 @@ var tenders_common_charts = {
                     var result = '<b>' + this.x + '</b>';
                     $.each(this.points, function(i, datum) {
 
-                        result += '<br /> <i style="color: '+datum.point.series.color+'">' + datum.series.name + '</i>: ' + thousands_sep(datum.y) + ' млн ₽';
+                        result += '<br /> <i style="color: '+datum.point.series.color+'">' + datum.series.name + '</i>: ' + million_to_text(datum.y);
 
                     });
-                    result += '<br />Среднее снижение цены ' + this.points[0].point.percent + '%'
+                    result += '<br />Среднее снижение цены ' + (this.points[0].point.percent).toFixed(2) + '%'
 
                     return result;
                 },
@@ -1490,10 +1491,8 @@ var tenders_common_charts = {
                             textShadow: '0 0 3px black, 0 0 3px black'
                         },
                         formatter: function(){
-                            if ($("#qty_percent_button").hasClass('btn-danger'))
-                                return this.percentage.toFixed(0)+ ' %'
-                            else
-                                return (this.y||0).toFixed(0)+ ''
+
+                            return this.percentage.toFixed(0)+ ' %'+'<br>'+(this.y||0).toFixed(0)+ ' млрд'
                             //return ""
                         }
                     }
@@ -1673,7 +1672,16 @@ var tenders_common_charts = {
         $('#prices_chart .highcharts-xaxis-labels text').click(tenders_common_charts.drilldownSummChart)
     },
     returnYearQtyChart:function(){
-        console.log('year return')
+        $('#qty_chart .highcharts-button').remove();
+        while(tenders_common_charts.qty_chart.series.length > 0)
+            tenders_common_charts.qty_chart.series[0].remove(false);
+        $.each (tenders_data.qty_sum, function (i,qty){
+            tenders_common_charts.qty_chart.addSeries({data: qty.data, name: qty.name, tooltip: { valueSuffix: ' млрд ₽'}}, false);
+        })
+        tenders_common_charts.qty_chart.xAxis[0].setCategories(tenders_data.qty_years, false)
+        tenders_common_charts.qty_chart.redraw();
+        $('#qty_chart .highcharts-xaxis-labels  text').click(tenders_common_charts.drilldownQtyChart)
+
     }
 
 }

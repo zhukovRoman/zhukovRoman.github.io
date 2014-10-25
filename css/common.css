@@ -27,12 +27,14 @@ body{
 #logo{
     background-image: url("images/logo.png");
     margin-bottom: 35px;
+    width: 150px;
+    height: 150px;
 }
 
 .menu-item{
     margin: 0 auto;
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     margin-top:35px;
 }
 .menu>a{
@@ -55,8 +57,7 @@ body{
 }
 .empl-menu-item{
     background-image: url("images/human-resources.png");
-    width: 152px;
-    height: 152px;
+
 }
 .obj-menu-item{
     background-image: url("images/objects.png");
@@ -72,28 +73,22 @@ body{
 }
 .empl-menu-item-active{
     background-image: url("images/human-resources-active.png");
-    width: 152px;
-    height: 152px;
 }
 .obj-menu-item-active{
     background-image: url("images/objects-active.png");
-    width: 152px;
-    height: 152px;
+
 }
 .contractors-menu-item-active{
     background-image: url("images/contractors-active.png");
-    width: 152px;
-    height: 152px;
+
 }
 .tenders-menu-item-active{
     background-image: url("images/tenders-active.png");
-    width: 152px;
-    height: 152px;
+
 }
 .sales-menu-item-active{
     background-image: url("images/sales-active.png");
-    width: 152px;
-    height: 152px;
+
 }
 
 ul{

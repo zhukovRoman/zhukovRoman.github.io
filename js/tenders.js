@@ -1382,10 +1382,13 @@ var tenders_common_charts = {
     prices_chart: null,
     qty_chart: null,
     qty_drilldown_category: 'sum',
+    qty_is_drilldown: false,
+    qty_drilldown_year: '',
     init:function(){
       this.createCharts();
         this.fillCharts();
         this.bindDrilldownEvents();
+
     },
     createCharts:function(){
         this.prices_chart = new Highcharts.Chart({
@@ -1409,7 +1412,9 @@ var tenders_common_charts = {
                 },
                 labels: {
                     formatter: function () {
-                        return this.value/(1000*1000*1000) + ' млрд ₽';
+
+                            return this.value/(1000*1000*1000) + ' млрд ₽';
+
                     }
                 }
             }],
@@ -1448,93 +1453,29 @@ var tenders_common_charts = {
             }]
         });
 
-        this.qty_chart = new Highcharts.Chart({
-            credits:  {
-                enabled: false
-            },
-            chart: {
-                type: 'column',
-                renderTo:'qty_chart'
-            },
-            title: {
-                text: 'Конкурсы по числу допущенных заявок'
-            },
-            xAxis: {
-                categories: tenders_data.qty_years
-            },
-            yAxis: [{
-                min: 0,
-                title: {
-                    text: '%'
-                },
-                stackLabels: {
-                    enabled: true,
-                    style: {
-                        fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                    }
 
-                }
-            }],
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} </b> ({point.percentage:.0f}%)<br/>',
-                shared: true
-                //valueSuffix: " конкурсов"
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'percent',
-                    dataLabels: {
-                        enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                        style: {
-                            textShadow: '0 0 3px black, 0 0 3px black'
-                        },
-                        formatter: function(){
-
-                            return this.percentage.toFixed(0)+ ' %'+'<br>'+(this.y||0).toFixed(0)+ ' млрд'
-                            //return ""
-                        }
-                    }
-                }
-            },
-            series: []
-        });
     },
     fillCharts: function(){
         var series = this.getPricesChartData();
         this.prices_chart.series[0].setData(series[0], false);
         this.prices_chart.series[1].setData(series[1]);
 
-        while(this.qty_chart.series.length > 0)
-            this.qty_chart.series[0].remove(false);
-        $.each (tenders_data.qty_sum, function (i,qty){
-            tenders_common_charts.qty_chart.addSeries({data: qty.data, name: qty.name, tooltip: { valueSuffix: ' млрд ₽'}}, false);
-        })
-        this.qty_chart.xAxis[0].setCategories(tenders_data.qty_years, false)
-        this.qty_chart.redraw();
+
     },
     bindDrilldownEvents: function(){
+
         $('#prices_chart .highcharts-xaxis-labels text').click(this.drilldownSummChart)
-        $('#qty_chart .highcharts-xaxis-labels  text').click(this.drilldownQtyChart)
+
     },
     getPricesChartData: function(){
         var res =[];
         res[0] = [];
         res[1] = [];
-//        res[2] = [];
-//        res[3] = [];
-//        res[4] = [];
-//        res[5] = [];
-//        res[6] = [];
+
 
         $.each (tenders_data.prices_begin, function (i,val){
             res[0].push({y: (tenders_data.prices_begin[i]), percent: tenders_data.prices_percent[i]/tenders_data.count[i], drilldown:i})
             res[1].push({y: (tenders_data.prices_end[i]), percent: tenders_data.prices_percent[i]/tenders_data.count[i], drilldown:i});
-//            res[2].push(toFixedAndParse(data.prices_percent[i]/data.count[i],2));
-//            res[3].push(toFixedAndParse(data.one_start[i],2))
-//            res[4].push(toFixedAndParse(data.one_end[i],2))
-//            res[5].push(toFixedAndParse(data.one_end[i]/data.count[i],2))
         })
 
         //console.log(res);
@@ -1631,37 +1572,7 @@ var tenders_common_charts = {
             10,
             tenders_common_charts.returnYearChart).add();
     },
-    drilldownQtyChart: function(){
-        var months = ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"];
 
-        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
-        tenders_common_charts.qty_chart.xAxis[0].setCategories(months, false)
-        $.each (tenders_data['qty_drilldowns'][$(this).text()][tenders_common_charts.qty_drilldown_category]['one'], function(i,val){
-            series[months.indexOf(val[0])]=val[1];
-        })
-
-        tenders_common_charts.qty_chart.series[2].setData(series, false);
-
-        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
-        tenders_common_charts.qty_chart.xAxis[0].setCategories(months, false)
-        $.each (tenders_data['qty_drilldowns'][$(this).text()][tenders_common_charts.qty_drilldown_category]['two_four'], function(i,val){
-            series[months.indexOf(val[0])]=val[1];
-        })
-        tenders_common_charts.qty_chart.series[1].setData(series, false);
-
-        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
-        tenders_common_charts.qty_chart.xAxis[0].setCategories(months, false)
-        $.each (tenders_data['qty_drilldowns'][$(this).text()][tenders_common_charts.qty_drilldown_category]['g_four'], function(i,val){
-            series[months.indexOf(val[0])]=val[1];
-        })
-        tenders_common_charts.qty_chart.series[0].setData(series, true);
-
-
-        tenders_common_charts.qty_chart.renderer.button('Назад',
-            200,
-            10,
-            tenders_common_charts.returnYearQtyChart).add();
-    },
     returnYearChart: function(){
         $('#prices_chart .highcharts-button').remove();
         var series = tenders_common_charts.getPricesChartData();
@@ -1670,18 +1581,184 @@ var tenders_common_charts = {
         tenders_common_charts.prices_chart.series[1].setData(series[1],false);
         tenders_common_charts.prices_chart.redraw();
         $('#prices_chart .highcharts-xaxis-labels text').click(tenders_common_charts.drilldownSummChart)
-    },
-    returnYearQtyChart:function(){
-        $('#qty_chart .highcharts-button').remove();
-        while(tenders_common_charts.qty_chart.series.length > 0)
-            tenders_common_charts.qty_chart.series[0].remove(false);
-        $.each (tenders_data.qty_sum, function (i,qty){
-            tenders_common_charts.qty_chart.addSeries({data: qty.data, name: qty.name, tooltip: { valueSuffix: ' млрд ₽'}}, false);
-        })
-        tenders_common_charts.qty_chart.xAxis[0].setCategories(tenders_data.qty_years, false)
-        tenders_common_charts.qty_chart.redraw();
-        $('#qty_chart .highcharts-xaxis-labels  text').click(tenders_common_charts.drilldownQtyChart)
-
     }
+}
+
+var tenders_common_qty_chart = {
+    is_drilldown: false,
+    selected_year: '',
+    current_measure: 'sum',
+    chart:null,
+    init: function(){
+        this.createChart();
+        this.fillChart();
+        this.bindDrillDownEvent();
+        $("#qty-measure-tabs input").change(function(){
+            tenders_common_qty_chart.current_measure = $(this).attr('id');
+            tenders_common_qty_chart.redrawChart();
+        })
+    },
+    bindDrillDownEvent: function(){
+        $('#qty_chart .highcharts-xaxis-labels  text').click(function(){
+            tenders_common_qty_chart.selected_year= $(this).text();
+            tenders_common_qty_chart.drilldownChart();
+        })
+    },
+    createChart: function(){
+        this.chart = new Highcharts.Chart({
+            credits:  {
+                enabled: false
+            },
+            chart: {
+                type: 'column',
+                renderTo:'qty_chart'
+            },
+            title: {
+                text: 'Конкурсы по числу допущенных заявок'
+            },
+            xAxis: {
+                categories: tenders_data.qty_years
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: '%'
+                },
+                stackLabels: {
+                    enabled: false,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+
+                }
+            }],
+            tooltip: {
+//                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} </b> ({point.percentage:.0f}%)<br/>',
+
+                formatter: function() {
+                    var result = '<b>' + this.x + '</b>';
+                    $.each(this.points, function(i, datum) {
+                        result += '<br /> <i style="color: '+datum.point.series.color+'">' + datum.series.name + '</i>: ';
+                        if (tenders_common_qty_chart.current_measure=='sum') result += datum.y +' млрд ₽';
+                        if (tenders_common_qty_chart.current_measure=='count') result += datum.y +' конкурсов';
+                        result += ' ('+datum.percentage.toFixed(2) +'%)'
+                    });
+//                    result += '<br />Среднее снижение цены ' + (this.points[0].point.percent).toFixed(2) + '%'
+
+                    return result;
+                },
+                shared: true,
+                useHTML: true
+                //valueSuffix: " конкурсов"
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black, 0 0 3px black'
+                        },
+                        formatter: function(){
+                            if (tenders_common_qty_chart.current_measure=='sum')
+                                return this.percentage.toFixed(0)+ ' %'+'<br>'+(this.y||0).toFixed(0)+ ' млрд'
+                            else
+                                return this.percentage.toFixed(0)+ ' %'+'<br>'+(this.y||0).toFixed(0)
+                            //return ""
+                        }
+                    }
+                }
+            },
+            series: [{
+                    name: '5 заявок и более',
+                    data:[]
+                },{
+                    name: 'от 2 до 4 заявок',
+                    data:[]
+                },{
+                    name: '1 заявка',
+                    data:[]
+                }]
+        });
+    },
+    fillChart: function(){
+
+        if (tenders_common_qty_chart.current_measure=='sum') {
+            $.each (tenders_data.qty_sum, function (i,qty){
+                //из-за бага в hc он почему-то не хочет присваивать массив [{y: val}] в data
+                var data = [];
+                $.each(qty.data, function(i,v){
+                    data.push(v);
+                })
+                tenders_common_qty_chart.chart.series[i].setData(data, false);
+            })
+        }
+        if (tenders_common_qty_chart.current_measure=='count') {
+            $.each (tenders_data.qty, function (i,qty){
+                //из-за бага в hc он почему-то не хочет присваивать массив [{y: val}] в data
+                var data = [];
+                $.each(qty.data, function(i,v){
+                    data.push(v);
+                })
+                //tenders_common_charts.qty_chart.addSeries({data: qty.data, name: qty.name, tooltip: { valueSuffix: ' млрд ₽'}}, false);
+                tenders_common_qty_chart.chart.series[i].setData(data, false);
+            })
+        }
+
+        tenders_common_qty_chart.chart.xAxis[0].setCategories(tenders_data.qty_years, false)
+        tenders_common_qty_chart.chart.redraw();
+        tenders_common_qty_chart.bindDrillDownEvent();
+    },
+    drilldownChart: function(){
+        tenders_common_qty_chart.is_drilldown = true;
+        var months = ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"];
+
+        var year = tenders_common_qty_chart.selected_year
+        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
+        tenders_common_qty_chart.chart.xAxis[0].setCategories(months, false)
+        $.each (tenders_data['qty_drilldowns'][year][tenders_common_qty_chart.current_measure]['one'], function(i,val){
+            series[months.indexOf(val[0])]=val[1];
+        })
+
+        tenders_common_qty_chart.chart.series[2].setData(series, false);
+
+        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
+        tenders_common_qty_chart.chart.xAxis[0].setCategories(months, false)
+        $.each (tenders_data['qty_drilldowns'][year][tenders_common_qty_chart.current_measure]['two_four'], function(i,val){
+            series[months.indexOf(val[0])]=val[1];
+        })
+        tenders_common_qty_chart.chart.series[1].setData(series, false);
+
+        var series = [null, null, null, null, null, null, null, null, null, null, null, null];
+        tenders_common_qty_chart.chart.xAxis[0].setCategories(months, false)
+        $.each (tenders_data['qty_drilldowns'][year][tenders_common_qty_chart.current_measure]['g_four'], function(i,val){
+            series[months.indexOf(val[0])]=val[1];
+        })
+        tenders_common_qty_chart.chart.series[0].setData(series, true);
+
+
+        tenders_common_qty_chart.chart.renderer.button('Назад',
+            200,
+            10,
+            tenders_common_qty_chart.returnYearQtyChart).add();
+    },
+    redrawChart: function(){
+       console.log('redraw', 'is_drilldown = '+tenders_common_qty_chart.is_drilldown, tenders_common_qty_chart.selected_year, tenders_common_qty_chart.current_measure)
+       if(tenders_common_qty_chart.is_drilldown){
+           tenders_common_qty_chart.drilldownChart();
+       }
+       else{
+
+           tenders_common_qty_chart.fillChart();
+       }
+    },
+    returnYearQtyChart: function(){
+        tenders_common_qty_chart.is_drilldown = false;
+        tenders_common_qty_chart.fillChart();
+        tenders_common_qty_chart.bindDrillDownEvent();
+    }
+
 
 }

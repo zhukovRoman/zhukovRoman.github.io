@@ -16,7 +16,7 @@
     margin-right: 20px;
 }
 
-.ui-page-theme-a .ui-btn.ui-btn-active{
+.ui-page-theme-a .ui-btn.ui-btn-active, .ui-page-theme-a .ui-btn:hover{
     background-color: rgb(115,189,208);
     border-color: rgb(115,189,208);
     color: rgb(241,237,226);
@@ -24,7 +24,7 @@
     font-size: 21px;
     font-weight: normal;
 }
-.ui-page-theme-a .ui-btn, .ui-page-theme-a .ui-btn:hover{
+.ui-page-theme-a .ui-btn{
     background-color:rgb(241,237,226);
     border-color:  rgb(115,189,208);
     color:  rgb(115,189,208);
@@ -89,7 +89,7 @@
 .group-filter-header > label{
     font-size: 28px;
     color: white;
-    font-weight: bold;
+    font-weight: normal;
     text-transform: uppercase;
     display: inline-block;
     padding-left: 45px;
@@ -97,6 +97,7 @@
     background-repeat: no-repeat;
     padding-bottom: 4px;
     margin-top: 15px;
+    padding-top: 6px;
 
 }
 .group-filter-header>.add-filters-action{
@@ -114,6 +115,7 @@
     color: gray;
     float: right;
     display: inline-block;
+    padding-top: 5px;
 }
 
 

@@ -5,7 +5,6 @@ var tenders_logic = {
 
     ///
     init: function(){
-
         $(".tenders-tabs input").change(tenders_logic.changeActiveChart);
         $('#tender-filter input').change(tenders_logic.applyFilter);
         $('#show_table_button').click(tenders_logic.showTendersTable)
@@ -257,7 +256,6 @@ var tenders_charts={
 
                 },
                 legend:{
-
                         itemStyle: {
                             fontSize: '22px',
                             color: 'rgb(135,150,164)'
@@ -322,7 +320,13 @@ var tenders_charts={
             return [years, data];
         },
         redrawChart: function(){
-            this.createChart();
+            if (this.chart==null) this.createChart();
+            else {
+                var data =  this.getData();
+                this.chart.xAxis[0].setCategories(data[0],false)
+                this.chart.series[0].setData(data[1]);
+            }
+
         }
     },
     PriceSocialPrice:{
@@ -422,7 +426,13 @@ var tenders_charts={
             return [years, data];
         },
         redrawChart: function(){
-            this.createChart();
+            if (this.chart==null) this.createChart();
+            else{
+                var data = this.getData();
+                this.chart.xAxis[0].setCategories(data[0],false)
+                this.chart.series[0].setData(data[1])
+            }
+
         }
     },
     UKHouseChart:{
@@ -556,7 +566,15 @@ var tenders_charts={
             return [years, data_uk, data_not_uk];
         },
         redrawChart: function(){
-            this.createChart();
+            if(this.chart==null) this.createChart()
+            else {
+                var data = this.getData();
+                this.chart.xAxis[0].setCategories(data[0],false)
+                this.chart.series[0].setData(data[1],false)
+                this.chart.series[1].setData(data[2])
+            }
+
+
         }
     },
     UKSocialChart:{
@@ -688,7 +706,13 @@ var tenders_charts={
             return [years, data_uk, data_not_uk];
         },
         redrawChart: function(){
-            this.createChart();
+            if(this.chart==null) this.createChart()
+            else {
+                var data = this.getData();
+                this.chart.xAxis[0].setCategories(data[0],false)
+                this.chart.series[0].setData(data[1],false)
+                this.chart.series[1].setData(data[2])
+            }
         }
     },
     PricePercentChart: {
@@ -1348,7 +1372,8 @@ var tender_filter={
     id: '#tender-filter',
     filtered_objects: [],
     filtered_tenders: [],
-
+    text_select: "Выделить все",
+    text_unselect: "Снять выделение",
     getAppointmetsFilter: function(){
         var res = []
         $.each($(this.id+" div.appointments input:checked"), function(i,val){
@@ -1400,9 +1425,78 @@ var tender_filter={
         })
         return this.filtered_tenders;
     },
-    getFilteredTenders: function(){
+    getFilteredTenders: function() {
         return this.filterTenders();
+    },
+    bindCheckBoxEvents: function(){
+        $('#select-all-living, #select-all-living + label + span').click(function(){
+            if ($('#select-all-living').prop('checked'))
+                tender_filter.selectAllLivingAppointments();
+            else tender_filter.unselectAllLivingAppointments();
+            tenders_logic.applyFilter();
+        })
+        $('#select-all-social, #select-all-social + label + span').click(function(){
+            if ($('#select-all-social').prop('checked'))
+                tender_filter.selectAllSocialAppointments();
+            else tender_filter.unselectAllSocialAppointments();
+            tenders_logic.applyFilter();
+        })
+        $('#select-all-other, #select-all-other + label + span').click(function(){
+            if ($('#select-all-other').prop('checked'))
+                tender_filter.selectAllOtherAppointments();
+            else tender_filter.unselectAllOtherAppointments();
+            tenders_logic.applyFilter();
+        })
+        $('#select-all-types, #select-all-types + label + span').click(function(){
+            if ($('#select-all-types').prop('checked'))
+                tender_filter.selectAllTypes();
+            else tender_filter.unselectAllTypes();
+            tenders_logic.applyFilter();
+        })
+    },
+    selectAllLivingAppointments: function(){
+        $("#select-all-living").prop( "checked", true );
+        $(tender_filter.id+" .appointment-filter .living_types input,"+
+        tender_filter.id+" .appointment-filter .house-appointmets input").prop( "checked", true );
+        $("#select-all-living + label + span").text(tender_filter.text_unselect)
+    },
+    unselectAllLivingAppointments: function(){
+        $("#select-all-living").prop( "checked", false);
+        $(tender_filter.id+" .appointment-filter .living_types input,"+
+        tender_filter.id+" .appointment-filter .house-appointmets input").prop( "checked", false );
+        $("#select-all-living + label + span").text(tender_filter.text_select)
+    },
+    selectAllSocialAppointments: function(){
+        $(tender_filter.id+" .appointments.social input").prop( "checked", true );
+        $('#select-all-social').prop( "checked", true );
+        $('#select-all-social + label + span').text(tender_filter.text_unselect)
+    },
+    unselectAllSocialAppointments: function(){
+        $(tender_filter.id+" .appointments.social input").prop( "checked", false );
+        $('#select-all-social').prop( "checked", false );
+        $('#select-all-social + label + span').text(tender_filter.text_select)
+    },
+    selectAllOtherAppointments: function(){
+        $(tender_filter.id+" .appointments.others input").prop( "checked", true );
+        $('#select-all-other').prop( "checked", true );
+        $('#select-all-other + label + span').text(tender_filter.text_unselect)
+    },
+    unselectAllOtherAppointments: function(){
+        $(tender_filter.id+" .appointments.others input").prop( "checked", false );
+        $('#select-all-other').prop( "checked", false );
+        $('#select-all-other + label + span').text(tender_filter.text_select)
+    },
+    selectAllTypes: function(){
+        $(tender_filter.id+" .type-filter.filter input").prop( "checked", true );
+        $('#select-all-types').prop( "checked", true );
+        $('#select-all-types + label + span').text(tender_filter.text_unselect)
+    },
+    unselectAllTypes: function(){
+        $(tender_filter.id+" .type-filter.filter input").prop( "checked", false );
+        $('#select-all-types').prop( "checked", false );
+        $('#select-all-types + label + span').text(tender_filter.text_select)
     }
+
 }
 
 var tenders_common_charts = {

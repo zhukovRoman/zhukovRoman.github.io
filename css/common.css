@@ -177,3 +177,21 @@ ul{
     -o-transition: width .6s ease;
     transition: width .6s ease;
 }
+
+
+.highcharts-button{
+    font-size: 30px;
+    stroke: rgb(110,185,202);
+    padding: 10px;
+    background-color: #ffffff;
+    color: rgb(115,189,208);
+}
+.highcharts-button > rect {
+    stroke: rgb(110,185,202);
+    fill: rgba(1,1,1,0);
+
+}
+.highcharts-button > text{
+    color: rgb(115, 189, 208);
+    fill: rgb(115, 189, 208) !important;;
+} 

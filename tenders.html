@@ -9,7 +9,7 @@
     <script src="js/jq.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
-
+    <script type="text/javascript" src="js/hc-theme.js"></script>
 
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
@@ -117,7 +117,7 @@
                         <div class="group-filter-header group-filter-header-first">
                             <input type="checkbox" data-role="none" checked id="select-all-living">
                             <label for="select-all-living">Жилище</label>
-                            <span class="add-filters-action">Выделить все</span>
+                            <span class="add-filters-action">Снять выделение</span>
                         </div>
                         <div class="living_types">
                             <input type="checkbox" data-role="none" data-value="Сер" checked id="ap1">
@@ -135,8 +135,8 @@
                     <div class="group-filter">
                         <div class="group-filter-header">
                             <input type="checkbox" data-role="none" checked id="select-all-social">
-                            <label for="select-all-living">Социальные объекты</label>
-                            <span class="add-filters-action">Выделить все</span>
+                            <label for="select-all-social">Социальные объекты</label>
+                            <span class="add-filters-action">Снять выделение</span>
                         </div>
 
                         <div class="appointments social">
@@ -158,9 +158,9 @@
                         <div class="group-filter-header">
                             <input type="checkbox" data-role="none" checked id="select-all-other">
                             <label for="select-all-other">Прочие</label>
-                            <span class="add-filters-action">Выделить все</span>
+                            <span class="add-filters-action">Снять выделение</span>
                         </div>
-                        <div class="appointments">
+                        <div class="appointments others">
                             <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap10">
                             <label for="ap10">Дороги</label>
                             <input type="checkbox" data-role="none" data-value="переход" checked id="ap11">
@@ -172,13 +172,12 @@
                 </div>
 
                 <div class="filter-part">
-                    <input type="checkbox" data-role="none" checked id="checkbox-all-types">
-                    <label for="checkbox-all-appointments" style="width: auto">Тип конкурса</label>
-                    <span id="select-all-types" class="add-filters-action">Выделить все</span>
+                    <input type="checkbox" data-role="none" checked id="select-all-types">
+                    <label for="select-all-types" style="width: auto">Тип конкурса</label>
+                    <span class="add-filters-action">Снять выделение</span>
                 </div>
                 <div class="type-filter filter">
                     <div class="group-filter">
-
                         <div class="types">
                             <input type="checkbox" data-role="none" data-value="генподрядчик" checked id="t1">
                             <label for="t1">Генподрядчик</label>
@@ -249,6 +248,7 @@
 
     $(function(){
         tenders_logic.init();
+        tender_filter.bindCheckBoxEvents();
         tenders_common_charts.init();
         tenders_common_qty_chart.init();
     })

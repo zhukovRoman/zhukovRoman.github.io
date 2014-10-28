@@ -9,3 +9,4 @@ function million_to_text (value){
 
 var months = ["", "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 $.mobile.buttonMarkup.hoverDelay = 100
+

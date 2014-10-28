@@ -1,43 +1,134 @@
 .tender-tabs-group-name{
     float: left;
-    margin-left: 30px;
+    font-size: 26px;
+    font-weight: bold;
+    color: rgb(135,150,164);
+    margin-left: 0px;
+    margin-top: 15px;
+    font-weight: normal;
 }
 #tender-charts-tabs2, #tender-charts-tabs{
     float: left;
-    margin-left: 20px;
+    margin-left: 15px;
     margin-top: 0;
+}
+#tender-charts-tabs{
+    margin-right: 20px;
+}
+
+.ui-page-theme-a .ui-btn.ui-btn-active{
+    background-color: rgb(115,189,208);
+    border-color: rgb(115,189,208);
+    color: rgb(241,237,226);
+    text-shadow: none;
+    font-size: 21px;
+    font-weight: normal;
+}
+.ui-page-theme-a .ui-btn, .ui-page-theme-a .ui-btn:hover{
+    background-color:rgb(241,237,226);
+    border-color:  rgb(115,189,208);
+    color:  rgb(115,189,208);
+    text-shadow: none;
+    font-size: 21px;
+    font-weight: normal;
 }
 
 .filter{
     font-size: 20pt;
-    background-color: #e9e9e9;
+    background-color: rgb(247,244,237);
     margin-bottom: 20px;
     border-radius: 15px;
-    padding: 9px;
+    /*padding: 9px;*/
+}
+
+#tender-filter input[type=checkbox] {
+    display: none;
+}
+
+.filter-part>label,  .living_types > label,
+.appointments>label, .types > label{
+    display: inline-block;
+    font-size: 25px;
+    color: rgb(146,144,144);
+    background-image: url("images/checkbox.png");
+    background-repeat: no-repeat;
+    width: 40%;
+    padding: 10px 5px;
+    padding-left: 45px;
+    background-position-y: 6px;
+}
+
+.filter-part>label{
+
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.filter-part>input[type=checkbox]:checked + label,
+.living_types > input[type=checkbox]:checked + label,
+.appointments > input[type=checkbox]:checked + label,
+.types > input[type=checkbox]:checked + label{
+    background-image: url("images/checkbox_checked.png");
+}
+
+.group-filter-header>input[type=checkbox]:checked + label{
+    background-image: url("images/checkbox_checked.png");
+}
+
+.group-filter-header{
+    height: 60px;
+    background-color: rgb(110,185,202);
+
+    padding: 10px;
+}
+
+.group-filter-header-first{
+    border-radius: 15px 15px 0px 0px;
+}
+
+.group-filter-header > label{
+    font-size: 28px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    padding-left: 45px;
+    background-image: url("images/checkbox.png");
+    background-repeat: no-repeat;
+    padding-bottom: 4px;
+    margin-top: 15px;
+
+}
+.group-filter-header>.add-filters-action{
+    margin-right: 10px;
+    margin-top: 15px;
+    color: rgb(247,244,237);
+}
+
+.living_types, .appointments, .types{
+    padding: 10px;
 }
 
 .add-filters-action{
     font-size: 18pt;
     color: gray;
+    float: right;
+    display: inline-block;
 }
 
-.horizontal-line{
-    width: 100%;
-    border-bottom: 4px solid;
-}
-
-.small-line{
-    border-bottom: 3px solid dimgray;
-}
 
 .group-filter{
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 #tender-charts-content{
     clear: both;
 }
 #tender-filter{
-    width: 550px;
+    width: 600px;
     float: right;
+    margin-top: 20px;
+}
+.tender_chart{
+    margin-top: 30px;
 }

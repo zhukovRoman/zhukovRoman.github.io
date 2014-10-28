@@ -11,7 +11,32 @@ body{
     max-height: 1536px;
     min-width: 2048px;
     min-height: 1536px;
+    background-color: rgb(241,237,226);
 }
+
+
+.ui-content{
+    background-color: rgb(241,237,226);
+}
+
+.ui-header{
+    background-color: rgb(111,185,204);
+    background: linear-gradient(to top, rgb(101,175,193), rgb(123,196,214));
+    color: #ffffff;
+    border: none;
+}
+
+.ui-header .ui-title{
+    text-shadow: none;
+}
+
+.ui-page-theme-a{
+    text-shadow: none;
+}
+.ui-page-theme-a .ui-bar-inherit{
+    color: #ffffff;
+}
+
 #left-menu{
     width: 180px;
     height: 1533px;
@@ -95,7 +120,7 @@ body{
     background-image: url("images/tenders-active.png");
 }
 .menu-item-active .sales-menu-picture{
-    background-image: url("images/sales-active.png")ж
+    background-image: url("images/sales-active.png")
 }
 
 ul{
@@ -106,11 +131,12 @@ ul{
     margin-left: 180px;
     max-width: 1848px;
     min-width: 1848px;
-    margin-top: 1px;
+    margin-top: 0px;
     /*max-height: 1536px;*/
     min-height: 1536px;
     height: 1536px;
     font-size: 1.8em;
+    background-color: rgb(241,237,226);
 }
 
 .ui-title{

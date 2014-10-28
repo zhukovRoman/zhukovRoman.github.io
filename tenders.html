@@ -41,15 +41,15 @@
                 <div class="menu-item-text">Подрядчики</div>
             </div>
         </a>
-        <hr class="menu-item-devider">
-        <a href="empl.html" data-ajax="false">
+
+        <a href="tenders.html" data-ajax="false">
             <div class="menu-item menu-item-active">
                 <div class="menu-picture tenders-menu-picture "></div>
                 <div class="menu-item-text">Конкурсы</div>
             </div>
         </a>
-        <hr class="menu-item-devider">
-        <a href="empl.html" data-ajax="false">
+
+        <a href="sales.html" data-ajax="false">
             <div class="menu-item">
                 <div class="menu-picture sales-menu-picture "></div>
                 <div class="menu-item-text">Продажи</div>
@@ -62,10 +62,10 @@
     <div data-role="header">
         <a href="#" id='back-button' data-icon="arrow-l" class="ui-btn-left" onclick="tenders_logic.showChartsPart()" style="display: none">Назад</a>
         <h1>Конкурсы</h1>
-        <a href="#" data-icon="grid" class="ui-btn-right" onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>
+        <a href="#" class="ui-btn-right" onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>
 
     </div>
-    <div data-role="content" style="background-color: #ffffff;" id="charts_content">
+    <div data-role="content"  id="charts_content">
          <div class='tenders-tabs'>
              <form>
                  <div class="tender-tabs-group-name">Стоимость</div>
@@ -94,71 +94,105 @@
          </div>
         <div id="tender-charts-content">
             <div>
-                <div id="house_m2_price" class="tender_chart" style="height: 1000px; width: 1200px; float: left"></div>
-                <div id="social_place_price" class="tender_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
-                <div id="uk_notuk_chart" class="tender_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
-                <div id="uk_notuk_social_chart" class="tender_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
-                <div id="price_percent_chart" class="tender_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
-                <div id="qty_line_chart" class="tender_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
-                <div id="sum_chart" class="tender_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
-                <div id="count_chart" class="tender_chart" style="height: 1000px; width: 1200px; float: left; display: none;"></div>
+                <div id="house_m2_price" class="tender_chart" style="height: 1000px; width: 1100px; float: left"></div>
+                <div id="social_place_price" class="tender_chart" style="height: 1000px; width: 1100px; float: left; display: none;"></div>
+                <div id="uk_notuk_chart" class="tender_chart" style="height: 1000px; width: 1100px; float: left; display: none;"></div>
+                <div id="uk_notuk_social_chart" class="tender_chart" style="height: 1000px; width: 1100px; float: left; display: none;"></div>
+                <div id="price_percent_chart" class="tender_chart" style="height: 1000px; width: 1100px; float: left; display: none;"></div>
+                <div id="qty_line_chart" class="tender_chart" style="height: 1000px; width: 1100px; float: left; display: none;"></div>
+                <div id="sum_chart" class="tender_chart" style="height: 1000px; width: 1100px; float: left; display: none;"></div>
+                <div id="count_chart" class="tender_chart" style="height: 1000px; width: 1100px; float: left; display: none;"></div>
             </div>
 
             <div id="tender-filter">
-                <div class="appointment-filter filter" >
-                    <input type="checkbox" data-role="none" checked>ОБЪЕКТЫ
+                <div class="filter-part">
+                    <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">
+                    <label for="checkbox-all-appointments">Объекты</label>
                     <span id="select-all-appointments" class="add-filters-action">Выделить все</span>
-                    <div class="horizontal-line"></div>
+                </div>
+
+                <div class="appointment-filter filter" >
                     <div class="group-filter">
-                        <input type="checkbox" data-role="none" checked>Жилище
-                        <span class="add-filters-action">Выделить все</span>
+                        <div class="group-filter-header group-filter-header-first">
+                            <input type="checkbox" data-role="none" checked id="select-all-living">
+                            <label for="select-all-living">Жилище</label>
+                            <span class="add-filters-action">Выделить все</span>
+                        </div>
                         <div class="living_types">
-                            <input type="checkbox" data-role="none" data-value="Сер" checked>Серийное
-                            <input type="checkbox" data-role="none" data-value="ИНД" checked>Индивидуальное
+                            <input type="checkbox" data-role="none" data-value="Сер" checked id="ap1">
+                            <label for="ap1">Серийное</label>
+                            <input type="checkbox" data-role="none" data-value="ИНД" checked id="ap2">
+                            <label for="ap2">Индивидуальное</label>
                         </div>
                         <div class="appointments house-appointmets">
-                            <input type="checkbox" data-role="none" data-value="инженерия" checked>Инженирия
+                            <input type="checkbox" data-role="none" data-value="инженерия" checked id="ap3">
+                            <label for="ap3">Инженерия</label>
                         </div>
-
                     </div>
 
-                    <div class="horizontal-line small-line"></div>
+
                     <div class="group-filter">
-                        <input type="checkbox" data-role="none" checked>Социальные объекты
-                        <span class="add-filters-action">Выделить все</span>
+                        <div class="group-filter-header">
+                            <input type="checkbox" data-role="none" checked id="select-all-social">
+                            <label for="select-all-living">Социальные объекты</label>
+                            <span class="add-filters-action">Выделить все</span>
+                        </div>
+
                         <div class="appointments social">
-                            <input type="checkbox" data-role="none" data-value="БНК" checked>БНК
-                            <input type="checkbox" data-role="none" data-value="ДОУ" checked>ДОУ
-                            <input type="checkbox" data-role="none" data-value="ФОК" checked>ФОК
-                            <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked>Спорт-ФОК
-                            <input type="checkbox" data-role="none" data-value="школа" checked>Школа
-                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked>Поликлиника
+                            <input type="checkbox" data-role="none" data-value="БНК" checked id="ap4">
+                            <label for="ap4">БНК</label>
+                            <input type="checkbox" data-role="none" data-value="ДОУ" checked id="ap5">
+                            <label for="ap5">ДОУ</label>
+                            <input type="checkbox" data-role="none" data-value="ФОК" checked id="ap6">
+                            <label for="ap6">ФОК</label>
+                            <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked id="ap7">
+                            <label for="ap7">Спорт-ФОК</label>
+                            <input type="checkbox" data-role="none" data-value="школа" checked id="ap8">
+                            <label for="ap8">Школа</label>
+                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap9">
+                            <label for="ap9">Поликлиника</label>
                         </div>
                     </div>
-                    <div class="horizontal-line small-line"></div>
                     <div class="group-filter">
-                        <input type="checkbox" data-role="none" checked>Прочие
-                        <span class="add-filters-action">Выделить все</span>
+                        <div class="group-filter-header">
+                            <input type="checkbox" data-role="none" checked id="select-all-other">
+                            <label for="select-all-other">Прочие</label>
+                            <span class="add-filters-action">Выделить все</span>
+                        </div>
                         <div class="appointments">
-                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked>Дороги
-                            <input type="checkbox" data-role="none" data-value="переход" checked>Переход
-                            <input type="checkbox" data-role="none" data-value="Прочие объекты" checked>Прочие
+                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap10">
+                            <label for="ap10">Дороги</label>
+                            <input type="checkbox" data-role="none" data-value="переход" checked id="ap11">
+                            <label for="ap11">Переход</label>
+                            <input type="checkbox" data-role="none" data-value="Прочие объекты" checked id="ap12">
+                            <label for="ap12">Прочие</label>
                         </div>
                     </div>
                 </div>
+
+                <div class="filter-part">
+                    <input type="checkbox" data-role="none" checked id="checkbox-all-types">
+                    <label for="checkbox-all-appointments" style="width: auto">Тип конкурса</label>
+                    <span id="select-all-types" class="add-filters-action">Выделить все</span>
+                </div>
                 <div class="type-filter filter">
-                    <input type="checkbox" data-role="none" checked>Тип конкурса
-                    <span id="select-all-distincts" class="add-filters-action">Выделить все</span>
-                    <div class="horizontal-line"></div>
                     <div class="group-filter">
+
                         <div class="types">
-                            <input type="checkbox" data-role="none" data-value="генподрядчик" checked>Генподрядчик
-                            <input type="checkbox" data-role="none" data-value="генпроектировщик" checked>Генпроектировщик
-                            <input type="checkbox" data-role="none" data-value="перепроектирование" checked>Перепроектирование
-                            <input type="checkbox" data-role="none" data-value="Страхование СМР" checked>Страхование СМР
-                            <input type="checkbox" data-role="none" data-value="ТЗ ПИР и СМР" checked>ТЗ ПИР и СМР
-                            <input type="checkbox" data-role="none" data-value="ТЗ СМР" checked>ТЗ СМР
-                            <input type="checkbox" data-role="none" data-value="управляющая компания" checked>Управляющая компания
+                            <input type="checkbox" data-role="none" data-value="генподрядчик" checked id="t1">
+                            <label for="t1">Генподрядчик</label>
+                            <input type="checkbox" data-role="none" data-value="генпроектировщик" checked id="t2">
+                            <label for="t2">Генпроектировщик</label>
+                            <input type="checkbox" data-role="none" data-value="перепроектирование" checked id="t3">
+                            <label for="t3">Перепроектирование</label>
+                            <input type="checkbox" data-role="none" data-value="Страхование СМР" checked id="t4">
+                            <label for="t4">Страхование СМР</label>
+                            <input type="checkbox" data-role="none" data-value="ТЗ ПИР и СМР" checked id="t5">
+                            <label for="t5">ТЗ ПИР и СМР</label>
+                            <input type="checkbox" data-role="none" data-value="ТЗ СМР" checked id="t6">
+                            <label for="t6">ТЗ СМР</label>
+                            <input type="checkbox" data-role="none" data-value="управляющая компания" checked id="t7">
+                            <label for="t7" style="width: 90%;">Управляющая компания</label>
                         </div>
                     </div>
                 </div>

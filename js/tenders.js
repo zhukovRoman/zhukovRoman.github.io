@@ -207,24 +207,42 @@ var tenders_charts={
                 },
                 chart: {
                     type: 'spline',
-                    renderTo:'house_m2_price'
+                    renderTo:'house_m2_price',
+                    backgroundColor: 'rgba(0,0,0,0)'
                 },
                 title: {
-                    text: 'Изменение средней стоимости кв. м. '
+                    text: 'Изменение средней стоимости кв. м. ',
+                    style: {
+                        fontSize:'30px',
+                        color: 'rgb(135,150,164)'
+                    }
                 },
                 xAxis: {
-                    type: 'category'
+                    type: 'category',
+                    labels:{
+                        style: {
+                            fontSize: '22px',
+                            color: 'rgb(135,150,164)'
+                        }
+                    }
                 },
                 yAxis: {
                     title: {
-                        text: 'Средняя стоимость кв. м.'
+                        text: 'Средняя стоимость кв. м.',
+                        style: {
+                            fontSize:'24px',
+                            color: 'rgb(135,150,164)'
+                        }
                     },
                     labels: {
                         formatter: function () {
-                            return this.value/1000 + 'тыс ₽';
+                            return this.value / 1000 + 'тыс ₽';
+                        },
+                        style: {
+                            fontSize: '22px',
+                            color: 'rgb(135,150,164)'
                         }
-                    },
-                    min: 0
+                    }
                 },
                 tooltip: {
                     crosshairs: true,
@@ -235,6 +253,14 @@ var tenders_charts={
                             "<b>"+this.point.category+"</b><br>" +
                             "<i>"+this.series.name+"</i>: "+
                             thousands_sep(this.y) + '  ₽ '}
+
+                },
+                legend:{
+
+                        itemStyle: {
+                            fontSize: '22px',
+                            color: 'rgb(135,150,164)'
+                    }
 
                 },
                 plotOptions: {

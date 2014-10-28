@@ -240,7 +240,8 @@ var tenders_charts={
                         },
                         style: {
                             fontSize: '22px',
-                            color: 'rgb(135,150,164)'
+                            color: 'rgb(135,150,164)',
+                            font: '22px PT Sans, sans-serif'
                         }
                     }
                 },

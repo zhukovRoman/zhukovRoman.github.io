@@ -1,6 +1,8 @@
 Highcharts.kpugs = {
     colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
         '#FF9655', '#FFF263', '#6AF9C4'],
+    colors: ['#7bc5d7', '#273e43', '#84d77b', '#ef9338', '#7d7bd7', '#d77bcf',
+        '#dace4b', '#FFF263', '#6AF9C4'],
     chart: {
         backgroundColor: 'rgba(0,0,0,0)'
     },

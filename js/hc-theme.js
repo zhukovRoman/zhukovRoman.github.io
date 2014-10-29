@@ -54,6 +54,13 @@ Highcharts.kpugs = {
         itemHoverStyle:{
             color: 'gray'
         }
+    },
+    tooltip:{
+        style:{
+            color: 'gray',
+            font: '20px PT Sans, sans-serif',
+            fontSize: '20px'
+        }
     }
 };
 

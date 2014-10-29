@@ -42,7 +42,7 @@ Highcharts.kpugs = {
         itemMarginTop: 5,
         itemMarginBottom: 5,
         itemStyle: {
-            fontSize: '22px',
+            fontSize: '26px',
             color: 'rgb(135,150,164)'
         },
         itemHoverStyle:{
@@ -53,7 +53,7 @@ Highcharts.kpugs = {
         style:{
             color: 'gray',
             fontFamily: 'PT Sans, sans-serif',
-            fontSize: '20px'
+            fontSize: '28px'
         }
     }
 };

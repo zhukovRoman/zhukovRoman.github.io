@@ -10,12 +10,6 @@ Highcharts.kpugs = {
             color: 'rgb(135,150,164)'
         }
     },
-    subtitle: {
-        style: {
-            color: '#666666',
-            font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
-        }
-    },
     xAxis:{
         labels:{
             style:{
@@ -58,7 +52,7 @@ Highcharts.kpugs = {
     tooltip:{
         style:{
             color: 'gray',
-            font: '20px PT Sans, sans-serif',
+            fontFamily: 'PT Sans, sans-serif',
             fontSize: '20px'
         }
     }

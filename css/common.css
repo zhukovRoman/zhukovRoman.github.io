@@ -45,6 +45,7 @@ body{
 }
 
 #left-menu{
+    margin-top: 20px;
     width: 180px;
     height: 1533px;
     background-color: rgb(131,152,165);
@@ -139,7 +140,7 @@ ul{
     margin-left: 180px;
     max-width: 1848px;
     min-width: 1848px;
-    margin-top: 0px;
+    margin-top: 20px;
     /*max-height: 1536px;*/
     min-height: 1536px;
     height: 1536px;

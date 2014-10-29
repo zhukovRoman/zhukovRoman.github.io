@@ -734,7 +734,16 @@ var tenders_charts={
                     text: 'Среднее снижение цены от НМЦК'
                 },
                 xAxis: {
-                    categories: tenders_data.years
+                    categories: tenders_data.years,
+                    labels:{
+                        useHTML: true,
+                        style:{
+                            border: '1px solid rgb(135,150,164)',
+                            borderRadius: '10px',
+                            padding: '5px 10px'
+                            //color:'red'
+                        }
+                    }
                 },
                 yAxis: {
                     title: {
@@ -747,7 +756,7 @@ var tenders_charts={
                     }
                 },
                 tooltip: {
-                    crosshairs: true,
+                    //crosshairs: true,
                     shared: true,
                     valueSuffix: '%'
                 },
@@ -804,7 +813,7 @@ var tenders_charts={
                 this.drilldownChart()
         },
         bindDrilldownEvents: function(){
-            $('#price_percent_chart .highcharts-xaxis-labels > text').click(function(){
+            $('#price_percent_chart .highcharts-xaxis-labels > span').click(function(){
                 tenders_charts.PricePercentChart.current_year =  $(this).text();
                 tenders_charts.PricePercentChart.is_drilldown = true;
                 tenders_charts.PricePercentChart.selectedYear =   $(this).text();
@@ -829,7 +838,14 @@ var tenders_charts={
                 if (val[1]!=null)
                     data.push([months.indexOf(val[0]), val[1]])
             })
-
+            chart.chart.xAxis[0].update({labels:{
+                useHTML: true,
+                    style:{
+                        border: '0px solid rgb(135,150,164)'
+                    }
+                }
+            }, false);
+            //chart.chart.xAxis.labels.style = Highcharts.kpugs.xAxis.labels.style;
             chart.chart.series[0].setData(data);
         },
         getDrilldownData: function(){
@@ -883,7 +899,16 @@ var tenders_charts={
                     text: 'Среднее число заявок'
                 },
                 xAxis: {
-                    categories: tenders_data.years
+                    categories: tenders_data.years,
+                    labels:{
+                        useHTML: true,
+                        style:{
+                            border: '1px solid rgb(135,150,164)',
+                            borderRadius: '10px',
+                            padding: '5px 10px'
+                            //color:'red'
+                        }
+                    }
                 },
                 yAxis: {
                     title: {
@@ -966,7 +991,7 @@ var tenders_charts={
                 this.drilldownChart()
         },
         bindDrilldownEvents: function(){
-            $('#qty_line_chart .highcharts-xaxis-labels > text').click(function(){
+            $('#qty_line_chart .highcharts-xaxis-labels > span').click(function(){
                 tenders_charts.QtyChart.current_year =  $(this).text();
                 tenders_charts.QtyChart.is_drilldown = true;
                 tenders_charts.QtyChart.selectedYear =   $(this).text();
@@ -986,6 +1011,13 @@ var tenders_charts={
             chart.chart.xAxis[0].setCategories(months,false);
             var series = chart.getDrilldownData()[year]
 
+            chart.chart.xAxis[0].update({labels:{
+                useHTML: true,
+                style:{
+                    border: '0px solid rgb(135,150,164)'
+                }
+            }
+            }, false);
             chart.chart.series[0].setData(series['data_all'], false)
             chart.chart.series[1].setData(series['data_accept'] )
 
@@ -1040,7 +1072,16 @@ var tenders_charts={
                 },
                 xAxis: {
                     type: 'category',
-                    categories: tenders_data.years
+                    categories: tenders_data.years,
+                    labels:{
+                        useHTML: true,
+                        style:{
+                            border: '1px solid rgb(135,150,164)',
+                            borderRadius: '10px',
+                            padding: '5px 10px'
+                            //color:'red'
+                        }
+                    }
                 },
                 yAxis: {
                     title: {
@@ -1138,7 +1179,7 @@ var tenders_charts={
                 this.drilldownChart()
         },
         bindDrilldownEvents: function(){
-            $('#sum_chart .highcharts-xaxis-labels > text').click(function(){
+            $('#sum_chart .highcharts-xaxis-labels > span').click(function(){
                 tenders_charts.SummChart.current_year =  $(this).text();
                 tenders_charts.SummChart.is_drilldown = true;
                 tenders_charts.SummChart.selectedYear =   $(this).text();
@@ -1155,7 +1196,13 @@ var tenders_charts={
                 chart.createChart).add();
             var data= chart.getDrilldownData(chart.current_year);
 
-
+            chart.chart.xAxis[0].update({labels:{
+                useHTML: true,
+                style:{
+                    border: '0px solid rgb(135,150,164)'
+                }
+            }
+            }, false);
             chart.chart.xAxis[0].setCategories(months,false)
             chart.chart.series[0].setData(data['sum'][0],false)
             chart.chart.series[1].setData(data['sum'][1],false)
@@ -1223,7 +1270,16 @@ var tenders_charts={
                 },
                 xAxis: {
                     type: 'category',
-                    categories: tenders_data.years
+                    categories: tenders_data.years ,
+                    labels:{
+                        useHTML: true,
+                        style:{
+                            border: '1px solid rgb(135,150,164)',
+                            borderRadius: '10px',
+                            padding: '5px 10px'
+                            //color:'red'
+                        }
+                    }
                 },
                 yAxis: {
                     title: {
@@ -1307,7 +1363,7 @@ var tenders_charts={
                 this.drilldownChart()
         },
         bindDrilldownEvents: function(){
-            $('#count_chart .highcharts-xaxis-labels > text').click(function(){
+            $('#count_chart .highcharts-xaxis-labels > span').click(function(){
                 tenders_charts.CountChart.current_year =  $(this).text();
                 tenders_charts.CountChart.is_drilldown = true;
                 tenders_charts.CountChart.selectedYear =   $(this).text();
@@ -1331,6 +1387,13 @@ var tenders_charts={
             $.each(data, function(type,type_data){
                 chart.chart.addSeries(type_data,false)
             })
+            chart.chart.xAxis[0].update({labels:{
+                useHTML: true,
+                style:{
+                    border: '0px solid rgb(135,150,164)'
+                }
+            }
+            }, false);
             chart.chart.redraw();
         },
         getDrilldownData: function(year){

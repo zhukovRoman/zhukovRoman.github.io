@@ -756,9 +756,19 @@ var tenders_charts={
                     }
                 },
                 tooltip: {
-                    //crosshairs: true,
+                    formatter: function() {
+                        var result = '<b>' + this.x + '</b>';
+
+                        $.each(this.points, function(i, datum) {
+                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
+                            + datum.series.name + ':</i> '
+                            + datum.y.toFixed(2) + ' %';
+                        });
+                        return result;
+                    },
                     shared: true,
-                    valueSuffix: '%'
+                    useHTML: true
+
                 },
                 plotOptions: {
                     spline: {
@@ -921,9 +931,18 @@ var tenders_charts={
                     }
                 },
                 tooltip: {
-                    crosshairs: true,
+                    formatter: function() {
+                        var result = '<b>' + this.x + '</b>';
+
+                        $.each(this.points, function(i, datum) {
+                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
+                            + datum.series.name + ':</i> '
+                            + datum.y.toFixed(2) + 'шт';
+                        });
+                        return result;
+                    },
                     shared: true,
-                    valueSuffix: ' шт'
+                    useHTML: true
                 },
                 plotOptions: {
                     spline: {

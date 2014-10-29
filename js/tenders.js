@@ -7,7 +7,9 @@ var tenders_logic = {
     init: function(){
         $(".tenders-tabs input").change(tenders_logic.changeActiveChart);
         $('#tender-filter input').change(tenders_logic.applyFilter);
-        $('#show_table_button').click(tenders_logic.showTendersTable)
+        $('#show_table_button').click(tenders_logic.showTendersTable);
+        $(".appointments.appointment-filter>input").change(tender_filter.refreshCheckboxStatuses);
+        $(".type-filter.filter input").change(tender_filter.refreshCheckboxStatuses)
         this.changeActiveChart();
 
     },
@@ -20,6 +22,7 @@ var tenders_logic = {
         tenders_logic.changeDetailButtonText();
     },
     applyFilter: function(){
+        //tender_filter.refreshCheckboxStatuses();
         tenders_logic.current_chart.redrawChart();
     },
     setEnterYearForTable: function(type, category, uk){
@@ -1430,6 +1433,7 @@ var tender_filter={
     },
     bindCheckBoxEvents: function(){
         $('#select-all-living').click(function(){
+
             if ($('#select-all-living').prop('checked'))
                 tender_filter.selectAllLivingAppointments();
             else tender_filter.unselectAllLivingAppointments();
@@ -1541,8 +1545,58 @@ var tender_filter={
         $(tender_filter.id+" .appointment-filter input").prop( "checked", false );
         $('#checkbox-all-appointments').prop( "checked", false );
         $('#checkbox-all-appointments + label + span').text(tender_filter.text_select)
-    }
+    },
+    refreshCheckboxStatuses: function(){
+        //test checkboxes in groups
+        if($('.appointments.appointment-filter.living_types input, ' +
+            '.appointments.appointment-filter.house-appointmets input').length ==
+            $('.appointments.appointment-filter.living_types input:checked, ' +
+            '.appointments.appointment-filter.house-appointmets input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-living').prop( "checked", true );
+            $('#select-all-living + label + span').text(tender_filter.text_unselect)
+        } else {
+            $('#select-all-living').prop( "checked", false );
+            $('#select-all-living + label + span').text(tender_filter.text_select)
+        }
+        if($('.appointments.appointment-filter.social input').length ==
+            $('.appointments.appointment-filter.social input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-social').prop( "checked", true );
+            $('#select-all-social + label + span').text(tender_filter.text_unselect)
+        } else {
+            $('#select-all-social').prop( "checked", false );
+            $('#select-all-social + label + span').text(tender_filter.text_select)
+        }
+        if($('.appointments.appointment-filter.others input').length ==
+            $('.appointments.appointment-filter.others input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-other').prop( "checked", true );
+            $('#select-all-other + label + span').text(tender_filter.text_unselect)
+        } else {
+            $('#select-all-other').prop( "checked", false );
+            $('#select-all-other + label + span').text(tender_filter.text_select)
+        }
+        if($('.type-filter.filter input').length ==
+            $('.type-filter.filter input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-types').prop( "checked", true );
+            $('#select-all-types + label + span').text(tender_filter.text_unselect)
+        } else {
+            $('#select-all-types').prop( "checked", false );
+            $('#select-all-types + label + span').text(tender_filter.text_select)
+        }
+        if($('div.group-filter-header input').length ==
+            $('div.group-filter-header input:checked').length){
+            //выделены все объекты в группе
+            $('#checkbox-all-appointments').prop( "checked", true );
+            $('#checkbox-all-appointments + label + span').text(tender_filter.text_unselect)
+        } else {
+            $('#checkbox-all-appointments').prop( "checked", false );
+            $('#checkbox-all-appointments + label + span').text(tender_filter.text_select)
+        }
 
+    }
 }
 
 var tenders_common_charts = {

@@ -230,41 +230,22 @@ var tenders_charts={
                 },
                 chart: {
                     type: 'spline',
-                    renderTo:'house_m2_price',
-                    backgroundColor: 'rgba(0,0,0,0)'
+                    renderTo:'house_m2_price'
+
                 },
                 title: {
-                    text: 'Изменение средней стоимости кв. м. ',
-                    style: {
-                        fontSize:'30px',
-                        color: 'rgb(135,150,164)'
-                    }
+                    text: 'Изменение средней стоимости кв. м. '
                 },
                 xAxis: {
-                    type: 'category',
-                    labels:{
-                        style: {
-                            fontSize: '22px',
-                            color: 'rgb(135,150,164)'
-                        }
-                    }
+                    type: 'category'
                 },
                 yAxis: {
                     title: {
-                        text: 'Средняя стоимость кв. м.',
-                        style: {
-                            fontSize:'24px',
-                            color: 'rgb(135,150,164)'
-                        }
+                        text: 'Средняя стоимость кв. м.'
                     },
                     labels: {
                         formatter: function () {
                             return this.value / 1000 + 'тыс ₽';
-                        },
-                        style: {
-                            fontSize: '22px',
-                            color: 'rgb(135,150,164)',
-                            font: '22px PT Sans, sans-serif'
                         }
                     }
                 },
@@ -279,13 +260,7 @@ var tenders_charts={
                             thousands_sep(this.y) + '  ₽ '}
 
                 },
-                legend:{
-                        itemStyle: {
-                            fontSize: '22px',
-                            color: 'rgb(135,150,164)'
-                    }
 
-                },
                 plotOptions: {
                     spline: {
                         marker: {

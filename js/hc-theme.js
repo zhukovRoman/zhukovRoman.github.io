@@ -57,6 +57,11 @@ Highcharts.kpugs = {
             fontFamily: 'PT Sans, sans-serif',
             fontSize: '28px'
         }
+    },
+    plotOptions:{
+        column:{
+            borderWidth: '0'
+        }
     }
 };
 

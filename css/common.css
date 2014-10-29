@@ -5,7 +5,7 @@
 }
 
 body{
-    margin-top: 20px;
+    margin-top: 0px;
     margin-left: 20px;
     width: 2048px;
     height: 1536px;
@@ -48,7 +48,7 @@ body{
 }
 
 #left-menu{
-    margin-top: 20px;
+    margin-top: 0px;
     width: 180px;
     height: 1516px;
     background-color: rgb(131,152,165);
@@ -143,7 +143,7 @@ ul{
     margin-left: 180px;
     max-width: 1848px;
     min-width: 1848px;
-    margin-top: 20px;
+    margin-top: 00px;
     /*max-height: 1536px;*/
     min-height: 1536px;
     height: 1516px;

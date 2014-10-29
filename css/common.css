@@ -24,6 +24,8 @@ body{
 
 .ui-content{
     background-color: rgb(241,237,226);
+    max-height: 1436px;
+    height: 1436px;
 }
 
 .ui-header{
@@ -42,12 +44,13 @@ body{
 }
 .ui-page-theme-a .ui-bar-inherit{
     color: #ffffff;
+    height: 80px;
 }
 
 #left-menu{
     margin-top: 20px;
     width: 180px;
-    height: 1533px;
+    height: 1516px;
     background-color: rgb(131,152,165);
     float: left;
     background-image: url("images/left-menu-bg.png");
@@ -69,8 +72,8 @@ body{
 }
 
 .menu-item{
-   padding-top: 32px;
-   padding-bottom: 32px;
+   padding-top: 31px;
+   padding-bottom: 31px;
 }
 
 .menu-item-active{
@@ -143,7 +146,7 @@ ul{
     margin-top: 20px;
     /*max-height: 1536px;*/
     min-height: 1536px;
-    height: 1536px;
+    height: 1516px;
     font-size: 1.8em;
     background-color: rgb(241,237,226);
 }

@@ -1429,28 +1429,64 @@ var tender_filter={
         return this.filterTenders();
     },
     bindCheckBoxEvents: function(){
-        $('#select-all-living, #select-all-living + label + span').click(function(){
+        $('#select-all-living').click(function(){
             if ($('#select-all-living').prop('checked'))
                 tender_filter.selectAllLivingAppointments();
             else tender_filter.unselectAllLivingAppointments();
             tenders_logic.applyFilter();
         })
-        $('#select-all-social, #select-all-social + label + span').click(function(){
+        $('#select-all-living + label + span').click(function(){
+            if (!$('#select-all-living').prop('checked'))
+                tender_filter.selectAllLivingAppointments();
+            else tender_filter.unselectAllLivingAppointments();
+            tenders_logic.applyFilter();
+        })
+        $('#select-all-social').click(function(){
             if ($('#select-all-social').prop('checked'))
                 tender_filter.selectAllSocialAppointments();
             else tender_filter.unselectAllSocialAppointments();
             tenders_logic.applyFilter();
         })
-        $('#select-all-other, #select-all-other + label + span').click(function(){
+        $(' #select-all-social + label + span').click(function(){
+            if (!$('#select-all-social').prop('checked'))
+                tender_filter.selectAllSocialAppointments();
+            else tender_filter.unselectAllSocialAppointments();
+            tenders_logic.applyFilter();
+        })
+        $('#select-all-other').click(function(){
             if ($('#select-all-other').prop('checked'))
                 tender_filter.selectAllOtherAppointments();
             else tender_filter.unselectAllOtherAppointments();
             tenders_logic.applyFilter();
         })
-        $('#select-all-types, #select-all-types + label + span').click(function(){
+        $('#select-all-other + label + span').click(function(){
+            if (!$('#select-all-other').prop('checked'))
+                tender_filter.selectAllOtherAppointments();
+            else tender_filter.unselectAllOtherAppointments();
+            tenders_logic.applyFilter();
+        })
+        $('#select-all-types').click(function(){
             if ($('#select-all-types').prop('checked'))
                 tender_filter.selectAllTypes();
             else tender_filter.unselectAllTypes();
+            tenders_logic.applyFilter();
+        })
+        $('#select-all-types + label + span').click(function(){
+            if (!$('#select-all-types').prop('checked'))
+                tender_filter.selectAllTypes();
+            else tender_filter.unselectAllTypes();
+            tenders_logic.applyFilter();
+        })
+        $('#checkbox-all-appointments').click(function(){
+            if ($('#checkbox-all-appointments').prop('checked'))
+                tender_filter.selectAllAppointments();
+            else tender_filter.unselectAllAppointments();
+            tenders_logic.applyFilter();
+        })
+        $('#checkbox-all-appointments + label + span').click(function(){
+            if (!$('#checkbox-all-appointments').prop('checked'))
+                tender_filter.selectAllAppointments();
+            else tender_filter.unselectAllAppointments();
             tenders_logic.applyFilter();
         })
     },
@@ -1495,6 +1531,16 @@ var tender_filter={
         $(tender_filter.id+" .type-filter.filter input").prop( "checked", false );
         $('#select-all-types').prop( "checked", false );
         $('#select-all-types + label + span').text(tender_filter.text_select)
+    },
+    selectAllAppointments: function(){
+        $(tender_filter.id+" .appointment-filter input").prop( "checked", true );
+        $('#checkbox-all-appointments').prop( "checked", true );
+        $('#checkbox-all-appointments + label + span').text(tender_filter.text_unselect)
+    },
+    unselectAllAppointments: function(){
+        $(tender_filter.id+" .appointment-filter input").prop( "checked", false );
+        $('#checkbox-all-appointments').prop( "checked", false );
+        $('#checkbox-all-appointments + label + span').text(tender_filter.text_select)
     }
 
 }

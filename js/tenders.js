@@ -20,10 +20,31 @@ var tenders_logic = {
         tenders_logic.current_chart.redrawChart();
         $("#"+active_tab.attr('data-div')).show();
         tenders_logic.changeDetailButtonText();
+        tenders_logic.hideFilterParts();
     },
     applyFilter: function(){
         //tender_filter.refreshCheckboxStatuses();
         tenders_logic.current_chart.redrawChart();
+    },
+    hideFilterParts: function(){
+
+        $("div.group-filter").css('opacity', 1)
+        if(tenders_logic.current_chart.type==null){
+            //show all group
+
+            return;
+        }
+        if(tenders_logic.current_chart.type && tenders_logic.current_chart.type=='house'){
+            //show only house
+            $("div.group-filter.not-house-group-filter").css('opacity', 0.2)
+            return;
+        }
+        if(tenders_logic.current_chart.type && tenders_logic.current_chart.type=='social'){
+            //show only house
+            $("div.group-filter.not-social-group-filter").css('opacity', 0.2)
+            return;
+        }
+
     },
     setEnterYearForTable: function(type, category, uk){
         tenders_logic.current_chart.selectedYear = category;

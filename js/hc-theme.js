@@ -18,6 +18,12 @@ Highcharts.kpugs = {
                 fontSize: '22px',
                 color: 'rgb(135,150,164)'
             }
+        },
+        title: {
+            style: {
+                fontSize: '24px',
+                color: 'rgb(135,150,164)'
+            }
         }
     },
     yAxis:{

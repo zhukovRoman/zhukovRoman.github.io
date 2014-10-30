@@ -237,7 +237,10 @@ var tenders_charts={
                     text: 'Изменение средней стоимости кв. м. '
                 },
                 xAxis: {
-                    type: 'category'
+                    type: 'category',
+                    title: {
+                        text: 'год ввода'
+                    },
                 },
                 yAxis: {
                     title: {
@@ -345,9 +348,13 @@ var tenders_charts={
                 },
                 title: {
                     text: 'Изменение средней стоимости одного места '
+
                 },
                 xAxis: {
-                    type: 'category'
+                    type: 'category',
+                    title: {
+                        text: 'год ввода'
+                    }
                 },
                 yAxis: {
                     title: {

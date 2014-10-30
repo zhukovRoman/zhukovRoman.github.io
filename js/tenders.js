@@ -1712,7 +1712,16 @@ var tenders_common_charts = {
                 text: ''
             },
             xAxis: {
-                categories: tenders_data.years
+                categories: tenders_data.years,
+                labels:{
+                    useHTML: true,
+                    style:{
+                        border: '1px solid rgb(135,150,164)',
+                        borderRadius: '10px',
+                        padding: '5px 10px'
+                        //color:'red'
+                    }
+                }
             },
             yAxis: [{
                 min: 0,
@@ -1775,7 +1784,7 @@ var tenders_common_charts = {
     },
     bindDrilldownEvents: function(){
 
-        $('#prices_chart .highcharts-xaxis-labels text').click(this.drilldownSummChart)
+        $('#prices_chart .highcharts-xaxis-labels span').click(this.drilldownSummChart)
 
     },
     getPricesChartData: function(){
@@ -1876,6 +1885,14 @@ var tenders_common_charts = {
         }
         tenders_common_charts.current_suffix = 'млн'
         var months = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+
+        tenders_common_charts.prices_chart.xAxis[0].update({labels:{
+            useHTML: true,
+            style:{
+                border: '0px solid rgb(135,150,164)'
+            }
+        }
+        }, false);
         tenders_common_charts.prices_chart.xAxis[0].setCategories(months, false)
         tenders_common_charts.prices_chart.series[0].setData(drilldownsSumm[$(this).text()][0], false);
         tenders_common_charts.prices_chart.series[1].setData(drilldownsSumm[$(this).text()][1], true);
@@ -1889,11 +1906,18 @@ var tenders_common_charts = {
         tenders_common_charts.current_suffix = 'млрд'
         $('#prices_chart .highcharts-button').remove();
         var series = tenders_common_charts.getPricesChartData();
+        tenders_common_charts.prices_chart.xAxis[0].update({labels:{
+            useHTML: true,
+            style:{
+                border: '1px solid rgb(135,150,164)'
+            }
+        }
+        }, false);
         tenders_common_charts.prices_chart.xAxis[0].setCategories(tenders_data.years, false)
         tenders_common_charts.prices_chart.series[0].setData(series[0], false);
         tenders_common_charts.prices_chart.series[1].setData(series[1],false);
         tenders_common_charts.prices_chart.redraw();
-        $('#prices_chart .highcharts-xaxis-labels text').click(tenders_common_charts.drilldownSummChart)
+        $('#prices_chart .highcharts-xaxis-labels span').click(tenders_common_charts.drilldownSummChart)
     }
 }
 
@@ -1912,7 +1936,7 @@ var tenders_common_qty_chart = {
         })
     },
     bindDrillDownEvent: function(){
-        $('#qty_chart .highcharts-xaxis-labels  text').click(function(){
+        $('#qty_chart .highcharts-xaxis-labels  span').click(function(){
             tenders_common_qty_chart.selected_year= $(this).text();
             tenders_common_qty_chart.drilldownChart();
         })
@@ -1931,7 +1955,16 @@ var tenders_common_qty_chart = {
                 text: ''
             },
             xAxis: {
-                categories: tenders_data.qty_years
+                categories: tenders_data.qty_years,
+                labels:{
+                    useHTML: true,
+                    style:{
+                        border: '1px solid rgb(135,150,164)',
+                        borderRadius: '10px',
+                        padding: '5px 10px'
+                        //color:'red'
+                    }
+                }
             },
             yAxis: [{
                 min: 0,
@@ -2029,6 +2062,13 @@ var tenders_common_qty_chart = {
             })
         }
 
+        tenders_common_qty_chart.chart.xAxis[0].update({labels:{
+            useHTML: true,
+            style:{
+                border: '1px solid rgb(135,150,164)'
+            }
+        }
+        }, false);
         tenders_common_qty_chart.chart.xAxis[0].setCategories(tenders_data.qty_years, false)
         tenders_common_qty_chart.chart.redraw();
         tenders_common_qty_chart.bindDrillDownEvent();
@@ -2058,6 +2098,13 @@ var tenders_common_qty_chart = {
         $.each (tenders_data['qty_drilldowns'][year][tenders_common_qty_chart.current_measure]['g_four'], function(i,val){
             series[months.indexOf(val[0])]=val[1];
         })
+        tenders_common_qty_chart.chart.xAxis[0].update({labels:{
+            useHTML: true,
+            style:{
+                border: '0px solid rgb(135,150,164)'
+            }
+        }
+        }, false);
         tenders_common_qty_chart.chart.series[0].setData(series, true);
 
 

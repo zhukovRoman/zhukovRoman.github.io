@@ -1685,6 +1685,7 @@ var tender_filter={
 }
 
 var tenders_common_charts = {
+    current_suffix: 'млрд',
     prices_chart: null,
     qty_chart: null,
     qty_drilldown_category: 'sum',
@@ -1703,10 +1704,11 @@ var tenders_common_charts = {
             },
             chart: {
                 type: 'column',
-                renderTo:'prices_chart'
+                renderTo:'prices_chart',
+                marginTop: 50
             },
             title: {
-                text: 'Общая стоимость конкурсов'
+                text: ''
             },
             xAxis: {
                 categories: tenders_data.years
@@ -1718,9 +1720,7 @@ var tenders_common_charts = {
                 },
                 labels: {
                     formatter: function () {
-
-                            return this.value/(1000*1000*1000) + ' млрд ₽';
-
+                            return this.value/(1000*1000*1000) + ' '+tenders_common_charts.current_suffix+' ₽';
                     }
                 }
             }],
@@ -1728,8 +1728,14 @@ var tenders_common_charts = {
                 column: {
                     dataLabels: {
                         enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+
+                        formatter: function(){
+                            var millValue = this.y/1000000;
+                            return thousands_sep((this.y/1000000).toFixed(0))
+                        },
                         style: {
+                            fontSize: '20px',
+                            font: '20px PT Sans, sans-serif'
                         }
                     }
                 }
@@ -1738,9 +1744,7 @@ var tenders_common_charts = {
                 formatter: function() {
                     var result = '<b>' + this.x + '</b>';
                     $.each(this.points, function(i, datum) {
-
                         result += '<br /> <i style="color: '+datum.point.series.color+'">' + datum.series.name + '</i>: ' + million_to_text(datum.y);
-
                     });
                     result += '<br />Среднее снижение цены ' + (this.points[0].point.percent).toFixed(2) + '%'
 
@@ -1791,95 +1795,97 @@ var tenders_common_charts = {
         var drilldownsSumm = {
             '2012': [[
                 {y:0, percent:0},
-                {y:9557, percent:4.48},
-                {y:15294, percent:7.30},
-                {y:559, percent:0.49},
-                {y:5801, percent:0.67},
-                {y:4474, percent:2.03},
-                {y:8136, percent:2.95},
-                {y:2511, percent:0.59},
-                {y:925, percent:4.0},
-                {y:2364, percent:4.45},
-                {y:4611, percent:5.24},
-                {y:14434, percent:8.29}
+                {y:9557000000, percent:4.48},
+                {y:15294000000, percent:7.30},
+                {y:559000000, percent:0.49},
+                {y:5801000000, percent:0.67},
+                {y:4474000000, percent:2.03},
+                {y:8136000000, percent:2.95},
+                {y:2511000000, percent:0.59},
+                {y:925000000, percent:4.0},
+                {y:2364000000, percent:4.45},
+                {y:4611000000, percent:5.24},
+                {y:14434000000, percent:8.29}
             ],
                 [
-                    {y:0, percent:0},
-                    {y:9123, percent:4.48},
-                    {y:14159, percent:7.30},
-                    {y:557, percent:0.49},
-                    {y:5749, percent:0.67},
-                    {y:4330, percent:2.03},
-                    {y:7792, percent:2.95},
-                    {y:2490, percent:0.59},
-                    {y:848, percent:4.0},
-                    {y:2256, percent:4.45},
-                    {y:4282, percent:5.24},
-                    {y:12793, percent:8.29}]
+                    {y:0000000, percent:0},
+                    {y:9123000000, percent:4.48},
+                    {y:14159000000, percent:7.30},
+                    {y:557000000, percent:0.49},
+                    {y:5749000000, percent:0.67},
+                    {y:4330000000, percent:2.03},
+                    {y:7792000000, percent:2.95},
+                    {y:2490000000, percent:0.59},
+                    {y:848000000, percent:4.0},
+                    {y:2256000000, percent:4.45},
+                    {y:4282000000, percent:5.24},
+                    {y:12793000000, percent:8.29}]
             ],
             '2013': [[
-                {y:5381, percent:3.35},
-                {y:3672, percent:4.44},
-                {y:27431, percent:5.18},
-                {y:25706, percent:4.94},
-                {y:3206, percent:4.18},
-                {y:259, percent:0},
-                {y:4003, percent:2.92},
-                {y:7214, percent:4.40},
-                {y:1251, percent:3.},
-                {y:2053, percent:3.49},
-                {y:942, percent:3.86},
-                {y:13544, percent:5.04}        ],
+                {y:5381000000, percent:3.35},
+                {y:3672000000, percent:4.44},
+                {y:27431000000, percent:5.18},
+                {y:25706000000, percent:4.94},
+                {y:3206000000, percent:4.18},
+                {y:259000000, percent:0},
+                {y:4003000000, percent:2.92},
+                {y:7214000000, percent:4.40},
+                {y:1251000000, percent:3.},
+                {y:2053000000, percent:3.49},
+                {y:942000000, percent:3.86},
+                {y:13544000000, percent:5.04}        ],
                 [
-                    {y:5202, percent:3.35},
-                    {y:3417, percent:4.44},
-                    {y:25414, percent:5.18},
-                    {y:23576, percent:4.94},
-                    {y:2996, percent:4.18},
+                    {y:5202000000, percent:3.35},
+                    {y:3417000000, percent:4.44},
+                    {y:25414000000, percent:5.18},
+                    {y:23576000000, percent:4.94},
+                    {y:2996000000, percent:4.18},
                     {y:0, percent:0},
-                    {y:3797, percent:2.92},
-                    {y:6572, percent:4.40},
-                    {y:1182, percent:3.28},
-                    {y:1983, percent:3.49},
-                    {y:913, percent:3.86},
-                    {y:12798, percent:5.04}]
+                    {y:3797000000, percent:2.92},
+                    {y:6572000000, percent:4.40},
+                    {y:1182000000, percent:3.28},
+                    {y:1983000000, percent:3.49},
+                    {y:913000000, percent:3.86},
+                    {y:12798000000, percent:5.04}]
             ],
             '2014': [[
-                {y:4846, percent:5.75},
-                {y:7985, percent:5.11},
-                {y:4061, percent:4.67},
-                {y:1997, percent:3.51},
-                {y:44558, percent:5.55},
-                {y:1700, percent:5.70},
-                {y:892, percent:5.08},
-                {y:2596, percent:7.13},
-                {y:14673, percent:3.35},
-                {y:342, percent:0}
+                {y:4846000000, percent:5.75},
+                {y:7985000000, percent:5.11},
+                {y:4061000000, percent:4.67},
+                {y:1997000000, percent:3.51},
+                {y:44558000000, percent:5.55},
+                {y:1700000000, percent:5.70},
+                {y:892000000, percent:5.08},
+                {y:2596000000, percent:7.13},
+                {y:14673000000, percent:3.35},
+                {y:342000000, percent:0}
             ],
                 [
-                    {y:4499, percent:5.75},
-                    {y:7592, percent:5.11},
-                    {y:4014, percent:4.67},
-                    {y:1942, percent:3.51},
-                    {y:42445, percent:5.55},
-                    {y:1641, percent:5.70},
-                    {y:848, percent:5.08},
-                    {y:2412, percent:7.13},
-                    {y:51, percent:3.35},
+                    {y:4499000000, percent:5.75},
+                    {y:7592000000, percent:5.11},
+                    {y:4014000000, percent:4.67},
+                    {y:1942000000, percent:3.51},
+                    {y:42445000000, percent:5.55},
+                    {y:1641000000, percent:5.70},
+                    {y:848000000, percent:5.08},
+                    {y:2412000000, percent:7.13},
+                    {y:51000000, percent:3.35},
                     {y:0, percent:0}]
             ]
         }
+        tenders_common_charts.current_suffix = 'млн'
         var months = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
         tenders_common_charts.prices_chart.xAxis[0].setCategories(months, false)
         tenders_common_charts.prices_chart.series[0].setData(drilldownsSumm[$(this).text()][0], false);
         tenders_common_charts.prices_chart.series[1].setData(drilldownsSumm[$(this).text()][1], true);
         tenders_common_charts.prices_chart.renderer.button('Назад',
             200,
-            10,
+            0,
             tenders_common_charts.returnYearChart).add();
     },
 
     returnYearChart: function(){
+        tenders_common_charts.current_suffix = 'млрд'
         $('#prices_chart .highcharts-button').remove();
         var series = tenders_common_charts.getPricesChartData();
         tenders_common_charts.prices_chart.xAxis[0].setCategories(tenders_data.years, false)
@@ -1917,10 +1923,11 @@ var tenders_common_qty_chart = {
             },
             chart: {
                 type: 'column',
-                renderTo:'qty_chart'
+                renderTo:'qty_chart',
+                marginTop: 50
             },
             title: {
-                text: 'Конкурсы по числу допущенных заявок'
+                text: ''
             },
             xAxis: {
                 categories: tenders_data.qty_years
@@ -1934,7 +1941,7 @@ var tenders_common_qty_chart = {
                     enabled: false,
                     style: {
                         fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        color: 'rgb(146,144,144);'
                     }
 
                 }
@@ -1965,13 +1972,21 @@ var tenders_common_qty_chart = {
                         enabled: true,
                         color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                         style: {
-                            textShadow: '0 0 3px black, 0 0 3px black'
+                            fontSize: '20px',
+                            font: '20px PT Sans, sans-serif'
                         },
                         formatter: function(){
-                            if (tenders_common_qty_chart.current_measure=='sum')
-                                return this.percentage.toFixed(0)+ ' %'+'<br>'+(this.y||0).toFixed(0)+ ' млрд'
-                            else
-                                return this.percentage.toFixed(0)+ ' %'+'<br>'+(this.y||0).toFixed(0)
+                            if (this.percentage<5.5)return '';
+                            if(tenders_common_qty_chart.is_drilldown==false){
+                                if (tenders_common_qty_chart.current_measure=='sum')
+                                    return (this.y||0).toFixed(0)+ ' млрд ('+this.percentage.toFixed(0)+ '%'+')'
+                                else
+                                    return (this.y||0).toFixed(0) +' ('+ this.percentage.toFixed(0)+ '%)'
+                            }
+                            else{
+                               return this.percentage.toFixed(0)+ '%'
+                            }
+
                             //return ""
                         }
                     }
@@ -2047,7 +2062,7 @@ var tenders_common_qty_chart = {
 
         tenders_common_qty_chart.chart.renderer.button('Назад',
             200,
-            10,
+            0,
             tenders_common_qty_chart.returnYearQtyChart).add();
     },
     redrawChart: function(){

@@ -66,8 +66,17 @@ Highcharts.kpugs = {
     },
     plotOptions:{
         column:{
-            borderWidth: '0'
+            borderWidth: '0',
+            dataLabeles:{
+                style: {
+                    color: 'rgb(146,144,144)',
+                    fontSize: '20px',
+                    font: '20px PT Sans, sans-serif'
+                }
+            }
         }
+
+
     }
 };
 

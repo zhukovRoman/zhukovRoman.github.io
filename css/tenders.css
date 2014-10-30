@@ -134,3 +134,10 @@
 .tender_chart{
     margin-top: 30px;
 }
+
+.ui-controlgroup, fieldset.ui-controlgroup{
+    margin: 0px;
+}
+h3{
+    color: rgb(146,144,144);
+}

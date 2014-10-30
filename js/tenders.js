@@ -108,15 +108,16 @@ var tenders_logic = {
         var tbody = $("#tenders_table tbody")
         var rows = '';
         $.each(data, function(i,t){
-            rows += "<tr><td>"+ t.object_address+tenders_logic.getObjectSeries(t)+"</td>" +
-                "<td>"+ t.object_power+"</td>"+
+            var power =  t.object_power==null ? '-': t.object_power.toFixed(0)
+            var power_price =  t.object_power==null ? '-' : thousands_sep((t.price_end/t.object_power).toFixed(0))
+                rows += "<tr><td>"+ t.object_address+tenders_logic.getObjectSeries(t)+"</td>" +
+                "<td>"+ power+"</td>"+
                 "<td>"+ t.type+"</td>"+
                 "<td>"+ t.organization+"</td>"+
-                "<td>"+ t.date_finish+"</td>"+
+                "<td>"+ moment(t.date_finish).format('DD/MM/YY')+"</td>"+
                 "<td>"+ t.bid_accept+"/"+t.bid_all+"</td>"+
-                "<td>"+ thousands_sep(t.price_start.toFixed(0))+" ₽</td>"+
-                "<td>"+ thousands_sep(t.price_end.toFixed(0))+" ("+
-                thousands_sep((t.price_end/t.object_power).toFixed(0))+") ₽</td>"+
+                "<td>"+ thousands_sep(t.price_start.toFixed(0))+"₽</td>"+
+                "<td>"+ thousands_sep(t.price_end.toFixed(0))+" ("+ power_price+") ₽</td>"+
                 "<td>"+ t.percent.toFixed(2)+"</td></tr>"
 
         })

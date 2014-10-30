@@ -1,16 +1,22 @@
 
-@font-face {
-    font-family: rouble; /* Гарнитура шрифта */
-    src: url(fonts/rouble.ttf); /* Путь к файлу со шрифтом */
-}
+/*@font-face {*/
+    /*font-family: rouble; *//* Гарнитура шрифта */
+    /*src: url(fonts/rouble.ttf); *//* Путь к файлу со шрифтом */
+/*}*/
 
+.status-bar{
+    height:40px;
+    background-color:white;
+    width:2048px;
+    background-image: url('images/status-bar-bg.png');
+}
 body{
     margin-top: 0px;
     margin-left: 20px;
     width: 2048px;
     height: 1536px;
     /*border: 1px solid;*/
-    font-family: 'rouble', 'PT Sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
     /*font-family:"Helvetica Neue",Helvetica,Arial,'PT Sans',sans-serif;*/
     font-weight: 300;
@@ -20,12 +26,17 @@ body{
     min-height: 1536px;
     background-color: rgb(241,237,226);
 }
-
+body.ui-mobile-viewport{
+    overflow: hidden;
+    height: 100%;
+}
 
 .ui-content{
     background-color: rgb(241,237,226);
-    max-height: 1436px;
-    height: 1436px;
+    max-height: 1386px;
+    height: 1386px;
+    padding: 15px;
+    /*margin: 0em;*/
 }
 
 .ui-header{
@@ -44,13 +55,13 @@ body{
 }
 .ui-page-theme-a .ui-bar-inherit{
     color: #ffffff;
-    height: 80px;
+    min-height: 80px;
 }
 
 #left-menu{
     margin-top: 0px;
     width: 180px;
-    height: 1516px;
+    height: 1496px;
     background-color: rgb(131,152,165);
     float: left;
     background-image: url("images/left-menu-bg.png");
@@ -72,8 +83,8 @@ body{
 }
 
 .menu-item{
-   padding-top: 31px;
-   padding-bottom: 31px;
+   padding-top: 29px;
+   padding-bottom: 29px;
 }
 
 .menu-item-active{
@@ -141,12 +152,12 @@ ul{
 
 .right-side  {
     margin-left: 180px;
-    max-width: 1848px;
-    min-width: 1848px;
-    margin-top: 00px;
+    max-width: 1868px;
+    min-width: 1868px;
+    margin-top: 40px;
     /*max-height: 1536px;*/
     min-height: 1536px;
-    height: 1516px;
+    height: 1416px;
     font-size: 1.8em;
     background-color: rgb(241,237,226);
 }

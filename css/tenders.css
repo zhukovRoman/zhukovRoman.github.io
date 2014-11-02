@@ -16,20 +16,21 @@
     margin-right: 20px;
 }
 
-.ui-page-theme-a .ui-btn.ui-btn-active, .ui-page-theme-a .ui-btn:hover{
+.ui-page-theme-a .ui-btn.ui-btn-active, .ui-page-theme-a .ui-btn.ui-btn-active:hover{
     background-color: rgb(115,189,208);
     border-color: rgb(115,189,208);
     color: rgb(241,237,226);
     text-shadow: none;
-    font-size: 21px;
+    /*font-size: 21px;*/
     font-weight: normal;
+
 }
-.ui-page-theme-a .ui-btn{
+.ui-page-theme-a .ui-btn, .ui-page-theme-a .ui-btn:hover {
     background-color:rgb(241,237,226);
     border-color:  rgb(115,189,208);
     color:  rgb(115,189,208);
     text-shadow: none;
-    font-size: 21px;
+    font-size: 22px;
     font-weight: normal;
 }
 

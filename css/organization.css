@@ -47,5 +47,6 @@
 #org_list{
     height: 1300px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 

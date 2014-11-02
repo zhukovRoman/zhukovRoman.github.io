@@ -90,7 +90,7 @@
                      <input type="radio" name="tender-chart" id="radio-choice-h-2a" data-div="price_percent_chart" data-chart="PricePercentChart">
                      <label for="radio-choice-h-2a">среднее снижение</label>
                      <input type="radio" name="tender-chart" id="radio-choice-h-2b" data-div="qty_line_chart" data-chart="QtyChart">
-                     <label for="radio-choice-h-2b">завки</label>
+                     <label for="radio-choice-h-2b">заявки</label>
                      <input type="radio" name="tender-chart" id="radio-choice-h-2c" data-div="sum_chart" data-chart="SummChart">
                      <label for="radio-choice-h-2c">сумма</label>
                      <input type="radio" name="tender-chart" id="radio-choice-h-3c" data-div="count_chart" data-chart="CountChart">
@@ -251,7 +251,7 @@
 
 <script type="text/javascript">
     $(function() {
-        FastClick.attach(document.body);
+        FastClick.attach($('#filter'));
     });
     $(function(){
         tenders_logic.init();

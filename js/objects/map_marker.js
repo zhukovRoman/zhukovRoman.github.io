@@ -404,10 +404,10 @@ filter_map_points = function(){
             points.push(new ymaps.Placemark([val.lat,val.lng], {
                 name: "Объект №012-0896",
                 clusterCaption: 'Объект №012-0896',
-                balloonContentBody: "<div><a href='/object/view?id="+val.id+"'>"+val.adress+"</a></div>"+
+                balloonContentBody: "<div><a href='/object_view.html?id="+val.id+"'>"+val.adress+"</a></div>"+
                     "<div> <b> Мощность: </b>"+val.power+" "+val.power_measure+"</div>"+
-                    "<div> <b> Срок ввода по АИП: </b>"+val.year+"</div>",
-                balloonContentFooter: 'Карточка объекта: <a target="_blank" href="/object/view?id='+val.id+'">открыть</a>'
+                    "<div> <b> Срок ввода по АИП: </b>"+val.year+"</div>"
+                //balloonContentFooter: 'Карточка объекта: <a target="_blank" href="/object/view?id='+val.id+'">открыть</a>'
             },	{
                 preset: MarkersApointmentColours[val.appointment]
             }))

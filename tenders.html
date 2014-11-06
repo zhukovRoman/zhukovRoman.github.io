@@ -15,7 +15,6 @@
 
     <script type="text/javascript" src="js/fastclick.js"></script>
 
-
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/tenders.css">
 
@@ -67,37 +66,37 @@
     <!--<div data-role="header" data-position="fixed">-->
     <div data-role="header">
         <a href="#" id='back-button' data-icon="arrow-l" class="ui-btn-left" onclick="tenders_logic.showChartsPart()" style="display: none">Назад</a>
-        <h1>Конкурсы</h1>
-        <a href="#" class="ui-btn-right" onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>
+        <h1>Конкурсы<span class="spinner"></span></h1>
+        <a href="#" id="common-button" class="ui-btn-right" onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>
 
     </div>
     <div data-role="content"  id="charts_content">
-         <div class='tenders-tabs'>
-             <form>
-                 <div class="tender-tabs-group-name">Стоимость</div>
-                 <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs">
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1a" data-div="house_m2_price" data-chart="PriceM2HouseChart" checked="checked">
-                     <label for="radio-choice-h-1a">м2 жилья</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1b" data-div="social_place_price"  data-chart="PriceSocialPrice" >
-                     <label for="radio-choice-h-1b">место социалки</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1c" data-div="uk_notuk_chart"  data-chart="UKHouseChart">
-                     <label for="radio-choice-h-1c">м2 жилья по УК/не УК</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-1d" data-div="uk_notuk_social_chart"  data-chart="UKSocialChart">
-                     <label for="radio-choice-h-1d">место социалки по УК/не УК</label>
-                 </fieldset>
-                 <div class="tender-tabs-group-name">Конкурсы</div>
-                 <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs2">
-                     <input type="radio" name="tender-chart" id="radio-choice-h-2a" data-div="price_percent_chart" data-chart="PricePercentChart">
-                     <label for="radio-choice-h-2a">среднее снижение</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-2b" data-div="qty_line_chart" data-chart="QtyChart">
-                     <label for="radio-choice-h-2b">заявки</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-2c" data-div="sum_chart" data-chart="SummChart">
-                     <label for="radio-choice-h-2c">сумма</label>
-                     <input type="radio" name="tender-chart" id="radio-choice-h-3c" data-div="count_chart" data-chart="CountChart">
-                     <label for="radio-choice-h-3c">число</label>
-                 </fieldset>
-             </form>
-         </div>
+        <div class='tenders-tabs'>
+            <form>
+                <div class="tender-tabs-group-name">Стоимость</div>
+                <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs">
+                    <input type="radio" name="tender-chart" id="radio-choice-h-1a" data-div="house_m2_price" data-chart="PriceM2HouseChart" checked="checked">
+                    <label for="radio-choice-h-1a">м2 жилья</label>
+                    <input type="radio" name="tender-chart" id="radio-choice-h-1b" data-div="social_place_price"  data-chart="PriceSocialPrice" >
+                    <label for="radio-choice-h-1b">место социалки</label>
+                    <input type="radio" name="tender-chart" id="radio-choice-h-1c" data-div="uk_notuk_chart"  data-chart="UKHouseChart">
+                    <label for="radio-choice-h-1c">м2 жилья по УК/не УК</label>
+                    <input type="radio" name="tender-chart" id="radio-choice-h-1d" data-div="uk_notuk_social_chart"  data-chart="UKSocialChart">
+                    <label for="radio-choice-h-1d">место социалки по УК/не УК</label>
+                </fieldset>
+                <div class="tender-tabs-group-name">Конкурсы</div>
+                <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs2">
+                    <input type="radio" name="tender-chart" id="radio-choice-h-2a" data-div="price_percent_chart" data-chart="PricePercentChart">
+                    <label for="radio-choice-h-2a">среднее снижение</label>
+                    <input type="radio" name="tender-chart" id="radio-choice-h-2b" data-div="qty_line_chart" data-chart="QtyChart">
+                    <label for="radio-choice-h-2b">заявки</label>
+                    <input type="radio" name="tender-chart" id="radio-choice-h-2c" data-div="sum_chart" data-chart="SummChart">
+                    <label for="radio-choice-h-2c">сумма</label>
+                    <input type="radio" name="tender-chart" id="radio-choice-h-3c" data-div="count_chart" data-chart="CountChart">
+                    <label for="radio-choice-h-3c">число</label>
+                </fieldset>
+            </form>
+        </div>
         <div id="tender-charts-content">
             <div>
                 <div id="house_m2_price" class="tender_chart " style="height: 1000px; width: 1100px; float: left"></div>
@@ -228,39 +227,40 @@
         </table>
     </div>
     <div data-role="content" style="display: none;" id="common_charts">
-         <h3 >Общая стоимость конкурсов</h3>
-         <div id="prices_chart" style="width: 1800px; height: 580px;"></div>
-         <h3 style="float: left">Конкурсы по числу допущенных заявок</h3>
-            <form style="float: right; margin-top: 35px">
-                <fieldset data-role="controlgroup" data-type="horizontal" id="qty-measure-tabs">
-                    <input type="radio" name="tender-chart" id="sum" checked="checked">
-                    <label for="sum">Сумма</label>
-                    <input type="radio" name="tender-chart" id="count" >
-                    <label for="count">Количество</label>
-                </fieldset>
-            </form>
-         <div id="qty_chart" style="width: 1800px; height: 580px;"></div>
+        <h3 >Общая стоимость конкурсов</h3>
+        <div id="prices_chart" style="width: 1800px; height: 580px;"></div>
+        <h3 style="float: left">Конкурсы по числу допущенных заявок</h3>
+        <form style="float: right; margin-top: 35px">
+            <fieldset data-role="controlgroup" data-type="horizontal" id="qty-measure-tabs">
+                <input type="radio" name="tender-chart" id="sum" checked="checked">
+                <label for="sum">Сумма</label>
+                <input type="radio" name="tender-chart" id="count" >
+                <label for="count">Количество</label>
+            </fieldset>
+        </form>
+        <div id="qty_chart" style="width: 1800px; height: 580px;"></div>
     </div>
 </div>
 </body>
 
-<script type="text/javascript" src="js/tenders.js"></script>
 <script type="text/javascript" src="js/my_common_scripts.js"></script>
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/tenders.js"></script>
 <script type="text/javascript" src="js/data/tenders.js"></script>
 
 
 <script type="text/javascript">
 
     $(function(){
+        //data_saver.getData();
         tenders_logic.init();
-        tender_filter.bindCheckBoxEvents();
-        tenders_common_charts.init();
-        tenders_common_qty_chart.init();
+
+
     })
 
-//    $(function() {
-//        FastClick.attach(document.getElementById('tender-filter'));
-//    });
+    $(function() {
+        FastClick.attach(document.getElementById('tender-filter'));
+    });
 
 </script>
 </html>

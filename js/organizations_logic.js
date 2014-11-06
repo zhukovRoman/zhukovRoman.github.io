@@ -228,7 +228,8 @@ var organizations_logic = {
                 $(row).addClass('danger');
             row.innerHTML = "<td>"+(i+1)+"</td><td>"+val.region+"</td>"+
                 "<td>"+val.year+"</td>"+
-                "<td>"+organizations_logic.get_url_for_object_view(val.id, val.address)+"</td>"+
+                //"<td>"+organizations_logic.get_url_for_object_view(val.id, val.address)+"</td>"+
+                "<td>"+val.address+"</td>"+
                 "<td>"+val.status+"</td>"+
                 "<td>"+thousands_sep(val.contract_sum)+" ₽</td>"+
                 "<td>"+val.network+'/'+val.network_delay+"</td>"+

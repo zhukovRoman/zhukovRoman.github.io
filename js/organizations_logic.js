@@ -201,7 +201,7 @@ var organizations_logic = {
             row.innerHTML = "<td>"+val.TenderSName+"</td>"+
                 "<td>"+date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear()+"</td>"+
                 "<td>"+thousands_sep(val.TenderPriceBegin)+" ₽</td>"+
-                "<td>"+thousands_sep(val.TenderPriceEnd.toFixed(0))+" ₽</td>"+
+                "<td>"+thousands_sep((val.TenderPriceEnd||0).toFixed(0))+" ₽</td>"+
                 "<td>"+val.TenderProcentDecline.toFixed(2)+"</td>"+
                 "<td>"+val.TenderQtyPresent+"/"+val.TenderQtyAccept+"</td>";
             tenders_table.appendChild(row);

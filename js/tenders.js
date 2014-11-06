@@ -12,10 +12,19 @@ var tenders_logic = {
         $(".type-filter.filter input").change(tender_filter.refreshCheckboxStatuses)
         this.changeActiveChart();
 
+        tender_filter.bindCheckBoxEvents();
+
+        tenders_common_charts.init();
+        tenders_common_qty_chart.init();
+
     },
     changeActiveChart: function(){
         $("#tender-charts-content div.tender_chart").hide();
         var active_tab =   $(".tenders-tabs input:checked")
+        var id = active_tab.attr('id');
+        var active_label = $('label[for='+id+']')
+        $(".tenders-tabs label").removeClass('ui-btn-active');
+        active_label.addClass('ui-btn-active')
         tenders_logic.current_chart =  tenders_charts[active_tab.attr('data-chart')]
         tenders_logic.current_chart.redrawChart();
         $("#"+active_tab.attr('data-div')).show();
@@ -124,9 +133,12 @@ var tenders_logic = {
         tbody[0].innerHTML = rows;
     } ,
     filterTendersForTable: function(type, month, year, enter_year, uk_flag){
-//        console.log(type, month, year, enter_year, uk_flag );
+        console.log(type, month, year, enter_year, uk_flag );
+
+
         var tenders = [];
-        if (type!=''||type!=null){
+        if (type!=null){
+            console.log('type')
             //iterate by objsData and social or house
             $.each(objects_tenders, function (i,obj){
 
@@ -166,9 +178,16 @@ var tenders_logic = {
             })
             return tenders;
         }
+
+
+        //console.log(year, month)
+        if (month!=null )  month = $.inArray(month, months_short)+1;
         $.each(tender_filter.getFilteredTenders(), function (i, t){
-            if(year!='' && t.year_finish!=year) return;
-            if (month!='' && t.month_finish!=month) return;
+            if(year!=null && t.year_finish!=year) return;
+            if (month!=null ) {
+                if (t.month_finish!=month) return;
+            }
+
             tenders.push({
                 object_address: t.object_address,
                 series: t.series,
@@ -196,10 +215,13 @@ var tenders_logic = {
     },
     objectHaveUKTenderOnly : function(obj){
         var not_uk_exist = false;
+        if (obj.tenders.length==1 && obj.tenders[0].type == 'Страхование СМР' )  return false;
         $.each(obj.tenders, function(i,tender){
-            if (tender.type != 'управляющая компания')
+
+            if (!(tender.type == 'управляющая компания' || tender.type == 'Страхование СМР'))
                 not_uk_exist = true;
         })
+        if (!not_uk_exist) console.log(obj.tenders)
         return !not_uk_exist;
     },
     objectDontHaveUKTenders: function(obj){
@@ -526,7 +548,11 @@ var tenders_charts={
             var prices_uk = {};
             var prices_not_uk = {};
             $.each(objects_tenders, function (i,obj){
+                //console.log('before uk or not uk ',
+                //    $.inArray(obj.appointment, tender_filter.getHouseAppointmentsFilter()),
+                //    $.inArray(obj.series, tender_filter.getLivingTypeFilter()));
                 if ($.inArray(obj.appointment, tender_filter.getHouseAppointmentsFilter())==-1) return;
+                //if (tender_filter.getLivingTypeFilter().length==0 && tender_filter.getHouseAppointmentsFilter().length==1 && tender_filter.getHouseAppointmentsFilter()[0]=='инженерия')
                 if ($.inArray(obj.series, tender_filter.getLivingTypeFilter())==-1) return;
 
                 if (tenders_logic.objectHaveUKTenderOnly(obj)==false && tenders_logic.objectDontHaveUKTenders(obj)==false) return;
@@ -576,6 +602,7 @@ var tenders_charts={
             if(this.chart==null) this.createChart()
             else {
                 var data = this.getData();
+                console.log(data)
                 this.chart.xAxis[0].setCategories(data[0],false)
                 this.chart.series[0].setData(data[1],false)
                 this.chart.series[1].setData(data[2])
@@ -848,13 +875,13 @@ var tenders_charts={
                 150,
                 10,
                 chart.createChart).add();
-            chart.chart.xAxis[0].setCategories(months,false);
+            chart.chart.xAxis[0].setCategories(months_short,false);
             var series = chart.getDrilldownData()[year]
             var data = [];
 
             $.each(series.data, function(i,val){
                 if (val[1]!=null)
-                    data.push([months.indexOf(val[0]), val[1]])
+                    data.push([months_short.indexOf(val[0]), val[1]])
             })
             chart.chart.xAxis[0].update({labels:{
                 useHTML: true,
@@ -1035,7 +1062,7 @@ var tenders_charts={
                 150,
                 10,
                 chart.createChart).add();
-            chart.chart.xAxis[0].setCategories(months,false);
+            chart.chart.xAxis[0].setCategories(months_short,false);
             var series = chart.getDrilldownData()[year]
 
             chart.chart.xAxis[0].update({labels:{
@@ -1230,7 +1257,7 @@ var tenders_charts={
                 }
             }
             }, false);
-            chart.chart.xAxis[0].setCategories(months,false)
+            chart.chart.xAxis[0].setCategories(months_short,false)
             chart.chart.series[0].setData(data['sum'][0],false)
             chart.chart.series[1].setData(data['sum'][1],false)
             chart.chart.series[2].setData(data['sum'][2],true)
@@ -1406,7 +1433,7 @@ var tenders_charts={
                 10,
                 chart.createChart).add();
             var data= chart.getDrilldownData(chart.current_year);
-            chart.chart.xAxis[0].setCategories(months,false)
+            chart.chart.xAxis[0].setCategories(months_short,false)
             while(chart.chart.series.length > 0)
                 chart.chart.series[0].remove(false);
 
@@ -1476,7 +1503,7 @@ var tender_filter={
         $.each($(this.id+" div.house-appointmets input:checked"), function(i,val){
             res.push($(val).attr('data-value'))
         })
-        if(this.getLivingTypeFilter().length>0) res.push('жилье')
+        if($(this.id+" div.living_types input:checked").length>0) res.push('жилье')
         return res;
 
     },
@@ -1485,6 +1512,10 @@ var tender_filter={
         $.each($(this.id+" div.living_types input:checked"), function(i,val){
             res.push($(val).attr('data-value'))
         })
+
+        //хак! когда выделена только инженерия, то нам пофиг на серию объекта.
+        if(tender_filter.getHouseAppointmentsFilter().length==1 && tender_filter.getHouseAppointmentsFilter()[0]=='инженерия')
+        res = ["Сер","Инд"];
         return res;
     },
     getSocialFilter: function(){
@@ -1884,7 +1915,7 @@ var tenders_common_charts = {
             ]
         }
         tenders_common_charts.current_suffix = 'млн'
-        var months = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+        //var months = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
 
         tenders_common_charts.prices_chart.xAxis[0].update({labels:{
             useHTML: true,
@@ -1893,7 +1924,7 @@ var tenders_common_charts = {
             }
         }
         }, false);
-        tenders_common_charts.prices_chart.xAxis[0].setCategories(months, false)
+        tenders_common_charts.prices_chart.xAxis[0].setCategories(months_short, false)
         tenders_common_charts.prices_chart.series[0].setData(drilldownsSumm[$(this).text()][0], false);
         tenders_common_charts.prices_chart.series[1].setData(drilldownsSumm[$(this).text()][1], true);
         tenders_common_charts.prices_chart.renderer.button('Назад',
@@ -2075,28 +2106,28 @@ var tenders_common_qty_chart = {
     },
     drilldownChart: function(){
         tenders_common_qty_chart.is_drilldown = true;
-        var months = ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"];
+        //var months = ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сен", "Окт", "Ноя", "Дек"];
 
         var year = tenders_common_qty_chart.selected_year
         var series = [null, null, null, null, null, null, null, null, null, null, null, null];
-        tenders_common_qty_chart.chart.xAxis[0].setCategories(months, false)
+        tenders_common_qty_chart.chart.xAxis[0].setCategories(months_short, false)
         $.each (tenders_data['qty_drilldowns'][year][tenders_common_qty_chart.current_measure]['one'], function(i,val){
-            series[months.indexOf(val[0])]=val[1];
+            series[months_short.indexOf(val[0])]=val[1];
         })
 
         tenders_common_qty_chart.chart.series[2].setData(series, false);
 
         var series = [null, null, null, null, null, null, null, null, null, null, null, null];
-        tenders_common_qty_chart.chart.xAxis[0].setCategories(months, false)
+        tenders_common_qty_chart.chart.xAxis[0].setCategories(months_short, false)
         $.each (tenders_data['qty_drilldowns'][year][tenders_common_qty_chart.current_measure]['two_four'], function(i,val){
-            series[months.indexOf(val[0])]=val[1];
+            series[months_short.indexOf(val[0])]=val[1];
         })
         tenders_common_qty_chart.chart.series[1].setData(series, false);
 
         var series = [null, null, null, null, null, null, null, null, null, null, null, null];
-        tenders_common_qty_chart.chart.xAxis[0].setCategories(months, false)
+        tenders_common_qty_chart.chart.xAxis[0].setCategories(months_short, false)
         $.each (tenders_data['qty_drilldowns'][year][tenders_common_qty_chart.current_measure]['g_four'], function(i,val){
-            series[months.indexOf(val[0])]=val[1];
+            series[months_short.indexOf(val[0])]=val[1];
         })
         tenders_common_qty_chart.chart.xAxis[0].update({labels:{
             useHTML: true,

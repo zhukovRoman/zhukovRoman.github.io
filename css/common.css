@@ -50,6 +50,16 @@ body.ui-mobile-viewport{
     text-shadow: none;
 }
 
+.spinner{
+    background-image: url('images/spiffygif_58x58.gif');
+    width: 58px;
+    height: 58px;
+
+    margin-top: -20px;
+    float: right;
+    display: none;
+}
+
 .ui-page-theme-a{
     text-shadow: none;
 }

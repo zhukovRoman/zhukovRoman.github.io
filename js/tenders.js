@@ -94,12 +94,15 @@ var tenders_logic = {
         $('#table_content').hide();
         $('#common_charts').hide();
         $('#charts_content').show();
+        $('#common-button').show();
         $('#back-button').hide();
     },
     showCommonInfo: function(){
         $('#charts_content').hide();
         $('#common_charts').show();
         $('#back-button').show();
+        $('#common-button').hide();
+
     },
     showTendersTable: function(){
         var type = tenders_logic.current_chart.type||null
@@ -111,6 +114,7 @@ var tenders_logic = {
         $('#charts_content').hide();
         $('#table_content').show();
         $('#back-button').show();
+        $('#common-button').hide();
 
     },
     bindTableRows: function(data){
@@ -847,7 +851,7 @@ var tenders_charts={
                 tmp_res[val.year_finish]['count'] ++;
             })
             $.each(tmp_res, function(i,val){
-                res.push({y:parseFloat((val.percent/val.count).toFixed(0)), name: i});
+                res.push({y:parseFloat((val.percent/val.count).toFixed(2)), name: i});
             })
             return res
         },

@@ -1,6 +1,6 @@
 function thousands_sep (value)
 {
-    return (value||'').toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return (value||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
 function million_to_text (value){
@@ -11,4 +11,14 @@ var months = ["", "Январь", "Февраль", "Март", "Апрель", 
 var months_short = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
 $.mobile.buttonMarkup.hoverDelay = 330;
 $.support.cors = true;
+
+
+window.onerror = function(message, source, lineno) {
+    alert('Упс, произошла ошбика! '+"\n" +
+        "Для корректной дальнейшей работы следует перезагрузить приложение." +"\n" +
+        "Ошибка:"+message +"\n" +
+        "файл:" + source + "\n" +
+        "строка:" + lineno);
+};
+
 

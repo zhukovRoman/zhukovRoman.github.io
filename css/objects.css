@@ -10,35 +10,10 @@
     font-size: 17pt;
 }
 
-.add-filters-action{
-    float: right;
+.ui-btn-inline{
+    margin-right: 0px;
 }
 
-.filter{
-    font-size: 20pt;
-    background-color: #e9e9e9;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    padding: 9px;
-}
-
-.add-filters-action{
-    font-size: 18pt;
-    color: gray;
-}
-
-.horizontal-line{
-    width: 100%;
-    border-bottom: 4px solid;
-}
-
-.small-line{
-    border-bottom: 3px solid dimgray;
-}
-
-.group-filter{
-    margin-top: 20px;
-}
 
 #documents-filter label {
     font-size: 19pt;
@@ -68,5 +43,45 @@
 .ui-content .ui-listview{
     margin: 0em;
 }
+
+
+#objects-list a, #objects-list a:visited  {
+    font-size: 21pt;
+    height: 90px;
+    padding: 0px;
+    background-color: transparent;
+    color: rgb(115,189,208)
+}
+#objects-list a:hover{
+    margin-right: 0;
+}
+#objects-list li {
+    background-color: transparent;
+    border: 1px solid rgb(115,189,208);
+}
+
+#objects-list a>div {
+    margin-left: 20px;
+    white-space: normal;
+    width: 950px;
+    /*float: left;*/
+    /*height: 100%;*/
+    display: table-cell;
+    vertical-align: middle;
+    height: 90px;
+    padding-left: 20px;
+}
+#objects-list a>div:first-child {
+    width: 100px;
+    border-right: 1px solid rgb(115,189,208);
+}
+#objects-list a>div:last-child {
+    width: 100px;
+    border-left: 1px solid rgb(115,189,208);
+    /*float: right;*/
+    margin-right: 50px;
+}
+
+
 
 

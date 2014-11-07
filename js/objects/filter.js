@@ -17,13 +17,15 @@ var filter = {
     insertYearsIntoFilter: function(){
         var container = $(this.id+" div.years")
         $.each(this.years, function(i, year){
-            container.append('<input type="checkbox" data-value="'+year+'" data-role="none" checked >'+year);
+            var html = '<input type="checkbox" data-role="none" data-value="'+year+'" checked id="y'+i+'"> <label for="y'+i+'">'+year+'</label>'
+            container.append(html);
         })
     },
     insertDistinctsIntoFilter: function(){
         var container = $(this.id+" div.distincts")
         $.each(this.distincts, function(i, dist){
-            container.append('<input type="checkbox" data-role="none" data-value="'+dist.ObjectRegionName+'"checked>'+dist.ObjectRegionName);
+            var html = '<input type="checkbox" data-role="none" data-value="'+dist.ObjectRegionName+'" checked id="d'+i+'"> <label for="d'+i+'">'+dist.ObjectRegionName+'</label>'
+            container.append(html);
         })
     },
     getYearsFilter: function(){

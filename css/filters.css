@@ -1,0 +1,96 @@
+.filter{
+    font-size: 20pt;
+    background-color: rgb(247,244,237);
+    margin-bottom: 20px;
+    border-radius: 15px;
+    /*padding: 9px;*/
+}
+
+#tender-filter input[type=checkbox],
+#object-filter input[type=checkbox] {
+    display: none;
+}
+
+.filter-part>label,  .living_types > label,
+.appointments>label, .types > label,
+.distincts > label, .years > label{
+    display: inline-block;
+    font-size: 25px;
+    color: rgb(146,144,144);
+    background-image: url("images/checkbox.png");
+    background-repeat: no-repeat;
+    width: 40%;
+    padding: 10px 5px;
+    padding-left: 45px;
+    background-position-y: 6px;
+}
+.distincts > label, .years > label{
+    width: 21%;
+}
+#object-filter .appointment-filter>label{
+    width: 175px;
+}
+#object-filter label{
+    margin-bottom: 0px;
+}
+
+.filter-part>label{
+
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.filter-part>input[type=checkbox]:checked + label,
+.living_types > input[type=checkbox]:checked + label,
+.appointments > input[type=checkbox]:checked + label,
+.types > input[type=checkbox]:checked + label,
+.years > input[type=checkbox]:checked + label,
+.distincts > input[type=checkbox]:checked + label{
+    background-image: url("images/checkbox_checked.png");
+}
+
+.group-filter-header>input[type=checkbox]:checked + label{
+    background-image: url("images/checkbox_checked.png");
+}
+
+.group-filter-header{
+    height: 60px;
+    background-color: rgb(110,185,202);
+    padding: 10px;
+}
+
+.group-filter-header-first{
+    border-radius: 15px 15px 0px 0px;
+}
+
+.group-filter-header > label{
+    font-size: 28px;
+    color: white;
+    font-weight: normal;
+    text-transform: uppercase;
+    display: inline-block;
+    padding-left: 45px;
+    background-image: url("images/checkbox.png");
+    background-repeat: no-repeat;
+    padding-bottom: 4px;
+    margin-top: 15px;
+    padding-top: 6px;
+
+}
+.group-filter-header>.add-filters-action{
+    margin-right: 10px;
+    margin-top: 15px;
+    color: rgb(247,244,237);
+}
+
+.living_types, .appointments, .types, .distincts, .years {
+    padding: 10px;
+}
+
+.add-filters-action{
+    font-size: 18pt;
+    color: gray;
+    float: right;
+    display: inline-block;
+    padding-top: 5px;
+}

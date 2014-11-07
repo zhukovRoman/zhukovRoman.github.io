@@ -10,12 +10,13 @@
     <script src="js/jq.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/hc-theme.js"></script>
     <script src="http://api-maps.yandex.ru/2.0.18/?load=package.standard,package.clusters&lang=ru-RU" type="text/javascript"></script>
     <!--<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>-->
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/objects.css">
-
+    <link rel="stylesheet" type="text/css" href="css/filters.css">
     <link rel="stylesheet" type="text/css" href="css/object_view.css">
 </head>
 <body >
@@ -65,7 +66,7 @@
         <div data-role="header">
             <h1>Объекты</h1>
         </div>
-        <div data-role="content" style="background-color: #ffffff">
+        <div data-role="content">
             <div class="content-side" data-role="none" id="charts-content">
                 <div>
                     <form>
@@ -86,12 +87,12 @@
                 <div>
                     <div id='document-chart' style="width: 600px; height: 900px; float: left "></div>
                     <div id='finance-chart' style="width: 600px; height: 900px; float: right"></div>
-                    <div id='work-chart' style="width: 1250px; height: 400px; float: left"></div>
+                    <div id='work-chart' style="width: 1250px; height: 250px; float: left; margin-top: 50px"></div>
                 </div>
             </div>
             <div class="content-side" data-role="none" id="list-content">
                 <div>
-                    <ul data-role="listview" id="objects-list" class="object-list"></ul>
+                    <ul data-role="listview" id="objects-list" class="object-list" data-filter="true" data-filter-placeholder="Поиск объекта по названию…" data-inset="true"></ul>
                 </div>
             </div>
             <div class="content-side" data-role="none" id="map-content">
@@ -108,69 +109,97 @@
             </div>
             <div class="content-side" data-role="none" id="list-overdue-content">
                 <div>
-                    <ul data-role="listview" id="ovedue-objects-list" class="object-list">
+                    <ul data-role="listview" id="ovedue-objects-list" class="object-list" >
                     </ul>
                 </div>
             </div>
-            <div class="filter-side" data-role="none" id = "filter">
-                  <div class="">Вид данных:
+            <div class="filter-side" data-role="none" id = "object-filter">
+                  <div class="">Вид:
                       <button id='chart-button' class="ui-btn ui-btn-inline ui-btn-b">График</button>
                       <button id='list-button' class="ui-btn ui-btn-inline">Списком</button>
                       <button id='map-button' class="ui-btn ui-btn-inline">На карте</button>
                   </div>
-                 <div class="appointment-filter filter" >
-                         <input type="checkbox" data-role="none" checked>ОБЪЕКТЫ
-                         <span id="select-all-appointments" class="add-filters-action">Выделить все</span>
-                         <div class="horizontal-line"></div>
-                         <div class="group-filter">
-                            <input type="checkbox" data-role="none" checked>Жилище
-                            <span class="add-filters-action">Выделить все</span>
-                            <div class="appointments">
-                                <input type="checkbox" data-role="none" data-value="жилье" checked>Жилье
-                                <input type="checkbox" data-role="none" data-value="инженерия" checked>Инженирия
-                            </div>
-                         </div>
+                <div class="filter-part">
+                    <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">
+                    <label for="checkbox-all-appointments">Объекты</label>
+                    <span id="select-all-appointments" class="add-filters-action">Выделить все</span>
+                </div>
 
-                         <div class="horizontal-line small-line"></div>
-                            <div class="group-filter">
-                             <input type="checkbox" data-role="none" checked>Социальные объекты
-                             <span class="add-filters-action">Выделить все</span>
-                             <div class="appointments">
-                                 <input type="checkbox" data-role="none" data-value="БНК" checked>БНК
-                                 <input type="checkbox" data-role="none" data-value="ДОУ" checked>ДОУ
-                                 <input type="checkbox" data-role="none" data-value="ФОК" checked>ФОК
-                                 <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked>Спорт-ФОК
-                                 <input type="checkbox" data-role="none" data-value="школа" checked>Школа
-                                 <input type="checkbox" data-role="none" data-value="Поликлиника" checked>Поликлиника
-                             </div>
-                         </div>
-                         <div class="horizontal-line small-line"></div>
-                         <div class="group-filter">
-                             <input type="checkbox" data-role="none" checked>Прочие
-                             <span class="add-filters-action">Выделить все</span>
-                             <div class="appointments">
-                                 <input type="checkbox" data-role="none" data-value="Поликлиника" checked>Дороги
-                                 <input type="checkbox" data-role="none" data-value="переход" checked>Переход
-                                 <input type="checkbox" data-role="none" data-value="Прочие объекты" checked>Прочие
-                             </div>
-                         </div>
-                 </div>
+                <div class="appointment-filter filter" >
+                    <div class="group-filter">
+                        <div class="group-filter-header group-filter-header-first">
+                            <input type="checkbox" data-role="none" checked id="select-all-living">
+                            <label for="select-all-living">Жилище</label>
+                            <span class="add-filters-action">Снять выделение</span>
+                        </div>
+                        <div class="appointments appointment-filter ">
+                            <input type="checkbox" data-role="none" data-value="жилье" checked id="ap1">
+                            <label for="ap1">Жилье</label>
+                            <input type="checkbox" data-role="none" data-value="инженерия" checked id="ap3">
+                            <label for="ap3">Инженерия</label>
+                        </div>
+                    </div>
+                    <div class="group-filter">
+                        <div class="group-filter-header">
+                            <input type="checkbox" data-role="none" checked id="select-all-social">
+                            <label for="select-all-social">Социалька</label>
+                            <span class="add-filters-action">Снять выделение</span>
+                        </div>
+
+                        <div class="appointments appointment-filter ">
+                            <input type="checkbox" data-role="none" data-value="БНК" checked id="ap4">
+                            <label for="ap4">БНК</label>
+                            <input type="checkbox" data-role="none" data-value="ДОУ" checked id="ap5">
+                            <label for="ap5">ДОУ</label>
+                            <input type="checkbox" data-role="none" data-value="ФОК" checked id="ap6">
+                            <label for="ap6">ФОК</label>
+                            <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked id="ap7">
+                            <label for="ap7">Спорт-ФОК</label>
+                            <input type="checkbox" data-role="none" data-value="школа" checked id="ap8">
+                            <label for="ap8">Школа</label>
+                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap9">
+                            <label for="ap9">Поликлиника</label>
+                        </div>
+                    </div>
+                    <div class="group-filter">
+                        <div class="group-filter-header">
+                            <input type="checkbox" data-role="none" checked id="select-all-other">
+                            <label for="select-all-other">Прочие</label>
+                            <span class="add-filters-action">Снять выделение</span>
+                        </div>
+                        <div class="appointments appointment-filter others">
+                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap10">
+                            <label for="ap10">Дороги</label>
+                            <input type="checkbox" data-role="none" data-value="переход" checked id="ap11">
+                            <label for="ap11">Переход</label>
+                            <input type="checkbox" data-role="none" data-value="Прочие объекты" checked id="ap12">
+                            <label for="ap12">Прочие</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-part">
+                    <input type="checkbox" data-role="none" checked id="select-all-distincts">
+                    <label for="select-all-distincts" style="width: auto">Округ</label>
+                    <span class="add-filters-action">Снять выделение</span>
+                </div>
                 <div class="distinct-filter filter">
-                    <input type="checkbox" data-role="none" checked>Округ
-                    <span id="select-all-distincts" class="add-filters-action">Выделить все</span>
-                    <div class="horizontal-line"></div>
                     <div class="group-filter">
                         <div class="distincts"></div>
                     </div>
                 </div>
-                <div class="year-filter filter">
-                    <input type="checkbox" data-role="none" checked>Годы
-                    <span id="select-all-years" class="add-filters-action">Выделить все</span>
-                    <div class="horizontal-line"></div>
+
+                <div class="filter-part">
+                    <input type="checkbox" data-role="none" checked id="select-all-years">
+                    <label for="select-all-years" style="width: auto">Годы</label>
+                    <span class="add-filters-action">Снять выделение</span>
+                </div>
+                <div class="distinct-filter filter">
                     <div class="group-filter">
                         <div class="years"></div>
                     </div>
                 </div>
+
             </div>
         </div><!-- /content -->
     </div>
@@ -191,7 +220,7 @@
 <script type="text/javascript">
 
     $(function(){
-        filter.init('filter');
+        filter.init('object-filter');
         charts.init(filter);
     })
 

@@ -51,11 +51,14 @@ Highcharts.kpugs = {
         itemMarginBottom: 5,
         itemStyle: {
             fontSize: '26px',
-            color: 'rgb(135,150,164)'
+            color: 'rgb(135,150,164)',
+            font: '26px PT Sans, sans-serif'
         },
         itemHoverStyle:{
             color: 'gray'
-        }
+        },
+        backgroundColor: 'rgba(0,0,0,0)',
+        useHTML: true
     },
     tooltip:{
         style:{

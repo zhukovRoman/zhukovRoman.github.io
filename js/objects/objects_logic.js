@@ -16,6 +16,7 @@ var objects_logic = {
         $("#list-overdue-content").hide();
 
         $("#charts-content").show();
+        charts.init(filter);
         $.each($("#filter button"), function (i,b){
             $(b).removeClass('ui-btn-b')
         })
@@ -39,8 +40,9 @@ var objects_logic = {
         var html = ''
         $.each (filter.filtered_objects, function(i,val){
             html+='<li><a href="object_view.html?id='+val.id+'">'+
-                '<h1>'+val.adress+'</h1>'+
-                '<p>'+val.okrug+'</p>'+
+                '<div>'+val.okrug+'</div>'+
+                '<div>'+val.adress+'</div>'+
+                '<div>'+val.year+'</div>'+
                 '</a></li>'
         })
         $ul.html(html)

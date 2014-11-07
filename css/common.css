@@ -10,6 +10,7 @@
     width:2048px;
     background-image: url('images/status-bar-bg.png');
 }
+
 body{
     margin-top: 0px;
     margin-left: 20px;
@@ -177,6 +178,37 @@ ul{
 }
 
 
+.ui-page-theme-a .ui-btn.ui-btn-active, .ui-page-theme-a .ui-btn.ui-btn-active:hover{
+    background-color: rgb(115,189,208);
+    border-color: rgb(115,189,208);
+    color: rgb(241,237,226);
+    text-shadow: none;
+    /*font-size: 21px;*/
+    font-weight: normal;
+    /*margin-right: 0px;*/
+
+}
+.ui-page-theme-a .ui-btn, .ui-page-theme-a .ui-btn:hover {
+    background-color:rgb(241,237,226);
+    border-color:  rgb(115,189,208);
+    color:  rgb(115,189,208);
+    text-shadow: none;
+    font-size: 22px;
+    font-weight: normal;
+}
+
+html head+body .ui-btn,
+html head+body .ui-btn:hover,
+#object-filter .ui-btn{
+    background-color: rgb(241,237,226);
+    border-color: rgb(115,189,208);
+    color: rgb(115,189,208);
+    text-shadow: none;
+    /*font-size: 22px;*/
+    font-weight: normal;
+    /*margin-right: 5px;*/
+}
+
 .progress {
     height: 20px;
     margin-bottom: 20px;
@@ -204,22 +236,22 @@ ul{
 }
 
 
-.highcharts-button{
-    font-size: 30px;
-    stroke: rgb(110,185,202);
-    padding: 10px;
-    background-color: #ffffff;
-    color: rgb(115,189,208);
-}
-.highcharts-button > rect {
-    stroke: rgb(110,185,202);
-    fill: rgba(1,1,1,0);
+/*.highcharts-button{*/
+    /*font-size: 30px;*/
+    /*stroke: rgb(110,185,202);*/
+    /*padding: 10px;*/
+    /*background-color: #ffffff;*/
+    /*color: rgb(115,189,208);*/
+/*}*/
+/*.highcharts-button > rect {*/
+    /*stroke: rgb(110,185,202);*/
+    /*fill: rgba(1,1,1,0);*/
 
-}
-.highcharts-button > text{
-    color: rgb(115, 189, 208);
-    fill: rgb(115, 189, 208) !important;;
-}
+/*}*/
+/*.highcharts-button > text{*/
+    /*color: rgb(115, 189, 208);*/
+    /*fill: rgb(115, 189, 208) !important;;*/
+/*}*/
 
 .table {
     width: 100%;

@@ -55,16 +55,21 @@ var charts ={
            },
            legend: {
                layout: 'vertical',
-               backgroundColor: '#FFFFFF',
+               //backgroundColor: '#FFFFFF',
                align: 'left',
                verticalAlign: 'top',
                floating: true,
                x: 30,
                y: 600,
                useHTML: true,
-               itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+               itemStyle: {
+                   "color": "#333333",
+                   //"fontSize": "18pt",
+                   //"fontWeight": "bold",
+                   "white-space": "normal" },
                labelFormatter: function () {
-                   return '<div style="width: 500px;border-bottom: 1px solid;"><div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
+                   return '<div style="width: 500px;border-bottom: 1px solid;">' +
+                       '<div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
                        '<div style="text-align: right; float: right; width: 200px"> '+ ((this.y)) +'</div></div>';
                }
            },
@@ -76,10 +81,22 @@ var charts ={
            }]
        });
        allTitle = this.document_chart.renderer.text(this.count, this.all_title_x, this.all_title_y).css({color: "black","font-size" : "70pt"}).add();
-       this.document_chart.renderer.button('Список просроченных',
-            30,
-            800,
-            objects_logic.showOverdues).add();
+       //this.document_chart.renderer.button('Список просроченных',
+       //     50,
+       //     820,
+       //     objects_logic.showOverdues).css({
+       //       color:'black',
+       //        width:'600px',
+       //        marginLeft:'300px',
+       //        fontSize: '30px'
+       //
+       //    }).add();
+
+        var img = this.document_chart.renderer.image('images/btn.png',50,820,520,100);
+        img.add();
+        img.css({'cursor':'pointer'});
+        //img.attr({'title':'Pop out chart'});
+        img.on('click',objects_logic.showOverdues);
     },
     redrawDocumentChart: function(){
         var currentDocument = filter.getCurrentDocument()
@@ -140,7 +157,7 @@ var charts ={
 
             legend: {
                 layout: 'vertical',
-                backgroundColor: '#FFFFFF',
+                //backgroundColor: '#FFFFFF',
                 align: 'left',
                 verticalAlign: 'top',
                 floating: true,
@@ -192,41 +209,60 @@ var charts ={
 
            },
            title: {
-               text: 'Выполнение работ'
+               text: 'Выполнение работ',
+               margin:10
            },
            legend:{
+               reversed: true,
                align: 'left',
                useHTML: true,
                floating: true,
                layout: 'horizontal',
                itemStyle: { "color": "#333333",
                             "fontSize": "18pt",
-                            "fontWeight": "bold",
-                            "white-space": "normal" ,
-                            font: '18pt Helvetica, Arial, sans-serif'
+                            //"fontWeight": "bold",
+                            "white-space": "normal"
+                            //font: '18pt Helvetica, Arial, sans-serif'
                },
                labelFormatter: function () {
-                   console.log(this)
+                   //console.log(this)
                    return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal; ">'+this.name +
                        ' <span id="work-chart-values'+this._i+'"> '+ million_to_text((this.userOptions.data[0])) +'</span> </div>';
                }
            },
-
-//           tooltip: {
-//               formatter: function () {
-//                   var s ="";
-//                   $.each(this.series.points, function (i, point) {
-//                       s += "<b>"+point.name + '</b> ' + thousands_sep((point.y/1000000).toFixed(0)) + ' млн ₽ <br/>';
-//                   });
-//                   return s;
-//               },
-//               shared: true,
-//               useHTML: true
-//           },
+           xAxis: {
+               lineWidth: 0,
+               labels: {
+                   enabled: false
+               }
+           },
+           yAxis: {
+               title:{
+                   text: null
+               },
+               gridLineWidth: 0,
+               labels: {
+                   enabled: false
+               }
+           },
+           tooltip: {
+               formatter: function () {
+                   var s ="";
+                   console.log(this)
+                   $.each(this.points, function (i, point) {
+                       s += '<b style="color: '+point.series.color+'">'+point.series.name + '</b> ' + million_to_text(point.y) + ' ('+point.percentage.toFixed(2)+'%)<br/>';
+                   });
+                   return s;
+               },
+               shared: true,
+               useHTML: true
+           },
 
            plotOptions: {
                series: {
-                   stacking: 'percent'
+                   stacking: 'percent',
+                   //borderRadius: 20,
+                   pointWidth: 50
                }
            },
 

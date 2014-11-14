@@ -22,3 +22,16 @@ window.onerror = function(message, source, lineno) {
 };
 
 
+function generateTooltipHeader(text){
+    return  "<div class='tooltip-header'><div class='tooltip-padding'></div>"+text+"</div>"
+}
+
+function generateTooltipLine (name, value, color, noNeedPoint){
+
+    return  "<div class='tooltip-line'>" +
+        ((!noNeedPoint) ? "<span class='tooltip-point' style='color: "+color+"'>\u25CF" + "</span> " : "") +
+            name+" : " + value+
+            "</div>"
+}
+
+

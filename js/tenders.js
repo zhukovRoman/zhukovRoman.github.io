@@ -279,19 +279,17 @@ var tenders_charts={
                     },
                     labels: {
                         formatter: function () {
-                            return this.value / 1000 + 'тыс ₽';
+                            return this.value / 1000 + ' тыс ₽';
                         }
                     }
                 },
                 tooltip: {
                     crosshairs: true,
                     useHTML: true,
-                    //valueSuffix: ' тыс. руб'
                     formatter: function() {
-                        return "" +
-                            "<b>"+this.point.category+"</b><br>" +
-                            "<i>"+this.series.name+"</i>: "+
-                            thousands_sep(this.y) + '  ₽ '}
+                        return generateTooltipHeader(this.point.category) +
+                                generateTooltipLine (this.series.name,thousands_sep(this.y) + '  ₽ ',this.series.color);
+                    }
 
                 },
 
@@ -402,10 +400,9 @@ var tenders_charts={
                     crosshairs: true,
                     useHTML: true,
                     formatter: function() {
-                        return "" +
-                            "<b>"+this.point.category+"</b><br>" +
-                            "<i>"+this.series.name+"</i>: "+
-                            thousands_sep((this.y/1000).toFixed(0)) + ' тыс  ₽'}
+                        return generateTooltipHeader(this.point.category) +
+                            generateTooltipLine (this.series.name,thousands_sep((this.y/1000).toFixed(0)) + ' тыс  ₽',this.series.color);
+                    }
 
                 },
                 plotOptions: {
@@ -510,12 +507,16 @@ var tenders_charts={
                 tooltip: {
                     crosshairs: true,
                     useHTML: true,
-                    //valueSuffix: ' тыс. руб'
+                    shared: true,
                     formatter: function() {
-                        return "" +
-                            "<b>"+this.point.category+"</b><br>" +
-                            "<i>"+this.series.name+"</i>: "+
-                            thousands_sep((this.y/1000).toFixed(0)) + ' тыс ₽'}
+
+                        var result = generateTooltipHeader(this.x)
+                        $.each(this.points, function(i, datum) {
+                            result += generateTooltipLine (datum.series.name, thousands_sep((this.y/1000).toFixed(0)) + ' тыс ₽' ,datum.point.series.color);
+                        });
+                        return result;
+
+                        }
 
                 },
                 plotOptions: {
@@ -657,12 +658,15 @@ var tenders_charts={
                  tooltip: {
                      crosshairs: true,
                      useHTML: true,
+                     shared: true,
                      //valueSuffix: ' тыс. руб'
                      formatter: function() {
-                         return "" +
-                             "<b>"+this.point.category+"</b><br>" +
-                             "<i>"+this.series.name+"</i>: "+
-                             thousands_sep((this.y/1000).toFixed(0)) + ' тыс ₽'}
+                         var result = generateTooltipHeader(this.x)
+                         $.each(this.points, function (i, datum) {
+                             result += generateTooltipLine(datum.series.name, thousands_sep((this.y / 1000).toFixed(0)) + ' тыс ₽', datum.point.series.color);
+                         });
+                         return result;
+                     }
 
                  },
                  plotOptions: {
@@ -800,12 +804,9 @@ var tenders_charts={
                 },
                 tooltip: {
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
-
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                            + datum.series.name + ':</i> '
-                            + datum.y.toFixed(2) + ' %';
+                            result += generateTooltipLine (datum.series.name, datum.y.toFixed(2) + ' %',datum.point.series.color);
                         });
                         return result;
                     },
@@ -975,12 +976,10 @@ var tenders_charts={
                 },
                 tooltip: {
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
 
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                            + datum.series.name + ':</i> '
-                            + datum.y.toFixed(2) + 'шт';
+                            result += generateTooltipLine (datum.series.name, datum.y.toFixed(2) + ' шт',datum.point.series.color);
                         });
                         return result;
                     },
@@ -1160,17 +1159,19 @@ var tenders_charts={
                     }
                 },
                 tooltip:{
+
+
+                    //
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
                         var sum = 0;
                         $.each(this.points, function(i, datum) {
                             sum+=datum.y;
                         });
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                + datum.series.name + '</i>: '
-                                + thousands_sep(datum.y.toFixed(0)) + ' млн ₽ ('
-                                + (datum.y*100/sum).toFixed(0) + '%)';
+                            result +=  generateTooltipLine (datum.series.name,
+                                thousands_sep(datum.y.toFixed(0)) + ' млн ₽ (' + (datum.y*100/sum).toFixed(0) + '%)',
+                                datum.point.series.color);
                         });
                         return result;
                     },
@@ -1358,18 +1359,20 @@ var tenders_charts={
                 },
                 tooltip:{
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
+
                         var sum = 0;
                         $.each(this.points, function(i, datum) {
                             sum+=datum.y;
                         });
+
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                + datum.series.name + '</i>: '
-                                + thousands_sep(datum.y.toFixed(0)) + ' процедур ('
-                                + (datum.y*100/sum).toFixed(0) + '%)';
+                            result +=  generateTooltipLine (datum.series.name,
+                                thousands_sep(datum.y.toFixed(0)) + ' процедур (' + (datum.y*100/sum).toFixed(0) + '%)',
+                                datum.point.series.color);
                         });
                         return result;
+
                     },
                     shared: true,
                     useHTML: true
@@ -1804,13 +1807,14 @@ var tenders_common_charts = {
             },
             tooltip:{
                 formatter: function() {
-                    var result = '<b>' + this.x + '</b>';
-                    $.each(this.points, function(i, datum) {
-                        result += '<br /> <i style="color: '+datum.point.series.color+'">' + datum.series.name + '</i>: ' + million_to_text(datum.y);
-                    });
-                    result += '<br />Среднее снижение цены ' + (this.points[0].point.percent).toFixed(2) + '%'
 
+                    var result = generateTooltipHeader(this.x)
+                    $.each(this.points, function (i, datum) {
+                        result += generateTooltipLine(datum.series.name, million_to_text(datum.y), datum.point.series.color);
+                    });
+                    result += generateTooltipLine('Среднее снижение цены', (this.points[0].point.percent).toFixed(2) + '%', '', true);
                     return result;
+
                 },
                 shared: true,
                 useHTML: true
@@ -2043,7 +2047,19 @@ var tenders_common_qty_chart = {
 //                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} </b> ({point.percentage:.0f}%)<br/>',
 
                 formatter: function() {
-                    var result = '<b>' + this.x + '</b>';
+
+                    var result = generateTooltipHeader(this.x)
+                    $.each(this.points, function (i, datum) {
+                        var text = '';
+                        if (tenders_common_qty_chart.current_measure=='sum') text = datum.y +' млрд ₽';
+                        if (tenders_common_qty_chart.current_measure=='count') text += datum.y +' конкурсов';
+                        text +=  ' ('+datum.percentage.toFixed(2) +'%)'
+                        result += generateTooltipLine(datum.series.name, text, datum.point.series.color);
+                    });
+
+                    return result;
+
+
                     $.each(this.points, function(i, datum) {
                         result += '<br /> <i style="color: '+datum.point.series.color+'">' + datum.series.name + '</i>: ';
                         if (tenders_common_qty_chart.current_measure=='sum') result += datum.y +' млрд ₽';

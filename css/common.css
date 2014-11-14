@@ -280,6 +280,46 @@ ul{
     float: left;
 }
 
+.highcharts-tooltip{
+    z-index: 10;
+}
+.tooltip-header{
+    width: 100%;
+    background-color: #65afc1;
+    background: linear-gradient(to top, #65afc1, #7ac4d6);
+    height: 50px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    /*padding-left: 20px;*/
+    /*padding-right: -20px;*/
+    padding-top: 15px;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.tooltip-padding{
+    height: 50px;
+    width: 20px;
+    float: left;
+}
+.tooltip-line{
+    width: 100%;
+    background-color: #fff;
+    color: #8798a4;
+    font-size: 26px;
+    height: 35px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+}
+
+.tooltip-point{
+    height: 20px;
+    width: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 26px;
+}
+
 /*html head+body .ui-btn,*/
 /*html head+body .ui-btn:hover,*/
 /*#object-filter .ui-btn{*/

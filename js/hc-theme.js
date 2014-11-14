@@ -66,11 +66,15 @@ Highcharts.kpugs = {
         useHTML: true
     },
     tooltip:{
+        backgroundColor: "#fff",
+        borderWidth:0,
+        animation: false,
         style:{
             color: 'gray',
             fontFamily: 'PT Sans, sans-serif',
             fontSize: '28px',
-            zIndex: '99999'
+            zIndex: '99999',
+            padding: '0px'
         }
     },
     plotOptions:{

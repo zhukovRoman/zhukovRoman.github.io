@@ -1,96 +1,243 @@
 .filter{
-    font-size: 20pt;
-    background-color: rgb(247,244,237);
-    margin-bottom: 20px;
-    border-radius: 15px;
-    /*padding: 9px;*/
+    margin-right: 30px;
+    width: 600px;
+    float: right;
+    margin-top: 10px;
 }
 
-#tender-filter input[type=checkbox],
-#object-filter input[type=checkbox] {
+.filter input[type=checkbox]{
     display: none;
 }
 
-.filter-part>label,  .living_types > label,
-.appointments>label, .types > label,
-.distincts > label, .years > label{
-    display: inline-block;
-    font-size: 25px;
-    color: rgb(146,144,144);
-    background-image: url("images/checkbox.png");
-    background-repeat: no-repeat;
-    width: 40%;
-    padding: 10px 5px;
-    padding-left: 45px;
-    background-position-y: 6px;
-}
-.distincts > label, .years > label{
-    width: 21%;
-}
-#object-filter .appointment-filter>label{
-    width: 175px;
-}
-#object-filter label{
-    margin-bottom: 0px;
-}
-
-.filter-part>label{
-
+.filter-part-header{
+    background-color: #64afc1;
+    background: linear-gradient(to top, #65afc1, #7ac4d6);
     text-transform: uppercase;
-    font-weight: bold;
+    font-size: 30px;
+    color: #dcedf1;
+    height: 85px;
+    margin-top: 28px;
 }
 
-.filter-part>input[type=checkbox]:checked + label,
-.living_types > input[type=checkbox]:checked + label,
-.appointments > input[type=checkbox]:checked + label,
-.types > input[type=checkbox]:checked + label,
-.years > input[type=checkbox]:checked + label,
-.distincts > input[type=checkbox]:checked + label{
-    background-image: url("images/checkbox_checked.png");
+.sub-header{
+    background-color: #e4f3f6;
+    text-transform: uppercase;
+    font-size: 30px;
+    color: #8798a4;
+    height: 85px;
+    border-right: 1px solid #d3e5e9;
+    border-left: 1px solid #d3e5e9;
 }
 
-.group-filter-header>input[type=checkbox]:checked + label{
-    background-image: url("images/checkbox_checked.png");
+.filter-part-header label,
+.sub-header label{
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    background-position-y: 25px;
+    display: table-cell;
+    vertical-align: middle;
+    height: 85px;
+    width: 450px;
+    font-size: 30px;
+    padding-left: 90px;
 }
-
-.group-filter-header{
-    height: 60px;
-    background-color: rgb(110,185,202);
-    padding: 10px;
-}
-
-.group-filter-header-first{
-    border-radius: 15px 15px 0px 0px;
-}
-
-.group-filter-header > label{
+.sub-header label{
     font-size: 28px;
-    color: white;
-    font-weight: normal;
-    text-transform: uppercase;
-    display: inline-block;
-    padding-left: 45px;
-    background-image: url("images/checkbox.png");
+}
+.filter-part-header input[type=checkbox] + label {
+    background-image: url('images/checkbox_on_blue.png');
+}
+.filter-part-header input[type=checkbox]:checked + label{
+    background-image: url('images/checkbox_on_blue_checked.png');
+}
+.sub-header input[type=checkbox] + label {
+    background-image: url('images/checkbox_on_gray.png');
+}
+.sub-header input[type=checkbox]:checked + label{
+    background-image: url('images/checkbox_on_gray_checked.png');
+}
+
+.filter-items{
+    border-right: 1px solid #d3e5e9;
+    border-left: 1px solid #d3e5e9;
+    border-bottom: 1px solid #d3e5e9;
+}
+
+.filter-items label{
+    height: 85px;
+    display: table-cell;
     background-repeat: no-repeat;
-    padding-bottom: 4px;
-    margin-top: 15px;
-    padding-top: 6px;
+    background-position-x: 20px;
+    background-position-y: 25px;
+    vertical-align: middle;
+    font-size: 26px;
+    padding-left: 90px;
+    width: 40%;
+    max-width: 300px;
+    color: #8798a4;
+}
 
+.filter-items.columns3 label{
+    padding-left: 80px;
+    width: 95px;
+    min-width: 100px;
 }
-.group-filter-header>.add-filters-action{
-    margin-right: 10px;
-    margin-top: 15px;
-    color: rgb(247,244,237);
+.filter-items.columns3 label:first-of-type{
+    min-width: 90px;
+    width: 100px;
+}
+.filter-items.columns3 label:last-of-type{
+    min-width: 160px;
 }
 
-.living_types, .appointments, .types, .distincts, .years {
-    padding: 10px;
+.filter-items.columns2 label{
+    padding-left: 80px;
+    width: 95px;
+    min-width: 100px;
 }
+.filter-items.columns2 label:first-of-type{
+    min-width: 180px;
+    width: 100px;
+}
+.filter-items.columns2 label:last-of-type{
+    min-width: 300px;
+}
+
+
+.filter-items input[type=checkbox] + label{
+    background-image: url('images/checkbox_on_white.png');
+}
+
+.filter-items input[type=checkbox]:checked  + label{
+    background-image: url('images/checkbox_on_white_checked.png');
+}
+
 
 .add-filters-action{
     font-size: 18pt;
-    color: gray;
-    float: right;
-    display: inline-block;
-    padding-top: 5px;
+    /*color: gray;*/
+    /*float: right;*/
+    display: table-cell;
+    text-transform: lowercase;
+    height: 100%;
+    vertical-align: middle;
+    width: 250px;
+    text-align: right;
+    padding-right: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.filter{*/
+    /*font-size: 20pt;*/
+    /*background-color: rgb(247,244,237);*/
+    /*margin-bottom: 20px;*/
+    /*border-radius: 15px;*/
+    /*padding: 9px;*/
+/*}*/
+
+/*#tender-filter input[type=checkbox],*/
+/*#object-filter input[type=checkbox] {*/
+    /*display: none;*/
+/*}*/
+
+/*.filter-part>label,  .living_types > label,*/
+/*.appointments>label, .types > label,*/
+/*.distincts > label, .years > label{*/
+    /*display: inline-block;*/
+    /*font-size: 25px;*/
+    /*color: rgb(146,144,144);*/
+    /*background-image: url("images/checkbox.png");*/
+    /*background-repeat: no-repeat;*/
+    /*width: 40%;*/
+    /*padding: 10px 5px;*/
+    /*padding-left: 45px;*/
+    /*background-position-y: 6px;*/
+/*}*/
+/*.distincts > label, .years > label{*/
+    /*width: 21%;*/
+/*}*/
+/*#object-filter .appointment-filter>label{*/
+    /*width: 175px;*/
+/*}*/
+/*#object-filter label{*/
+    /*margin-bottom: 0px;*/
+/*}*/
+
+/*.filter-part>label{*/
+
+    /*text-transform: uppercase;*/
+    /*font-weight: bold;*/
+/*}*/
+
+/*.filter-part>input[type=checkbox]:checked + label,*/
+/*.living_types > input[type=checkbox]:checked + label,*/
+/*.appointments > input[type=checkbox]:checked + label,*/
+/*.types > input[type=checkbox]:checked + label,*/
+/*.years > input[type=checkbox]:checked + label,*/
+/*.distincts > input[type=checkbox]:checked + label{*/
+    /*background-image: url("images/checkbox_checked.png");*/
+/*}*/
+
+/*.group-filter-header>input[type=checkbox]:checked + label{*/
+    /*background-image: url("images/checkbox_checked.png");*/
+/*}*/
+
+/*.group-filter-header{*/
+    /*height: 60px;*/
+    /*background-color: rgb(110,185,202);*/
+    /*padding: 10px;*/
+/*}*/
+
+/*.group-filter-header-first{*/
+    /*border-radius: 15px 15px 0px 0px;*/
+/*}*/
+
+/*.group-filter-header > label{*/
+    /*font-size: 28px;*/
+    /*color: white;*/
+    /*font-weight: normal;*/
+    /*text-transform: uppercase;*/
+    /*display: inline-block;*/
+    /*padding-left: 45px;*/
+    /*background-image: url("images/checkbox.png");*/
+    /*background-repeat: no-repeat;*/
+    /*padding-bottom: 4px;*/
+    /*margin-top: 15px;*/
+    /*padding-top: 6px;*/
+
+/*}*/
+/*.group-filter-header>.add-filters-action{*/
+    /*margin-right: 10px;*/
+    /*margin-top: 15px;*/
+    /*color: rgb(247,244,237);*/
+/*}*/
+
+/*.living_types, .appointments, .types, .distincts, .years {*/
+    /*padding: 10px;*/
+/*}*/
+
+/*.add-filters-action{*/
+    /*font-size: 18pt;*/
+    /*color: gray;*/
+    /*float: right;*/
+    /*display: inline-block;*/
+    /*padding-top: 5px;*/
+/*}*/

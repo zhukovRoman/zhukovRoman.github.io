@@ -1,40 +1,35 @@
+.tenders-tabs{
+
+    margin-left: 22px;
+}
+
 .tender-tabs-group-name{
     float: left;
     font-size: 26px;
     font-weight: bold;
-    color: rgb(135,150,164);
+    color: #929090;
     margin-left: 0px;
     margin-top: 15px;
     font-weight: normal;
 }
 #tender-charts-tabs2, #tender-charts-tabs{
     float: left;
-    margin-left: 15px;
+    margin-left: 10px;
     margin-top: 0;
+
 }
+
+#tender-charts-tabs label{
+    padding: .7em .83em;
+}
+
+#tender-charts-tabs2 label{
+    padding: .7em 1.17em;
+}
+
 #tender-charts-tabs{
     margin-right: 20px;
 }
-
-.ui-page-theme-a .ui-btn.ui-btn-active, .ui-page-theme-a .ui-btn.ui-btn-active:hover{
-    background-color: rgb(115,189,208);
-    border-color: rgb(115,189,208);
-    color: rgb(241,237,226);
-    text-shadow: none;
-    /*font-size: 21px;*/
-    font-weight: normal;
-
-}
-.ui-page-theme-a .ui-btn, .ui-page-theme-a .ui-btn:hover {
-    background-color:rgb(241,237,226);
-    border-color:  rgb(115,189,208);
-    color:  rgb(115,189,208);
-    text-shadow: none;
-    font-size: 22px;
-    font-weight: normal;
-}
-
-
 
 
 .group-filter{
@@ -43,12 +38,9 @@
 
 #tender-charts-content{
     clear: both;
+    margin-top: 30px;
 }
-#tender-filter{
-    width: 600px;
-    float: right;
-    margin-top: 20px;
-}
+
 .tender_chart{
     margin-top: 30px;
 }
@@ -58,4 +50,9 @@
 }
 h3{
     color: rgb(146,144,144);
+}
+
+.charts-container{
+    float: left;
+    width: 1200px;
 }

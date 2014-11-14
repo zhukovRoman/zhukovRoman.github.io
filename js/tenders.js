@@ -30,6 +30,7 @@ var tenders_logic = {
         $("#"+active_tab.attr('data-div')).show();
         tenders_logic.changeDetailButtonText();
         tenders_logic.hideFilterParts();
+        tenders_logic.changeActiveTabs(active_tab);
     },
     applyFilter: function(){
         //tender_filter.refreshCheckboxStatuses();
@@ -37,24 +38,27 @@ var tenders_logic = {
     },
     hideFilterParts: function(){
 
-        $("div.group-filter").css('opacity', 1)
+        $("#tender-filter div").css('opacity', 1)
         if(tenders_logic.current_chart.type==null){
             //show all group
-
             return;
         }
         if(tenders_logic.current_chart.type && tenders_logic.current_chart.type=='house'){
             //show only house
-            $("div.group-filter.not-house-group-filter").css('opacity', 0.2)
+            $("#tender-filter div.not-house-group-filter").css('opacity', 0.2)
             return;
         }
         if(tenders_logic.current_chart.type && tenders_logic.current_chart.type=='social'){
             //show only house
-            $("div.group-filter.not-social-group-filter").css('opacity', 0.2)
+            $("#tender-filter div.not-social-group-filter").css('opacity', 0.2)
             return;
         }
 
     },
+    changeActiveTabs: function(active_tab){
+        $('#tender-charts-tabs, #tender-charts-tabs2').removeClass('tabs-active');
+        active_tab.parents('fieldset').addClass('tabs-active')
+    } ,
     setEnterYearForTable: function(type, category, uk){
         tenders_logic.current_chart.selectedYear = category;
         tenders_logic.changeDetailButtonText();
@@ -267,7 +271,7 @@ var tenders_charts={
                     type: 'category',
                     title: {
                         text: 'год ввода'
-                    },
+                    }
                 },
                 yAxis: {
                     title: {
@@ -777,7 +781,7 @@ var tenders_charts={
                     labels:{
                         useHTML: true,
                         style:{
-                            border: '1px solid rgb(135,150,164)',
+                            border: '3px solid #65afc1',
                             borderRadius: '10px',
                             padding: '5px 10px'
                             //color:'red'
@@ -875,10 +879,10 @@ var tenders_charts={
             var chart = tenders_charts.PricePercentChart
             var year =  chart.current_year
 
-            chart.chart.renderer.button('Назад',
-                150,
-                10,
-                chart.createChart).add();
+
+            chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
+                                            .add().on('click',chart.createChart);
+
             chart.chart.xAxis[0].setCategories(months_short,false);
             var series = chart.getDrilldownData()[year]
             var data = [];
@@ -952,7 +956,7 @@ var tenders_charts={
                     labels:{
                         useHTML: true,
                         style:{
-                            border: '1px solid rgb(135,150,164)',
+                            border: '3px solid #65afc1',
                             borderRadius: '10px',
                             padding: '5px 10px'
                             //color:'red'
@@ -1062,10 +1066,14 @@ var tenders_charts={
             var chart = tenders_charts.QtyChart
             var year =  chart.current_year
 
-            chart.chart.renderer.button('Назад',
-                150,
-                10,
-                chart.createChart).add();
+            //chart.chart.renderer.button('Назад',
+            //    150,
+            //    10,
+            //    chart.createChart).add();
+
+            chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
+                .add().on('click',chart.createChart);
+
             chart.chart.xAxis[0].setCategories(months_short,false);
             var series = chart.getDrilldownData()[year]
 
@@ -1134,7 +1142,7 @@ var tenders_charts={
                     labels:{
                         useHTML: true,
                         style:{
-                            border: '1px solid rgb(135,150,164)',
+                            border: '3px solid #65afc1',
                             borderRadius: '10px',
                             padding: '5px 10px'
                             //color:'red'
@@ -1248,10 +1256,14 @@ var tenders_charts={
         drilldownChart:function(){
 
             var chart = tenders_charts.SummChart
-            chart.chart.renderer.button('Назад',
-                150,
-                10,
-                chart.createChart).add();
+            //chart.chart.renderer.button('Назад',
+            //    150,
+            //    10,
+            //    chart.createChart).add();
+
+            chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
+                .add().on('click',chart.createChart);
+
             var data= chart.getDrilldownData(chart.current_year);
 
             chart.chart.xAxis[0].update({labels:{
@@ -1332,7 +1344,7 @@ var tenders_charts={
                     labels:{
                         useHTML: true,
                         style:{
-                            border: '1px solid rgb(135,150,164)',
+                            border: '3px solid #65afc1',
                             borderRadius: '10px',
                             padding: '5px 10px'
                             //color:'red'
@@ -1432,10 +1444,14 @@ var tenders_charts={
         drilldownChart:function(){
 
             var chart = tenders_charts.CountChart
-            chart.chart.renderer.button('Назад',
-                150,
-                10,
-                chart.createChart).add();
+
+            chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
+                .add().on('click',chart.createChart);
+
+            //chart.chart.renderer.button('Назад',
+            //    150,
+            //    10,
+            //    chart.createChart).add();
             var data= chart.getDrilldownData(chart.current_year);
             chart.chart.xAxis[0].setCategories(months_short,false)
             while(chart.chart.series.length > 0)
@@ -1648,12 +1664,12 @@ var tender_filter={
         $('#select-all-other + label + span').text(tender_filter.text_select)
     },
     selectAllTypes: function(){
-        $(tender_filter.id+" .type-filter.filter input").prop( "checked", true );
+        $(tender_filter.id+" .type-filter input").prop( "checked", true );
         $('#select-all-types').prop( "checked", true );
         $('#select-all-types + label + span').text(tender_filter.text_unselect)
     },
     unselectAllTypes: function(){
-        $(tender_filter.id+" .type-filter.filter input").prop( "checked", false );
+        $(tender_filter.id+" .type-filter input").prop( "checked", false );
         $('#select-all-types').prop( "checked", false );
         $('#select-all-types + label + span').text(tender_filter.text_select)
     },
@@ -1740,18 +1756,19 @@ var tenders_common_charts = {
             },
             chart: {
                 type: 'column',
-                renderTo:'prices_chart',
-                marginTop: 50
+                renderTo:'prices_chart'
+                //marginTop: 50
             },
             title: {
-                text: ''
+                text: 'Общая стоимость конкурсов',
+                margin: 30
             },
             xAxis: {
                 categories: tenders_data.years,
                 labels:{
                     useHTML: true,
                     style:{
-                        border: '1px solid rgb(135,150,164)',
+                        border: '3px solid #65afc1',
                         borderRadius: '10px',
                         padding: '5px 10px'
                         //color:'red'
@@ -1837,87 +1854,90 @@ var tenders_common_charts = {
         return res;
     },
     drilldownSummChart: function(){
-        var drilldownsSumm = {
-            '2012': [[
-                {y:0, percent:0},
-                {y:9557000000, percent:4.48},
-                {y:15294000000, percent:7.30},
-                {y:559000000, percent:0.49},
-                {y:5801000000, percent:0.67},
-                {y:4474000000, percent:2.03},
-                {y:8136000000, percent:2.95},
-                {y:2511000000, percent:0.59},
-                {y:925000000, percent:4.0},
-                {y:2364000000, percent:4.45},
-                {y:4611000000, percent:5.24},
-                {y:14434000000, percent:8.29}
-            ],
-                [
-                    {y:0000000, percent:0},
-                    {y:9123000000, percent:4.48},
-                    {y:14159000000, percent:7.30},
-                    {y:557000000, percent:0.49},
-                    {y:5749000000, percent:0.67},
-                    {y:4330000000, percent:2.03},
-                    {y:7792000000, percent:2.95},
-                    {y:2490000000, percent:0.59},
-                    {y:848000000, percent:4.0},
-                    {y:2256000000, percent:4.45},
-                    {y:4282000000, percent:5.24},
-                    {y:12793000000, percent:8.29}]
-            ],
-            '2013': [[
-                {y:5381000000, percent:3.35},
-                {y:3672000000, percent:4.44},
-                {y:27431000000, percent:5.18},
-                {y:25706000000, percent:4.94},
-                {y:3206000000, percent:4.18},
-                {y:259000000, percent:0},
-                {y:4003000000, percent:2.92},
-                {y:7214000000, percent:4.40},
-                {y:1251000000, percent:3.},
-                {y:2053000000, percent:3.49},
-                {y:942000000, percent:3.86},
-                {y:13544000000, percent:5.04}        ],
-                [
-                    {y:5202000000, percent:3.35},
-                    {y:3417000000, percent:4.44},
-                    {y:25414000000, percent:5.18},
-                    {y:23576000000, percent:4.94},
-                    {y:2996000000, percent:4.18},
-                    {y:0, percent:0},
-                    {y:3797000000, percent:2.92},
-                    {y:6572000000, percent:4.40},
-                    {y:1182000000, percent:3.28},
-                    {y:1983000000, percent:3.49},
-                    {y:913000000, percent:3.86},
-                    {y:12798000000, percent:5.04}]
-            ],
-            '2014': [[
-                {y:4846000000, percent:5.75},
-                {y:7985000000, percent:5.11},
-                {y:4061000000, percent:4.67},
-                {y:1997000000, percent:3.51},
-                {y:44558000000, percent:5.55},
-                {y:1700000000, percent:5.70},
-                {y:892000000, percent:5.08},
-                {y:2596000000, percent:7.13},
-                {y:14673000000, percent:3.35},
-                {y:342000000, percent:0}
-            ],
-                [
-                    {y:4499000000, percent:5.75},
-                    {y:7592000000, percent:5.11},
-                    {y:4014000000, percent:4.67},
-                    {y:1942000000, percent:3.51},
-                    {y:42445000000, percent:5.55},
-                    {y:1641000000, percent:5.70},
-                    {y:848000000, percent:5.08},
-                    {y:2412000000, percent:7.13},
-                    {y:51000000, percent:3.35},
-                    {y:0, percent:0}]
-            ]
-        }
+        //var drilldownsSumm = {
+        //    '2012': [
+        //        [
+        //            {"y":9557940063.8, "percent":4.48820876125829},
+        //            {"y":15294210929.23, "percent":7.3052823475098245},
+        //            {"y":0, "percent":0},
+        //            {"y":559829365.0, "percent":0.4999996598847319},
+        //            {"y":5801119423.0, "percent":0.6790740663220317},
+        //            {"y":4474430278.0, "percent":2.035430622233555},
+        //            {"y":8136412807.0, "percent":2.9500372398675707},
+        //            {"y":2511992422.0, "percent":0.5905263019986617},
+        //            {"y":925542820.0, "percent":4.000000808575735},
+        //            {"y":2364183175.0, "percent":4.4500000233935575},
+        //            {"y":4611175771.0, "percent":5.247369006267385},
+        //            {"y":14434287132.0, "percent":8.293448867022958},
+        //
+        //],
+        //        [
+        //            //{y:0000000, percent:0},
+        //            //{y:9123000000, percent:4.48},
+        //            //{y:14159000000, percent:7.30},
+        //            //{y:557000000, percent:0.49},
+        //            //{y:5749000000, percent:0.67},
+        //            //{y:4330000000, percent:2.03},
+        //            //{y:7792000000, percent:2.95},
+        //            //{y:2490000000, percent:0.59},
+        //            //{y:848000000, percent:4.0},
+        //            //{y:2256000000, percent:4.45},
+        //            //{y:4282000000, percent:5.24},
+        //            //{y:12793000000, percent:8.29}
+        //        ]
+        //    ],
+        //    '2013': [[
+        //        {y:5381000000, percent:3.35},
+        //        {y:3672000000, percent:4.44},
+        //        {y:27431000000, percent:5.18},
+        //        {y:25706000000, percent:4.94},
+        //        {y:3206000000, percent:4.18},
+        //        {y:259000000, percent:0},
+        //        {y:4003000000, percent:2.92},
+        //        {y:7214000000, percent:4.40},
+        //        {y:1251000000, percent:3.},
+        //        {y:2053000000, percent:3.49},
+        //        {y:942000000, percent:3.86},
+        //        {y:13544000000, percent:5.04}        ],
+        //        [
+        //            {y:5202000000, percent:3.35},
+        //            {y:3417000000, percent:4.44},
+        //            {y:25414000000, percent:5.18},
+        //            {y:23576000000, percent:4.94},
+        //            {y:2996000000, percent:4.18},
+        //            {y:0, percent:0},
+        //            {y:3797000000, percent:2.92},
+        //            {y:6572000000, percent:4.40},
+        //            {y:1182000000, percent:3.28},
+        //            {y:1983000000, percent:3.49},
+        //            {y:913000000, percent:3.86},
+        //            {y:12798000000, percent:5.04}]
+        //    ],
+        //    '2014': [[
+        //        {y:4846000000, percent:5.75},
+        //        {y:7985000000, percent:5.11},
+        //        {y:4061000000, percent:4.67},
+        //        {y:1997000000, percent:3.51},
+        //        {y:44558000000, percent:5.55},
+        //        {y:1700000000, percent:5.70},
+        //        {y:892000000, percent:5.08},
+        //        {y:2596000000, percent:7.13},
+        //        {y:14673000000, percent:3.35},
+        //        {y:342000000, percent:0}
+        //    ],
+        //        [
+        //            {y:4499000000, percent:5.75},
+        //            {y:7592000000, percent:5.11},
+        //            {y:4014000000, percent:4.67},
+        //            {y:1942000000, percent:3.51},
+        //            {y:42445000000, percent:5.55},
+        //            {y:1641000000, percent:5.70},
+        //            {y:848000000, percent:5.08},
+        //            {y:2412000000, percent:7.13},
+        //            {y:51000000, percent:3.35},
+        //            {y:0, percent:0}]
+        //    ]
+        //}
         tenders_common_charts.current_suffix = 'млн'
         //var months = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
 
@@ -1929,22 +1949,24 @@ var tenders_common_charts = {
         }
         }, false);
         tenders_common_charts.prices_chart.xAxis[0].setCategories(months_short, false)
-        tenders_common_charts.prices_chart.series[0].setData(drilldownsSumm[$(this).text()][0], false);
-        tenders_common_charts.prices_chart.series[1].setData(drilldownsSumm[$(this).text()][1], true);
-        tenders_common_charts.prices_chart.renderer.button('Назад',
-            200,
-            0,
-            tenders_common_charts.returnYearChart).add();
+        tenders_common_charts.prices_chart.series[0].setData(tenders_data.summ_drilldown_data[$(this).text()][0], false);
+        tenders_common_charts.prices_chart.series[1].setData(tenders_data.summ_drilldown_data[$(this).text()][1], true);
+        tenders_common_charts.prices_chart.renderer.image('images/back-btn.png',150,0,137,52)
+            .add().on('click',tenders_common_charts.returnYearChart);
+        //tenders_common_charts.prices_chart.renderer.button('Назад',
+        //    200,
+        //    0,
+        //    tenders_common_charts.returnYearChart).add();
     },
 
     returnYearChart: function(){
         tenders_common_charts.current_suffix = 'млрд'
-        $('#prices_chart .highcharts-button').remove();
+        $('#prices_chart image').remove();
         var series = tenders_common_charts.getPricesChartData();
         tenders_common_charts.prices_chart.xAxis[0].update({labels:{
             useHTML: true,
             style:{
-                border: '1px solid rgb(135,150,164)'
+                border: '3px solid #65afc1'
             }
         }
         }, false);
@@ -1965,6 +1987,7 @@ var tenders_common_qty_chart = {
         this.createChart();
         this.fillChart();
         this.bindDrillDownEvent();
+        $("#qty-measure-tabs #sum + label").addClass('ui-btn-active');
         $("#qty-measure-tabs input").change(function(){
             tenders_common_qty_chart.current_measure = $(this).attr('id');
             tenders_common_qty_chart.redrawChart();
@@ -1983,18 +2006,19 @@ var tenders_common_qty_chart = {
             },
             chart: {
                 type: 'column',
-                renderTo:'qty_chart',
-                marginTop: 50
+                renderTo:'qty_chart'
+                //marginTop: 50
             },
             title: {
-                text: ''
+                text: 'Конкурсы по числу допущенных заявок',
+                margin: 30
             },
             xAxis: {
                 categories: tenders_data.qty_years,
                 labels:{
                     useHTML: true,
                     style:{
-                        border: '1px solid rgb(135,150,164)',
+                        border: '3px solid #65afc1',
                         borderRadius: '10px',
                         padding: '5px 10px'
                         //color:'red'
@@ -2004,7 +2028,7 @@ var tenders_common_qty_chart = {
             yAxis: [{
                 min: 0,
                 title: {
-                    text: '%'
+                    text: 'Проценты (%)'
                 },
                 stackLabels: {
                     enabled: false,
@@ -2100,7 +2124,7 @@ var tenders_common_qty_chart = {
         tenders_common_qty_chart.chart.xAxis[0].update({labels:{
             useHTML: true,
             style:{
-                border: '1px solid rgb(135,150,164)'
+                border: '3px solid #65afc1'
             }
         }
         }, false);
@@ -2136,17 +2160,18 @@ var tenders_common_qty_chart = {
         tenders_common_qty_chart.chart.xAxis[0].update({labels:{
             useHTML: true,
             style:{
-                border: '0px solid rgb(135,150,164)'
+                border: '0px solid #65afc1'
             }
         }
         }, false);
         tenders_common_qty_chart.chart.series[0].setData(series, true);
 
-
-        tenders_common_qty_chart.chart.renderer.button('Назад',
-            200,
-            0,
-            tenders_common_qty_chart.returnYearQtyChart).add();
+        tenders_common_qty_chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
+            .add().on('click',tenders_common_qty_chart.returnYearQtyChart);
+        //tenders_common_qty_chart.chart.renderer.button('Назад',
+        //    200,
+        //    0,
+        //    tenders_common_qty_chart.returnYearQtyChart).add();
     },
     redrawChart: function(){
        console.log('redraw', 'is_drilldown = '+tenders_common_qty_chart.is_drilldown, tenders_common_qty_chart.selected_year, tenders_common_qty_chart.current_measure)
@@ -2159,6 +2184,7 @@ var tenders_common_qty_chart = {
        }
     },
     returnYearQtyChart: function(){
+        $('#qty_chart image').remove();
         tenders_common_qty_chart.is_drilldown = false;
         tenders_common_qty_chart.fillChart();
         tenders_common_qty_chart.bindDrillDownEvent();

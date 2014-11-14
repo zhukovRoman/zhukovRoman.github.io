@@ -1,22 +1,22 @@
 Highcharts.kpugs = {
     colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
         '#FF9655', '#FFF263', '#6AF9C4'],
-    colors: ['#7bc5d7', '#273e43', '#84d77b', '#ef9338', '#7d7bd7', '#d77bcf',
-        '#dace4b', '#FFF263', '#6AF9C4'],
+    colors: ['#3598db', '#34495e', '#2dcc70', '#e77e23', '#e84c3d', '#9b58b5',
+        '#f1c40f', '#FFF263', '#6AF9C4'],
     chart: {
         backgroundColor: 'rgba(0,0,0,0)'
     },
     title: {
         style: {
             fontSize:'30px',
-            color: 'rgb(135,150,164)'
+            color: '#626160'
         }
     },
     xAxis:{
         labels:{
             style:{
                 fontSize: '22px',
-                color: 'rgb(135,150,164)'
+                color: '#65afc1'
             }
         },
         title: {
@@ -24,14 +24,19 @@ Highcharts.kpugs = {
                 fontSize: '24px',
                 color: 'rgb(135,150,164)'
             }
-        }
+        },
+        lineColor: "#9acbed",
+        lineWidth: 3,
+        tickLength: 0
+
     },
     yAxis:{
        title:{
            style:{
                fontSize:'24px',
                color: 'rgb(135,150,164)'
-           }
+           },
+           align: 'low'
        },
         labels:{
             style: {
@@ -64,7 +69,8 @@ Highcharts.kpugs = {
         style:{
             color: 'gray',
             fontFamily: 'PT Sans, sans-serif',
-            fontSize: '28px'
+            fontSize: '28px',
+            zIndex: '99999'
         }
     },
     plotOptions:{

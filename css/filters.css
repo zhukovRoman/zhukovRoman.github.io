@@ -102,7 +102,17 @@
 .filter-items.columns2 label:last-of-type{
     min-width: 300px;
 }
+.filter-items.columns4 label{
+    padding-left: 73px;
+    width: 77px;
+    min-width: 77px;
+}
 
+.filter-items.columns5 label{
+    padding-left: 65px;
+    width: 37px;
+    min-width: 40px;
+}
 
 .filter-items input[type=checkbox] + label{
     background-image: url('images/checkbox_on_white.png');

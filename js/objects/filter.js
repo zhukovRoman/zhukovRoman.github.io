@@ -16,17 +16,31 @@ var filter = {
     },
     insertYearsIntoFilter: function(){
         var container = $(this.id+" div.years")
+        var count = 0;
+        var html = '<div class="filter-items columns5 years-filter ">'
         $.each(this.years, function(i, year){
-            var html = '<input type="checkbox" data-role="none" data-value="'+year+'" checked id="y'+i+'"> <label for="y'+i+'">'+year+'</label>'
-            container.append(html);
+            if (count++ % 5 == 0  ){
+                html += '</div><div class="filter-items columns5 years-filter ">'
+            }
+            html += '<input type="checkbox" data-role="none" data-value="'+year+'" checked id="y'+i+'"> <label for="y'+i+'">'+year+'</label>'
+
         })
+        container.append(html+'</div>');
     },
     insertDistinctsIntoFilter: function(){
         var container = $(this.id+" div.distincts")
+        var count = 0;
+        var html = '<div class="filter-items columns4 distincts-filter distincts">'
         $.each(this.distincts, function(i, dist){
-            var html = '<input type="checkbox" data-role="none" data-value="'+dist.ObjectRegionName+'" checked id="d'+i+'"> <label for="d'+i+'">'+dist.ObjectRegionName+'</label>'
-            container.append(html);
+
+            if (count++ % 4 == 0  ){
+                 html += '</div><div class="filter-items columns4 distincts-filter distincts">'
+            }
+
+            html += '<input type="checkbox" data-role="none" data-value="'+dist.ObjectRegionName+'" checked id="d'+i+'"> <label for="d'+i+'">'+dist.ObjectRegionName+'</label>'
+
         })
+        container.append(html+'</div>');
     },
     getYearsFilter: function(){
         var res = []

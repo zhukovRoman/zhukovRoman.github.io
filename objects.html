@@ -21,12 +21,29 @@
 </head>
 <body >
 <div class="status-bar"></div>
+<div class="header">
+    <!--<a href="#" id='back-button' class="header-item header-button back-button left-button" onclick="tenders_logic.showChartsPart()">-->
+        <!--&lt;!&ndash;<a href="#" id='back-button'  onclick="tenders_logic.showChartsPart()" style="display: block">Назад</a>&ndash;&gt;-->
+        <!--Назад-->
+    <!--</a>-->
+    <!--<div class="header-devider"></div>-->
+    <div class="header-title header-item">
+        Объекты
+    </div>
+    <!--<div class="header-devider"></div>-->
+    <!--<a href="#" id="common-button" class="header-item right" onclick="tenders_logic.showCommonInfo()">-->
+        <!--&lt;!&ndash;<a href="#" id="common-button"  onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>&ndash;&gt;-->
+        <!--Сводка по конкурсам-->
+    <!--</a>-->
+</div>
 <div id="left-menu">
-    <div id='logo' class="menu-picture"></div>
-    <hr class="under-logo">
+    <a href="index.html" data-ajax="false">
+        <div id='logo' class="menu-picture"></div>
+    </a>
+    <hr class="menu-item-devider">
     <div class="menu">
         <a href="empl.html" data-ajax="false">
-            <div class="menu-item ">
+            <div class="menu-item">
                 <div class="menu-picture empl-menu-picture "></div>
                 <div class="menu-item-text">Кадры</div>
             </div>
@@ -61,14 +78,10 @@
         </a>
     </div>
 </div>
-    <div class="right-side" data-role="page" id='charts'>
-        <!--<div data-role="header" data-position="fixed">-->
-        <div data-role="header">
-            <h1>Объекты</h1>
-        </div>
+<div class="right-side" data-role="page" id='charts'>
         <div data-role="content">
             <div class="content-side" data-role="none" id="charts-content">
-                <div>
+                <div class='tabs'>
                     <form>
                         <fieldset data-role="controlgroup" data-type="horizontal" id="documents-filter">
                             <input type="radio" name="document" id="radio-choice-h-2a" data-title="ГПЗУ" data-value="GPZU" checked="checked">
@@ -113,61 +126,58 @@
                     </ul>
                 </div>
             </div>
-            <div class="filter-side" data-role="none" id = "object-filter">
+            <div class="filter" data-role="none" id = "object-filter">
                   <div class="">Вид:
                       <button id='chart-button' class="ui-btn ui-btn-inline ui-btn-b">График</button>
                       <button id='list-button' class="ui-btn ui-btn-inline">Списком</button>
                       <button id='map-button' class="ui-btn ui-btn-inline">На карте</button>
                   </div>
-                <div class="filter-part">
-                    <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">
-                    <label for="checkbox-all-appointments">Объекты</label>
-                    <span id="select-all-appointments" class="add-filters-action">Выделить все</span>
-                </div>
 
-                <div class="appointment-filter filter" >
-                    <div class="group-filter">
-                        <div class="group-filter-header group-filter-header-first">
+                <div class="filter-part">
+                    <div class="filter-part-header">
+                        <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">
+                        <label for="checkbox-all-appointments">Объекты</label>
+                        <span id="select-all-appointments" class="add-filters-action">Снять выделение</span>
+                    </div>
+                    <div class="appointment-filter">
+                        <div class="sub-header ">
                             <input type="checkbox" data-role="none" checked id="select-all-living">
                             <label for="select-all-living">Жилище</label>
                             <span class="add-filters-action">Снять выделение</span>
                         </div>
-                        <div class="appointments appointment-filter ">
+                        <div class="filter-items appointments appointment-filter living_types ">
                             <input type="checkbox" data-role="none" data-value="жилье" checked id="ap1">
                             <label for="ap1">Жилье</label>
                             <input type="checkbox" data-role="none" data-value="инженерия" checked id="ap3">
                             <label for="ap3">Инженерия</label>
                         </div>
-                    </div>
-                    <div class="group-filter">
-                        <div class="group-filter-header">
+                        <div class="sub-header ">
                             <input type="checkbox" data-role="none" checked id="select-all-social">
-                            <label for="select-all-social">Социалька</label>
+                            <label for="select-all-social">Социальные объекты</label>
                             <span class="add-filters-action">Снять выделение</span>
                         </div>
-
-                        <div class="appointments appointment-filter ">
+                        <div class="filter-items columns3 appointments appointment-filter ">
                             <input type="checkbox" data-role="none" data-value="БНК" checked id="ap4">
                             <label for="ap4">БНК</label>
                             <input type="checkbox" data-role="none" data-value="ДОУ" checked id="ap5">
                             <label for="ap5">ДОУ</label>
-                            <input type="checkbox" data-role="none" data-value="ФОК" checked id="ap6">
-                            <label for="ap6">ФОК</label>
                             <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked id="ap7">
                             <label for="ap7">Спорт-ФОК</label>
+                        </div>
+                        <div class="filter-items columns3 appointments appointment-filter">
+                            <input type="checkbox" data-role="none" data-value="ФОК" checked id="ap6">
+                            <label for="ap6">ФОК</label>
                             <input type="checkbox" data-role="none" data-value="школа" checked id="ap8">
                             <label for="ap8">Школа</label>
                             <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap9">
                             <label for="ap9">Поликлиника</label>
                         </div>
-                    </div>
-                    <div class="group-filter">
-                        <div class="group-filter-header">
+                        <div class="sub-header not-house-group-filter">
                             <input type="checkbox" data-role="none" checked id="select-all-other">
                             <label for="select-all-other">Прочие</label>
                             <span class="add-filters-action">Снять выделение</span>
                         </div>
-                        <div class="appointments appointment-filter others">
+                        <div class="filter-items columns3 appointments appointment-filter ">
                             <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap10">
                             <label for="ap10">Дороги</label>
                             <input type="checkbox" data-role="none" data-value="переход" checked id="ap11">
@@ -177,35 +187,107 @@
                         </div>
                     </div>
                 </div>
+                <div class="filter-part ">
+                    <div class="filter-part-header">
+                        <input type="checkbox" data-role="none" checked id="select-all-distincts">
+                        <label for="select-all-distincts" >Округ</label>
+                        <span class="add-filters-action">Снять выделение</span>
+                    </div>
+                    <div class="distincts">
 
-                <div class="filter-part">
-                    <input type="checkbox" data-role="none" checked id="select-all-distincts">
-                    <label for="select-all-distincts" style="width: auto">Округ</label>
-                    <span class="add-filters-action">Снять выделение</span>
-                </div>
-                <div class="distinct-filter filter">
-                    <div class="group-filter">
-                        <div class="distincts"></div>
                     </div>
                 </div>
 
-                <div class="filter-part">
-                    <input type="checkbox" data-role="none" checked id="select-all-years">
-                    <label for="select-all-years" style="width: auto">Годы</label>
-                    <span class="add-filters-action">Снять выделение</span>
-                </div>
-                <div class="distinct-filter filter">
-                    <div class="group-filter">
-                        <div class="years"></div>
+                <div class="filter-part ">
+                    <div class="filter-part-header">
+                        <input type="checkbox" data-role="none" checked id="select-all-years">
+                        <label for="select-all-years" style="width: auto">Годы</label>
+                        <span class="add-filters-action">Снять выделение</span>
+                    </div>
+                    <div class="years">
+
                     </div>
                 </div>
+
+                <!--<div class="filter-part">-->
+                    <!--<input type="checkbox" data-role="none" checked id="checkbox-all-appointments">-->
+                    <!--<label for="checkbox-all-appointments">Объекты</label>-->
+                    <!--<span id="select-all-appointments" class="add-filters-action">Выделить все</span>-->
+                <!--</div>-->
+
+                <!--<div class="appointment-filter filter" >-->
+                    <!--<div class="group-filter">-->
+                        <!--<div class="group-filter-header group-filter-header-first">-->
+                            <!--<input type="checkbox" data-role="none" checked id="select-all-living">-->
+                            <!--<label for="select-all-living">Жилище</label>-->
+                            <!--<span class="add-filters-action">Снять выделение</span>-->
+                        <!--</div>-->
+                        <!--<div class="appointments appointment-filter ">-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="group-filter">-->
+                        <!--<div class="group-filter-header">-->
+                            <!--<input type="checkbox" data-role="none" checked id="select-all-social">-->
+                            <!--<label for="select-all-social">Социалька</label>-->
+                            <!--<span class="add-filters-action">Снять выделение</span>-->
+                        <!--</div>-->
+
+                        <!--<div class="appointments appointment-filter ">-->
+                            <!--<input type="checkbox" data-role="none" data-value="БНК" checked id="ap4">-->
+                            <!--<label for="ap4">БНК</label>-->
+                            <!--<input type="checkbox" data-role="none" data-value="ДОУ" checked id="ap5">-->
+                            <!--<label for="ap5">ДОУ</label>-->
+                            <!--<input type="checkbox" data-role="none" data-value="ФОК" checked id="ap6">-->
+                            <!--<label for="ap6">ФОК</label>-->
+                            <!--<input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked id="ap7">-->
+                            <!--<label for="ap7">Спорт-ФОК</label>-->
+                            <!--<input type="checkbox" data-role="none" data-value="школа" checked id="ap8">-->
+                            <!--<label for="ap8">Школа</label>-->
+                            <!--<input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap9">-->
+                            <!--<label for="ap9">Поликлиника</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="group-filter">-->
+                        <!--<div class="group-filter-header">-->
+                            <!--<input type="checkbox" data-role="none" checked id="select-all-other">-->
+                            <!--<label for="select-all-other">Прочие</label>-->
+                            <!--<span class="add-filters-action">Снять выделение</span>-->
+                        <!--</div>-->
+                        <!--<div class="appointments appointment-filter others">-->
+                            <!--<input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap10">-->
+                            <!--<label for="ap10">Дороги</label>-->
+                            <!--<input type="checkbox" data-role="none" data-value="переход" checked id="ap11">-->
+                            <!--<label for="ap11">Переход</label>-->
+                            <!--<input type="checkbox" data-role="none" data-value="Прочие объекты" checked id="ap12">-->
+                            <!--<label for="ap12">Прочие</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="filter-part">-->
+                    <!--<input type="checkbox" data-role="none" checked id="select-all-distincts">-->
+                    <!--<label for="select-all-distincts" style="width: auto">Округ</label>-->
+                    <!--<span class="add-filters-action">Снять выделение</span>-->
+                <!--</div>-->
+                <!--<div class="distinct-filter filter">-->
+                    <!--<div class="group-filter">-->
+                        <!--<div class="distincts"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="filter-part">-->
+
+                <!--</div>-->
+                <!--<div class="distinct-filter filter">-->
+                    <!--<div class="group-filter">-->
+                        <!--<div class="years"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
             </div>
         </div><!-- /content -->
     </div>
-    <!--<div class="right-side" data-role="page" id="object-view">-->
-
-    <!--</div>-->
 </body>
 
 <script type="text/javascript" src="js/my_common_scripts.js"></script>

@@ -1,7 +1,11 @@
 .content-side {
-    width: 1275px;
+    width: 1200px;
     /*padding: 20px;*/
     float: left;
+}
+
+#object-filter{
+    margin-right: 0px;
 }
 
 .filter-side{

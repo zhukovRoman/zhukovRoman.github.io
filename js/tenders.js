@@ -122,23 +122,46 @@ var tenders_logic = {
 
     },
     bindTableRows: function(data){
-        var tbody = $("#tenders_table tbody")
-        var rows = '';
-        $.each(data, function(i,t){
+
+
+        var $ul = $("#tenders_list")
+        var html = ''
+        $.each (data, function(i,t){
             var power =  t.object_power==null ? '-': t.object_power.toFixed(0)
             var power_price =  t.object_power==null ? '-' : thousands_sep((t.price_end/t.object_power).toFixed(0))
-                rows += "<tr><td>"+ t.object_address+tenders_logic.getObjectSeries(t)+"</td>" +
-                "<td>"+ power+"</td>"+
-                "<td>"+ t.type+"</td>"+
-                "<td>"+ t.organization+"</td>"+
-                "<td>"+ moment(t.date_finish).format('DD/MM/YY')+"</td>"+
-                "<td>"+ t.bid_accept+"/"+t.bid_all+"</td>"+
-                "<td>"+ thousands_sep(t.price_start.toFixed(0))+"₽</td>"+
-                "<td>"+ thousands_sep(t.price_end.toFixed(0))+" ("+ power_price+") ₽</td>"+
-                "<td>"+ t.percent.toFixed(2)+"</td></tr>"
+
+            html+='<li>' +
+                    '<a href="index.html?id='+1+'">'+
+                    '<span class="tenders_list_column">'+ t.object_address+tenders_logic.getObjectSeries(t)+"</span>" +
+                    '<span class="tenders_list_column">'+  power +"</span>" +
+                    '<span class="tenders_list_column">'+  t.type +"</span>" +
+                    '<span class="tenders_list_column">'+  t.organization +"</span>" +
+                    '<span class="tenders_list_column">'+  moment(t.date_finish).format('DD/MM/YY') +"</span>" +
+                    '<span class="tenders_list_column">'+  t.bid_accept+"/"+t.bid_all +"</span>" +
+                    '<span class="tenders_list_column">'+  thousands_sep(t.price_start.toFixed(0))+"₽"+"</span>" +
+                    '<span class="tenders_list_column">'+  thousands_sep(t.price_end.toFixed(0))+" ("+ power_price+") ₽"+"</span>" +
+                    '<span class="tenders_list_column">'+  t.percent.toFixed(2) +"</span>" +
+            '</a></li>'
 
         })
-        tbody[0].innerHTML = rows;
+        $ul.html(html)
+        $ul.listview( "refresh" );
+        $ul.trigger( "updatelayout");
+
+        //var rows = '';
+        //$.each(data, function(i,t){
+        //        rows += "<tr><td>"+ t.object_address+tenders_logic.getObjectSeries(t)+"</td>" +
+        //        "<td>"+ power+"</td>"+
+        //        "<td>"+ t.type+"</td>"+
+        //        "<td>"+ t.organization+"</td>"+
+        //        "<td>"+ moment(t.date_finish).format('DD/MM/YY')+"</td>"+
+        //        "<td>"+ t.bid_accept+"/"+t.bid_all+"</td>"+
+        //        "<td>"+ thousands_sep(t.price_start.toFixed(0))+"₽</td>"+
+        //        "<td>"+ thousands_sep(t.price_end.toFixed(0))+" ("+ power_price+") ₽</td>"+
+        //        "<td>"+ t.percent.toFixed(2)+"</td></tr>"
+        //
+        //})
+        //tbody[0].innerHTML = rows;
     } ,
     filterTendersForTable: function(type, month, year, enter_year, uk_flag){
         console.log(type, month, year, enter_year, uk_flag );

@@ -56,3 +56,117 @@ h3{
     float: left;
     width: 1200px;
 }
+
+.tenders_list_column{
+    white-space: normal;
+    font-size: 30px;
+    color: #8e8e93;
+    display: table-cell;
+    min-height: 40px;
+    /* width: 59px; */
+    max-width: 299px;
+    font-weight: normal;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: auto;
+}
+
+.tenders-list-wrapper{
+    margin-top : 182px;
+    overflow: scroll;
+}
+
+.tenders-list-wrapper form{
+    position: fixed;
+    top: 124px;
+    width: 1868px;
+    z-index: 1;
+}
+.tenders-list-wrapper form input{
+    text-align: center;
+}
+
+.tenders-list-header{
+    background-color: #e0eff3;
+    color: #637173;
+    font-weight: bold;
+    position: fixed;
+    z-index: 1;
+    top: 220px;
+    height: 75px;
+    width: 1809px;
+    border-bottom: 2px solid #65afc1;
+    padding: 12px 45px 12px 18px;
+
+}
+
+#tenders_list li > a{
+    background-color: #fff;
+}
+.tenders-list-header .tenders_list_column{
+    height: 75px;
+    font-size: 26px;
+
+}
+
+.tenders_list_column:first-child{
+    width: 380px;
+    min-width: 380px;
+    max-width: 380px;
+    text-align: left;
+}
+.tenders_list_column:first-child + span {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+}
+.tenders_list_column:first-child + span + span {
+    width: 240px;
+    min-width: 240px;
+    max-width: 240px;
+}
+.tenders_list_column:first-child + span + span + span{
+    width: 170px;
+    min-width: 170px;
+    max-width: 170px;
+}
+.tenders_list_column:first-child + span + span + span + span{
+    width: 138px;
+    min-width: 138px;
+    max-width: 138px;
+}
+.tenders_list_column:first-child + span + span + span + span+ span{
+    width: 225px;
+    min-width: 225px;
+    max-width: 225px;
+}
+.tenders_list_column:first-child + span + span + span + span+ span + span{
+    width: 210px;
+    min-width: 210px;
+    max-width: 210px;
+}
+.tenders_list_column:first-child + span + span + span + span+ span + span + span{
+    width: 240px;
+    min-width: 240px;
+    max-width: 240px;
+}
+.tenders_list_column:last-child {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.ui-btn-icon-right:after {
+    content: "";
+    width: 15px;
+    height: 65px;
+    background-color: #fff;
+    background-image: url("images/list-item-right-arrow.png");
+    top: 30%;
+
+}
+
+.ui-input-search:after{
+    height: 0px;
+}

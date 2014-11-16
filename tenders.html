@@ -219,24 +219,40 @@
 
     </div>
     <div  id="table_content" style="display: none;" >
-        <table class="table" id="tenders_table">
-            <thead>
-            <tr>
-                <th>Адрес (серия)</th>
-                <th>Мощность</th>
-                <th>Тип</th>
-                <th>Организация</th>
-                <th>Дата окончания</th>
-                <th>Число заявок подано/допущено</th>
-                <th style="width: 200px;">НМЦК</th>
-                <th style="width: 170px;">Итоговая цена (на ед мощности)</th>
-                <th>%</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="tenders-list-wrapper">
+            <div class="tenders-list-header">
+                <span class="tenders_list_column">Адрес (серия)</span>
+                <span class="tenders_list_column">Мощность</span>
+                <span class="tenders_list_column">Тип</span>
+                <span class="tenders_list_column">Организация</span>
+                <span class="tenders_list_column">Дата окончания</span>
+                <span class="tenders_list_column">Число заявок подано/допущено</span>
+                <span class="tenders_list_column">НМЦК</span>
+                <span class="tenders_list_column">Итоговая цена <br>(на ед мощности)</span>
+                <span class="tenders_list_column">%↓</span>
+            </div>
+            <ul id="tenders_list" data-role="listview" data-filter="true" data-filter-placeholder="Поиск" data-inset="true">
 
-            </tbody>
-        </table>
+            </ul>
+        </div>
+        <!--<table class="table" id="tenders_table">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th>Адрес (серия)</th>-->
+                <!--<th>Мощность</th>-->
+                <!--<th>Тип</th>-->
+                <!--<th>Организация</th>-->
+                <!--<th>Дата окончания</th>-->
+                <!--<th>Число заявок подано/допущено</th>-->
+                <!--<th style="width: 200px;">НМЦК</th>-->
+                <!--<th style="width: 170px;">Итоговая цена (на ед мощности)</th>-->
+                <!--<th>%</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+
+            <!--</tbody>-->
+        <!--</table>-->
     </div>
     <div   id="common_charts" style="display: none; margin: 20px">
         <!--<h3 >Общая стоимость конкурсов</h3>-->

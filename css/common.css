@@ -115,6 +115,8 @@ body.ui-mobile-viewport{
     min-height: 80px;
 }
 
+
+
 /*----------------------------------*/
 /*              LEFT MENU           */
 /*----------------------------------*/
@@ -275,6 +277,11 @@ ul{
 
 .tabs-active .ui-btn, .tabs-active .ui-btn:hover{
     border-color: #65afc1;
+}
+
+.ui-controlgroup-controls .ui-radio{
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
 }
 
 .my-button{

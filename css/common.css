@@ -68,6 +68,10 @@ body.ui-mobile-viewport{
     width: 100%;
     font-size: 32px;
 }
+.header .header-paginator{
+    display: table-cell;
+    width: 0px;
+}
 .header .header-item.left-button{
     min-width: 165px;
     padding-left: 14px;
@@ -290,8 +294,11 @@ ul{
     border-radius: 0;
 }
 
-.tabs-active .ui-btn, .tabs-active .ui-btn:hover{
+.tabs-active .ui-btn,
+.tabs-active .ui-btn:hover,
+.tabs-active .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn.ui-last-child{
     border-color: #65afc1;
+    /*border-width: 3px;*/
 }
 
 .ui-controlgroup-controls .ui-radio{

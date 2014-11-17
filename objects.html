@@ -21,21 +21,7 @@
 </head>
 <body >
 <div class="status-bar"></div>
-<div class="header">
-    <!--<a href="#" id='back-button' class="header-item header-button back-button left-button" onclick="tenders_logic.showChartsPart()">-->
-        <!--&lt;!&ndash;<a href="#" id='back-button'  onclick="tenders_logic.showChartsPart()" style="display: block">Назад</a>&ndash;&gt;-->
-        <!--Назад-->
-    <!--</a>-->
-    <!--<div class="header-devider"></div>-->
-    <div class="header-title header-item">
-        Объекты
-    </div>
-    <!--<div class="header-devider"></div>-->
-    <!--<a href="#" id="common-button" class="header-item right" onclick="tenders_logic.showCommonInfo()">-->
-        <!--&lt;!&ndash;<a href="#" id="common-button"  onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>&ndash;&gt;-->
-        <!--Сводка по конкурсам-->
-    <!--</a>-->
-</div>
+
 <div id="left-menu">
     <a href="index.html" data-ajax="false">
         <div id='logo' class="menu-picture"></div>
@@ -79,9 +65,24 @@
     </div>
 </div>
 <div class="right-side" data-role="page" id='charts'>
-        <div data-role="content">
+<div class="header">
+    <!--<a href="#" id='back-button' class="header-item header-button back-button left-button" onclick="tenders_logic.showChartsPart()">-->
+    <!--&lt;!&ndash;<a href="#" id='back-button'  onclick="tenders_logic.showChartsPart()" style="display: block">Назад</a>&ndash;&gt;-->
+    <!--Назад-->
+    <!--</a>-->
+    <div class="header-paginator"></div>
+    <div class="header-title header-item">
+        Объекты
+    </div>
+    <!--<div class="header-devider"></div>-->
+    <!--<a href="#" id="common-button" class="header-item right" onclick="tenders_logic.showCommonInfo()">-->
+    <!--<!--<a href="#" id="common-button"  onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>-->
+    <!--Сводка по конкурсам-->
+    <!--</a>-->
+</div>
+        <div data-role="content" style="padding: 15px">
             <div class="content-side" data-role="none" id="charts-content">
-                <div class='tabs'>
+                <div class='tabs tabs-active objects-documents-tabs'>
                     <form>
                         <fieldset data-role="controlgroup" data-type="horizontal" id="documents-filter">
                             <input type="radio" name="document" id="radio-choice-h-2a" data-title="ГПЗУ" data-value="GPZU" checked="checked">
@@ -96,11 +97,27 @@
                             <label for="radio-choice-h-4c">Снос</label>
                         </fieldset>
                     </form>
+                    <div class="tender-tabs-group-name">Вид данных:</div>
+                    <form>
+                        <fieldset data-role="controlgroup" data-type="horizontal" >
+                            <input type="radio" name="document" id="chart-button"  checked="checked">
+                            <label for="chart-button">График</label>
+                            <input type="radio" name="document" id="list-button" >
+                            <label for="list-button">Списком</label>
+                            <input type="radio" name="document" id="map-button" >
+                            <label for="map-button">На карте</label>
+                        </fieldset>
+                    </form>
+                    <!--<div class="objects-view-switcher">Вид:-->
+                        <!--<button id='chart-button' class="ui-btn ui-btn-inline ui-btn-b">График</button>-->
+                        <!--<button id='list-button' class="ui-btn ui-btn-inline">Списком</button>-->
+                        <!--<button id='map-button' class="ui-btn ui-btn-inline">На карте</button>-->
+                    <!--</div>-->
                 </div>
                 <div>
-                    <div id='document-chart' style="width: 600px; height: 900px; float: left "></div>
-                    <div id='finance-chart' style="width: 600px; height: 900px; float: right"></div>
-                    <div id='work-chart' style="width: 1250px; height: 250px; float: left; margin-top: 50px"></div>
+                    <div id='document-chart' style="width: 1200px; height: 450px; padding-bottom: 50px; border-bottom: 3px solid #d7dbde; clear: both"></div>
+                    <div id='finance-chart' style="width: 1200px; height: 450px; padding-bottom: 60px; border-bottom: 3px solid #d7dbde"></div>
+                    <div id='work-chart' style="width: 1200px; height: 250px; float: left; margin-top: 50px"></div>
                 </div>
             </div>
             <div class="content-side" data-role="none" id="list-content">
@@ -127,12 +144,6 @@
                 </div>
             </div>
             <div class="filter" data-role="none" id = "object-filter">
-                  <div class="">Вид:
-                      <button id='chart-button' class="ui-btn ui-btn-inline ui-btn-b">График</button>
-                      <button id='list-button' class="ui-btn ui-btn-inline">Списком</button>
-                      <button id='map-button' class="ui-btn ui-btn-inline">На карте</button>
-                  </div>
-
                 <div class="filter-part">
                     <div class="filter-part-header">
                         <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">

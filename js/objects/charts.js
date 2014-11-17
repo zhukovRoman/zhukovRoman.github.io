@@ -7,8 +7,8 @@ var charts ={
     finance_chart: null,
     work_chart: null,
     count: 0,
-    all_title_x:  230,
-    all_title_y: 350,
+    all_title_x:  250,
+    all_title_y: 210,
     init: function(filter){
         this.filter = filter;
         this.createDocumentChart();
@@ -30,7 +30,10 @@ var charts ={
                plotShadow: true
            },
            title: {
-               text: ''
+               text: 'Выполнение плана',
+               floating: true,
+               x: 100,
+               y: 50
            },
            tooltip: {
                formatter: function () {
@@ -42,15 +45,17 @@ var charts ={
 
                },
                shared: true,
-               useHTML: true
+               useHTML: true,
+               enabled: false
            },
            plotOptions: {
                pie: {
-                   center: ['50%', '32%'],
+                   center: ['22%', '50%'],
                    showInLegend: true,
                    dataLabels: {
                        enabled: false
-                   }
+                   },
+                   size: 380
                }
            },
            legend: {
@@ -59,18 +64,18 @@ var charts ={
                align: 'left',
                verticalAlign: 'top',
                floating: true,
-               x: 30,
-               y: 600,
+               x: 550,
+               y: 60,
                useHTML: true,
                itemStyle: {
                    "color": "#333333",
-                   //"fontSize": "18pt",
+                   "fontSize": "30px",
                    //"fontWeight": "bold",
                    "white-space": "normal" },
                labelFormatter: function () {
-                   return '<div style="width: 500px;border-bottom: 1px solid;">' +
-                       '<div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
-                       '<div style="text-align: right; float: right; width: 200px"> '+ ((this.y)) +'</div></div>';
+                   return '<div style="width: 550px;font-size: 33px; color: #91a0ab">' +
+                       '<div class = "legend-series-name" style="float: left; width:375px; white-space: normal">'+this.name+'</div>' +
+                       '<div style="text-align: right; float: right; width: 175px"> '+ ((this.y)) +'</div></div>';
                }
            },
            series: [{
@@ -80,7 +85,12 @@ var charts ={
                data: [['получено', 10] ]
            }]
        });
-       allTitle = this.document_chart.renderer.text(this.count, this.all_title_x, this.all_title_y).css({color: "black","font-size" : "70pt"}).add();
+       allTitle = this.document_chart.renderer.text(this.count, this.all_title_x, this.all_title_y)
+                                        .css({color: "#626160","font-size" : "36px", fontWeight:"bold"})
+                                        .add();
+        this.document_chart.renderer.text('(объектов)', this.all_title_x-40, this.all_title_y+30)
+            .css({color: "#626160","font-size" : "28px", fontWeight:"bold"})
+            .add();
        //this.document_chart.renderer.button('Список просроченных',
        //     50,
        //     820,
@@ -92,7 +102,7 @@ var charts ={
        //
        //    }).add();
 
-        var img = this.document_chart.renderer.image('images/btn.png',50,820,520,100);
+        var img = this.document_chart.renderer.image('images/overdue.png',570,340,572,70);
         img.add();
         img.css({'cursor':'pointer'});
         //img.attr({'title':'Pop out chart'});
@@ -113,9 +123,9 @@ var charts ={
         charts.document_chart.series[0].setData(series, true);
         allTitle.attr({
             text: summ
-        }).css({"font-size" : "70pt"});
+        }).css({"font-size" : "36px"});
 //        charts.document_chart.setTitle({ text: charts.filter.getCurrentDocumentTitle() })
-        charts.document_chart.setTitle({ text: ''})
+//        charts.document_chart.setTitle({ text: ''})
 
     },
 
@@ -131,7 +141,10 @@ var charts ={
                 plotShadow: false
             },
             title: {
-                text: ''
+                text: 'Выполнение плана',
+                floating: true,
+                x: 100,
+                y: 50
             },
             tooltip: {
                 formatter: function () {
@@ -142,15 +155,17 @@ var charts ={
                     return s;
                 },
                 shared: true,
-                useHTML: true
+                useHTML: true,
+                enabled: false
             },
             plotOptions: {
                 pie: {
-                    center: ['50%', '32%'],
+                    center: ['22%', '50%'],
                     showInLegend: true,
                     dataLabels: {
                         enabled: false
-                    }
+                    },
+                    size: 380
                 }
 
             },
@@ -161,12 +176,18 @@ var charts ={
                 align: 'left',
                 verticalAlign: 'top',
                 floating: true,
-                x: 30,
-                y: 600,
+                x: 550,
+                y: 60,
                 useHTML: true,
-                itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+                itemStyle: {
+                    "color": "#333333",
+                    "fontSize": "30px",
+                    //"fontWeight": "bold",
+                    "white-space": "normal" },
+
                 labelFormatter: function () {
-                    return '<div style="width: 500px;border-bottom: 1px solid;display: block"><div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
+                    return '<div style="width: 550px;font-size: 33px; color: #91a0ab">' +
+                        '<div class = "legend-series-name" style="float: left; width:350px; white-space: normal">'+this.name+'</div>' +
                         '<div style="text-align: right; float: right; width: 200px"> '+ thousands_sep((this.y/1000000).toFixed(0)) +' млн ₽ </div></div>';
                 }
             },
@@ -174,7 +195,7 @@ var charts ={
             series: [{
                 type: 'pie',
                 name: 'Сумма',
-                innerSize: '60%',
+                innerSize: '50%',
                 data: [ ]
             }]
         });
@@ -205,12 +226,15 @@ var charts ={
                plotBackgroundColor: null,
                plotBorderWidth: null,
                plotShadow: false,
-               type: 'bar'
+               type: 'bar',
+               marginTop: -50
 
            },
            title: {
                text: 'Выполнение работ',
-               margin:10
+               margin:0,
+               floating: true,
+               y: 20
            },
            legend:{
                reversed: true,
@@ -218,8 +242,8 @@ var charts ={
                useHTML: true,
                floating: true,
                layout: 'horizontal',
-               itemStyle: { "color": "#333333",
-                            "fontSize": "18pt",
+               itemStyle: { "color": "#91a0ab",
+                            "fontSize": "26px",
                             //"fontWeight": "bold",
                             "white-space": "normal"
                             //font: '18pt Helvetica, Arial, sans-serif'
@@ -255,7 +279,8 @@ var charts ={
                    return s;
                },
                shared: true,
-               useHTML: true
+               useHTML: true,
+               enabled: false
            },
 
            plotOptions: {

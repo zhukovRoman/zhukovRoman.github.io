@@ -60,6 +60,9 @@ body.ui-mobile-viewport{
 }
 .header .header-item.right{
     min-width: 340px;
+    color: white;
+    text-shadow: none;
+    font-weight: 200;
 }
 .header .header-title{
     width: 100%;
@@ -68,6 +71,9 @@ body.ui-mobile-viewport{
 .header .header-item.left-button{
     min-width: 165px;
     padding-left: 14px;
+    color: white;
+    text-shadow: none;
+    font-weight: 200;
 }
 .header .header-item.back-button{
     background-image: url("images/back-btn.png");

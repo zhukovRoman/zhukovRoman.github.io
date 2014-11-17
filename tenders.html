@@ -24,21 +24,7 @@
 <body>
 <div class="status-bar"></div>
 <!--<div data-role="header" data-position="fixed">-->
-<div class="header">
-    <a href="#" id='back-button' class="header-item header-button back-button left-button" onclick="tenders_logic.showChartsPart()">
-        <!--<a href="#" id='back-button'  onclick="tenders_logic.showChartsPart()" style="display: block">Назад</a>-->
-        Назад
-    </a>
-    <div class="header-devider"></div>
-    <div class="header-title header-item">
-        Конкурсы
-    </div>
-    <div class="header-devider"></div>
-    <a href="#" id="common-button" class="header-item right" onclick="tenders_logic.showCommonInfo()">
-        <!--<a href="#" id="common-button"  onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>-->
-        Сводка по конкурсам
-    </a>
-</div>
+
 <div id="left-menu">
     <a href="index.html" data-ajax="false">
         <div id='logo' class="menu-picture"></div>
@@ -82,199 +68,215 @@
     </div>
 </div>
 <div class="right-side" data-role="page" id='tenders'>
-    <div id="charts_content">
-        <div class='tenders-tabs tabs'>
-            <form>
-                <div class="tender-tabs-group-name">Стоимость</div>
-                <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs" class="tabs tabs-active">
-                    <input type="radio" name="tender-chart" id="radio-choice-h-1a" data-div="house_m2_price" data-chart="PriceM2HouseChart" checked="checked">
-                    <label for="radio-choice-h-1a">м2 жилья</label>
-                    <input type="radio" name="tender-chart" id="radio-choice-h-1b" data-div="social_place_price"  data-chart="PriceSocialPrice" >
-                    <label for="radio-choice-h-1b">место социалки</label>
-                    <input type="radio" name="tender-chart" id="radio-choice-h-1c" data-div="uk_notuk_chart"  data-chart="UKHouseChart">
-                    <label for="radio-choice-h-1c">м2 жилья по УК/не УК</label>
-                    <input type="radio" name="tender-chart" id="radio-choice-h-1d" data-div="uk_notuk_social_chart"  data-chart="UKSocialChart">
-                    <label for="radio-choice-h-1d">место социалки по УК/не УК</label>
-                </fieldset>
-                <div class="tender-tabs-group-name">Конкурсы</div>
-                <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs2" class="tabs">
-                    <input type="radio" name="tender-chart" id="radio-choice-h-2a" data-div="price_percent_chart" data-chart="PricePercentChart">
-                    <label for="radio-choice-h-2a">среднее снижение</label>
-                    <input type="radio" name="tender-chart" id="radio-choice-h-2b" data-div="qty_line_chart" data-chart="QtyChart">
-                    <label for="radio-choice-h-2b">заявки</label>
-                    <input type="radio" name="tender-chart" id="radio-choice-h-2c" data-div="sum_chart" data-chart="SummChart">
-                    <label for="radio-choice-h-2c">сумма</label>
-                    <input type="radio" name="tender-chart" id="radio-choice-h-3c" data-div="count_chart" data-chart="CountChart">
-                    <label for="radio-choice-h-3c">число</label>
-                </fieldset>
-            </form>
-        </div>
-        <div id="tender-charts-content">
-            <div class="charts-container">
-                <div id="house_m2_price" class="tender_chart " style="height: 1120px; width: 1200px; float: left"></div>
-                <div id="social_place_price" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
-                <div id="uk_notuk_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
-                <div id="uk_notuk_social_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
-                <div id="price_percent_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
-                <div id="qty_line_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
-                <div id="sum_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
-                <div id="count_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
-                <div class = "my-button" id='show_table_button' >
-                    Посмотреть список конкурсов
+<div class="header">
+    <a href="#" id='back-button' class="header-item header-button back-button left-button" onclick="tenders_logic.showChartsPart()">
+        <!--<a href="#" id='back-button'  onclick="tenders_logic.showChartsPart()" style="display: block">Назад</a>-->
+        Назад
+    </a>
+    <div class="header-devider"></div>
+    <div class="header-title header-item">
+        Конкурсы
+    </div>
+    <div class="header-devider"></div>
+    <a href="#" id="common-button" class="header-item right" onclick="tenders_logic.showCommonInfo()">
+        <!--<a href="#" id="common-button"  onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>-->
+        Сводка по конкурсам
+    </a>
+</div>
+    <div data-role="content">
+        <div id="charts_content">
+            <div class='tenders-tabs tabs'>
+                <form>
+                    <div class="tender-tabs-group-name">Стоимость</div>
+                    <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs" class="tabs tabs-active">
+                        <input type="radio" name="tender-chart" id="radio-choice-h-1a" data-div="house_m2_price" data-chart="PriceM2HouseChart" checked="checked">
+                        <label for="radio-choice-h-1a">м2 жилья</label>
+                        <input type="radio" name="tender-chart" id="radio-choice-h-1b" data-div="social_place_price"  data-chart="PriceSocialPrice" >
+                        <label for="radio-choice-h-1b">место социалки</label>
+                        <input type="radio" name="tender-chart" id="radio-choice-h-1c" data-div="uk_notuk_chart"  data-chart="UKHouseChart">
+                        <label for="radio-choice-h-1c">м2 жилья по УК/не УК</label>
+                        <input type="radio" name="tender-chart" id="radio-choice-h-1d" data-div="uk_notuk_social_chart"  data-chart="UKSocialChart">
+                        <label for="radio-choice-h-1d">место социалки по УК/не УК</label>
+                    </fieldset>
+                    <div class="tender-tabs-group-name">Конкурсы</div>
+                    <fieldset data-role="controlgroup" data-type="horizontal" id="tender-charts-tabs2" class="tabs">
+                        <input type="radio" name="tender-chart" id="radio-choice-h-2a" data-div="price_percent_chart" data-chart="PricePercentChart">
+                        <label for="radio-choice-h-2a">среднее снижение</label>
+                        <input type="radio" name="tender-chart" id="radio-choice-h-2b" data-div="qty_line_chart" data-chart="QtyChart">
+                        <label for="radio-choice-h-2b">заявки</label>
+                        <input type="radio" name="tender-chart" id="radio-choice-h-2c" data-div="sum_chart" data-chart="SummChart">
+                        <label for="radio-choice-h-2c">сумма</label>
+                        <input type="radio" name="tender-chart" id="radio-choice-h-3c" data-div="count_chart" data-chart="CountChart">
+                        <label for="radio-choice-h-3c">число</label>
+                    </fieldset>
+                </form>
+            </div>
+            <div id="tender-charts-content">
+                <div class="charts-container">
+                    <div id="house_m2_price" class="tender_chart " style="height: 1120px; width: 1200px; float: left"></div>
+                    <div id="social_place_price" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
+                    <div id="uk_notuk_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
+                    <div id="uk_notuk_social_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
+                    <div id="price_percent_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
+                    <div id="qty_line_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
+                    <div id="sum_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
+                    <div id="count_chart" class="tender_chart" style="height: 1120px; width: 1200px; float: left; display: none;"></div>
+                    <div class = "my-button" id='show_table_button' >
+                        Посмотреть список конкурсов
+                    </div>
                 </div>
+
+                <div id="tender-filter" class="filter">
+                    <div class="filter-part">
+                        <div class="filter-part-header">
+                            <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">
+                            <label for="checkbox-all-appointments">Объекты</label>
+                            <span id="select-all-appointments" class="add-filters-action">Снять выделение</span>
+                        </div>
+                        <div class="appointment-filter">
+                            <div class="sub-header not-social-group-filter">
+                                <input type="checkbox" data-role="none" checked id="select-all-living">
+                                <label for="select-all-living">Жилище</label>
+                                <span class="add-filters-action">Снять выделение</span>
+                            </div>
+                            <div class="filter-items appointments appointment-filter living_types not-social-group-filter">
+                                <input type="checkbox" data-role="none" data-value="Сер" checked id="ap1">
+                                <label for="ap1">Серийное</label>
+                                <input type="checkbox" data-role="none" data-value="ИНД" checked id="ap2">
+                                <label for="ap2">Индивидуальное</label>
+                            </div>
+                            <div class="filter-items appointments appointment-filter house-appointmets not-social-group-filter">
+                                <input type="checkbox" data-role="none" data-value="инженерия" checked id="ap3">
+                                <label for="ap3">Инженерия</label>
+                            </div>
+                            <div class="sub-header not-house-group-filter">
+                                <input type="checkbox" data-role="none" checked id="select-all-social">
+                                <label for="select-all-social">Социальные объекты</label>
+                                <span class="add-filters-action">Снять выделение</span>
+                            </div>
+                            <div class="filter-items columns3 appointments appointment-filter social not-house-group-filter">
+                                <input type="checkbox" data-role="none" data-value="БНК" checked id="ap4">
+                                <label for="ap4">БНК</label>
+                                <input type="checkbox" data-role="none" data-value="ДОУ" checked id="ap5">
+                                <label for="ap5">ДОУ</label>
+                                <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked id="ap7">
+                                <label for="ap7">Спорт-ФОК</label>
+                            </div>
+                            <div class="filter-items columns3 appointments appointment-filter social not-house-group-filter">
+                                <input type="checkbox" data-role="none" data-value="ФОК" checked id="ap6">
+                                <label for="ap6">ФОК</label>
+                                <input type="checkbox" data-role="none" data-value="школа" checked id="ap8">
+                                <label for="ap8">Школа</label>
+                                <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap9">
+                                <label for="ap9">Поликлиника</label>
+                            </div>
+                            <div class="sub-header not-house-group-filter">
+                                <input type="checkbox" data-role="none" checked id="select-all-other">
+                                <label for="select-all-other">Прочие</label>
+                                <span class="add-filters-action">Снять выделение</span>
+                            </div>
+                            <div class="filter-items columns3 appointments appointment-filter others not-house-group-filter">
+                                <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap10">
+                                <label for="ap10">Дороги</label>
+                                <input type="checkbox" data-role="none" data-value="переход" checked id="ap11">
+                                <label for="ap11">Переход</label>
+                                <input type="checkbox" data-role="none" data-value="Прочие объекты" checked id="ap12">
+                                <label for="ap12">Прочие</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-part type-filter">
+                        <div class="filter-part-header">
+                            <input type="checkbox" data-role="none" checked id="select-all-types">
+                            <label for="select-all-types" >Тип конкурса</label>
+                            <span class="add-filters-action">Снять выделение</span>
+                        </div>
+                        <div class="filter-items  columns2 type-filter types">
+                            <input type="checkbox" data-role="none" data-value="генподрядчик" checked id="t1">
+                            <label for="t1">Генподрядчик</label>
+                            <input type="checkbox" data-role="none" data-value="перепроектирование" checked id="t3">
+                            <label for="t3">Перепроектирование</label>
+
+                        </div>
+                        <div class="filter-items columns2 type-filter types">
+                            <input type="checkbox" data-role="none" data-value="ТЗ СМР" checked id="t6">
+                            <label for="t6">ТЗ СМР</label>
+                            <input type="checkbox" data-role="none" data-value="генпроектировщик" checked id="t2">
+                            <label for="t2">Генпроектировщик</label>
+
+                        </div>
+                        <div class="filter-items  columns2 type-filter types">
+                            <input type="checkbox" data-role="none" data-value="ТЗ ПИР и СМР" checked id="t5">
+                            <label for="t5">ТЗ ПИР и СМР</label>
+                            <input type="checkbox" data-role="none" data-value="Страхование СМР" checked id="t4">
+                            <label for="t4">Страхование СМР</label>
+                        </div>
+                        <div class="filter-items  type-filter types">
+                            <input type="checkbox" data-role="none" data-value="управляющая компания" checked id="t7">
+                            <label for="t7">Управляющая компания</label>
+                        </div>
+                    </div>
+                    </div>
             </div>
 
-            <div id="tender-filter" class="filter">
-                <div class="filter-part">
-                    <div class="filter-part-header">
-                        <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">
-                        <label for="checkbox-all-appointments">Объекты</label>
-                        <span id="select-all-appointments" class="add-filters-action">Снять выделение</span>
-                    </div>
-                    <div class="appointment-filter">
-                        <div class="sub-header not-social-group-filter">
-                            <input type="checkbox" data-role="none" checked id="select-all-living">
-                            <label for="select-all-living">Жилище</label>
-                            <span class="add-filters-action">Снять выделение</span>
-                        </div>
-                        <div class="filter-items appointments appointment-filter living_types not-social-group-filter">
-                            <input type="checkbox" data-role="none" data-value="Сер" checked id="ap1">
-                            <label for="ap1">Серийное</label>
-                            <input type="checkbox" data-role="none" data-value="ИНД" checked id="ap2">
-                            <label for="ap2">Индивидуальное</label>
-                        </div>
-                        <div class="filter-items appointments appointment-filter house-appointmets not-social-group-filter">
-                            <input type="checkbox" data-role="none" data-value="инженерия" checked id="ap3">
-                            <label for="ap3">Инженерия</label>
-                        </div>
-                        <div class="sub-header not-house-group-filter">
-                            <input type="checkbox" data-role="none" checked id="select-all-social">
-                            <label for="select-all-social">Социальные объекты</label>
-                            <span class="add-filters-action">Снять выделение</span>
-                        </div>
-                        <div class="filter-items columns3 appointments appointment-filter social not-house-group-filter">
-                            <input type="checkbox" data-role="none" data-value="БНК" checked id="ap4">
-                            <label for="ap4">БНК</label>
-                            <input type="checkbox" data-role="none" data-value="ДОУ" checked id="ap5">
-                            <label for="ap5">ДОУ</label>
-                            <input type="checkbox" data-role="none" data-value="Спорт - ФОК" checked id="ap7">
-                            <label for="ap7">Спорт-ФОК</label>
-                        </div>
-                        <div class="filter-items columns3 appointments appointment-filter social not-house-group-filter">
-                            <input type="checkbox" data-role="none" data-value="ФОК" checked id="ap6">
-                            <label for="ap6">ФОК</label>
-                            <input type="checkbox" data-role="none" data-value="школа" checked id="ap8">
-                            <label for="ap8">Школа</label>
-                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap9">
-                            <label for="ap9">Поликлиника</label>
-                        </div>
-                        <div class="sub-header not-house-group-filter">
-                            <input type="checkbox" data-role="none" checked id="select-all-other">
-                            <label for="select-all-other">Прочие</label>
-                            <span class="add-filters-action">Снять выделение</span>
-                        </div>
-                        <div class="filter-items columns3 appointments appointment-filter others not-house-group-filter">
-                            <input type="checkbox" data-role="none" data-value="Поликлиника" checked id="ap10">
-                            <label for="ap10">Дороги</label>
-                            <input type="checkbox" data-role="none" data-value="переход" checked id="ap11">
-                            <label for="ap11">Переход</label>
-                            <input type="checkbox" data-role="none" data-value="Прочие объекты" checked id="ap12">
-                            <label for="ap12">Прочие</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="filter-part type-filter">
-                    <div class="filter-part-header">
-                        <input type="checkbox" data-role="none" checked id="select-all-types">
-                        <label for="select-all-types" >Тип конкурса</label>
-                        <span class="add-filters-action">Снять выделение</span>
-                    </div>
-                    <div class="filter-items  columns2 type-filter types">
-                        <input type="checkbox" data-role="none" data-value="генподрядчик" checked id="t1">
-                        <label for="t1">Генподрядчик</label>
-                        <input type="checkbox" data-role="none" data-value="перепроектирование" checked id="t3">
-                        <label for="t3">Перепроектирование</label>
-
-                    </div>
-                    <div class="filter-items columns2 type-filter types">
-                        <input type="checkbox" data-role="none" data-value="ТЗ СМР" checked id="t6">
-                        <label for="t6">ТЗ СМР</label>
-                        <input type="checkbox" data-role="none" data-value="генпроектировщик" checked id="t2">
-                        <label for="t2">Генпроектировщик</label>
-
-                    </div>
-                    <div class="filter-items  columns2 type-filter types">
-                        <input type="checkbox" data-role="none" data-value="ТЗ ПИР и СМР" checked id="t5">
-                        <label for="t5">ТЗ ПИР и СМР</label>
-                        <input type="checkbox" data-role="none" data-value="Страхование СМР" checked id="t4">
-                        <label for="t4">Страхование СМР</label>
-                    </div>
-                    <div class="filter-items  type-filter types">
-                        <input type="checkbox" data-role="none" data-value="управляющая компания" checked id="t7">
-                        <label for="t7">Управляющая компания</label>
-                    </div>
-                </div>
-                </div>
         </div>
+        <div id="table_content" style="display: none;" >
+            <div class="tenders-list-wrapper">
+                <div class="tenders-list-header">
+                    <span class="tenders_list_column">Адрес (серия)</span>
+                    <span class="tenders_list_column">Мощность</span>
+                    <span class="tenders_list_column">Тип</span>
+                    <span class="tenders_list_column">Организация</span>
+                    <span class="tenders_list_column">Дата окончания</span>
+                    <span class="tenders_list_column">Число заявок подано/допущено</span>
+                    <span class="tenders_list_column">НМЦК</span>
+                    <span class="tenders_list_column">Итоговая цена <br>(на ед мощности)</span>
+                    <span class="tenders_list_column">%↓</span>
+                </div>
+                <ul id="tenders_list" data-role="listview" data-filter="true" data-filter-placeholder="Поиск" data-inset="true">
 
-    </div>
-    <div  id="table_content" style="display: none;" >
-        <div class="tenders-list-wrapper">
-            <div class="tenders-list-header">
-                <span class="tenders_list_column">Адрес (серия)</span>
-                <span class="tenders_list_column">Мощность</span>
-                <span class="tenders_list_column">Тип</span>
-                <span class="tenders_list_column">Организация</span>
-                <span class="tenders_list_column">Дата окончания</span>
-                <span class="tenders_list_column">Число заявок подано/допущено</span>
-                <span class="tenders_list_column">НМЦК</span>
-                <span class="tenders_list_column">Итоговая цена <br>(на ед мощности)</span>
-                <span class="tenders_list_column">%↓</span>
+                </ul>
             </div>
-            <ul id="tenders_list" data-role="listview" data-filter="true" data-filter-placeholder="Поиск" data-inset="true">
+            <!--<table class="table" id="tenders_table">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th>Адрес (серия)</th>-->
+                    <!--<th>Мощность</th>-->
+                    <!--<th>Тип</th>-->
+                    <!--<th>Организация</th>-->
+                    <!--<th>Дата окончания</th>-->
+                    <!--<th>Число заявок подано/допущено</th>-->
+                    <!--<th style="width: 200px;">НМЦК</th>-->
+                    <!--<th style="width: 170px;">Итоговая цена (на ед мощности)</th>-->
+                    <!--<th>%</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
 
-            </ul>
+                <!--</tbody>-->
+            <!--</table>-->
         </div>
-        <!--<table class="table" id="tenders_table">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>Адрес (серия)</th>-->
-                <!--<th>Мощность</th>-->
-                <!--<th>Тип</th>-->
-                <!--<th>Организация</th>-->
-                <!--<th>Дата окончания</th>-->
-                <!--<th>Число заявок подано/допущено</th>-->
-                <!--<th style="width: 200px;">НМЦК</th>-->
-                <!--<th style="width: 170px;">Итоговая цена (на ед мощности)</th>-->
-                <!--<th>%</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody>-->
+        <div id="common_charts" style="display: none; margin: 20px">
+            <!--<h3 >Общая стоимость конкурсов</h3>-->
+            <div id="prices_chart" style="width: 1800px; height: 670px;"></div>
+            <!--<h3 style="float: left">Конкурсы по числу допущенных заявок</h3>-->
 
-            <!--</tbody>-->
-        <!--</table>-->
-    </div>
-    <div   id="common_charts" style="display: none; margin: 20px">
-        <!--<h3 >Общая стоимость конкурсов</h3>-->
-        <div id="prices_chart" style="width: 1800px; height: 670px;"></div>
-        <!--<h3 style="float: left">Конкурсы по числу допущенных заявок</h3>-->
+            <div class=' tabs' style="float: right; position: absolute; position: absolute; right: 56px; top: 650px;">
+                <form>
+                    <fieldset data-role="controlgroup" data-type="horizontal" id="qty-measure-tabs" class="tabs tabs-active">
+                        <input type="radio" name="tender_measure" id="sum" checked="checked" >
+                        <label for="sum" >Сумма</label>
+                        <input type="radio" name="tender_measure" id="count" >
+                        <label for="count">Количество</label>
+                    </fieldset>
 
-        <div class=' tabs' style="float: right; position: absolute; position: absolute; right: 56px; top: 650px;">
-            <form>
-                <fieldset data-role="controlgroup" data-type="horizontal" id="qty-measure-tabs" class="tabs tabs-active">
-                    <input type="radio" name="tender_measure" id="sum" checked="checked" >
-                    <label for="sum" >Сумма</label>
-                    <input type="radio" name="tender_measure" id="count" >
-                    <label for="count">Количество</label>
-                </fieldset>
+                </form>
 
-            </form>
+            </div>
 
+            <div id="qty_chart" style="width: 1800px; height: 670px;"></div>
         </div>
-
-        <div id="qty_chart" style="width: 1800px; height: 670px;"></div>
-    </div>
-
+</div>
 </div>
 </body>
 
@@ -297,5 +299,5 @@
     });
 
 </script>
-<script type="text/javascript" src="js/autorefresh.js"></script>;
+<script type="text/javascript" src="js/autorefresh.js"></script>
 </html>

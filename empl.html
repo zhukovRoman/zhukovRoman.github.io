@@ -10,6 +10,7 @@
     <script src="js/jq.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/hc-theme.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/empl.css">
@@ -19,8 +20,10 @@
 <body >
 <div class="status-bar"></div>
 <div id="left-menu">
-    <div id='logo' class="menu-picture"></div>
-    <hr class="under-logo">
+    <a href="index.html" data-ajax="false">
+        <div id='logo' class="menu-picture"></div>
+    </a>
+
     <div class="menu">
         <a href="empl.html" data-ajax="false">
             <div class="menu-item menu-item-active">
@@ -58,16 +61,29 @@
         </a>
     </div>
 </div>
-<div class="right-side" data-role="page" id='charts'>
+<div class="right-side" data-role="page" id='employee'>
     <!--<div data-role="header" data-position="fixed">-->
-    <div data-role="header">
-        <h1>Кадры</h1>
+    <div class="header">
+        <!--<a href="#" id='back-button' class="header-item header-button back-button left-button" onclick="tenders_logic.showChartsPart()">-->
+        <!--&lt;!&ndash;<a href="#" id='back-button'  onclick="tenders_logic.showChartsPart()" style="display: block">Назад</a>&ndash;&gt;-->
+        <!--Назад-->
+        <!--</a>-->
+        <div class="header-paginator"></div>
+        <div class="header-title header-item">
+            Кадры
+        </div>
+        <!--<div class="header-devider"></div>-->
+        <!--<a href="#" id="common-button" class="header-item right" onclick="tenders_logic.showCommonInfo()">-->
+        <!--<!--<a href="#" id="common-button"  onclick="tenders_logic.showCommonInfo()">Сводка по конкурсам</a>-->
+        <!--Сводка по конкурсам-->
+        <!--</a>-->
     </div>
-    <div data-role="content" style="background-color: #ffffff">
-        <div class='employee-tabs'>
+    <div data-role="content " style="padding: 15px; margin-left: 180px;">
+
+        <div class='employee-tabs tabs'>
             <form>
                 <div class="empl-tabs-group-name">Все кадры</div>
-                <fieldset data-role="controlgroup" data-type="horizontal" id="empl-charts-tabs">
+                <fieldset data-role="controlgroup" data-type="horizontal" id="empl-charts-tabs" class="tabs tabs-active">
                     <input type="radio" name="empl-chart" id="radio-choice-h-1a" data-div="salary_structure_chart" checked="checked">
                     <label for="radio-choice-h-1a">Структура зарплаты</label>
                     <input type="radio" name="empl-chart" id="radio-choice-h-1b" data-div="empl_department_chart"  >
@@ -78,7 +94,7 @@
                     <label for="radio-choice-h-1d">Текучесть</label>
                 </fieldset>
                 <div class="empl-tabs-group-name">АУП</div>
-                <fieldset data-role="controlgroup" data-type="horizontal" id="empl-charts-tabs2">
+                <fieldset data-role="controlgroup" data-type="horizontal" id="empl-charts-tabs2" class="tabs">
                     <input type="radio" name="empl-chart" id="radio-choice-h-2a" data-div="aup_salary_structure_chart">
                     <label for="radio-choice-h-2a">Структура зарплаты</label>
                     <input type="radio" name="empl-chart" id="radio-choice-h-2b" data-div="attitude_chart" >
@@ -86,14 +102,15 @@
                 </fieldset>
             </form>
         </div>
+
         <div id="empl-charts-content">
             <div>
-                <div id="salary_structure_chart" class="empl_chart" style="height: 1000px; width: 1700px; float: left"></div>
-                <div id="empl_department_chart" class="empl_chart" style="height: 1000px; width: 1700px; float: left; display: none;"></div>
-                <div id="personal_chart" class="empl_chart" style="height: 1000px; width: 1700px; float: left; display: none;"></div>
-                <div id="koef_chart" class="empl_chart" style="height: 1000px; width: 1700px; float: left; display: none;"></div>
-                <div id="aup_salary_structure_chart" class="empl_chart" style="height: 1000px; width: 1700px; float: left; display: none;"></div>
-                <div id="attitude_chart" class="empl_chart" style="height: 1000px; width: 1700px; float: left; display: none;"></div>
+                <div id="salary_structure_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left"></div>
+                <div id="empl_department_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>
+                <div id="personal_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>
+                <div id="koef_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>
+                <div id="aup_salary_structure_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>
+                <div id="attitude_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>
             </div>
         </div>
     </div>

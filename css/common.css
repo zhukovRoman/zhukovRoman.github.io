@@ -26,6 +26,11 @@ body.ui-mobile-viewport{
     /*overflow: hidden;*/
     height: 100%;
 }
+.ui-mobile .ui-page-active {
+
+     overflow: hidden;
+
+}
 
 .status-bar{
     height:40px;

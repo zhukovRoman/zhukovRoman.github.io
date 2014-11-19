@@ -15,6 +15,10 @@ var empl_logic = {
     changeChart: function(){
         $('.empl_chart').hide();
         $('#'+$(this).attr('data-div')).show();
+
+        $('#empl-charts-tabs, #empl-charts-tabs2').removeClass('tabs-active');
+        $(this).parents('fieldset').addClass('tabs-active')
+
     },
     createSalaryStructureChart: function(){
         this.salary_structure_chart =  new Highcharts.Chart({
@@ -30,7 +34,13 @@ var empl_logic = {
            },
            xAxis: {
                labels: {
-                   formatter: function () {return this.value.length < 40 ? this.value : this.value.substring(0,40)+"...";}
+                   formatter: function () {return this.value.length < 40 ? this.value : this.value.substring(0,40)+"...";},
+                   style:{
+                       border: '3px solid #65afc1',
+                           borderRadius: '10px',
+                           padding: '5px 10px'
+                   },
+                   useHTML: true
                },
                categories: xaxis
            },
@@ -52,7 +62,7 @@ var empl_logic = {
                    }
                }
            },{
-               title:{text:'Средняя зарплата'},
+               title:{text:'Средняя зарплата', align: 'middle'},
                opposite: true,
                labels: {
                    formatter: function() {
@@ -60,24 +70,15 @@ var empl_logic = {
                    }
                }
            }],
-           legend: {
-               align: 'right',
-               x: -70,
-               verticalAlign: 'top',
-               y: 20,
-               floating: true,
-               backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-               borderColor: '#CCC',
-               borderWidth: 1,
-               shadow: false
-           },
+
            tooltip: {
                formatter: function() {
-                   var result = '<b>' + this.x + '</b>';
+                   var result = generateTooltipHeader(this.x)
                    $.each(this.points, function(i, datum) {
-                       result += '<br /> <i style="color:'+datum.series.color+'">' + datum.series.name + '</i>: ' + thousands_sep(datum.y) + ' ₽';
+                       result += generateTooltipLine (datum.series.name, thousands_sep(datum.y) + ' ₽',datum.point.series.color);
                    });
-                   result += '<br /> Всего сотрудников:' + empl_logic.empl_count_info[this.points[0].point.index]
+                   result += generateTooltipLine('Всего сотрудников', empl_logic.empl_count_info[this.points[0].point.index],'', true)
+
                    return result;
                },
                shared: true,
@@ -118,7 +119,7 @@ var empl_logic = {
                }
            ]
         });
-        $('#salary_structure_chart .highcharts-xaxis-labels text').click(empl_logic.drilldown)
+        $('#salary_structure_chart .highcharts-xaxis-labels span').click(empl_logic.drilldown)
     },
     createEmplDepartmentChart: function(){
         empl_department_chart = new Highcharts.Chart({
@@ -147,30 +148,18 @@ var empl_logic = {
             },
             tooltip: {
                 formatter: function() {
-                    var result = '<b>' + this.x + '</b>';
+                    var result = generateTooltipHeader(this.x)
                     $.each(this.points, function(i, datum) {
-                        result += '<br /> <i>' + datum.series.name + '</i>: ' + datum.y + ' человек';
-
+                        result += generateTooltipLine (datum.series.name, datum.y + ' человек',datum.point.series.color);
                     });
-                    //console.log()
-                    result += '<br />Руководитель: ' + this.points[0].point.manager
+                    result += generateTooltipLine('Руководитель', this.points[0].point.manager,'', true)
 
                     return result;
                 },
                 shared: true,
                 useHTML: true
             },
-            legend: {
-                align: 'right',
-                x: -70,
-                verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-                borderColor: '#CCC',
-                borderWidth: 1,
-                shadow: false
-            },
+
             plotOptions: {
                 bar: {
 //                pointPadding: 0.2,
@@ -182,11 +171,11 @@ var empl_logic = {
             series: [{
                 name: 'Вакансий',
                 data: deps_infos['vacancy'],
-                color: 'rgb(144, 237, 125)'
+                color: '#3598db'
             },{
                 name: 'Сотрудников',
                 data: deps_infos['employee_count'] ,
-                color: 'rgb(124, 181, 236)'
+                color: '#34495e'
 
             }]
         });
@@ -214,17 +203,15 @@ var empl_logic = {
             },
             yAxis: [{ // Primary yAxis
                 title: {
-                    text: 'Человек',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
+                    text: 'Человек'
+                    //align: 'middle'
+
                 }
             }, { // Secondary yAxis
                 title: {
                     text: 'Человек',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
+                    align: 'middle'
+
                 },
                 labels: {
                     format: '{value}'
@@ -232,11 +219,21 @@ var empl_logic = {
                 opposite: true,
                 tickInterval: 1
             }],
-            labels: {
-                items: []
-            },
+            //labels: {
+            //    items: []
+            //},
             tooltip: {
-                shared: true
+                shared: true,
+                useHTML: true,
+                formatter: function() {
+                    var result = generateTooltipHeader(this.x)
+                    $.each(this.points, function(i, datum) {
+                        result += generateTooltipLine (datum.series.name, datum.y  ,datum.point.series.color);
+                    });
+
+
+                    return result;
+                }
             },
             series: [{
                 type: 'column',
@@ -286,7 +283,16 @@ var empl_logic = {
                 }
             },
             tooltip: {
-                valueSuffix: '%'
+                shared: true,
+                useHTML: true,
+                formatter: function() {
+                    var result = generateTooltipHeader(this.x)
+                    $.each(this.points, function(i, datum) {
+                        result += generateTooltipLine (datum.series.name, datum.y +'%' ,datum.point.series.color);
+                    });
+                    return result;
+                }
+
             },
             series: [{
                 name: 'Неукомплектованность кадров',
@@ -332,7 +338,7 @@ var empl_logic = {
                     }
                 }
                 },{
-                    title:{text:'Средняя зарплата'},
+                    title:{text:'Средняя зарплата', align: 'middle'},
                     opposite: true,
                     labels: {
                         formatter: function() {
@@ -343,23 +349,12 @@ var empl_logic = {
             ,{
                 title:{text:'Количество персонала'}
             }],
-            legend: {
-                align: 'right',
-                x: -100,
-                verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-                borderColor: '#CCC',
-                borderWidth: 1,
-                shadow: false
-            },
             tooltip: {
                 formatter: function() {
-                    var result = '<b>' + this.x + '</b>';
+
+                    var result = generateTooltipHeader(this.x)
                     $.each(this.points, function(i, datum) {
-                        result += '<br /> <i style="color:'+datum.series.color+'">' + datum.series.name + '</i>: ' + thousands_sep(datum.y) + datum.series.tooltipOptions.valueSuffix ;
-                        console.log(datum);
+                        result += generateTooltipLine (datum.series.name, thousands_sep(datum.y) + datum.series.tooltipOptions.valueSuffix ,datum.point.series.color);
                     });
                     return result;
                 },
@@ -441,6 +436,15 @@ var empl_logic = {
             },
             tooltip: {
                 shared: true,
+                useHTML: true,
+                formatter: function() {
+
+                    var result = generateTooltipHeader(this.x)
+                    $.each(this.points, function(i, datum) {
+                        result += generateTooltipLine (datum.series.name, datum.y + ' ('+datum.percentage.toFixed(0)+'%)',datum.point.series.color);
+                    });
+                    return result;
+                },
                 pointFormat: '{series.name}: <b>{point.y} ({point.percentage:.0f}%)</b><br/>',
                 valueSuffix: ' человек '
             },
@@ -472,6 +476,14 @@ var empl_logic = {
         var chart = empl_logic.salary_structure_chart;
         empl_logic.empl_count_info =  months_empl_count[this.textContent];
         chart.xAxis[0].setCategories(drilldown_data[this.textContent].categories, false);
+
+        chart.xAxis[0].update({labels:{
+            useHTML: false,
+            style:{
+                border: '0px solid rgb(135,150,164)'
+            }
+        }
+        }, false);
         chart.xAxis[0].options.labels.rotation = -65;
         //chart.xAxis[0].options.labels.formatter = formatterFunction;
         chart.series[0].setData(drilldown_data[this.textContent].data[0].data, false )
@@ -479,11 +491,10 @@ var empl_logic = {
         chart.series[2].setData(drilldown_data[this.textContent].data[2].data, false )
         //chart.series[2].hide();
         chart.series[3].setData(drilldown_data[this.textContent].data[3].data, true )
-        chart.renderer.button('Назад',
-            200,
-            10,
-            empl_logic.returnYearChart).add();
-        //chart.series[2].show();
+
+        chart.renderer.image('images/back-btn.png',160,0,137,52)
+            .add().on('click',empl_logic.returnYearChart);
+
     },
     returnYearChart: function(){
         setTimeout(function(){

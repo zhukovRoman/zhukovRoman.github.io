@@ -18,10 +18,12 @@
     margin-right: 0px;
 }
 
-
-/*#documents-filter label {*/
-    /*font-size: 19pt;*/
-/*}*/
+.filter-part-header {
+    margin-top: 20px !important;
+}
+.filter-part-header:first-child {
+    margin-top: 28px !important;
+}
 
 
 #map-content, #list-content, #list-overdue-content{

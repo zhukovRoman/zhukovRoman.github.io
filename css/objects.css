@@ -18,12 +18,7 @@
     margin-right: 0px;
 }
 
-.filter-part-header {
-    margin-top: 20px !important;
-}
-.filter-part-header:first-child {
-    margin-top: 28px !important;
-}
+
 
 
 #map-content, #list-content, #list-overdue-content{
@@ -77,35 +72,46 @@
     padding-right: 15px;
 }
 
-#list-content form.ui-filterable{
+.filter-part-header {
+    margin-top: 20px !important;
+}
+.filter-part-header:first-child {
+    margin-top: 28px !important;
+}
+
+#list-content form.ui-filterable,
+#list-overdue-content form.ui-filterable {
     margin-top: 65px;
     position: fixed;
     top: 112px;
     left: 195px;
     width: 744px;
     background-color: #65afc1;
-    z-index: 2;
+    border-radius: 12px;
 }
-#list-content form.ui-filterable > div{
+#list-content form.ui-filterable > div,
+#list-overdue-content form.ui-filterable > div{
     height: 50px;
     margin-top: 3px;
     margin-bottom: 3px;
-    margin-right: 115px;
+    margin-right: 3px;
+    margin-left: 3px;
 }
 
-#list-content form.ui-filterable div > input{
+#list-content form.ui-filterable div > input,
+#list-overdue-content form.ui-filterable div > input{
     line-height: 25px;
 
 }
 
 
-#objects-list{
+#objects-list, #ovedue-objects-list{
     margin-top: 130px;
     overflow: scroll;
     height: 1200px;
 }
 
-.objects-list-header{
+.objects-list-header, .overdue-objects-list-header{
     background-color: #e0eff3;
     color: #637173;
     font-weight: bold;
@@ -113,14 +119,14 @@
     z-index: 1;
     top: 220px;
     height: 75px;
-    width: 1165px;
+    width: 1168px;
     border-bottom: 2px solid #65afc1;
     border-top: 2px solid #65afc1;
     padding: 12px 45px 12px 18px;
     margin-top: 30px;
 }
 
-.objects-list-column {
+.objects-list-column, .overdue-objects-list-column{
     white-space: normal;
     font-size: 30px;
     color: #8e8e93;
@@ -146,17 +152,21 @@
     width: 130px;
     min-width: 130px;
 }
-.objects-list-column:first-child + span{
+.objects-list-column:first-child + span,
+.overdue-objects-list-column:first-child{
     width: 100%;
     min-width: 100%;
     text-align: left;
 }
-.objects-list-column:first-child + span + span{
+.objects-list-column:first-child + span + span,
+.overdue-objects-list-column:first-child + span,
+.overdue-objects-list-column:last-child{
     width: 200px;
     min-width: 200px;
 }
 
-.objects-list-column:last-child{
+.objects-list-column:last-child,
+{
     width: 100px;
     min-width: 100px;
 }

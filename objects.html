@@ -118,7 +118,7 @@
                         <span class="objects-list-column">Назначение</span>
                         <span class="objects-list-column">Год ввода</span>
                     </div>
-                    <ul data-role="listview" id="objects-list" class="objects-list" data-filter="true" data-filter-placeholder="Поиск объекта по названию…" data-inset="true"></ul>
+                    <ul data-role="listview" id="objects-list" class="objects-list" data-filter="true" data-filter-placeholder="Поиск объекта" data-inset="true"></ul>
                 </div>
             </div>
             <div class="content-side" data-role="none" id="map-content">
@@ -156,9 +156,13 @@
                 </div>
             </div>
             <div class="content-side" data-role="none" id="list-overdue-content">
-                <div>
-                    <ul data-role="listview" id="ovedue-objects-list" class="object-list" >
-                    </ul>
+                <div class="overdue-objects-list-wrapper">
+                    <div class="overdue-objects-list-header">
+                        <span class="overdue-objects-list-column">Адрес</span>
+                        <span class="overdue-objects-list-column">Назначение</span>
+                        <span class="overdue-objects-list-column">Плановая дата</span>
+                    </div>
+                    <ul data-role="listview" id="ovedue-objects-list" class="objects-list" data-filter="true" data-filter-placeholder="Поиск объекта" data-inset="true"></ul>
                 </div>
             </div>
             <div class="filter" data-role="none" id = "object-filter">

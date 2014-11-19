@@ -64,10 +64,14 @@ var objects_logic = {
         var $ul = $("#ovedue-objects-list")
         var html = ''
         $.each (overdues_objects, function(i,val){
-            html+='<li><a href="object_view.html?id='+val.id+'">'+
-                '<h1>'+val.adress+'</h1>'+
-                '<p>'+val.plansDates[document]+'</p>'+
-                '</a></li>'
+
+            html+='<li>' +
+                '<a href="object_view.html?id='+val.id+'">'+
+                    '<span class="overdue-objects-list-column">'+  val.okrug +', '+val.adress+"</span>" +
+                    '<span class="overdue-objects-list-column">'+  val.appointment +"</span>" +
+                    '<span class="overdue-objects-list-column">'+  val.plansDates[document] +"</span>" +
+                '</a>' +
+            '</li>'
         })
         $ul.html(html)
         $ul.listview( "refresh" );

@@ -306,6 +306,16 @@ ul{
     -webkit-border-radius: 0px;
 }
 
+.ui-btn-icon-right:after {
+    content: "";
+    width: 15px;
+    height: 90%;
+    background-color: #fff;
+    background-image: url("images/list-item-right-arrow.png");
+    top: 10%;
+
+}
+
 .my-button{
     margin-top: 25px;
     margin-left: 20px;

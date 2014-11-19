@@ -55,7 +55,13 @@
     padding-left: 16px;
     padding-right: 16px;
 }
-.objects-documents-tabs .tender-tabs-group-name {
+.objects-view-switcher{
+    position: absolute;
+    left: 941px;
+    width: 520px;
+    margin-top: 15px;
+}
+.objects-view-switcher .objects-tabs-group-name {
     width: 105px;
     float: left;
     padding-left: 8px;
@@ -64,47 +70,171 @@
     color: #8798a4;
 }
 
-.objects-view-switcher{
-    float: right;
+.objects-view-switcher label{
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-#objects-list a, #objects-list a:visited  {
-    font-size: 21pt;
-    height: 90px;
-    padding: 0px;
-    background-color: transparent;
-    color: rgb(115,189,208)
+#list-content form.ui-filterable{
+    margin-top: 65px;
+    position: fixed;
+    top: 112px;
+    left: 195px;
+    width: 744px;
+    background-color: #65afc1;
+    z-index: 2;
 }
-#objects-list a:hover{
-    margin-right: 0;
-}
-#objects-list li {
-    background-color: transparent;
-    border: 1px solid rgb(115,189,208);
+#list-content form.ui-filterable > div{
+    height: 50px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 115px;
 }
 
-#objects-list a>div {
-    margin-left: 20px;
+#list-content form.ui-filterable div > input{
+    line-height: 25px;
+
+}
+
+
+#objects-list{
+    margin-top: 130px;
+    overflow: scroll;
+    height: 1200px;
+}
+
+.objects-list-header{
+    background-color: #e0eff3;
+    color: #637173;
+    font-weight: bold;
+    position: fixed;
+    z-index: 1;
+    top: 220px;
+    height: 75px;
+    width: 1165px;
+    border-bottom: 2px solid #65afc1;
+    border-top: 2px solid #65afc1;
+    padding: 12px 45px 12px 18px;
+    margin-top: 30px;
+}
+
+.objects-list-column {
     white-space: normal;
-    width: 950px;
-    /*float: left;*/
-    /*height: 100%;*/
+    font-size: 30px;
+    color: #8e8e93;
     display: table-cell;
+    min-height: 40px;
+    /* width: 59px; */
+    max-width: 299px;
+    font-weight: 200;
     vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: auto;
     height: 90px;
-    padding-left: 20px;
-}
-#objects-list a>div:first-child {
-    width: 100px;
-    border-right: 1px solid rgb(115,189,208);
-}
-#objects-list a>div:last-child {
-    width: 100px;
-    border-left: 1px solid rgb(115,189,208);
-    /*float: right;*/
-    margin-right: 50px;
 }
 
+.objects-list-header .objects-list-column{
+    height: 75px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.objects-list-column:first-child{
+    width: 130px;
+    min-width: 130px;
+}
+.objects-list-column:first-child + span{
+    width: 100%;
+    min-width: 100%;
+    text-align: left;
+}
+.objects-list-column:first-child + span + span{
+    width: 200px;
+    min-width: 200px;
+}
+
+.objects-list-column:last-child{
+    width: 100px;
+    min-width: 100px;
+}
+
+
+.objects-list a, .objects-list a:visited  {
+    font-size: 21pt;
+    /*height: 90px;*/
+    padding: 0px;
+    background-color: transparent !important;
+    color: rgb(115,189,208);
+    padding: 12px 45px 12px 18px;
+    border: none !important;
+    /*min-height: 80px;*/
+
+}
+
+.objects-list li {
+    background-color: transparent;
+    border: none;
+    border-top: 2px solid #8e8e93;
+    border-bottom: 2px solid #8e8e93;
+}
+
+/*-------------------------------*/
+/*     MAP, LEGEND, Balloon      */
+/*-------------------------------*/
+
+.objects-legens-item{
+    width: 570px;
+    float: left;
+    color: gray;
+    margin-left: 30px;
+    font-size: 28px;
+}
+
+.objects-legens-item .legend-point{
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    float: left;
+    margin-right: 15px;
+    margin-top: 4px;
+}
+
+#map{
+    height: 800px;
+    margin-top: 125px;
+    margin-left: 30px;
+    width: 1185px;
+    border-top: 3px solid #6aafb4;
+    border-bottom: 3px solid #6aafb4;
+    margin-bottom: 30px;
+}
+
+#map .ymaps-b-balloon__tr, #map .ymaps-b-balloon__tl{
+    display: none;
+
+}
+#map .ymaps-b-balloon__content-holster{
+    padding: 0;
+}
+
+#map .object-baloon-header{
+    width: 100%;
+    background-color: #65afc1;
+    background: linear-gradient(to top, #65afc1, #7ac4d6);
+    padding: 4px 10px;
+}
+#map .object-baloon-header > a{
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 21px;
+}
+
+#map .object-baloon-content-item {
+    font-size: 21px;
+    padding: 4px 10px;
+}
 
 
 

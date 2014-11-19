@@ -141,7 +141,7 @@ var charts ={
                 plotShadow: false
             },
             title: {
-                text: 'Выполнение плана',
+                text: 'Состояние оплат',
                 floating: true,
                 x: 100,
                 y: 50

@@ -97,7 +97,73 @@
                             <label for="radio-choice-h-4c">Снос</label>
                         </fieldset>
                     </form>
-                    <div class="tender-tabs-group-name">Вид данных:</div>
+
+                    <!--<div class="objects-view-switcher">Вид:-->
+                        <!--<button id='chart-button' class="ui-btn ui-btn-inline ui-btn-b">График</button>-->
+                        <!--<button id='list-button' class="ui-btn ui-btn-inline">Списком</button>-->
+                        <!--<button id='map-button' class="ui-btn ui-btn-inline">На карте</button>-->
+                    <!--</div>-->
+                </div>
+                <div>
+                    <div id='document-chart' style="width: 1200px; height: 450px; padding-bottom: 50px; border-bottom: 3px solid #d7dbde; clear: both"></div>
+                    <div id='finance-chart' style="width: 1200px; height: 450px; padding-bottom: 60px; border-bottom: 3px solid #d7dbde"></div>
+                    <div id='work-chart' style="width: 1200px; height: 200px; float: left; margin-top: 50px"></div>
+                </div>
+            </div>
+            <div class="content-side" data-role="none" id="list-content">
+                <div class="objects-list-wrapper">
+                    <div class="objects-list-header">
+                        <span class="objects-list-column">Округ</span>
+                        <span class="objects-list-column">Адрес</span>
+                        <span class="objects-list-column">Назначение</span>
+                        <span class="objects-list-column">Год ввода</span>
+                    </div>
+                    <ul data-role="listview" id="objects-list" class="objects-list" data-filter="true" data-filter-placeholder="Поиск объекта по названию…" data-inset="true"></ul>
+                </div>
+            </div>
+            <div class="content-side" data-role="none" id="map-content">
+               <div id='map'></div>
+                <div id="legend">
+                    <div class="objects-legens-item">
+                        <div class="legend-point" style="background:#158B02;"></div>
+                        Жилой дом
+                    </div>
+                    <div class="objects-legens-item">
+                        <div class="legend-point" style="background:#A41DE2;"></div>
+                        Дошкольное образовательное учреждение
+                    </div>
+                    <div class="objects-legens-item">
+                        <div class="legend-point" style="background:#E666DD;"></div>
+                        Блок начальных классов
+                    </div>
+                    <div class="objects-legens-item">
+                        <div class="legend-point" style="background:#E03632;"></div>
+                        Школа
+                    </div>
+                    <div class="objects-legens-item">
+                        <div class="legend-point" style="background:#E03632;"></div>
+                        Переход
+                    </div>
+                    <div class="objects-legens-item">
+                        <div class="legend-point" style="background:#0A6CC8;"></div>
+                        Физкультурно-оздоровительный комплекс
+                    </div>
+                    <div class="objects-legens-item">
+                        <div class="legend-point" style="background:rgb(143,143,143);"></div>
+                        Прочее
+                    </div>
+
+                </div>
+            </div>
+            <div class="content-side" data-role="none" id="list-overdue-content">
+                <div>
+                    <ul data-role="listview" id="ovedue-objects-list" class="object-list" >
+                    </ul>
+                </div>
+            </div>
+            <div class="filter" data-role="none" id = "object-filter">
+                <div class='tabs tabs-active objects-view-switcher'>
+                    <div class="objects-tabs-group-name">Вид данных:</div>
                     <form>
                         <fieldset data-role="controlgroup" data-type="horizontal" >
                             <input type="radio" name="document" id="chart-button"  checked="checked">
@@ -108,42 +174,7 @@
                             <label for="map-button">На карте</label>
                         </fieldset>
                     </form>
-                    <!--<div class="objects-view-switcher">Вид:-->
-                        <!--<button id='chart-button' class="ui-btn ui-btn-inline ui-btn-b">График</button>-->
-                        <!--<button id='list-button' class="ui-btn ui-btn-inline">Списком</button>-->
-                        <!--<button id='map-button' class="ui-btn ui-btn-inline">На карте</button>-->
-                    <!--</div>-->
                 </div>
-                <div>
-                    <div id='document-chart' style="width: 1200px; height: 450px; padding-bottom: 50px; border-bottom: 3px solid #d7dbde; clear: both"></div>
-                    <div id='finance-chart' style="width: 1200px; height: 450px; padding-bottom: 60px; border-bottom: 3px solid #d7dbde"></div>
-                    <div id='work-chart' style="width: 1200px; height: 250px; float: left; margin-top: 50px"></div>
-                </div>
-            </div>
-            <div class="content-side" data-role="none" id="list-content">
-                <div>
-                    <ul data-role="listview" id="objects-list" class="object-list" data-filter="true" data-filter-placeholder="Поиск объекта по названию…" data-inset="true"></ul>
-                </div>
-            </div>
-            <div class="content-side" data-role="none" id="map-content">
-               <div id='map' style="height: 1200px"></div>
-                <div id="legend">
-                    <div class="row"><div style="height:10px; width:20px; background:#158B02; float: left; margin-top: 5px;"></div><div>Жилой дом</div></div>
-                    <div class="row"><div style="height:10px; width:20px; background:#A41DE2; float: left; margin-top: 5px;"></div><div>Дошкольное образовательное учреждение</div></div>
-                    <div class="row"><div style="height:10px; width:20px; background:#E666DD; float: left; margin-top: 5px;"></div><div>Блок начальных классов</div></div>
-                    <div class="row"><div style="height:10px; width:20px; background:#E03632; float: left; margin-top: 5px;"></div><div>Школа</div></div>
-                    <div class="row"><div style="height:10px; width:20px; background:#0A6CC8; float: left; margin-top: 5px;"></div><div>Физкультурно-оздоровительный комплекс</div></div>
-                    <div class="row"><div style="height:10px; width:20px; background:#143A6B; float: left; margin-top: 5px;"></div><div>Переход</div></div>
-                    <div class="row"><div style="height:10px; width:20px; background:rgb(143,143,143); float: left; margin-top: 5px;"></div><div>Прочее</div></div>
-                </div>
-            </div>
-            <div class="content-side" data-role="none" id="list-overdue-content">
-                <div>
-                    <ul data-role="listview" id="ovedue-objects-list" class="object-list" >
-                    </ul>
-                </div>
-            </div>
-            <div class="filter" data-role="none" id = "object-filter">
                 <div class="filter-part">
                     <div class="filter-part-header">
                         <input type="checkbox" data-role="none" checked id="checkbox-all-appointments">
@@ -212,7 +243,7 @@
                 <div class="filter-part ">
                     <div class="filter-part-header">
                         <input type="checkbox" data-role="none" checked id="select-all-years">
-                        <label for="select-all-years" style="width: auto">Годы</label>
+                        <label for="select-all-years" >Годы</label>
                         <span class="add-filters-action">Снять выделение</span>
                     </div>
                     <div class="years">

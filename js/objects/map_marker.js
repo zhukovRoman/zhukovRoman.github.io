@@ -59,7 +59,7 @@ PieChartClusterer.COLOURS = {
     "lightblue"  : "4391E7",
     "night"      : "143A6B",
     "orange"     : "CCA42B",
-    "pink"       : "E666DD",
+    "pink"       : "FFF",
     "red"        : "E03632",
     "violet"     : "A41DE2",
     "white"      : "FFFFFF",
@@ -402,11 +402,13 @@ filter_map_points = function(){
     $.each(filter.filtered_objects, function(i, val){
         if (val.lat != null && val.lng != null)
             points.push(new ymaps.Placemark([val.lat,val.lng], {
-                name: "Объект №012-0896",
-                clusterCaption: 'Объект №012-0896',
-                balloonContentBody: "<div><a href='/object_view.html?id="+val.id+"'>"+val.adress+"</a></div>"+
-                    "<div> <b> Мощность: </b>"+val.power+" "+val.power_measure+"</div>"+
-                    "<div> <b> Срок ввода по АИП: </b>"+val.year+"</div>"
+                //name: "Объект №012-0896",
+                //clusterCaption: 'Объект №012-0896',
+                balloonContentHeader: "<div class='object-baloon-header'><a href='/object_view.html?id="+val.id+"'>"+val.adress+"</a></div>",
+                balloonContentBody:
+                "<div class='object-baloon-content-item'> <b> Назначение: </b>"+val.appointment+"</div>"+
+                    "<div class='object-baloon-content-item'> <b> Мощность: </b>"+val.power+" "+val.power_measure+"</div>"+
+                    "<div class='object-baloon-content-item'> <b> Срок ввода по АИП: </b>"+val.year+"</div>"
                 //balloonContentFooter: 'Карточка объекта: <a target="_blank" href="/object/view?id='+val.id+'">открыть</a>'
             },	{
                 preset: MarkersApointmentColours[val.appointment]

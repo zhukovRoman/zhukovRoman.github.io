@@ -113,6 +113,12 @@
     width: 37px;
     min-width: 40px;
 }
+.filter-items.columns5 label:last-of-type{
+    padding-left: 65px;
+    width: 37px;
+    min-width: 75px;
+}
+
 
 .filter-items input[type=checkbox] + label{
     background-image: url('images/checkbox_on_white.png');

@@ -39,11 +39,14 @@ var objects_logic = {
         var $ul = $("#objects-list")
         var html = ''
         $.each (filter.filtered_objects, function(i,val){
-            html+='<li><a href="object_view.html?id='+val.id+'">'+
-                '<div>'+val.okrug+'</div>'+
-                '<div>'+val.adress+'</div>'+
-                '<div>'+val.year+'</div>'+
-                '</a></li>'
+            html+='<li>' +
+                '<a href="object_view.html?id='+val.id+'">'+
+                    '<span class="objects-list-column">'+  val.okrug +"</span>" +
+                    '<span class="objects-list-column">'+  val.adress +"</span>" +
+                    '<span class="objects-list-column">'+  val.appointment +"</span>" +
+                    '<span class="objects-list-column">'+  val.year +"</span>" +
+                '</a>' +
+            '</li>'
         })
         $ul.html(html)
         $ul.listview( "refresh" );

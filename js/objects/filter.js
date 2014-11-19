@@ -22,7 +22,8 @@ var filter = {
             if (count++ % 5 == 0  ){
                 html += '</div><div class="filter-items columns5 years-filter ">'
             }
-            html += '<input type="checkbox" data-role="none" data-value="'+year+'" checked id="y'+i+'"> <label for="y'+i+'">'+year+'</label>'
+            var label = (year.length==4) ? year.substring(2,4) : year
+            html += '<input type="checkbox" data-role="none" data-value="'+year+'" checked id="y'+i+'"> <label for="y'+i+'">'+label+'</label>'
 
         })
         container.append(html+'</div>');

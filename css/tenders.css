@@ -114,6 +114,7 @@ h3{
 .tenders-list-header .tenders_list_column{
     height: 75px;
     font-size: 26px;
+    font-family: 'PT Sans', sans-serif;
 }
 
 .tenders_list_column:first-child{

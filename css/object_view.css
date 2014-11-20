@@ -1,60 +1,214 @@
+#prepare{
+    overflow: scroll;
+    height: 1270px;
+    float: left;
+}
+
 .left-content{
     width: 1200px;
     float: left;
 }
 
+.object-view-tabs{
+    text-align: center;
+}
+
+.smr-title{
+    text-transform: uppercase;
+    color: #555555;
+}
+
 .right-content{
-    width: 500px;
+    width: 600px;
     float: right;
+    margin-top: 30px;
 }
 
 .smr-title{
   text-align: center;
 }
 
+.object-detail,
+.info-panel{
+    border: 1px solid #ececec;
+    margin-top: 30px;
+    clear: both;
+
+}
+
+.object-detail-header{
+    background-color: #65afc1;
+    background: linear-gradient(to top, #65afc1, #7ac4d6);
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 0;
+    height: 87px;
+    margin-bottom: 0;
+    display: table-cell;
+    vertical-align: middle;
+    width: 600px;
+    padding-left: 30px;
+}
+
 .tep-name{
     width: 260px;
-    float: left;
+    display: table-cell;
     text-align: right;
+    vertical-align: top;
+    min-height: 40px;
     margin-right: 10px;
+    color: #93989c;
+    font-weight: bold;
+}
+.tep-name:after{
+    content: ':';
+}
+
+.info-panel-header{
+    background-color: #65afc1;
+    background: linear-gradient(to top, #65afc1, #7ac4d6);
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 0;
+    height: 87px;
+    margin-bottom: 0;
+    display: table-cell;
+    vertical-align: middle;
+    width: 888px;
+    padding-left: 30px;
 }
 .tep-value{
-    width: 230px;
-    float: right;
+    width: 320px;
+    display: table-cell;
+    min-height: 40px;
+    vertical-align: bottom;
+    padding-left: 10px;
 }
+
+
 .tep{
     clear: both;
+    color: #909599;
+    border-bottom: 1px solid #ececec;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-
-#documents_info{
-    width: 850px;
-    float: left;
+#teps .tep{
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
-.document-date-label{
+.object-detail-label{
+    width: 400px;
+    display: table-cell;
     text-align: right;
-    float: left;
-    width: 500px;
+    vertical-align: top;
+    min-height: 40px;
+    margin-right: 10px;
+    color: #93989c;
+    font-weight: bold;
 }
-.document-date{
-    text-align: left;
-    float: left;
-    width: 250px;
-    padding-left: 20px;
+.object-detail-label:after{
+    content: ':';
+}
+.object-detail-value{
+    display: table-cell;
+    min-height: 40px;
+    vertical-align: bottom;
+    padding-left: 10px;
+    width: 400px;
 }
 
-#delaies_info, #destroy_info{
-    width: 850px;
-    float: right;
+#visit_info{
+    padding-left: 30px;
+    padding-right: 30px;
 }
+
+.visit-info-name{
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+/*#documents_info{*/
+/*width: 850px;*/
+/*float: left;*/
+/*}*/
+
+/*#delaies_info, #destroy_info{*/
+    /*width: 850px;*/
+    /*float: right;*/
+/*}*/
 
 .left-side-panel{
-    width: 850px;
+    width: 888px;
     float: left;
+    margin-left: 30px;
 }
 
 .right-side-panel{
-    width: 850px;
+    width: 888px;
     float: right;
+    margin-left: 30px;
 }
 
+/*---------------*/
+/*TENDERS TABLE */
+/*--------------*/
+
+
+.object-tender-table{
+   margin-top: 120px;
+}
+
+.object-tenders-list-header{
+    height: 96px;
+    width: 100%;
+    min-width: 100%;
+    background-color: #e1f0f7;
+    border-bottom: 3px solid #6fb2b8;
+}
+.object-tenders-list-header .object-tenders_list_column{
+    min-height: 96px;
+    border: none;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 96px;
+}
+
+.object-tenders_list_column{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #909090;
+    height: 100px;
+    min-height: 100px;
+}
+.object-tender-table-row{
+    border-bottom: 2px solid #dfdfdf;
+    /*display: table-row;*/
+}
+
+.object-tenders_list_column:first-child{
+    width: 380px;
+}
+
+.object-tenders_list_column:first-child + span{
+    width: 190px;
+}
+
+.object-tenders_list_column:first-child + span + span,
+.object-tenders_list_column:first-child + span + span + span{
+    width: 200px;
+}
+.object-tenders_list_column:first-child + span + span + span + span,
+.object-tenders_list_column:first-child + span + span + span + span + span {
+    width: 270px;
+}
+
+.object-tenders_list_column:first-child + span + span + span + span + span + span {
+    width: 120px;
+}
+.object-tenders_list_column:last-child{
+    width: 240px;
+}

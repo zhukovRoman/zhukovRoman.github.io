@@ -61,6 +61,7 @@ var object_shower = {
 //                unit: "₽", separator: ",", delimiter: " ", format: "%n %u", precision: 0) %>'
 //    },
     tooltip: {
+        enabled: false,
         formatter: function () {
             var s ="";
             sum = 0;
@@ -76,7 +77,7 @@ var object_shower = {
     },
     plotOptions: {
         pie: {
-            center: ['50%', '35%'],
+            center: ['50%', '32%'],
             dataLabels: {
                 enabled: false
             },
@@ -90,11 +91,12 @@ var object_shower = {
         verticalAlign: 'top',
         floating: true,
         x: 30,
-        y: 630,
+        y: 580,
         useHTML: true,
-        itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+        itemStyle: { "color": "#8d9296", "fontSize": "18pt", "fontWeight": "normal", "white-space": "normal" },
         labelFormatter: function () {
-            return '<div style="width: 500px;border-bottom: 1px solid;"><div class = "legend-series-name" style="float: left; width: 270px; white-space: normal">'+this.name+'</div>' +
+            return '<div style="width: 500px;">' +
+                '<div class = "legend-series-name" style="float: left; width: 270px; white-space: normal">'+this.name+'</div>' +
                 '<div style="text-align: right; float: right; width: 230px"> '+ million_to_text(this.y) +'</div></div>';
         }
     },
@@ -102,6 +104,7 @@ var object_shower = {
         type: 'pie',
         name: 'Сумма',
         innerSize: '50%',
+        size: 450,
         data: [
             ['Оплачено не в счет авансов', object_shower.object.payed_for_work],
             ['Авансов выдано и погащено', object_shower.object.avans_pogasheno ],
@@ -138,6 +141,7 @@ var object_shower = {
 //              unit: "₽", separator: ",", delimiter: " ", format: "%n %u", precision: 0) %>'
 //    },
         tooltip: {
+            enabled:false,
             formatter: function () {
                 var s ="";
                 sum = 0;
@@ -158,17 +162,18 @@ var object_shower = {
           verticalAlign: 'top',
           floating: true,
           x: 30,
-          y: 630,
+          y: 580,
           useHTML: true,
-          itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+          itemStyle: { "color": "#8d9296", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
           labelFormatter: function () {
-              return '<div style="width: 500px;border-bottom: 1px solid;"><div class = "legend-series-name" style="float: left; width: 270px; white-space: normal">'+this.name+'</div>' +
+              return '<div style="width: 500px;">' +
+                  '<div class = "legend-series-name" style="float: left; width: 270px; white-space: normal">'+this.name+'</div>' +
                   '<div style="text-align: right; float: right; width: 230px"> '+ thousands_sep((this.y/1000000).toFixed(3)) + ' млн ₽</div></div>';
           }
       },
         plotOptions: {
             pie: {
-                center: ['50%', '43%'],
+                center: ['50%', '38%'],
                 dataLabels: {
                     enabled: false
                 },
@@ -179,6 +184,7 @@ var object_shower = {
             type: 'pie',
             name: 'Сумма',
             innerSize: '50%',
+            size: 450,
             data: [
                 ['Работ выполнено',  object_shower.object.work_complite],
                 ['Работ не выполнено', object_shower.object.work_left]
@@ -196,26 +202,56 @@ var object_shower = {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                type: 'bar'
+                type: 'bar',
+                marginTop: -50
             },
             title: {
-                text: 'Освоение бюджета в 2014 году'
+                text: 'Освоение бюджета в 2014 году',
+                margin:20,
+                floating: true,
+                y: 20
+            },
+            xAxis: {
+                lineWidth: 0,
+                labels: {
+                    enabled: false
+                }
+            },
+            yAxis: {
+                title:{
+                    text: null
+                },
+                gridLineWidth: 0,
+                labels: {
+                    enabled: false
+                }
+            },
+            tooltip: {
+                enabled: false
+
             },
             legend:{
+                reversed: true,
                 align: 'left',
                 useHTML: true,
                 floating: true,
                 layout: 'horizontal',
-                itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+                itemStyle: { "color": "#91a0ab",
+                    "fontSize": "26px",
+                    //"fontWeight": "bold",
+                    "white-space": "normal"
+                    //font: '18pt Helvetica, Arial, sans-serif'
+                },
                 labelFormatter: function () {
-                    console.log(this)
-                    return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal">'+this.name +
-                        ' <span id="work-chart-values'+this._i+'"> '+thousands_sep((this.userOptions.data[0]/1000000).toFixed(3)) + ' млн ₽</span> </div>';
+                    //console.log(this)
+                    return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal; ">'+this.name +
+                        ' <span id="work-chart-values'+this._i+'"> '+ million_to_text((this.userOptions.data[0])) +'</span> </div>';
                 }
             },
             plotOptions: {
                 series: {
-                    stacking: 'percent'
+                    stacking: 'percent',
+                    pointWidth: 50
                 }
             },
             series: [{
@@ -266,6 +302,16 @@ var object_shower = {
             var t = $(tep);
             t.html(object_shower.object[t.attr('data-src')]);
         })
+
+        $.each($("#delaies_info div[data-src]"), function(i, tep){
+            var t = $(tep);
+            t.html(object_shower.object[t.attr('data-src')]);
+        })
+
+        $.each($("#destroy_info div[data-src]"), function(i, tep){
+            var t = $(tep);
+            t.html(object_shower.object[t.attr('data-src')]);
+        })
     } ,
     fillPlan: function(){
         $.each($("#prepare div[data-src]"), function(i, tep){
@@ -281,16 +327,16 @@ var object_shower = {
             tbody.html('');
             var html = ''
             $.each(object_shower.object.tenders, function(i,t){
-                html+=  '<tr>'+
-                            '<td>'+t.type+'</td>'+
-                            '<td>'+t.status+'</td>'+
-                            '<td>'+t.date_start+'</td>'+
-                            '<td>'+t.date_end +'</td>' +
-                            '<td>'+million_to_text(t.price_begin)+'</td>' +
-                            '<td>'+million_to_text(t.price_end)+'</td>'+
-                            '<td>'+t.percent+'</td>'+
-                            '<td>'+t.bid_all + '/' +  t.bid_accept +'</td>'
-                        '</tr>'
+                html+=  '<div class="object-tender-table-row">'+
+                            '<span class="object-tenders_list_column">'+t.type+'</span>'+
+                            '<span class="object-tenders_list_column">'+t.status+'</span>'+
+                            '<span class="object-tenders_list_column">'+t.date_start+'</span>'+
+                            '<span class="object-tenders_list_column">'+t.date_end +'</span>' +
+                            '<span class="object-tenders_list_column">'+million_to_text(t.price_begin)+'</span>' +
+                            '<span class="object-tenders_list_column">'+million_to_text(t.price_end)+'</span>'+
+                            '<span class="object-tenders_list_column">'+t.percent+'</span>'+
+                            '<span class="object-tenders_list_column">'+t.bid_all + '/' +  t.bid_accept +'</span>'+
+                        '</div>'
             })
             tbody.html(html);
         }
@@ -304,16 +350,16 @@ var object_shower = {
             if (percent==null) return '<div></div>';
             return  '<div class="progress">'+
                 '<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="'+percent+'" style="width:'+percent+'%">'+
-                percent+'% </div> </div>';
+                percent.toFixed()+'% </div> </div>';
         }
 
         $.each (object_shower.object.visit_info, function(name, percent){
-            result += '<div>'+ "<div>"+name+"</div>"+ getProgressBar(percent)
+            result += '<div>'+ "<div class='visit-info-name'>"+name+"</div>"+ getProgressBar(percent)
                     '</div>'
             //console.log(name, ":", percent)
             $("#visit_info").html(result);
         })
-        $("div.ui-bar h3 span[data-src]").html(object_shower.object['visit_date'])
+        $("h3 span[data-src]").html(object_shower.object['visit_date'])
 
     }
 }

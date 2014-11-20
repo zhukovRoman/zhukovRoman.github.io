@@ -9,10 +9,10 @@ var filter = {
         this.el = $("#id");
         this.insertYearsIntoFilter();
         this.insertDistinctsIntoFilter();
-        var objects = this.filtered_objects
-        $.each(data['objects'], function(i, val){
-            objects.push(val);
-        })
+        //var objects = this.filtered_objects
+        //$.each(data['objects'], function(i, val){
+        //    objects.push(val);
+        //})
     },
     insertYearsIntoFilter: function(){
         var container = $(this.id+" div.years")
@@ -73,10 +73,13 @@ var filter = {
     filter_objects: function(){
         var objects = data['objects'];
         filter.filtered_objects.length=0;
+        var years =  filter.getYearsFilter();
+        var distincts = filter.getDistinctFilter();
+        var appointments = filter.getAppointmetFilter();
         $.each(objects, function(i, obj){
-            if ($.inArray(obj.year, filter.getYearsFilter() )!=-1 &&
-                $.inArray(obj.okrug, filter.getDistinctFilter())!= -1 &&
-                $.inArray(obj.appointment, filter.getAppointmetFilter()) != -1)
+            if ($.inArray(obj.year, years )!=-1 &&
+                $.inArray(obj.okrug, distincts)!= -1 &&
+                $.inArray(obj.appointment,appointments ) != -1)
             {
                 filter.filtered_objects.push(obj);
             }

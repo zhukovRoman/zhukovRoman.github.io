@@ -10,7 +10,7 @@
     <script src="js/jq.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
-
+    <script type="text/javascript" src="js/hc-theme.js"></script>
 
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
@@ -20,23 +20,24 @@
 <body >
 <div class="status-bar"></div>
 <div id="left-menu">
-    <div id='logo' class="menu-picture"></div>
-    <hr class="under-logo">
+    <a href="index.html" data-ajax="false">
+        <div id='logo' class="menu-picture"></div>
+    </a>
+    <hr class="menu-item-devider">
     <div class="menu">
         <a href="empl.html" data-ajax="false">
-            <div class="menu-item ">
+            <div class="menu-item">
                 <div class="menu-picture empl-menu-picture "></div>
                 <div class="menu-item-text">Кадры</div>
             </div>
         </a>
         <hr class="menu-item-devider">
         <a href="objects.html" data-ajax="false">
-            <div class="menu-item ">
+            <div class="menu-item">
                 <div class="menu-picture obj-menu-picture"></div>
                 <div class="menu-item-text">Объекты</div>
             </div>
         </a>
-
         <a href="organizations.html" data-ajax="false">
             <div class="menu-item menu-item-active">
                 <div class="menu-picture contractors-menu-picture "></div>
@@ -50,6 +51,7 @@
                 <div class="menu-item-text">Конкурсы</div>
             </div>
         </a>
+
         <hr class="menu-item-devider">
         <a href="sales.html" data-ajax="false">
             <div class="menu-item">
@@ -61,13 +63,31 @@
 </div>
 <div class="right-side" data-role="page" id=''>
     <!--<div data-role="header" data-position="fixed">-->
-    <div data-role="header">
-        <h1>Подрядчики</h1>
+    <div class="header">
+        <!--<a href="#" id='back-button' class="header-item header-button back-button left-button" onclick="tenders_logic.showChartsPart()">-->
+            <!--&lt;!&ndash;<a href="#" id='back-button'  onclick="tenders_logic.showChartsPart()" style="display: block">Назад</a>&ndash;&gt;-->
+            <!--Назад-->
+        <!--</a>-->
+        <div class="header-paginator"></div>
+        <div class="header-title header-item">
+             Подрядчики
+        </div>
+
     </div>
     <div data-role="content" style="background-color: #ffffff;">
-        <ul id="org_list" data-role="listview" data-filter="true" data-filter-placeholder="Поиск организации по названию…" data-inset="true">
 
-        </ul>
+        <div class="organization-list-wrapper">
+            <div class="organization-list-header">
+                <span class="org_list_column">Адрес</span>
+                <span class="org_list_column">Объектов</span>
+                <span class="org_list_column">Конкурсов</span>
+
+            </div>
+            <ul id="org_list" data-role="listview" data-filter="true" data-filter-placeholder="Поиск организации по названию…" data-inset="true">
+
+            </ul>
+        </div>
+
     </div><!-- /content -->
 </div>
 </body>
@@ -75,6 +95,7 @@
 <script type="text/javascript" src="js/my_common_scripts.js"></script>
 <script type="text/javascript" src="js/data/organizations.js"></script>
 <script type="text/javascript" src="js/organizations_logic.js"></script>
+<script src="js/autorefresh.js"></script>
 
 <script type="text/javascript">
     $(function(){

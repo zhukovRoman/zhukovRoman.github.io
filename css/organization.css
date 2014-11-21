@@ -1,8 +1,58 @@
 #organization-name{
-    float: left;
+
 }
 .organization_tabs{
     float: right;
+    margin-top: -10px;
+}
+
+#organization-name{
+    width: 430px;
+    height: 80px;
+    min-height: 80px;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: bold;
+    color: #626160;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.org-direcrtor{
+    width: 735px;
+    height: 80px;
+    min-height: 80px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 26px;
+    color:  #626160
+}
+.org-direcrtor #org_director{
+     font-size: 28px;
+    font-weight: bold;
+}
+
+.org-contact{
+    width: 400px;
+    height: 80px;
+    min-height: 80px;
+    font-size: 28px;
+    color: #626160;
+    display: table-cell;
+    vertical-align: top;
+    border-right: 2px solid #e2e2e2;
+    padding-left: 20px;
+}
+.org-contact:last-child{
+    border-right: none;
+}
+
+.org-horizontal-devider{
+    height: 0px;
+    border: none;
+    border-bottom: 1px solid #d7dbde;
+    border-top: 1px solid #d7dbde;
+    clear: both;
 }
 
 #common_and_finance_info{
@@ -22,12 +72,7 @@
     /*float: right;*/
     /*clear: right;*/
 }
-.tabs-counter{
-    background-color: #eaeaea;
-    padding: 8px;
-    margin-left: 5px;
-    border-radius: 12px;
-}
+
 .content{
     clear: both;
     overflow-y: scroll;
@@ -45,8 +90,195 @@
 }
 
 #org_list{
-    height: 1300px;
+    margin-top: 95px;
+    height: 1200px;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
+
+.organization-list-header{
+    background-color: #e0eff3;
+    color: #637173;
+    font-weight: bold;
+    position: fixed;
+    z-index: 1;
+    top: 220px;
+    height: 75px;
+    width: 1809px;
+    border-bottom: 2px solid #65afc1;
+    padding: 12px 45px 12px 18px;
+}
+
+.org_list_column{
+    white-space: normal;
+    font-size: 30px;
+    color: #8e8e93;
+    display: table-cell;
+    min-height: 80px;
+    /* width: 59px; */
+    max-width: 299px;
+    font-weight: 200;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: auto;
+    height: 80px;
+}
+
+.org_list_column:first-of-type{
+    width: 100%;
+    min-width: 100%;
+    text-align: left;
+}
+
+.org_list_column:first-of-type + span,
+.org_list_column:last-of-type{
+    width: 200px;
+    min-width: 200px;
+}
+
+#org_list li a {
+    background-color: #ffffff;
+}
+
+
+.organizations-objects-table{
+
+    margin-top: 50px;
+}
+
+.organizations-objects-table-header{
+    background-color: #e0eff3;
+    color: #637173;
+    font-weight: bold;
+    position: fixed;
+    z-index: 1;
+    top: 325px;
+    height: 75px;
+    width: 1745px;
+    border-bottom: 2px solid #65afc1;
+    border-top: 2px solid #65afc1;
+    padding: 12px 45px 12px 18px;
+}
+
+.organizations-objects-table-column{
+    white-space: normal;
+    font-size: 30px;
+    color: #8e8e93;
+    display: table-cell;
+    min-height: 80px;
+    /* width: 59px; */
+    max-width: 299px;
+    font-weight: 200;
+    vertical-align: middle;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: auto;
+    height: 80px;
+}
+.organizations-objects-table-subcolumn{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 170px;
+    min-width: 170px;
+    max-width: 170px;
+}
+
+.organizations-objects-table-column:first-child{
+    width: 50px;
+    min-width: 50px;
+}
+.organizations-objects-table-column:first-child + span,
+.organizations-objects-table-column:first-child + span + span{
+    width: 100px;
+    min-width: 100px;
+}
+.organizations-objects-table-column:first-child + span + span + span{
+    width: 100%;
+    min-width: 100%;
+    text-align: left;
+}
+
+.organizations-objects-table-column:first-child + span + span + span + span{
+    width: 200px;
+    min-width: 200px;
+}
+
+.organizations-objects-table-column:first-child + span + span + span + span+ span{
+    width: 250px;
+    min-width: 250px;
+}
+
+.organizations-objects-table-column:last-child{
+    width: 510px;
+    min-width: 510px;
+    max-width: 510px;
+}
+
+#organization-objects-table-body li a{
+    background-color: #ffffff;
+    border: none;
+    border-bottom: 2px solid darkgray;
+}
+
+
+.object-tender-table{
+
+    overflow-x: hidden;
+}
+
+.organizations-tenders-list-header{
+    height: 96px;
+    width: 100%;
+    min-width: 100%;
+    background-color: #e1f0f7;
+    border-bottom: 3px solid #6fb2b8;
+    padding: 4px 10px;
+}
+.organizations-tenders-list-header .object-tenders_list_column{
+    min-height: 96px;
+    border: none;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 96px;
+}
+
+.organizations-tenders-list-column{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #909090;
+    height: 100px;
+    min-height: 100px;
+}
+.organizations-tenders-list-row{
+    border-bottom: 2px solid #dfdfdf;
+    padding: 4px 10px;
+}
+
+.organizations-tenders-list-column:first-child{
+    width: 400px;
+    text-align: left;
+}
+
+.organizations-tenders-list-column:first-child + span,
+.organizations-tenders-list-column:first-child + span + span,
+.organizations-tenders-list-column:first-child + span + span + span{
+    width: 300px;
+    max-width: 300px;
+    min-width: 300px;
+}
+
+.organizations-tenders-list-column:first-child + span + span + span + span{
+    width: 200px;
+    max-width: 200px;
+    min-width: 200px;
+}
+
+.organizations-tenders-list-column:last-child{
+    width: 150px;
+}
+
 

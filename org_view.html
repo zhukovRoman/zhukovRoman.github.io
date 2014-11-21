@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/jqmobile/jquery.mobile-1.4.4.min.css" />
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/hc-theme.js"></script>
     <script type="text/javascript" src="js/my_common_scripts.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
@@ -17,135 +18,137 @@
 </head>
 <body style="max-width: 2048px; max-height: 1536px;   border: 1px solid;">
 <div id="left-menu">
-    <div id='logo' class="menu-item"></div>
-    <hr class="under-logo">
+    <a href="index.html" data-ajax="false">
+        <div id='logo' class="menu-picture"></div>
+    </a>
+    <hr class="menu-item-devider">
     <div class="menu">
         <a href="empl.html" data-ajax="false">
-            <div class="menu-item empl-menu-item "></div>
-            <div class="menu-item-text">Кадры</div>
+            <div class="menu-item">
+                <div class="menu-picture empl-menu-picture "></div>
+                <div class="menu-item-text">Кадры</div>
+            </div>
         </a>
         <hr class="menu-item-devider">
         <a href="objects.html" data-ajax="false">
-            <div class="menu-item obj-menu-item"></div>
-            <div class="menu-item-text">Объекты</div>
+            <div class="menu-item">
+                <div class="menu-picture obj-menu-picture"></div>
+                <div class="menu-item-text">Объекты</div>
+            </div>
         </a>
-        <hr class="menu-item-devider">
         <a href="organizations.html" data-ajax="false">
-            <div class="menu-item contractors-menu-item contractors-menu-item-active"></div>
-            <div class="menu-item-text">Подрядчики</div>
+            <div class="menu-item menu-item-active">
+                <div class="menu-picture contractors-menu-picture "></div>
+                <div class="menu-item-text">Подрядчики</div>
+            </div>
         </a>
-        <hr class="menu-item-devider">
+
         <a href="tenders.html" data-ajax="false">
-            <div class="menu-item  tenders-menu-item"></div>
-            <div class="menu-item-text">Торги</div>
+            <div class="menu-item ">
+                <div class="menu-picture tenders-menu-picture "></div>
+                <div class="menu-item-text">Конкурсы</div>
+            </div>
         </a>
+
         <hr class="menu-item-devider">
         <a href="sales.html" data-ajax="false">
-            <div class="menu-item sales-menu-item"></div>
-            <div class="menu-item-text">Продажи</div>
+            <div class="menu-item">
+                <div class="menu-picture sales-menu-picture "></div>
+                <div class="menu-item-text">Продажи</div>
+            </div>
         </a>
     </div>
 </div>
 <div class="right-side" data-role="page" id='org_detail'>
 <!--<div data-role="header" data-position="fixed">-->
-<div data-role="header">
-    <a href="#" data-icon="" data-rel="back">Список организаций</a>
-    <h1>Подрядчики</h1>
-</div>
-<div data-role="content" style="background-color: #ffffff">
-    <div class="organzation_header_info">
-        <h3 id='organization-name'>Новые строительные технологии будущего</h3>
-        <div class='organization_tabs'>
-            <form>
-                <fieldset data-role="controlgroup" data-type="horizontal" id="organization_tabs">
-                    <input type="radio" name="present" id="fin-tab" checked="checked" data-tab='common_and_finance_info'>
-                    <label for="fin-tab">Общая информация</label>
-                    <input type="radio" name="present" id="object-tab" data-tab='objects_table'>
-                    <label for="object-tab">Объекты <span class="tabs-counter" id='objects_count'>0</span></label>
-                    <input type="radio" name="present" id="tenders-tab" data-tab='tenders_table'>
-                    <label for="tenders-tab">Торги <span class="tabs-counter" id='tenders_count'>0</span></label>
-                </fieldset>
-            </form>
+
+    <div class="header">
+        <a href="#" id='back-button' class="header-item header-button back-button left-button" data-rel="back">
+
+            Назад
+        </a>
+        <div class="header-devider"></div>
+        <div class="header-title header-item">
+            Подрядчики
         </div>
+
     </div>
-    <div id="common_and_finance_info">
-        <div class="organization-left-side">
-            <div class="my-panel">
-                <div id="org_address"></div>
-                <div>
-                    <span id='org_phone'></span>
-                    <span id='org_email'></span>
-                </div>
-                <div id="org_director"></div>
+<div data-role="content" style="padding: 30px">
+    <div class='organization_tabs tabs tabs-active'>
+        <form>
+            <fieldset data-role="controlgroup" data-type="horizontal" id="organization_tabs">
+                <input type="radio" name="present" id="fin-tab" checked="checked" data-tab='common_and_finance_info'>
+                <label for="fin-tab">Общая информация</label>
+                <input type="radio" name="present" id="object-tab" data-tab='objects_table'>
+                <label for="object-tab">Объекты (<span  id='objects_count'>0</span>)</label>
+                <input type="radio" name="present" id="tenders-tab" data-tab='tenders_table'>
+                <label for="tenders-tab">Торги (<span  id='tenders_count'>0</span>)</label>
+            </fieldset>
+        </form>
+    </div>
+    <div class="organization-visitcard">
+        <div>
+            <span id='organization-name'>Новые строительные технологии будущего</span>
+            <span class="org-direcrtor">
+                <div id="org_director" ></div>
                 <div>Генеральный директор</div>
-            </div>
-            <div class="my-panel">
-                <h3>Доля в торгах</h3>
-                <table class="table table-condensed">
-                    <thead>
-                    <tr>
-                        <th>Год </th>
-                        <th>Доля в объектах</th>
-                        <th>Доля в сумме контрактов (в млн ₽)</th>
-                    </tr>
-                    </thead>
-                    <tbody id="body_table_parts">
-
-                    </tbody>
-                </table>
-            </div>
+            </span>
         </div>
 
-        <div class="organization-right-side">
-            <div class="my-panel my-panel-right">
-                <div id="fin_chart" style="width: 850px; height: 900px"></div>
-            </div>
-            <div class="my-panel my-panel-right">
-                <div id="work_chart" style="width: 850px; height: 300px"></div>
-            </div>
+        <div>
+            <span id="org_address" class="org-contact"></span>
+            <span id='org_phone' class="org-contact"></span>
+            <span id='org_email' class="org-contact"></span>
         </div>
+
+    </div>
+    <hr class="org-horizontal-devider">
+    <div id="common_and_finance_info">
+
+    <div id="parts-chart" style="width:1200px ; height: 925px; float: left"></div>
+
+    <div id="fin_chart" style="width: 600px; height: 925px; float: right"></div>
+        <hr class="org-horizontal-devider">
+    <div id="work_chart" style="width: 1820px; height: 225px"></div>
+
+
     </div>
     <div id='tenders_table' class="content" style="display: none">
-        <h3>Торги</h3>
-        <table class="table table-condensed">
-            <thead>
-            <tr>
-                <th>Тип</th>
-                <th>Дата окончания</th>
-                <th>Цена начальная</th>
-                <th>Цена конечная</th>
-                <th>%↓</th>
-                <th>Заявок подано/допущено</th>
-            </tr>
-            </thead>
-            <tbody id="body_table_tenders">
+        <div class="object-tender-table">
+            <div class="organizations-tenders-list-header">
+                <span class="organizations-tenders-list-column">Тип</span>
+                <span class="organizations-tenders-list-column">Дата завершения</span>
+                <span class="organizations-tenders-list-column">НМЦК</span>
+                <span class="organizations-tenders-list-column">Итогвоая цена</span>
+                <span class="organizations-tenders-list-column">%↓</span>
+                <span class="organizations-tenders-list-column">Заявок подано/<br>одобрено</span>
+            </div>
+            <div id="body_table_tenders"></div>
+        </div>
 
-            </tbody>
-        </table>
     </div>
-    <div id='objects_table'  class="content" style="display: none">
-        <h3>Объекты</h3>
-        <table class="table table-condensed">
-            <thead>
-            <tr>
-                <th rowspan="2">#</th>
-                <th rowspan="2">Округ</th>
-                <th rowspan="2">Год ввода</th>
-                <th rowspan="2">Адрес</th>
-                <th rowspan="2">Текуший статус</th>
-                <th rowspan="2">Сумма контракта</th>
-                <th colspan="3" style="text-align: center">Динамика</th>
-            </tr>
-            <tr>
-                <th>Сети</th>
-                <th>СМР</th>
-                <th>Отделка</th>
-            </tr>
-            </thead>
-            <tbody id="body_table">
+    <div id='objects_table'  class="content" style="display: none; margin-top: 30px;">
+        <div class="organizations-objects-table">
+            <div class="organizations-objects-table-header">
+                <span class="organizations-objects-table-column">#</span>
+                <span class="organizations-objects-table-column">Округ</span>
+                <span class="organizations-objects-table-column">Год ввода</span>
+                <span class="organizations-objects-table-column">Адрес</span>
+                <span class="organizations-objects-table-column">Текуший статус</span>
+                <span class="organizations-objects-table-column">Сумма контракта</span>
+                <span class="organizations-objects-table-column">
+                    Динамика
+                     <br>
+                    <span class="organizations-objects-table-subcolumn">Сети</span>
+                    <span class="organizations-objects-table-subcolumn">СМР</span>
+                    <span class="organizations-objects-table-subcolumn">Отделка</span>
+                </span>
+            </div>
+            <ul id="organization-objects-table-body" data-role="listview" data-inset="true"></ul>
 
-            </tbody>
-        </table>
+        </div>
+
+
     </div>
 </div><!-- /content -->
 </div>

@@ -6,9 +6,11 @@ var organizations_logic = {
         var html = ''
         $.each (organizations, function(i,val){
             html+='<li><a href="org_view.html?id='+val.id+'">'+
-                '<h1>'+val.name+'</h1>'+
+                '<span class="org_list_column">'+val.name+'</span>'+
+                '<span class="org_list_column">'+val.objects.length+'</span>'+
+                '<span class="org_list_column">'+val.tenders.length+'</span>'+
                 '</a></li>'
-            console.log(val);
+            //console.log(val);
         })
         $ul.html(html)
         $ul.listview( "refresh" );
@@ -55,21 +57,110 @@ var organizations_logic = {
         $("#objects_count").html(organizations_logic.current_organization.objects.length)
     },
     fillPartsInTenders: function(){
-        var parts_table = document.getElementById('body_table_parts');
-        $(parts_table).html('');
+
+        var years = [];
+        var counts = [];
+        var sums = [];
         $.each(organizations_logic.current_organization.tenders_parts.current, function(year, parts){
-            var row = document.createElement('tr');
-            var count = parts['count']
-            var allCount = organizations_logic.current_organization.tenders_parts.all[year]['count'];
-
-            var sum = parts['sum']/1000000;
-            var allSumm = organizations_logic.current_organization.tenders_parts.all[year]['sum']/1000000;
-
-            row.innerHTML = "<td>"+year+"</td>"+
-                "<td>"+count+" из "+allCount+ " ("+ (count*100/allCount).toFixed(2) +"%)</td>"+
-                "<td>"+thousands_sep(sum.toFixed(3))+" из "+thousands_sep(allSumm.toFixed(3))+ " ("+ (sum*100/allSumm).toFixed(2) +"%)</td>";
-            parts_table.appendChild(row);
+            years.push(year);
+            counts.push(parts.count);
+            sums.push(parts.sum)
         })
+
+        var fin_chart = new Highcharts.Chart({
+            credits: {
+                enabled: false
+            },
+            chart: {
+                renderTo: 'parts-chart',
+                type: 'bar'
+            },
+            title: {
+                text: 'Доля в конкурсах'
+            },
+            xAxis: {
+                categories: years
+            },
+            yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Доля в объектах'
+                } ,
+                allowDecimals: false,
+                minTickInterval: 1,
+                lineWidth: 3,
+                lineColor: '#65afc1'
+            },
+            {
+                min: 0,
+                opposite: true,
+                title: {
+                    text:  'Доля в финансах (млрд ₽)'
+                },
+                labels: {
+                    formatter: function() {
+                        return (this.value / 1000000000).toFixed(1) ;
+                    }
+                }
+                //minTickInterval: 1000000000
+            }],
+            legend: {
+                reversed: true
+            },
+            tooltip:{
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: 'white',
+                        style:{
+                            fontSize: '20px'
+                        },
+
+                        formatter: function(){
+                            if (this.series.name == 'Доля в объектах')
+                            return this.y + ' из '+ organizations_logic.current_organization.tenders_parts.all[this.x]['count'] +
+                                ' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['count']).toFixed(2) + '%)'
+
+                            if (this.series.name == 'Доля в финансах')
+                                return thousands_sep((this.y/1000000).toFixed(0)) + ' из '+ thousands_sep((organizations_logic.current_organization.tenders_parts.all[this.x]['sum']/1000000).toFixed(0)) +
+                                    ' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['sum']).toFixed(2) + '%)'
+                        }
+                    }
+                }
+
+            },
+            series: [{
+                name: 'Доля в объектах',
+                stack: 'obj',
+
+                data: counts
+            }, {
+                name: 'Доля в финансах',
+                stack: 'fin',
+                data: sums ,
+                yAxis: 1
+            }]
+        });
+
+        //var parts_table = document.getElementById('body_table_parts');
+        //$(parts_table).html('');
+        //$.each(organizations_logic.current_organization.tenders_parts.current, function(year, parts){
+        //    var row = document.createElement('tr');
+        //    var count = parts['count']
+        //    var allCount = organizations_logic.current_organization.tenders_parts.all[year]['count'];
+        //
+        //    var sum = parts['sum']/1000000;
+        //    var allSumm = organizations_logic.current_organization.tenders_parts.all[year]['sum']/1000000;
+        //
+        //    row.innerHTML = "<td>"+year+"</td>"+
+        //        "<td>"+count+" из "+allCount+ " ("+ (count*100/allCount).toFixed(2) +"%)</td>"+
+        //        "<td>"+thousands_sep(sum.toFixed(3))+" из "+thousands_sep(allSumm.toFixed(3))+ " ("+ (sum*100/allSumm).toFixed(2) +"%)</td>";
+        //    parts_table.appendChild(row);
+        //})
     },
     fillFinChart: function(){
         var c_org =  organizations_logic.current_organization;
@@ -84,9 +175,13 @@ var organizations_logic = {
                 plotShadow: false
             },
             title: {
-                text: 'Оплаты по контрагенту'
+                text: 'Оплаты по контрагенту',
+                style: {
+                    "fontSize": "20pt"
+                }
             },
             tooltip: {
+                enabled: false,
                 formatter: function () {
                     var s ="";
                     $.each(this.series.points, function (i, point) {
@@ -104,14 +199,28 @@ var organizations_logic = {
                 verticalAlign: 'top',
                 floating: true,
                 x: 30,
-                y: 600,
+                y: 580,
                 useHTML: true,
-                itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+                itemStyle: { "color": "#8d9296", "fontSize": "18pt", "fontWeight": "normal", "white-space": "normal" },
                 labelFormatter: function () {
-                    console.log(this.y)
-                    return '<div style="width: 500px;border-bottom: 1px solid;display: block"><div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
-                        '<div style="text-align: right; float: right; width: 200px"> '+ thousands_sep((this.y/1000000).toFixed(0)) +' млн ₽ </div></div>';
+                    return '<div style="width: 500px;">' +
+                        '<div class = "legend-series-name" style="float: left; width: 270px; white-space: normal">'+this.name+'</div>' +
+                        '<div style="text-align: right; float: right; width: 230px"> '+ million_to_text(this.y) +'</div></div>';
                 }
+                //layout: 'vertical',
+                //backgroundColor: '#FFFFFF',
+                //align: 'left',
+                //verticalAlign: 'top',
+                //floating: true,
+                //x: 30,
+                //y: 600,
+                //useHTML: true,
+                //itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+                //labelFormatter: function () {
+                //    console.log(this.y)
+                //    return '<div style="width: 500px;border-bottom: 1px solid;display: block"><div class = "legend-series-name" style="float: left; width: 300px; white-space: normal">'+this.name+'</div>' +
+                //        '<div style="text-align: right; float: right; width: 200px"> '+ thousands_sep((this.y/1000000).toFixed(0)) +' млн ₽ </div></div>';
+                //}
             },
             plotOptions: {
                 pie: {
@@ -119,14 +228,14 @@ var organizations_logic = {
                     dataLabels: {
                         enabled: false
                     },
-                    showInLegend: true,
-                    size: 300
+                    showInLegend: true
                 }
             },
             series: [{
                 type: 'pie',
                 name: 'Сумма',
                 innerSize: '50%',
+                size: 450,
                 data: [
                     ['Остаток оплаты', c_org.payed_left],
                     ['Авансов выдано и не погашено', c_org.avans_ne_pogasheno],
@@ -150,10 +259,33 @@ var organizations_logic = {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
-                type: 'bar'
+                type: 'bar',
+                marginTop: -50
             },
             title: {
-                text: 'Выполнение работ по произведенным оплатам'
+                text: 'Выполнение работ по произведенным оплатам',
+                margin:20,
+                floating: true,
+                y: 20
+            },
+            xAxis: {
+                lineWidth: 0,
+                labels: {
+                    enabled: false
+                }
+            },
+            yAxis: {
+                title:{
+                    text: null
+                },
+                gridLineWidth: 0,
+                labels: {
+                    enabled: false
+                }
+            },
+            tooltip: {
+                enabled: false
+
             },
 //            tooltip: {
 //                formatter: function () {
@@ -168,18 +300,25 @@ var organizations_logic = {
 //            },
             plotOptions: {
                 series: {
-                    stacking: 'percent'
+                    stacking: 'percent',
+                    pointWidth: 50
                 }
             },
             legend:{
+                reversed: true,
                 align: 'left',
                 useHTML: true,
                 floating: true,
                 layout: 'horizontal',
-                itemStyle: { "color": "#333333", "fontSize": "18pt", "fontWeight": "bold", "white-space": "normal" },
+                itemStyle: { "color": "#91a0ab",
+                    "fontSize": "26px",
+                    //"fontWeight": "bold",
+                    "white-space": "normal"
+                    //font: '18pt Helvetica, Arial, sans-serif'
+                },
                 labelFormatter: function () {
-
-                    return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal">'+this.name +
+                    //console.log(this)
+                    return '<div class = "legend-series-name" style="float: left; width: 500px; white-space: normal; ">'+this.name +
                         ' <span id="work-chart-values'+this._i+'"> '+ million_to_text((this.userOptions.data[0])) +'</span> </div>';
                 }
             },
@@ -193,19 +332,24 @@ var organizations_logic = {
         });
     },
     fillTendersTable: function(){
-        var tenders_table = document.getElementById('body_table_tenders');
+        var tenders_table = $('#body_table_tenders');
         $(tenders_table).html('');
+        var html = '' ;
         $.each(organizations_logic.current_organization.tenders, function(i, val){
-            var row = document.createElement('tr');
+
             date = new Date(val.DataFinish);
-            row.innerHTML = "<td>"+val.TenderSName+"</td>"+
-                "<td>"+date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear()+"</td>"+
-                "<td>"+thousands_sep((val.TenderPriceBegin||0))+" ₽</td>"+
-                "<td>"+thousands_sep((val.TenderPriceEnd||0).toFixed(0))+" ₽</td>"+
-                "<td>"+(val.TenderProcentDecline||0).toFixed(2)+"</td>"+
-                "<td>"+val.TenderQtyPresent+"/"+val.TenderQtyAccept+"</td>";
-            tenders_table.appendChild(row);
+
+            html += '<div class="organizations-tenders-list-row">'+
+                    '<span class="organizations-tenders-list-column">'+val.TenderSName+'</span>' +
+                    '<span class="organizations-tenders-list-column">'+date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear()+'</span>' +
+                    '<span class="organizations-tenders-list-column">'+thousands_sep((val.TenderPriceBegin||0))+' ₽</span>' +
+                    '<span class="organizations-tenders-list-column">'+thousands_sep((val.TenderPriceEnd||0).toFixed(0))+' ₽</span>' +
+                    '<span class="organizations-tenders-list-column">'+(val.TenderProcentDecline||0).toFixed(2)+'</span>' +
+                    '<span class="organizations-tenders-list-column">'+val.TenderQtyPresent+"/"+val.TenderQtyAccept+'</span>' +'</div>'
+
         })
+
+        tenders_table.html(html);
     } ,
     compare_objects_by_year: function(a,b) {
         if (a.year < b.year)
@@ -218,24 +362,33 @@ var organizations_logic = {
         return "<a href='object_view.html?id="+id+"' >"+adr+"</a>"
     },
     fillObjectsTable: function(){
-        var table = document.getElementById('body_table');
-        $(table).html('');
+
+        var $ul = $("#organization-objects-table-body")
+
+        var html = ''
        // num = 0;
         var objects = organizations_logic.current_organization.objects.sort(this.compare_objects_by_year)
         $.each(objects, function(i, val){
-            var row = document.createElement('tr');
-            if (val.internal_delay!=0 || val.constructive_delay!=0 || val.network_delay!=0)
-                $(row).addClass('danger');
-            row.innerHTML = "<td>"+(i+1)+"</td><td>"+val.region+"</td>"+
-                "<td>"+val.year+"</td>"+
-                //"<td>"+organizations_logic.get_url_for_object_view(val.id, val.address)+"</td>"+
-                "<td>"+val.address+"</td>"+
-                "<td>"+val.status+"</td>"+
-                "<td>"+thousands_sep(val.contract_sum)+" ₽</td>"+
-                "<td>"+val.network+'/'+val.network_delay+"</td>"+
-                "<td>"+val.constructive+'/'+val.constructive_delay+"</td>"+
-                "<td>"+val.internal+'/'+val.internal_delay+"</td>";
-            table.appendChild(row);
+
+            html+='<li>' +
+            '<a href="index.html?id='+val.id+'">'+
+                '<span class="organizations-objects-table-column">'+ (i+1)+"</span>" +
+                '<span class="organizations-objects-table-column">'+  val.region +"</span>" +
+                '<span class="organizations-objects-table-column">'+  val.year +"</span>" +
+                '<span class="organizations-objects-table-column">'+  val.address +"</span>" +
+                '<span class="organizations-objects-table-column">'+  val.status +"</span>" +
+                '<span class="organizations-objects-table-column">'+  thousands_sep(val.contract_sum) +" ₽</span>" +
+                '<span class="organizations-objects-table-column">'+
+                    '<span class="organizations-objects-table-subcolumn">'+val.network+'/<br>'+val.network_delay+'</span>'+
+                    '<span class="organizations-objects-table-subcolumn">'+val.constructive+'/<br>'+val.constructive_delay+'</span>'+
+                    '<span class="organizations-objects-table-subcolumn">'+val.internal+'/<br>'+val.internal_delay+'</span>'+
+                "</span>" +
+
+            '</a></li>'
         })
+        $ul.html(html)
+        $ul.listview( "refresh" );
+        $ul.trigger( "updatelayout");
+
     }
 }

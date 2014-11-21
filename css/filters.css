@@ -5,7 +5,8 @@
     margin-top: 10px;
 }
 
-.filter input[type=checkbox]{
+.filter input[type=checkbox],
+.filter input[type=radio]{
     display: none;
 }
 
@@ -17,6 +18,11 @@
     color: #dcedf1;
     height: 85px;
     margin-top: 28px;
+}
+
+.filter-part-header.radio-header label{
+    color: #fff ;
+    padding-left: 30px;
 }
 
 .sub-header{
@@ -126,6 +132,14 @@
 
 .filter-items input[type=checkbox]:checked  + label{
     background-image: url('images/checkbox_on_white_checked.png');
+}
+
+.filter-items input[type=radio] + label{
+    background-image: url('images/radio_on_white.png');
+}
+
+.filter-items input[type=radio]:checked  + label{
+    background-image: url('images/radio_on_white_checked.png');
 }
 
 

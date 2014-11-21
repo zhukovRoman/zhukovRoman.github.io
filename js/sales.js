@@ -3,7 +3,7 @@ var sales_logic = {
     init: function(){
         this.setCurrentChart();
         $('#rooms-tabs input, #sales-filter div.objects input').change(sales_logic.applyFilters);
-        $('#mesure-tabs input, #interval-select, #statuses_detail_charts_tabs input').change(sales_logic.applyFilters);
+        $('#measure-filter input, #interval-filter input, #statuses_detail_charts_tabs input').change(sales_logic.applyFilters);
         $('#sales-charts-tabs input').change(sales_logic.setCurrentChart)
 
     },
@@ -56,8 +56,16 @@ var sales_logic = {
                 }
             },
             tooltip:{
+                formatter: function() {
+
+                    var result = generateTooltipHeader(this.x)
+                    $.each(this.points, function(i, datum) {
+                        result += generateTooltipLine (datum.series.name, datum.y +' кв',datum.point.series.color);
+                    });
+                    return result;
+                },
                 shared: true,
-                valueSuffix: " кв"
+                useHTML: true
             },
             plotOptions: {
                 column: {
@@ -260,15 +268,24 @@ var sales_filter = {
     },
     fillObjects: function(){
        var el = $('#sales-filter div.objects');
+        var count = 0;
+        var html = '<div class="filter-items columns2 objects-filter">'
         $.each(sales_objects, function(i,val){
-           el.append('<input type="checkbox" data-role="none" data-value="'+val+'" checked>'+val);
+            if (count++ % 2 == 0  ){
+                html += '</div><div class="filter-items columns2 distincts-filter distincts">'
+            }
+            html += '<input type="checkbox" data-role="none" data-value="'+val+'" checked id="o'+i+'">'+
+                '<label for="o'+i+'">'+val+'</label> '
+
         })
+        el.append(html+'</div>');
     },
     getMeasureFilterValue: function(){
-        return $('#mesure-tabs input:checked').attr('id')
+        return $('#measure-filter input:checked').attr('id')
     },
     getIntervalValue: function(){
-       return $('#interval-select').val();
+        return $('#interval-filter input:checked').attr('id')
+        //return $('#interval-select').val();
     },
     getObjectsFilterValue: function(){
         var res = []
@@ -360,17 +377,13 @@ var charts = {
                },
                tooltip: {
                    formatter: function() {
-                       var result = '<b>' + this.x + '</b>';
+                       var result = generateTooltipHeader(this.x + ' этаж')
                        $.each(this.points, function(i, datum) {
                            if (i%2==0)
-                               result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                   + datum.series.name + '</i>: '
-                                   + thousands_sep(datum.y.toFixed(0)) + ' ₽ ';
+                               result += generateTooltipLine (datum.series.name, thousands_sep(datum.y.toFixed(0)) + ' ₽ ',datum.point.series.color);
                            else
-                               result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                   + datum.series.name + '</i>: '
-                                   + thousands_sep(datum.point.low.toFixed(0)) + ' - '
-                                   + thousands_sep(datum.point.high.toFixed(0)) + ' ₽ ';
+                               result += generateTooltipLine (datum.series.name, thousands_sep(datum.point.low.toFixed(0)) + ' - '
+                               + thousands_sep(datum.point.high.toFixed(0)) + ' ₽ ',datum.point.series.color);
                        });
                        return result;
                    },
@@ -500,6 +513,11 @@ var charts = {
                 },
 
                 xAxis: {
+                    labels:{
+                        style: {
+                            "fontSize": "20px"
+                        }
+                    },
                     categories: sales_logic.getWeeksCategories()
                     //tickmarkPlacement: 'on'
                 },
@@ -509,6 +527,7 @@ var charts = {
                         text: 'тыс ₽'
                     },
                     labels: {
+
                         formatter: function () {
                             return this.value/1000 + ' тыс ₽';
                         }
@@ -516,17 +535,13 @@ var charts = {
                 },
                 tooltip: {
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
+                        var result = generateTooltipHeader(this.x )
                         $.each(this.points, function(i, datum) {
                             if (i%2==0)
-                                result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                    + datum.series.name + '</i>: '
-                                    + thousands_sep(datum.y.toFixed(0)) + ' ₽ ';
+                                result += generateTooltipLine (datum.series.name, thousands_sep(datum.y.toFixed(0)) + ' ₽ ',datum.point.series.color);
                             else
-                                result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                    + datum.series.name + '</i>: '
-                                    + thousands_sep(datum.point.low.toFixed(0)) + ' - '
-                                    + thousands_sep(datum.point.high.toFixed(0)) + ' ₽ ';
+                                result += generateTooltipLine (datum.series.name, thousands_sep(datum.point.low.toFixed(0)) + ' - '
+                                + thousands_sep(datum.point.high.toFixed(0)) + ' ₽ ',datum.point.series.color);
                         });
                         return result;
                     },
@@ -711,7 +726,17 @@ var charts = {
                     }
                 },
                 tooltip: {
-                    valueSuffix: ' квартир'
+                    //valueSuffix: ' квартир',
+                    formatter: function() {
+                        var result = generateTooltipHeader(this.key)
+
+                        //$.each(this.points, function(i, datum) {
+                            result += generateTooltipLine (this.key, this.y + ' квартир',this.point.color);
+                        //});
+                        return result;
+                    },
+                    shared: true,
+                    useHTML: true
                 },
                 series: [{
                     name: 'Как покупают',
@@ -721,8 +746,12 @@ var charts = {
                         formatter: function() {
                             return this.y > 5 ? this.point.name : null;
                         },
+                        style:{
+                            fontSize: '20px',
+                            color: 'white'
+                        },
                         color: 'white',
-                        distance: -30
+                        distance: -50
                     }
                 }, {
                     name: 'Доля',
@@ -730,6 +759,10 @@ var charts = {
                     size: '80%',
                     innerSize: '60%',
                     dataLabels: {
+                        style:{
+                            fontSize: '20px',
+                            color: 'gray'
+                        },
                         formatter: function() {
                             // display only if larger than 1
                             return this.y > 1 ? '<b>'+ this.point.name +':</b> '+ this.percentage +'%'  : null;
@@ -808,21 +841,20 @@ var charts = {
                     stackLabels: {
                         enabled: true,
                         style: {
-                            fontWeight: 'bold',
-                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                            fontSize: '20px',
+                            color:  'gray'
                         },
-                        formatter: function() {return thousands_sep((this.total/1000000).toFixed(3))}
+                        formatter: function() {return thousands_sep((this.total/1000000).toFixed(0))}
                     }
                 },
                 tooltip: {
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
+
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                + datum.series.name + '</i>: '
-                                + thousands_sep((datum.y/1000000).toFixed(3)) + ' млн ₽ ';
-
+                            result += generateTooltipLine (datum.series.name,
+                                thousands_sep((datum.y/1000000).toFixed(3)) + ' млн ₽ ',
+                                datum.point.series.color);
                         });
                         return result;
                     },
@@ -845,9 +877,11 @@ var charts = {
                             enabled: true,
                             color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                             style: {
-                                textShadow: '0 0 3px black, 0 0 3px black'
+                                fontSize: '20px'
                             },
-                            formatter: function() {return thousands_sep((this.y/1000000).toFixed(3))}
+                            formatter: function() {
+                                if (this.percentage <=5 ) return'';
+                                return thousands_sep((this.y/1000000).toFixed(0))}
                         }
                     }
                 },
@@ -940,22 +974,20 @@ var charts = {
                     stackLabels: {
                         enabled: true,
                         style: {
-                            fontWeight: 'bold',
-                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                            fontSize: '20px',
+                            color:  'gray'
                         }
                     }
                 },
                 tooltip: {
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
+
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                + datum.series.name + '</i>: '
-                                + thousands_sep((datum.y/1000000).toFixed(3)) + ' млн ₽ ';
-
+                            result += generateTooltipLine (datum.series.name,thousands_sep((datum.y/1000000).toFixed(3)) + ' млн ₽ ',datum.point.series.color);
                         });
                         return result;
+
                     },
                     shared: true,
                     useHTML: true
@@ -964,9 +996,10 @@ var charts = {
                     column: {
                         dataLabels: {
                             enabled: true,
-                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+
                             style: {
-                                textShadow: '0 0 3px black, 0 0 3px black'
+                                fontSize: '20px',
+                                color:  'gray'
                             },
                             formatter: function() {return thousands_sep((this.y/1000000).toFixed(3))}
                         }
@@ -1045,6 +1078,9 @@ var charts = {
                         text: 'Количество'
                     },
                     labels:{
+                        style: {
+                            "fontSize": "20px"
+                        },
                         formatter: function(){return charts.planFactChart.AxisFormatters[sales_filter.getMeasureFilterValue()](this.value);}
                     }
                 },
@@ -1052,12 +1088,11 @@ var charts = {
                     shared: true,
                     useHTML: true,
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
+                        var result = generateTooltipHeader(this.x )
                         $.each(this.points, function(i, datum) {
-
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                + datum.series.name + '</i>: '
-                                + charts.planFactChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y);
+                            result += generateTooltipLine (datum.series.name,
+                                                            charts.planFactChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
+                                                            datum.point.series.color);
 
                         });
                         return result;
@@ -1069,7 +1104,12 @@ var charts = {
                         borderWidth: 0,
                         dataLabels: {
                             enabled: true,
-                            formatter: function () {return charts.planFactChart.DatalabelsFormatters[sales_filter.getMeasureFilterValue()](this.y)}
+                            style: {
+                                "fontSize": "20px"
+                            },
+                            formatter: function () {
+                                if  (this.y==0) return '';
+                                return charts.planFactChart.DatalabelsFormatters[sales_filter.getMeasureFilterValue()](this.y)}
                         }
                     }
 
@@ -1202,13 +1242,12 @@ var charts = {
                     shared: true,
                     useHTML: true,
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
+
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                + datum.series.name + '</i>: '
-                                + charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y);
-
+                            result += generateTooltipLine (datum.series.name,
+                                                        charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
+                                                        datum.point.series.color);
                         });
                         return result;
                     }
@@ -1264,13 +1303,11 @@ var charts = {
                     shared: true,
                     useHTML: true,
                     formatter: function() {
-                        var result = '<b>' + this.x + '</b>';
+                        var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
-
-                            result += '<br /> <i style="color: '+datum.point.series.color+'">'
-                                + datum.series.name + '</i>: '
-                                + charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y);
-
+                            result += generateTooltipLine (datum.series.name,
+                                charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
+                                datum.point.series.color);
                         });
                         return result;
                     }
@@ -1299,7 +1336,10 @@ var charts = {
             $.each(charts.statusChart.add_chart.series, function(i,val){
                 val.setData(charts.statusChart.getAddDataForObject(val.name), false)
             })
-            this.add_chart.redraw();
+
+            charts.statusChart.add_chart.setTitle(
+                { text: 'Динамика стутуса "'+sales_filter.getCurrentDetailStatus()+'"'},false)
+            charts.statusChart.add_chart.redraw();
 
         },
         getData: function(){

@@ -76,33 +76,33 @@ var sales_logic = {
                 name: '1-ком осталось',
                 data: [10, 32, 0],
                 stack: "1k",
-                color: 'rgba(124, 181, 236, 0.5)'
+                color: 'rgba(225, 21, 60, 0.5)'
             },{
                 name: '1-ком продано',
                 data: [32, 0, 0],
                 stack: "1k",
-                color: 'rgb(124, 181, 236)'
+                color: 'rgb(225, 21, 60)'
 
             },{
                 name: '2-ком осталось ',
                 data: [18, 64, 86],
                 stack: "2k",
-                color: 'rgba(187, 83, 236, 0.5)'
+                color: "rgba(45, 204, 112, 0.5)"
             },{
                 name: '2-ком продано ',
                 data: [46, 0, 42],
                 stack: "2k",
-                color: 'rgb(187, 83, 236)'
+                color: "rgb(45, 204, 112)"
             },{
                 name: '3-ком осталось',
                 data: [10, 33, 109],
                 stack: '3k',
-                color: "rgba(144, 237, 125, 0.5)"
+                color: 'rgba(53, 152, 219, 0.5)'
             },{
                 name: '3-ком продано',
                 data: [23, 0, 19],
                 stack: '3k',
-                color: "rgb(144, 237, 125)"
+                color: 'rgb(53, 152, 219)'
             }]
         });
 
@@ -398,10 +398,12 @@ var charts = {
                    name: 'Оценочная',
                    data: [],
                    zIndex: 1,
+                   color: 'rgb(225,21,60)',
                    marker: {
                        fillColor: 'white',
                        lineWidth: 2,
-                       lineColor: Highcharts.getOptions().colors[0]
+                       //lineColor: Highcharts.getOptions().colors[0]
+                       lineColor: 'rgb(225,21,60)'
                    }
                }, {
                    name: 'Корридор оценочной цены',
@@ -409,8 +411,9 @@ var charts = {
                    type: 'arearange',
                    lineWidth: 0,
                    linkedTo: ':previous',
-                   color: Highcharts.getOptions().colors[0],
-                   fillOpacity: 0.3,
+                   //color: Highcharts.getOptions().colors[0],
+                   color: 'rgb(225,21,60)',
+                   fillOpacity: 0.5,
                    zIndex: 0
                },{
                    name: 'Итоговая',
@@ -419,7 +422,8 @@ var charts = {
                    marker: {
                        fillColor: 'white',
                        lineWidth: 2,
-                       lineColor: Highcharts.getOptions().colors[1]
+                       //lineColor: Highcharts.getOptions().colors[1]
+                       lineColor: 'rgb(53, 152, 219)'
                    }
                }, {
                    name: 'Корридор итоговой цены',
@@ -427,8 +431,9 @@ var charts = {
                    type: 'arearange',
                    lineWidth: 0,
                    linkedTo: ':previous',
-                   color: Highcharts.getOptions().colors[1],
-                   fillOpacity: 0.3,
+                   //color: Highcharts.getOptions().colors[1],
+                   color: 'rgb(53, 152, 219)',
+                   fillOpacity: 0.5,
                    zIndex: 0
                }]
            });
@@ -555,10 +560,11 @@ var charts = {
                     name: 'Начальная стоимость',
                     data: [1,1,1,1,1],
                     zIndex: 10,
+                    color: 'rgb(225,21,60)',
                     marker: {
                         fillColor: 'white',
                         lineWidth: 2,
-                        lineColor: Highcharts.getOptions().colors[0]
+                        lineColor: 'rgb(225,21,60)'
                     }
                 },{
                     name: 'Диапазон (начальная)',
@@ -567,8 +573,8 @@ var charts = {
                     lineWidth: 0,
                     linkedTo: ':previous',
                     zIndex: 2,
-                    color: Highcharts.getOptions().colors[0],
-                    fillOpacity: 0.15
+                    color: 'rgb(225,21,60)',
+                    fillOpacity: 0.35
                 },{
                     name: 'Средняя по приказу',
                     data: [],
@@ -576,18 +582,18 @@ var charts = {
                     marker: {
                         fillColor: 'white',
                         lineWidth: 2,
-                        lineColor: Highcharts.getOptions().colors[2]
+                        lineColor: 'rgb(53, 152, 219)'
                     },
-                    color: Highcharts.getOptions().colors[2]
+                    color: 'rgb(53, 152, 219)'
                 },{
                     name: 'Диапазон (по приказу)',
                     data: [],
                     type: 'arearange',
                     lineWidth: 0,
                     linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[2],
+                    color: 'rgb(53, 152, 219)',
                     zIndex: 2,
-                    fillOpacity: 0.15
+                    fillOpacity: 0.60
                 },{
                     name: 'Средняя итоговая',
                     data: [],
@@ -595,18 +601,18 @@ var charts = {
                     marker: {
                         fillColor: 'white',
                         lineWidth: 2,
-                        lineColor: Highcharts.getOptions().colors[1]
+                        lineColor: 'rgb(45, 204, 112)'
                     },
-                    color: Highcharts.getOptions().colors[1]
+                    color: 'rgb(45, 204, 112)'
                 },{
                     name: 'Диапазон (итоговая)',
                     data: [],
                     type: 'arearange',
                     lineWidth: 0,
                     linkedTo: ':previous',
-                    color: Highcharts.getOptions().colors[1],
+                    color: 'rgb(45, 204, 112)',
                     zIndex: 1,
-                    fillOpacity: 0.15
+                    fillOpacity: 0.35
                 }]
 
 

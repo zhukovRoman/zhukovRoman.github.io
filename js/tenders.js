@@ -905,7 +905,7 @@ var tenders_charts={
 
 
             chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
-                                            .add().on('click',chart.createChart);
+                                            .add().on('click',function(){setTimeout(chart.createChart, 50)});
 
             chart.chart.xAxis[0].setCategories(months_short,false);
             var series = chart.getDrilldownData()[year]
@@ -1094,7 +1094,7 @@ var tenders_charts={
             //    chart.createChart).add();
 
             chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
-                .add().on('click',chart.createChart);
+                .add().on('click',function(){setTimeout(chart.createChart, 50)});
 
             chart.chart.xAxis[0].setCategories(months_short,false);
             var series = chart.getDrilldownData()[year]
@@ -1286,7 +1286,7 @@ var tenders_charts={
             //    chart.createChart).add();
 
             chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
-                .add().on('click',chart.createChart);
+                .add().on('click',function(){setTimeout(chart.createChart, 50)});
 
             var data= chart.getDrilldownData(chart.current_year);
 
@@ -1472,7 +1472,7 @@ var tenders_charts={
             var chart = tenders_charts.CountChart
 
             chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
-                .add().on('click',chart.createChart);
+                .add().on('click',function(){setTimeout(chart.createChart, 50)});
 
             //chart.chart.renderer.button('Назад',
             //    150,
@@ -1979,7 +1979,8 @@ var tenders_common_charts = {
         tenders_common_charts.prices_chart.series[0].setData(tenders_data.summ_drilldown_data[$(this).text()][0], false);
         tenders_common_charts.prices_chart.series[1].setData(tenders_data.summ_drilldown_data[$(this).text()][1], true);
         tenders_common_charts.prices_chart.renderer.image('images/back-btn.png',150,0,137,52)
-            .add().on('click',tenders_common_charts.returnYearChart);
+            .add().on('click',  function(){setTimeout(tenders_common_charts.returnYearChart, 50)}
+            );
         //tenders_common_charts.prices_chart.renderer.button('Назад',
         //    200,
         //    0,
@@ -2206,7 +2207,8 @@ var tenders_common_qty_chart = {
         tenders_common_qty_chart.chart.series[0].setData(series, true);
 
         tenders_common_qty_chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
-            .add().on('click',tenders_common_qty_chart.returnYearQtyChart);
+            .add().on('click',function(){setTimeout(tenders_common_qty_chart.returnYearQtyChart, 50)}
+            );
         //tenders_common_qty_chart.chart.renderer.button('Назад',
         //    200,
         //    0,

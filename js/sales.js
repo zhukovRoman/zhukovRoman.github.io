@@ -12,7 +12,7 @@ var sales_logic = {
         var div_id = $("#sales-charts-tabs input:checked").attr('data-div');
         $('#'+div_id).show();
         var name = $("#sales-charts-tabs input:checked").attr('data-chart');
-        sales_logic.current_chart = charts[name];
+        sales_logic.current_chart = sales_charts[name];
         sales_logic.current_chart.createChart();
         sales_logic.current_chart.need_measure ?
                             sales_filter.showMeasureFilter() :
@@ -332,7 +332,7 @@ var sales_filter = {
 
 }
 
-var charts = {
+var sales_charts = {
     floorPriceChart: {
        _div_id:  'floors_price',
        chart: null,
@@ -1087,7 +1087,7 @@ var charts = {
                         style: {
                             "fontSize": "20px"
                         },
-                        formatter: function(){return charts.planFactChart.AxisFormatters[sales_filter.getMeasureFilterValue()](this.value);}
+                        formatter: function(){return sales_charts.planFactChart.AxisFormatters[sales_filter.getMeasureFilterValue()](this.value);}
                     }
                 },
                 tooltip: {
@@ -1097,7 +1097,7 @@ var charts = {
                         var result = generateTooltipHeader(this.x )
                         $.each(this.points, function(i, datum) {
                             result += generateTooltipLine (datum.series.name,
-                                                            charts.planFactChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
+                                                            sales_charts.planFactChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
                                                             datum.point.series.color);
 
                         });
@@ -1115,7 +1115,7 @@ var charts = {
                             },
                             formatter: function () {
                                 if  (this.y==0) return '';
-                                return charts.planFactChart.DatalabelsFormatters[sales_filter.getMeasureFilterValue()](this.y)}
+                                return sales_charts.planFactChart.DatalabelsFormatters[sales_filter.getMeasureFilterValue()](this.y)}
                         }
                     }
 
@@ -1241,7 +1241,7 @@ var charts = {
                         text: ''
                     },
                     labels:{
-                        formatter: function(){return charts.statusChart.AxisFormatters[sales_filter.getMeasureFilterValue()](this.value);}
+                        formatter: function(){return sales_charts.statusChart.AxisFormatters[sales_filter.getMeasureFilterValue()](this.value);}
                     }
                 },
                 tooltip: {
@@ -1252,7 +1252,7 @@ var charts = {
                         var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
                             result += generateTooltipLine (datum.series.name,
-                                                        charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
+                                                        sales_charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
                                                         datum.point.series.color);
                         });
                         return result;
@@ -1302,7 +1302,7 @@ var charts = {
                         text: ''
                     },
                     labels:{
-                        formatter: function(){return charts.statusChart.AxisFormatters[sales_filter.getMeasureFilterValue()](this.value);}
+                        formatter: function(){return sales_charts.statusChart.AxisFormatters[sales_filter.getMeasureFilterValue()](this.value);}
                     }
                 },
                 tooltip: {
@@ -1312,7 +1312,7 @@ var charts = {
                         var result = generateTooltipHeader(this.x)
                         $.each(this.points, function(i, datum) {
                             result += generateTooltipLine (datum.series.name,
-                                charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
+                                sales_charts.statusChart.TooltipFormatters[sales_filter.getMeasureFilterValue()](datum.y),
                                 datum.point.series.color);
                         });
                         return result;
@@ -1334,18 +1334,18 @@ var charts = {
             var data = this.getData();
             var t =0;
             $.each (data, function (i,ser){
-                charts.statusChart.chart.series[t++].setData(ser.data, false);
+                sales_charts.statusChart.chart.series[t++].setData(ser.data, false);
             })
             this.chart.redraw();
 
             //redraw add chart
-            $.each(charts.statusChart.add_chart.series, function(i,val){
-                val.setData(charts.statusChart.getAddDataForObject(val.name), false)
+            $.each(sales_charts.statusChart.add_chart.series, function(i,val){
+                val.setData(sales_charts.statusChart.getAddDataForObject(val.name), false)
             })
 
-            charts.statusChart.add_chart.setTitle(
+            sales_charts.statusChart.add_chart.setTitle(
                 { text: 'Динамика стутуса "'+sales_filter.getCurrentDetailStatus()+'"'},false)
-            charts.statusChart.add_chart.redraw();
+            sales_charts.statusChart.add_chart.redraw();
 
         },
         getData: function(){

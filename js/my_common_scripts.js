@@ -11,6 +11,7 @@ var months = ["", "Январь", "Февраль", "Март", "Апрель", 
 var months_short = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
 $.mobile.buttonMarkup.hoverDelay = 330;
 $.support.cors = true;
+$.mobile.page.prototype.options.domCache = false;
 
 
 window.onerror = function(message, source, lineno) {

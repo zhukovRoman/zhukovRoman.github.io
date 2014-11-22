@@ -1,8 +1,14 @@
-var map = {
+var objs_map = {
     points:[],
     my_map: null,
     initMap: function(){
+        ymaps.ready(function () {
+            console.log('maps init')
+            yamaps_ready_function();
+            filter_map_points();
+            setTimeout(init_map_all_object,1000 )
 
+        });
     },
     rebindMarkers: function(){
         filter_map_points();
@@ -14,11 +20,36 @@ var map = {
         myMap.controls.add('zoomControl', {left : '5px'});
         // Выбор типа карты
         myMap.controls.add(new ymaps.control.TypeSelector());
-}
+    }
 
 }
 
 points = [];
+
+
+
+
+filter_map_points = function(){
+
+    points.length = 0;
+    $.each(filter.filtered_objects, function(i, val){
+        if (val.lat != null && val.lng != null)
+            points.push(new ymaps.Placemark([val.lat,val.lng], {
+                //name: "Объект №012-0896",
+                //clusterCaption: 'Объект №012-0896',
+                balloonContentHeader: "<div class='object-baloon-header'><a href='/object_view.html?id="+val.id+"'>"+val.adress+"</a></div>",
+                balloonContentBody:
+                "<div class='object-baloon-content-item'> <b> Назначение: </b>"+val.appointment+"</div>"+
+                "<div class='object-baloon-content-item'> <b> Мощность: </b>"+val.power+" "+val.power_measure+"</div>"+
+                "<div class='object-baloon-content-item'> <b> Срок ввода по АИП: </b>"+val.year+"</div>"
+                //balloonContentFooter: 'Карточка объекта: <a target="_blank" href="/object/view?id='+val.id+'">открыть</a>'
+            },	{
+                preset: MarkersApointmentColours[val.appointment]
+            }))
+    })
+}
+
+
 /**
  * Кластеризатор с составными иконками кластеров.
  * @see http://api.yandex.ru/maps/doc/jsapi/2.x/ref/reference/Clusterer.xml
@@ -130,7 +161,7 @@ PieChartClusterer.dec2hex = function (dec) {
  * @lends PieChartClusterer.prototype
  * @augments ymaps.Clusterer
  */
-yamaps_ready_function = function(){
+var yamaps_ready_function = function(){
     ymaps.util.augment(PieChartClusterer, ymaps.Clusterer, {
         /**
          * Это перекрытие для базоваго метода ymaps.Clusterer,
@@ -385,33 +416,7 @@ function init_map_all_object() {
     // Добавим полученные геообъекты в кластеризатор.
     clusterer = new PieChartClusterer();
     myMap.behaviors.disable('scrollZoom')
-    map.rebindMarkers();
+    objs_map.rebindMarkers();
 
 }
 
-ymaps.ready(function () {
-    console.log('maps init')
-    yamaps_ready_function();
-    filter_map_points();
-});
-ymaps.ready(init_map_all_object);
-
-filter_map_points = function(){
-
-    points.length = 0;
-    $.each(filter.filtered_objects, function(i, val){
-        if (val.lat != null && val.lng != null)
-            points.push(new ymaps.Placemark([val.lat,val.lng], {
-                //name: "Объект №012-0896",
-                //clusterCaption: 'Объект №012-0896',
-                balloonContentHeader: "<div class='object-baloon-header'><a href='/object_view.html?id="+val.id+"'>"+val.adress+"</a></div>",
-                balloonContentBody:
-                "<div class='object-baloon-content-item'> <b> Назначение: </b>"+val.appointment+"</div>"+
-                    "<div class='object-baloon-content-item'> <b> Мощность: </b>"+val.power+" "+val.power_measure+"</div>"+
-                    "<div class='object-baloon-content-item'> <b> Срок ввода по АИП: </b>"+val.year+"</div>"
-                //balloonContentFooter: 'Карточка объекта: <a target="_blank" href="/object/view?id='+val.id+'">открыть</a>'
-            },	{
-                preset: MarkersApointmentColours[val.appointment]
-            }))
-    })
-}

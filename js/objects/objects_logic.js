@@ -8,7 +8,8 @@ var objects_logic = {
         $.each($("#filter button"), function (i,b){
           $(b).removeClass('ui-btn-b')
         })
-        $("#map-button").addClass('ui-btn-b')
+        $("#map-button").addClass('ui-btn-b');
+
     },
     showCharts: function(){
         $("#map-content").hide();

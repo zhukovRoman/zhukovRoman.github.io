@@ -19,15 +19,18 @@ var tenders_logic = {
 
     },
     changeActiveChart: function(){
+
         $("#tender-charts-content div.tender_chart").hide();
         var active_tab =   $(".tenders-tabs input:checked")
         var id = active_tab.attr('id');
         var active_label = $('label[for='+id+']')
         $(".tenders-tabs label").removeClass('ui-btn-active');
         active_label.addClass('ui-btn-active')
+        if (tenders_logic.current_chart!=null )  tenders_logic.current_chart.chart = null;
+
         tenders_logic.current_chart =  tenders_charts[active_tab.attr('data-chart')]
-        tenders_logic.current_chart.redrawChart();
         $("#"+active_tab.attr('data-div')).show();
+        tenders_logic.current_chart.redrawChart();
         tenders_logic.changeDetailButtonText();
         tenders_logic.hideFilterParts();
         tenders_logic.changeActiveTabs(active_tab);
@@ -252,7 +255,7 @@ var tenders_logic = {
             if (!(tender.type == 'управляющая компания' || tender.type == 'Страхование СМР'))
                 not_uk_exist = true;
         })
-        if (!not_uk_exist) console.log(obj.tenders)
+        //if (!not_uk_exist) console.log(obj.tenders)
         return !not_uk_exist;
     },
     objectDontHaveUKTenders: function(obj){
@@ -376,6 +379,8 @@ var tenders_charts={
         redrawChart: function(){
             if (this.chart==null) this.createChart();
             else {
+                console.log( 'alredy created', this.chart)
+                this.chart.reflow()
                 var data =  this.getData();
                 this.chart.xAxis[0].setCategories(data[0],false)
                 this.chart.series[0].setData(data[1]);

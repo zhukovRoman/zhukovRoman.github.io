@@ -82,19 +82,19 @@
 </div>
         <div data-role="content" style="padding: 15px">
             <div class="content-side" data-role="none" id="charts-content">
-                <div class='tabs tabs-active objects-documents-tabs'>
+                <div class='tabs tabs-active objects-documents-tabs' id="objects-documents-tabs">
                     <form>
                         <fieldset data-role="controlgroup" data-type="horizontal" id="documents-filter">
-                            <input type="radio" name="document" id="radio-choice-h-2a" data-title="ГПЗУ" data-value="GPZU" checked="checked">
-                            <label for="radio-choice-h-2a">ГПЗУ</label>
-                            <input type="radio" name="document" id="radio-choice-h-2b" data-title="Экспертиза" data-value="MGE" >
-                            <label for="radio-choice-h-2b">Экспертиза</label>
-                            <input type="radio" name="document" id="radio-choice-h-2c" data-title="Разрешение на строительство" data-value="razresh" >
-                            <label for="radio-choice-h-2c">Разрешение</label>
-                            <input type="radio" name="document" id="radio-choice-h-3c" data-title="Погашение банковской гарантии" data-value="bank_garant" >
-                            <label for="radio-choice-h-3c">Банковская гарантия</label>
-                            <input type="radio" name="document" id="radio-choice-h-4c" data-title="Выполнение сноса" data-value="destroy" >
-                            <label for="radio-choice-h-4c">Снос</label>
+                            <input type="radio" name="document" id="obj_doc1" data-title="ГПЗУ" data-value="GPZU" checked="checked">
+                            <label for="obj_doc1">ГПЗУ</label>
+                            <input type="radio" name="document" id="obj_doc2" data-title="Экспертиза" data-value="MGE" >
+                            <label for="obj_doc2">Экспертиза</label>
+                            <input type="radio" name="document" id="obj_doc3" data-title="Разрешение на строительство" data-value="razresh" >
+                            <label for="obj_doc3">Разрешение</label>
+                            <input type="radio" name="document" id="obj_doc4" data-title="Погашение банковской гарантии" data-value="bank_garant" >
+                            <label for="obj_doc4">Банковская гарантия</label>
+                            <input type="radio" name="document" id="obj_doc5" data-title="Выполнение сноса" data-value="destroy" >
+                            <label for="obj_doc5">Снос</label>
                         </fieldset>
                     </form>
 
@@ -337,27 +337,21 @@
 </body>
 
 <script type="text/javascript" src="js/my_common_scripts.js"></script>
-<script type="text/javascript" src="js/data/objects.js"></script>
-<script type="text/javascript" src="js/objects/filter.js"></script>
-<script type="text/javascript" src="js/objects/charts.js"></script>
-<script type="text/javascript" src="js/objects/map_marker.js"></script>
-<script type="text/javascript" src="js/objects/objects_logic.js"></script>
 
-<script type="text/javascript" src="js/objects/obj_view.js"></script>
 
 <script type="text/javascript">
 
     $(function(){
         filter.init('object-filter');
-        charts.init(filter);
+        sales_charts.init(filter);
     })
 
     $(function(){
-        $('.filter input').change(charts.redrawAllCharts)
+        $('.filter input').change(sales_charts.redrawAllCharts)
         $('.filter input').change(map.rebindMarkers)
         $('.filter input').change(objects_logic.bindOverdueObjects)
         $('.filter input').change(objects_logic.bindObjectsList)
-        $('#documents-filter input').change(charts.redrawDocumentChart)
+        $('#documents-filter input').change(sales_charts.redrawDocumentChart)
         $('#map-button').click(objects_logic.showMap)
         $('#chart-button').click(objects_logic.showCharts)
         $('#list-button').click(objects_logic.showList)

@@ -24,7 +24,7 @@
 }
 
 #tender-charts-tabs2 label{
-    padding: .7em 1.17em;
+    padding: .7em .83em;
 }
 
 #tender-charts-tabs{
@@ -46,7 +46,7 @@
 }
 
 .ui-controlgroup, fieldset.ui-controlgroup{
-    margin: 0px;
+    /*margin: 0px;*/
 }
 h3{
     color: rgb(146,144,144);

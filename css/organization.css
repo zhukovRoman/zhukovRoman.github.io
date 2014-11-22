@@ -140,8 +140,10 @@
 #org_list li a {
     background-color: #ffffff;
 }
+#organization-objects-table-body {
 
-
+    margin-top: 68px;
+}
 .organizations-objects-table{
 
     margin-top: 50px;

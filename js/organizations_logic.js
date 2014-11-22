@@ -371,7 +371,7 @@ var organizations_logic = {
         $.each(objects, function(i, val){
 
             html+='<li>' +
-            '<a href="index.html?id='+val.id+'">'+
+            '<a href="object_view.html?id='+val.id+'">'+
                 '<span class="organizations-objects-table-column">'+ (i+1)+"</span>" +
                 '<span class="organizations-objects-table-column">'+  val.region +"</span>" +
                 '<span class="organizations-objects-table-column">'+  val.year +"</span>" +

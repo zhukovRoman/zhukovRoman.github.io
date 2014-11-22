@@ -14,6 +14,7 @@
     <script type="text/javascript" src="js/my_common_scripts.js"></script>
     <script type="text/javascript" src="js/fastclick.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/filters.css">
     <link rel="stylesheet" type="text/css" href="css/common.css">
@@ -65,40 +66,41 @@
 <body >
 <div class="status-bar"></div>
 <div id="left-menu">
-    <a href="index.html" data-ajax="false">
+    <a href="index.html" data-transition="pop">
         <div id='logo' class="menu-picture"></div>
     </a>
-
+    <div id="float_background"></div>
+    <hr class="menu-item-devider">
     <div class="menu">
-        <a href="empl.html" >
+        <a href="empl.html" data-transition="pop">
             <div class="menu-item menu-item-active">
                 <div class="menu-picture empl-menu-picture "></div>
                 <div class="menu-item-text">Кадры</div>
             </div>
         </a>
-
-        <a href="objects.html" >
+        <hr class="menu-item-devider">
+        <a href="objects.html" data-transition="pop">
             <div class="menu-item">
                 <div class="menu-picture obj-menu-picture"></div>
                 <div class="menu-item-text">Объекты</div>
             </div>
         </a>
         <hr class="menu-item-devider">
-        <a href="organizations.html" >
+        <a href="organizations.html" data-transition="pop">
             <div class="menu-item">
                 <div class="menu-picture contractors-menu-picture "></div>
                 <div class="menu-item-text">Подрядчики</div>
             </div>
         </a>
         <hr class="menu-item-devider">
-        <a href="tenders.html">
+        <a href="tenders.html" data-transition="pop">
             <div class="menu-item ">
                 <div class="menu-picture tenders-menu-picture "></div>
                 <div class="menu-item-text">Конкурсы</div>
             </div>
         </a>
         <hr class="menu-item-devider">
-        <a href="sales.html">
+        <a href="sales.html" data-transition="pop">
             <div class="menu-item">
                 <div class="menu-picture sales-menu-picture "></div>
                 <div class="menu-item-text">Продажи</div>
@@ -168,7 +170,7 @@
 
     $(function(){
 
-
+        menu_float_background.bindEvents();
 
 
         empl_logic.init();

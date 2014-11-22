@@ -169,13 +169,24 @@ body.ui-mobile-viewport{
     height: 132px;
 }
 
+#float_background{
+    position: absolute;
+    width: 180px;
+    height: 253px;
+    top: 133px;
+     background-color: rgb(97,114,134);
+    /*background-color: white;*/
+    z-index: -1;
+}
+
 .menu-item{
     padding-top: 41px;
     padding-bottom: 41px;
+    z-index: 10;
 }
 
 .menu-item-active{
-    background-color: rgb(97,114,134);
+    /*background-color: rgb(97,114,134);*/
 }
 .menu-picture{
     margin: 0 auto;

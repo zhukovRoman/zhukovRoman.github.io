@@ -399,7 +399,7 @@ var empl_logic = {
                         enabled: true,
                         color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                         style: {
-                            textShadow: '0 0 3px black, 0 0 3px black'
+                            //textShadow: '0 0 3px black, 0 0 3px black'
                         }
                     }
                 },{

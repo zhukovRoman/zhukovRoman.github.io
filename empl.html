@@ -175,14 +175,14 @@
 
         empl_logic.init();
         $(document).on('pageshow', "#employee", function (event, data) {
-            menu_float_background.changeActiveItem('employee')
             FastClick.attach(document.getElementById('empl_tabs'))
-             // $('#empl_tabs').tabs("refresh")
+            menu_float_background.changeActiveItem('employee')
+            // $('#empl_tabs').tabs("refresh")
         });
 
         $(document).on('pageshow', "#charts", function (event, data) {
             filter.init('object-filter');
-            menu_float_background.changeActiveItem('charts')
+
             charts.init(filter);
 
             $('.filter input').change(charts.redrawAllCharts)
@@ -195,6 +195,8 @@
             $('#list-button').click(objects_logic.showList);
 
             objs_map.initMap();
+
+            menu_float_background.changeActiveItem('charts')
             FastClick.attach(document.getElementById('object-filter'))
             FastClick.attach(document.getElementById('objects-documents-tabs'))
 
@@ -207,10 +209,8 @@
         });
 
         $(document).on('pageshow', "#organization_page", function (event, data) {
-            menu_float_background.changeActiveItem('organization_page')
             organizations_logic.initList();
-
-
+            menu_float_background.changeActiveItem('organization_page')
 
             $(document).on('pageshow', "#org_detail", function (event, data) {
                 organizations_logic.initOrganization($(this).data("url"))
@@ -218,17 +218,17 @@
         });
 
         $(document).on('pageshow', "#tenders", function (event, data) {
-            menu_float_background.changeActiveItem('tenders')
             tenders_logic.init();
+            menu_float_background.changeActiveItem('tenders')
             FastClick.attach(document.getElementById('tender-filter'))
             FastClick.attach(document.getElementById('tender-charts-tabs'))
             FastClick.attach(document.getElementById('tender-charts-tabs2'))
         });
 
         $(document).on('pageshow', "#sales", function (event, data) {
-            menu_float_background.changeActiveItem('sales')
             sales_filter.initFilter();
             sales_logic.init();
+            menu_float_background.changeActiveItem('sales')
 
             FastClick.attach(document.getElementById('sales-filter'))
             FastClick.attach(document.getElementById('sales-charts-tabs'))

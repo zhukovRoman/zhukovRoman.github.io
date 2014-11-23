@@ -8,7 +8,7 @@ var objects_logic = {
         $.each($("#filter button"), function (i,b){
           $(b).removeClass('ui-btn-b')
         })
-        $("#map-button").addClass('ui-btn-b');
+        //$("#map-button").addClass('ui-btn-b');
 
     },
     showCharts: function(){
@@ -21,7 +21,7 @@ var objects_logic = {
         $.each($("#filter button"), function (i,b){
             $(b).removeClass('ui-btn-b')
         })
-        $("#chart-button").addClass('ui-btn-b')
+        //$("#chart-button").addClass('ui-btn-b')
     },
     showList: function(){
         $("#charts-content").hide();
@@ -32,7 +32,7 @@ var objects_logic = {
         $.each($("#filter button"), function (i,b){
             $(b).removeClass('ui-btn-b');
         });
-        $("#list-button").addClass('ui-btn-b');
+        //$("#list-button").addClass('ui-btn-b');
         objects_logic.bindObjectsList();
 
     },

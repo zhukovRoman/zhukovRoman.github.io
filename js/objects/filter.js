@@ -1,6 +1,8 @@
 var filter = {
     el: null,
     id: null,
+    text_select: "Выделить все",
+    text_unselect: "Снять выделение",
     years:  window.enter_years,
     distincts: window.distincts,
     filtered_objects: [],
@@ -9,6 +11,7 @@ var filter = {
         this.el = $("#id");
         this.insertYearsIntoFilter();
         this.insertDistinctsIntoFilter();
+        this.bindCheckBoxesEvents();
         //var objects = this.filtered_objects
         //$.each(data['objects'], function(i, val){
         //    objects.push(val);
@@ -84,6 +87,226 @@ var filter = {
                 filter.filtered_objects.push(obj);
             }
         })
+    },
+    bindCheckBoxesEvents: function(){
+
+
+        $('#select-all-social').click(function(){
+            if ($('#select-all-social').prop('checked'))
+                filter.selectAllSocialAppointments();
+            else
+                filter.unselectAllSocialAppointments();
+            charts.redrawAllCharts();
+        })
+        $('#select-all-social + label + span').click(function(){
+            if (!$('#select-all-social').prop('checked'))
+                filter.selectAllSocialAppointments();
+            else
+                filter.unselectAllSocialAppointments();
+            charts.redrawAllCharts();
+        })
+
+        $('#select-all-living').click(function(){
+            if ($('#select-all-living').prop('checked'))
+                filter.selectAllLivingAppointments();
+            else
+                filter.unselectAllLivingAppointments();
+            charts.redrawAllCharts();
+        })
+        $('#select-all-living + label + span').click(function(){
+            if (!$('#select-all-living').prop('checked'))
+                filter.selectAllLivingAppointments();
+            else
+                filter.unselectAllLivingAppointments();
+            charts.redrawAllCharts();
+        })
+
+        $('#select-all-other').click(function(){
+            if ($('#select-all-other').prop('checked'))
+                filter.selectAllOthersAppointments();
+            else
+                filter.unselectAllOthersAppointments();
+            charts.redrawAllCharts();
+        })
+        $('#select-all-other + label + span').click(function(){
+            if (!$('#select-all-other').prop('checked'))
+                filter.selectAllOthersAppointments();
+            else
+                filter.unselectAllOthersAppointments();
+            charts.redrawAllCharts();
+        })
+
+        $('#select-all-distincts').click(function(){
+            if ($('#select-all-distincts').prop('checked'))
+                filter.selectAllDistincts();
+            else
+                filter.unselectAllDistincts();
+            charts.redrawAllCharts();
+        })
+        $('#select-all-distincts + label + span').click(function(){
+            if (!$('#select-all-distincts').prop('checked'))
+                filter.selectAllDistincts();
+            else
+                filter.unselectAllDistincts();
+            charts.redrawAllCharts();
+        })
+
+        $('#select-all-years').click(function(){
+            if ($('#select-all-years').prop('checked'))
+                filter.selectAllYears();
+            else
+                filter.unselectAllYears();
+            charts.redrawAllCharts();
+        })
+        $('#select-all-years + label + span').click(function(){
+            if (!$('#select-all-years').prop('checked'))
+                filter.selectAllYears();
+            else
+                filter.unselectAllYears();
+            charts.redrawAllCharts();
+        })
+
+        $('#checkbox-all-appointments').click(function(){
+            if ($('#checkbox-all-appointments').prop('checked'))
+                filter.selectAllObjectsAppointments();
+            else
+                filter.unselectAllObjectsAppointments();
+            charts.redrawAllCharts();
+        })
+        $('#checkbox-all-appointments + label + span').click(function(){
+            if (!$('#select-all-years').prop('checked'))
+                filter.selectAllObjectsAppointments();
+            else
+                filter.unselectAllObjectsAppointments();
+            charts.redrawAllCharts();
+        })
+
+        //$('#object-filter input').change(filter.refreshCheckboxStatuses)
+    } ,
+    selectAllSocialAppointments: function(){
+        $("#object-filter .appointments.social input").prop( "checked", true );
+        $('#select-all-social').prop( "checked", true );
+        $('#select-all-social + label + span').text(filter.text_unselect)
+    },
+    unselectAllSocialAppointments: function(){
+        $("#object-filter .appointments.social input").prop( "checked", false );
+        $('#select-all-social').prop( "checked", false );
+        $('#select-all-social + label + span').text(filter.text_select)
+    },
+    selectAllLivingAppointments: function(){
+        $("#object-filter .appointments.living input").prop( "checked", true );
+        $('#select-all-living').prop( "checked", true );
+        $('#select-all-living + label + span').text(filter.text_unselect)
+    },
+    unselectAllLivingAppointments: function(){
+        $("#object-filter .appointments.living input").prop( "checked", false );
+        $('#select-all-living').prop( "checked", false );
+        $('#select-all-living + label + span').text(filter.text_select)
+    } ,
+    selectAllOthersAppointments: function(){
+        $("#object-filter .appointments.others input").prop( "checked", true );
+        $('#select-all-other').prop( "checked", true );
+        $('#select-all-other + label + span').text(filter.text_unselect)
+    },
+    unselectAllOthersAppointments: function(){
+        $("#object-filter .appointments.others input").prop( "checked", false );
+        $('#select-all-other').prop( "checked", false );
+        $('#select-all-other + label + span').text(filter.text_select)
+    },
+    selectAllDistincts: function(){
+        $("#object-filter .distincts.filter-items input").prop( "checked", true );
+        $('#select-all-years').prop( "checked", true );
+        $('#select-all-years + label + span').text(filter.text_unselect)
+    },
+    unselectAllDistincts: function(){
+        $("#object-filter .distincts.filter-items input").prop( "checked", false );
+        $('#select-all-years').prop( "checked", false );
+        $('#select-all-years + label + span').text(filter.text_select)
+    } ,
+    selectAllYears: function(){
+        $("#object-filter .years-filter.filter-items input").prop( "checked", true );
+        $('#select-all-years').prop( "checked", true );
+        $('#select-all-years + label + span').text(filter.text_unselect)
+    },
+    unselectAllYears: function(){
+        $("#object-filter .years-filter.filter-items input").prop( "checked", false );
+        $('#select-all-years').prop( "checked", false );
+        $('#select-all-years + label + span').text(filter.text_select)
+    },
+    selectAllObjectsAppointments: function(){
+        filter.selectAllSocialAppointments();
+        filter.selectAllLivingAppointments();
+        filter.selectAllOthersAppointments();
+        $('#checkbox-all-appointments').prop( "checked", true );
+        $('#checkbox-all-appointments + label + span').text(filter.text_unselect)
+    },
+    unselectAllObjectsAppointments: function(){
+        filter.unselectAllSocialAppointments();
+        filter.unselectAllLivingAppointments();
+        filter.unselectAllOthersAppointments();
+        $('#checkbox-all-appointments').prop( "checked", false );
+        $('#checkbox-all-appointments + label + span').text(filter.text_select)
+    },
+    refreshCheckboxStatuses: function(){
+        if($('.appointments.appointment-filter.social input').length ==
+        $('.appointments.appointment-filter.social input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-social').prop( "checked", true );
+            $('#select-all-social + label + span').text(filter.text_unselect)
+        } else {
+            $('#select-all-social').prop( "checked", false );
+            $('#select-all-social + label + span').text(filter.text_select)
+        }
+        if($('.appointments.appointment-filter.others input').length ==
+            $('.appointments.appointment-filter.others input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-other').prop( "checked", true );
+            $('#select-all-other + label + span').text(filter.text_unselect)
+        } else {
+            $('#select-all-other').prop( "checked", false );
+            $('#select-all-other + label + span').text(filter.text_select)
+        }
+
+        if($('.appointments.appointment-filter.living input').length ==
+            $('.appointments.appointment-filter.living input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-living').prop( "checked", true );
+            $('#select-all-living + label + span').text(filter.text_unselect)
+        } else {
+            $('#select-all-living').prop( "checked", false );
+            $('#select-all-living + label + span').text(filter.text_select)
+        }
+
+        if($('.distincts input').length ==
+            $('.distincts input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-distincts').prop( "checked", true );
+            $('#select-all-distincts + label + span').text(filter.text_unselect)
+        } else {
+            $('#select-all-distincts').prop( "checked", false );
+            $('#select-all-distincts + label + span').text(filter.text_select)
+        }
+        if($('.years input').length ==
+            $('.years input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-years').prop( "checked", true );
+            $('#select-all-years + label + span').text(filter.text_unselect)
+        } else {
+            $('#select-all-years').prop( "checked", false );
+            $('#select-all-years + label + span').text(filter.text_select)
+        }
+
+        if($('.appointment-filter input').length ==
+            $('.appointment-filter input:checked').length){
+            //выделены все объекты в группе
+            $('#checkbox-all-appointments').prop( "checked", true );
+            $('#checkbox-all-appointments + label + span').text(filter.text_unselect)
+        } else {
+            $('#checkbox-all-appointments').prop( "checked", false );
+            $('#checkbox-all-appointments + label + span').text(filter.text_select)
+        }
+
+
     }
 
 

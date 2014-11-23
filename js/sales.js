@@ -4,6 +4,10 @@ var sales_logic = {
         this.setCurrentChart();
         $('#rooms-tabs input, #sales-filter div.objects input').change(sales_logic.applyFilters);
         $('#measure-filter input, #interval-filter input, #statuses_detail_charts_tabs input').change(sales_logic.applyFilters);
+        $('#select-all-objects + label + span').on('click',function(){
+            $('#select-all-objects').prop('checked', !$('#select-all-objects').prop('checked'));
+            sales_filter.toggleAllObject();
+        })
         $('#sales-charts-tabs input').change(sales_logic.setCurrentChart)
 
     },
@@ -22,6 +26,7 @@ var sales_logic = {
                                 sales_filter.hideIntervalFilter()
     },
     applyFilters: function(){
+        sales_filter.testAllObject();
         sales_logic.current_chart.redrawChart();
     },
     showCommonInfo: function(){
@@ -265,6 +270,7 @@ var sales_filter = {
     filtered_apartments: [],
     initFilter: function(){
       this.fillObjects();
+      $('#select-all-objects,#select-all-objects + span.add-filters-action').change(sales_filter.toggleAllObject)
     },
     fillObjects: function(){
        var el = $('#sales-filter div.objects');
@@ -326,9 +332,30 @@ var sales_filter = {
     },
     getCurrentDetailStatus:function(){
         return $("#statuses_detail_charts_tabs input:checked").attr('data-status')
+    },
+    toggleAllObject: function() {
+        if ($('#select-all-objects').prop('checked')) {
+            $('#sales-filter .objects-filter .objects input').prop("checked", true);
+            $('#select-all-objects').next().next().text('Снять выделение')
+        }
+        else {
+            $('#sales-filter .objects-filter .objects input').prop("checked", false);
+            $('#select-all-objects').next().next().text('Выделить все')
+        }
+        sales_logic.applyFilters();
+    },
+    testAllObject: function(){
+        if($('#sales-filter .objects-filter .objects input').length
+            == $('#sales-filter .objects-filter .objects input:checked').length ){
+            $('#select-all-objects').prop('checked', true)
+            $('#select-all-objects').next().next().text('Снять выделение')
+        }
+        else{
+            $('#select-all-objects').prop('checked', false);
+            $('#select-all-objects').next().next().text('Выделить все')
+        }
+
     }
-
-
 
 }
 

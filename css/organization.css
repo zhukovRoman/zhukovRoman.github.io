@@ -177,6 +177,8 @@
     text-overflow: ellipsis;
     overflow: auto;
     height: 80px;
+    text-shadow: none;
+    font-family: 'PT Sans', sans-serif;
 }
 .organizations-objects-table-subcolumn{
     display: table-cell;

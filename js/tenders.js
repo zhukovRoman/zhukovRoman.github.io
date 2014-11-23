@@ -1601,7 +1601,6 @@ var tender_filter={
     },
     bindCheckBoxEvents: function(){
         $('#select-all-living').click(function(){
-
             if ($('#select-all-living').prop('checked'))
                 tender_filter.selectAllLivingAppointments();
             else tender_filter.unselectAllLivingAppointments();
@@ -1619,7 +1618,7 @@ var tender_filter={
             else tender_filter.unselectAllSocialAppointments();
             tenders_logic.applyFilter();
         })
-        $(' #select-all-social + label + span').click(function(){
+        $('#select-all-social + label + span').click(function(){
             if (!$('#select-all-social').prop('checked'))
                 tender_filter.selectAllSocialAppointments();
             else tender_filter.unselectAllSocialAppointments();

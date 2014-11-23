@@ -84,7 +84,12 @@ var organizations_logic = {
             yAxis: [{
                 min: 0,
                 title: {
-                    text: 'Доля в объектах'
+                    text: 'Доля в объектах',
+                    style: {
+                        fontSize: '24px',
+                        color: 'rgb(135,150,164)',
+                        font: '22px PT Sans, sans-serif'
+                    }
                 } ,
                 allowDecimals: false,
                 minTickInterval: 1,
@@ -95,7 +100,12 @@ var organizations_logic = {
                 min: 0,
                 opposite: true,
                 title: {
-                    text:  'Доля в финансах (млрд ₽)'
+                    text:  'Доля в финансах (млрд ₽)',
+                    style: {
+                        fontSize: '24px',
+                        color: 'rgb(135,150,164)',
+                        font: '22px PT Sans, sans-serif'
+                    }
                 },
                 labels: {
                     formatter: function() {

@@ -13,6 +13,13 @@ var menu_float_background = {
         "tenders.html": 254,
         "sales.html": 300
     },
+    pages:{
+        "employee": "empl.html",
+        'charts': "objects.html",
+        'organization_page': "organizations.html",
+         "tenders":  "tenders.html",
+         "sales": "sales.html"
+    },
 
     moveTo: function(y, h, newItem){
         //$("#float_background").css('top',y+'px')
@@ -24,13 +31,18 @@ var menu_float_background = {
             newItem.children().addClass('menu-item-active')
         });
     },
-    changeActiveItem: function(){
-      //this - clecked link
-        var new_page = $(this).attr('href');
+    changeActiveItem: function(page){
+
+        var new_page_url = menu_float_background.pages[page]
+        //  var new_page = $(this).attr('href');
+        var new_page = $('#left-menu a[href="'+new_page_url+'"]');
+
+        console.log(menu_float_background.positions[new_page_url]);
+        console.log(menu_float_background.heights[new_page_url]);
         $('#left-menu div.menu a div.menu-item-active').removeClass('menu-item-active');
-        menu_float_background.moveTo(menu_float_background.positions[new_page],
-                                        menu_float_background.heights[new_page],
-                                        $(this))
+        menu_float_background.moveTo(menu_float_background.positions[new_page_url],
+                                        menu_float_background.heights[new_page_url],
+                                        new_page)
 
 
     },

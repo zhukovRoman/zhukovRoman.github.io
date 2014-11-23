@@ -1463,7 +1463,7 @@ var sales_charts = {
             };
             $.each(sales_filter.getFilteredApartments(), function(i,val){
                 if(obj != val.object) return;
-                ps_date = moment(val.ps_date)
+                //ps_date = moment(val.ps_date)
                 dkp_date = moment(val.dkp_date)
                 auk_date = moment(val.auction_date)
                 has_qty_date = moment(val.has_qty_date)
@@ -1477,41 +1477,46 @@ var sales_charts = {
                     if (weeks_group['Свободна'][t]==null) weeks_group['Свободна'][t]={pcs:0, fin:0, m2:0}
 
                     //доавляем квартиру в статус ПС если дата была когда либо до этой даты.
-                    if (ps_date.diff(week, 'days')<0)
+                    if (sales_filter.getCurrentDetailStatus()=='ПС' && moment(val.ps_date).diff(week, 'days')<0)
                     {
                         weeks_group['ПС'][t]['pcs']++;
                         weeks_group['ПС'][t]['fin']+=val.end_sum
                         weeks_group['ПС'][t]['m2']+=val.square
+                        return;
                     }
 
                     //добавляем квартиру в дкп если дата у нее дата дкп была до это недели и она еще не перешла в статус ПС
-                    if (dkp_date.diff(week, 'days')<0 && (ps_date.diff(week, 'days')>=0 || ps_date==null))
+                    if (sales_filter.getCurrentDetailStatus()=='ДКП' && dkp_date.diff(week, 'days')<0 && (ps_date.diff(week, 'days')>=0 || ps_date==null))
                     {
                         weeks_group['ДКП'][t]['pcs']++;
                         weeks_group['ДКП'][t]['fin']+=val.end_sum
                         weeks_group['ДКП'][t]['m2']+=val.square
+                        return
                     }
 
                     //добавляем квартиру в аук если дата у нее дата аук была до это недели и она еще не перешла в статус ДКП
-                    if (auk_date.diff(week, 'days')<0 && (dkp_date.diff(week, 'days')>=0 || dkp_date==null))
+                    if (sales_filter.getCurrentDetailStatus()=='Аукцион' && auk_date.diff(week, 'days')<0 && (dkp_date.diff(week, 'days')>=0 || dkp_date==null))
                     {
                         weeks_group['Аукцион'][t]['pcs']++;
                         weeks_group['Аукцион'][t]['fin']+=val.end_sum
                         weeks_group['Аукцион'][t]['m2']+=val.square
+                        return
                     }
 
-                    if (has_qty_date.diff(week, 'days')<0 && (auk_date.diff(week, 'days')>=0 || auk_date==null))
+                    if (sales_filter.getCurrentDetailStatus()=='Имеет заявку' && has_qty_date.diff(week, 'days')<0 && (auk_date.diff(week, 'days')>=0 || auk_date==null))
                     {
                         weeks_group['Имеет заявку'][t]['pcs']++;
                         weeks_group['Имеет заявку'][t]['fin']+=val.end_sum
                         weeks_group['Имеет заявку'][t]['m2']+=val.square
+                        return
                     }
 
-                    if (free_date.diff(week, 'days')<0 && (has_qty_date.diff(week, 'days')<7 || has_qty_date==null))
+                    if (sales_filter.getCurrentDetailStatus()=='Свободна' && free_date.diff(week, 'days')<0 && (has_qty_date.diff(week, 'days')<7 || has_qty_date==null))
                     {
                         weeks_group['Свободна'][t]['pcs']++;
                         weeks_group['Свободна'][t]['fin']+=val.end_sum
                         weeks_group['Свободна'][t]['m2']+=val.square
+                        return
                     }
                 })
 

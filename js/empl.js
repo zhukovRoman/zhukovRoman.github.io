@@ -463,7 +463,7 @@ var empl_logic = {
                 }
             },
             series: [{
-                name: 'Производественный',
+                name: 'Производственный',
                 data:  prod_counts
 
                 }, {

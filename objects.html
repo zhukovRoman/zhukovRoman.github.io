@@ -12,6 +12,15 @@
     <script type="text/javascript" src="js/highcharts.js"></script>
     <script type="text/javascript" src="js/hc-theme.js"></script>
     <script src="http://api-maps.yandex.ru/2.0.18/?load=package.standard,package.clusters&lang=ru-RU" type="text/javascript"></script>
+
+    <script src="http://api-maps.yandex.ru/2.0.18/?load=package.standard,package.clusters&lang=ru-RU" type="text/javascript"></script>
+    <script type="text/javascript" src="js/data/objects.js"></script>
+    <script type="text/javascript" src="js/objects/filter.js"></script>
+    <script type="text/javascript" src="js/objects/charts.js"></script>
+    <script type="text/javascript" src="js/objects/map_marker.js"></script>
+    <script type="text/javascript" src="js/objects/objects_logic.js"></script>
+
+    <script type="text/javascript" src="js/objects/obj_view.js"></script>
     <!--<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>-->
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
@@ -88,9 +97,9 @@
                             <input type="radio" name="document" id="obj_doc1" data-title="ГПЗУ" data-value="GPZU" checked="checked">
                             <label for="obj_doc1">ГПЗУ</label>
                             <input type="radio" name="document" id="obj_doc2" data-title="Экспертиза" data-value="MGE" >
-                            <label for="obj_doc2">Экспертиза</label>
+                            <label for="obj_doc2">МГЭ</label>
                             <input type="radio" name="document" id="obj_doc3" data-title="Разрешение на строительство" data-value="razresh" >
-                            <label for="obj_doc3">Разрешение</label>
+                            <label for="obj_doc3">Разрешение на стр.</label>
                             <input type="radio" name="document" id="obj_doc4" data-title="Погашение банковской гарантии" data-value="bank_garant" >
                             <label for="obj_doc4">Банковская гарантия</label>
                             <input type="radio" name="document" id="obj_doc5" data-title="Выполнение сноса" data-value="destroy" >
@@ -111,14 +120,15 @@
                 </div>
             </div>
             <div class="content-side" data-role="none" id="list-content">
-                <div class="objects-list-wrapper">
-                    <div class="objects-list-header">
+                <div class="objects-list-wrapper" id = "objects-list-wrapper">
+                    <div class="objects-list-header" id="objects-list-header">
                         <span class="objects-list-column">Округ</span>
                         <span class="objects-list-column">Адрес</span>
                         <span class="objects-list-column">Назначение</span>
                         <span class="objects-list-column">Год ввода</span>
                     </div>
-                    <ul data-role="listview" id="objects-list" class="objects-list" data-filter="true" data-filter-placeholder="Поиск объекта" data-inset="true"></ul>
+                    <!--<div id="objects-list" class="objects-list"></div>-->
+                    <ul data-role="listview" id="objects-list" data-filter="true" data-filter-placeholder="Поиск объекта" data-inset="true"></ul>
                 </div>
             </div>
             <div class="content-side" data-role="none" id="map-content">
@@ -342,19 +352,18 @@
 <script type="text/javascript">
 
     $(function(){
-        filter.init('object-filter');
-        sales_charts.init(filter);
+        objects_logic.bindEvents();
     })
 
     $(function(){
-        $('.filter input').change(sales_charts.redrawAllCharts)
-        $('.filter input').change(map.rebindMarkers)
-        $('.filter input').change(objects_logic.bindOverdueObjects)
-        $('.filter input').change(objects_logic.bindObjectsList)
-        $('#documents-filter input').change(sales_charts.redrawDocumentChart)
-        $('#map-button').click(objects_logic.showMap)
-        $('#chart-button').click(objects_logic.showCharts)
-        $('#list-button').click(objects_logic.showList)
+//        $('.filter input').change(sales_charts.redrawAllCharts)
+//        $('.filter input').change(map.rebindMarkers)
+//        $('.filter input').change(objects_logic.bindOverdueObjects)
+//        $('.filter input').change(objects_logic.bindObjectsList)
+//        $('#documents-filter input').change(sales_charts.redrawDocumentChart)
+//        $('#map-button').click(objects_logic.showMap)
+//        $('#chart-button').click(objects_logic.showCharts)
+//        $('#list-button').click(objects_logic.showList)
 
 
 

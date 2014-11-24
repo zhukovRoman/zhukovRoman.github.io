@@ -8,26 +8,9 @@ var objects_logic = {
         $('.filter input').change(objects_logic.bindOverdueObjects)
         $('.filter input').change(objects_logic.bindObjectsList)
         $('#documents-filter input').change(charts.redrawDocumentChart)
-        $('#map-button').click(objects_logic.showMap)
-        $('#chart-button').click(objects_logic.showCharts)
-        $('#list-button').click(
-            function(){
-                $.mobile.loading( 'show', {
-                    text: 'loading',
-                    textVisible: true,
-                    theme: 'a',
-                    html: ""
-                });
-                setTimeout(
-                    function(){
-                        objects_logic.showList();
-                        $.mobile.loading( 'hide' );
-                    }
-                    ,50);
-
-            });
-
-
+        $('#map-button').click(function(){showLoaderAndCallFunction(objects_logic.showMap)})
+        $('#chart-button').click(function(){showLoaderAndCallFunction(objects_logic.showCharts)})
+        $('#list-button').click(function(){showLoaderAndCallFunction(objects_logic.showList)});
         objs_map.initMap();
     } ,
     showMap: function(){

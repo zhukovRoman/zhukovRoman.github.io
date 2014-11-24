@@ -115,7 +115,7 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.objects-list-header, .overdue-objects-list-header{
+#objects-list-header, .overdue-objects-list-header{
     background-color: #e0eff3;
     color: #637173;
     font-weight: bold;
@@ -130,23 +130,22 @@
     margin-top: 30px;
 }
 
-.objects-list-column, .overdue-objects-list-column{
-    white-space: normal;
+#objects-list-wrapper .objects-list-column, .overdue-objects-list-column{
+    /*white-space: normal;*/
     font-size: 30px;
     color: #8e8e93;
     display: table-cell;
-    min-height: 40px;
-    /* width: 59px; */
-    max-width: 299px;
+    /*width: 59px;*/
+    /*max-width: 299px;*/
     font-weight: 200;
     vertical-align: middle;
     text-align: center;
-    text-overflow: ellipsis;
-    overflow: auto;
+    /*text-overflow: ellipsis;*/
+    /*overflow: auto;*/
     height: 90px;
 }
 
-.objects-list-header .objects-list-column{
+#objects-list-header .objects-list-column{
     height: 75px;
     font-size: 26px;
     font-weight: bold;
@@ -156,11 +155,14 @@
     width: 130px;
     min-width: 130px;
 }
-.objects-list-column:first-child + span,
+#objects-list-header .objects-list-column:first-child + span,
+#objects-list .objects-list-column:first-child + span,
 .overdue-objects-list-column:first-child{
-    width: 100%;
-    min-width: 100%;
+    /* width: 400px; */
+    min-width: 740px;
+    max-width: 740px;
     text-align: left;
+    white-space: normal;
 }
 .objects-list-column:first-child + span + span,
 .overdue-objects-list-column:first-child + span,
@@ -176,22 +178,24 @@
 }
 
 
-.objects-list a, .objects-list a:visited  {
+#objects-list a, #objects-list a:visited,
+#ovedue-objects-list a, #ovedue-objects-list a:visited{
     font-size: 21pt;
-    /*height: 90px;*/
+    height: 90px;
     padding: 0px;
-    background-color: transparent !important;
+    background-color: #fff !important;
     color: rgb(115,189,208);
     padding: 12px 45px 12px 18px;
     border: none !important;
-    /*min-height: 80px;*/
+    min-height: 80px;
 
 }
 
-.objects-list li {
-    background-color: transparent;
+#objects-list > li,
+#ovedue-objects-list > li{
+    /*background-color: transparent;*/
     border: none;
-    border-top: 2px solid #8e8e93;
+    /*border-top: 2px solid #8e8e93;*/
     border-bottom: 2px solid #8e8e93;
 }
 

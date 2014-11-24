@@ -35,4 +35,20 @@ function generateTooltipLine (name, value, color, noNeedPoint){
             "</div>"
 }
 
+function showLoaderAndCallFunction (func){
+    $.mobile.loading( 'show', {
+        text: 'loading',
+        textVisible: true,
+        theme: 'c',
+        html: ""
+    });
+    setTimeout(
+        function(){
+            func();
+            $.mobile.loading( 'hide' );
+        }
+        ,50);
+
+}
+
 

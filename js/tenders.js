@@ -1,5 +1,14 @@
 var tenders_logic = {
 
+    shortNames:{
+        'генподрядчик': 'ГП',
+        'перепроектирование': 'Перепр.',
+        'ТЗ СМР': 'ТЗ<br>СМР',
+        'генпроектировщик': 'Генпр',
+        'ТЗ ПИР и СМР': 'ТЗ ПИР<br> и СМР',
+        'Страхование СМР': 'страх<br>СМР',
+        'управляющая компания': 'УК'
+    },
     chart_div_content: 'tender-current-chart',
     current_chart: null,
 
@@ -145,18 +154,19 @@ var tenders_logic = {
         $.each (data, function(i,t){
             var power =  t.object_power==null ? '-': t.object_power.toFixed(0)
             var power_price =  t.object_power==null ? '-' : thousands_sep((t.price_end/t.object_power).toFixed(0))
-
+            console.log(tenders_logic.shortNames[t.type], t.type )
             html+='<li>' +
                     '<a href="object_view.html?id='+ t.obj_id+'">'+
                     '<span class="tenders_list_column">'+ t.object_address+tenders_logic.getObjectSeries(t)+"</span>" +
                     '<span class="tenders_list_column">'+  power +"</span>" +
-                    '<span class="tenders_list_column">'+  t.type +"</span>" +
+                    '<span class="tenders_list_column">'+  tenders_logic.shortNames[t.type] +"</span>" +
                     '<span class="tenders_list_column">'+  t.organization +"</span>" +
                     '<span class="tenders_list_column">'+  moment(t.date_finish).format('DD/MM/YY') +"</span>" +
                     '<span class="tenders_list_column">'+  t.bid_accept+"/"+t.bid_all +"</span>" +
-                    '<span class="tenders_list_column">'+  thousands_sep(t.price_start.toFixed(0))+"₽"+"</span>" +
-                    '<span class="tenders_list_column">'+  thousands_sep(t.price_end.toFixed(0))+" ("+ power_price+") ₽"+"</span>" +
-                    '<span class="tenders_list_column">'+  t.percent.toFixed(2) +"</span>" +
+                    '<span class="tenders_list_column">'+  thousands_sep(t.price_start.toFixed(0))+"</span>" +
+                    '<span class="tenders_list_column">'+  thousands_sep(t.price_end.toFixed(0))+"</span>" +
+                    '<span class="tenders_list_column">'+  power_price +"</span>" +
+                    '<span class="tenders_list_column">'+  t.percent.toFixed(1) +"</span>" +
             '</a></li>'
 
         })

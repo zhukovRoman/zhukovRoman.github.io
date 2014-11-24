@@ -321,7 +321,7 @@ var object_shower = {
     },
     fillTenders: function(){
         if(object_shower.object.tenders.length==0)
-            $("#tenders-content").html("Тендеры не проводились");
+            $("#tenders-content").html("<div>Тендеры не проводились</div>");
         else{
            var tbody = $('#tenders_table_body');
             tbody.html('');
@@ -335,7 +335,7 @@ var object_shower = {
                             '<span class="object-tenders_list_column">'+million_to_text(t.price_begin)+'</span>' +
                             '<span class="object-tenders_list_column">'+million_to_text(t.price_end)+'</span>'+
                             '<span class="object-tenders_list_column">'+t.percent+'</span>'+
-                            '<span class="object-tenders_list_column">'+t.bid_all + '/' +  t.bid_accept +'</span>'+
+                            '<span class="object-tenders_list_column">'+ t.bid_accept + '/' +   t.bid_all+'</span>'+
                         '</div>'
             })
             tbody.html(html);

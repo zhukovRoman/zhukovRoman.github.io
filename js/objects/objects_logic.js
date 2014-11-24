@@ -4,7 +4,7 @@ var objects_logic = {
         filter.init('object-filter');
         charts.init(filter);
         $('.filter input').change(charts.redrawAllCharts)
-        $('.filter input').change(map.rebindMarkers)
+        $('.filter input').change(objs_map.rebindMarkers)
         $('.filter input').change(objects_logic.bindOverdueObjects)
         $('.filter input').change(objects_logic.bindObjectsList)
         $('#documents-filter input').change(charts.redrawDocumentChart)

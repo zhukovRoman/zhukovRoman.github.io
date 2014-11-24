@@ -36,6 +36,7 @@
 #list-content{
     max-height: 1400px;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .ui-content .ui-listview{
@@ -108,9 +109,10 @@
 
 
 #objects-list, #ovedue-objects-list{
-    margin-top: 130px;
+    margin-top: 213px;
     overflow: scroll;
     height: 1200px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .objects-list-header, .overdue-objects-list-header{

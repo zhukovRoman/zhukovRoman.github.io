@@ -117,7 +117,20 @@ var tenders_logic = {
         var year = tenders_logic.current_chart.selectedYear||null
         var uk_flag = tenders_logic.current_chart.isUKAnalys||null
         var data =  tenders_logic.filterTendersForTable(type, month, year, year, uk_flag);
-        tenders_logic.bindTableRows(data);
+
+        $.mobile.loading( 'show', {
+            text: 'loading',
+            textVisible: true,
+            theme: 'a',
+            html: ""
+        });
+        setTimeout(
+            function(){
+                tenders_logic.bindTableRows(data);
+                $.mobile.loading( 'hide' );
+            }
+            ,50);
+
         $('#charts_content').hide();
         $('#table_content').show();
         $('#back-button').show();
@@ -134,7 +147,7 @@ var tenders_logic = {
             var power_price =  t.object_power==null ? '-' : thousands_sep((t.price_end/t.object_power).toFixed(0))
 
             html+='<li>' +
-                    '<a href="index.html?id='+1+'">'+
+                    '<a href="object_view.html?id='+ t.obj_id+'">'+
                     '<span class="tenders_list_column">'+ t.object_address+tenders_logic.getObjectSeries(t)+"</span>" +
                     '<span class="tenders_list_column">'+  power +"</span>" +
                     '<span class="tenders_list_column">'+  t.type +"</span>" +
@@ -205,7 +218,8 @@ var tenders_logic = {
                         bid_all: t.bid_all,
                         price_start: t.price_start,
                         price_end: t.price_end,
-                        percent: t.percent
+                        percent: t.percent ,
+                        obj_id: obj.obj_id
                     })
                 })
 
@@ -233,7 +247,8 @@ var tenders_logic = {
                 bid_all: t.bid_all,
                 price_start: t.price_start,
                 price_end: t.price_end,
-                percent: t.percent
+                percent: t.percent,
+                obj_id: t.obj_id
             })
         })
         return tenders;
@@ -907,7 +922,6 @@ var tenders_charts={
 
             var chart = tenders_charts.PricePercentChart
             var year =  chart.current_year
-
 
             chart.chart.renderer.image('images/back-btn.png',150,0,137,52)
                                             .add().on('click',function(){setTimeout(chart.createChart, 50)});

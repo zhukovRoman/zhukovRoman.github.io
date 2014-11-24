@@ -1,13 +1,44 @@
 var objects_logic = {
+
+    bindEvents: function(){
+        filter.init('object-filter');
+        charts.init(filter);
+        $('.filter input').change(charts.redrawAllCharts)
+        $('.filter input').change(map.rebindMarkers)
+        $('.filter input').change(objects_logic.bindOverdueObjects)
+        $('.filter input').change(objects_logic.bindObjectsList)
+        $('#documents-filter input').change(charts.redrawDocumentChart)
+        $('#map-button').click(objects_logic.showMap)
+        $('#chart-button').click(objects_logic.showCharts)
+        $('#list-button').click(
+            function(){
+                $.mobile.loading( 'show', {
+                    text: 'loading',
+                    textVisible: true,
+                    theme: 'a',
+                    html: ""
+                });
+                setTimeout(
+                    function(){
+                        objects_logic.showList();
+                        $.mobile.loading( 'hide' );
+                    }
+                    ,50);
+
+            });
+
+
+        objs_map.initMap();
+    } ,
     showMap: function(){
         $("#charts-content").hide();
         $("#list-content").hide();
         $("#list-overdue-content").hide();
 
         $("#map-content").show();
-        $.each($("#filter button"), function (i,b){
-          $(b).removeClass('ui-btn-b')
-        })
+        //$.each($("#filter button"), function (i,b){
+        //  $(b).removeClass('ui-btn-b')
+        //})
         //$("#map-button").addClass('ui-btn-b');
 
     },
@@ -15,28 +46,29 @@ var objects_logic = {
         $("#map-content").hide();
         $("#list-content").hide();
         $("#list-overdue-content").hide();
-
+        $('#back-button').hide();
         $("#charts-content").show();
         charts.init(filter);
-        $.each($("#filter button"), function (i,b){
-            $(b).removeClass('ui-btn-b')
-        })
+        //$.each($("#filter button"), function (i,b){
+        //    $(b).removeClass('ui-btn-b')
+        //})
         //$("#chart-button").addClass('ui-btn-b')
     },
     showList: function(){
+
         $("#charts-content").hide();
         $("#map-content").hide();
         $("#list-overdue-content").hide();
 
         $("#list-content").show();
-        $.each($("#filter button"), function (i,b){
-            $(b).removeClass('ui-btn-b');
-        });
+        //$.each($("#filter button"), function (i,b){
+        //    $(b).removeClass('ui-btn-b');
+        //});
         //$("#list-button").addClass('ui-btn-b');
         objects_logic.bindObjectsList();
-
     },
     bindObjectsList:function(){
+
         var $ul = $("#objects-list")
         var html = ''
         $.each (filter.filtered_objects, function(i,val){
@@ -52,6 +84,7 @@ var objects_logic = {
         $ul.html(html)
         $ul.listview( "refresh" );
         $ul.trigger( "updatelayout");
+
     },
     bindOverdueObjects: function(){
 
@@ -82,6 +115,7 @@ var objects_logic = {
     showOverdues: function(){
         $("#charts-content").hide();
         $("#list-overdue-content").show();
+        $('#back-button').show();
 
         $("#charts h1.ui-title").before('<a href="#" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-carat-l">Назад</a>')
         $("#charts div.ui-header a.ui-btn").click(objects_logic.returnFromOverdue)

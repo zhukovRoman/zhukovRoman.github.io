@@ -359,6 +359,7 @@ var organizations_logic = {
 
         })
 
+
         tenders_table.html(html);
     } ,
     compare_objects_by_year: function(a,b) {

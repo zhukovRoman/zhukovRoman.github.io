@@ -14,13 +14,13 @@ $.support.cors = true;
 $.mobile.page.prototype.options.domCache = false;
 
 
-window.onerror = function(message, source, lineno) {
-    alert('Упс, произошла ошбика! '+"\n" +
-        "Для корректной дальнейшей работы следует перезагрузить приложение." +"\n" +
-        "Ошибка:"+message +"\n" +
-        "файл:" + source + "\n" +
-        "строка:" + lineno);
-};
+//window.onerror = function(message, source, lineno) {
+//    alert('Упс, произошла ошбика! '+"\n" +
+//        "Для корректной дальнейшей работы следует перезагрузить приложение." +"\n" +
+//        "Ошибка:"+message +"\n" +
+//        "файл:" + source + "\n" +
+//        "строка:" + lineno);
+//};
 
 
 function generateTooltipHeader(text){

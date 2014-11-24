@@ -17,7 +17,22 @@ var sales_logic = {
         $('#'+div_id).show();
         var name = $("#sales-charts-tabs input:checked").attr('data-chart');
         sales_logic.current_chart = sales_charts[name];
-        sales_logic.current_chart.createChart();
+        if (name =='statusChart'){
+            $.mobile.loading( 'show', {
+                text: 'loading',
+                textVisible: true,
+                theme: 'a',
+                html: ""
+            });
+            setTimeout(
+                function(){
+                    sales_logic.current_chart.createChart();
+                    $.mobile.loading( 'hide' );
+                }
+                ,50);
+        }
+        else
+            sales_logic.current_chart.createChart();
         sales_logic.current_chart.need_measure ?
                             sales_filter.showMeasureFilter() :
                             sales_filter.hideMeasureFilter();
@@ -31,6 +46,8 @@ var sales_logic = {
     },
     showCommonInfo: function(){
         $('#main_content').hide();
+        $('#common-button').hide();
+
         $('#common_content').show();
         $('#back-button').show();
         sales_logic.createAndFillCommonChart();
@@ -38,6 +55,7 @@ var sales_logic = {
     showChartsPart: function(){
         $('#common_content').hide();
         $('#back-button').hide();
+        $('#common-button').show();
         $('#main_content').show();
     },
     createAndFillCommonChart: function(){
@@ -313,6 +331,7 @@ var sales_filter = {
         $.each(apartments, function(i,val){
              if($.inArray( val.object, selected_objects)==-1 ||
                  $.inArray( val.rooms, selected_rooms)==-1) return;
+            if (val.status=='Не в продаже') return;
             sales_filter.filtered_apartments.push(val)
         })
 
@@ -1399,6 +1418,13 @@ var sales_charts = {
                     if (weeks_group['Имеет заявку'][t]==null) weeks_group['Имеет заявку'][t]={pcs:0, fin:0, m2:0}
                     if (weeks_group['Свободна'][t]==null) weeks_group['Свободна'][t]={pcs:0, fin:0, m2:0}
 
+
+                    if (free_date.diff(week, 'days')<0 && (has_qty_date==null||has_qty_date.diff(week, 'days')<7 ))
+                    {
+                        weeks_group['Свободна'][t]['pcs']++;
+                        weeks_group['Свободна'][t]['fin']+=val.end_sum
+                        weeks_group['Свободна'][t]['m2']+=val.square
+                    }
                     //доавляем квартиру в статус ПС если дата была когда либо до этой даты.
                     if (ps_date.diff(week, 'days')<0)
                     {
@@ -1430,12 +1456,7 @@ var sales_charts = {
                         weeks_group['Имеет заявку'][t]['m2']+=val.square
                     }
 
-                    if (free_date.diff(week, 'days')<0 && (has_qty_date.diff(week, 'days')<7 || has_qty_date==null))
-                    {
-                        weeks_group['Свободна'][t]['pcs']++;
-                        weeks_group['Свободна'][t]['fin']+=val.end_sum
-                        weeks_group['Свободна'][t]['m2']+=val.square
-                    }
+
                 })
             })
             // object {status: array[counts, fin, m2 in weeks]}
@@ -1462,6 +1483,7 @@ var sales_charts = {
                 'Свободна': []
             };
             $.each(sales_filter.getFilteredApartments(), function(i,val){
+
                 if(obj != val.object) return;
                 //ps_date = moment(val.ps_date)
                 dkp_date = moment(val.dkp_date)

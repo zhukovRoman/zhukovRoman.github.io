@@ -27,7 +27,7 @@ var menu_float_background = {
         $("#float_background").animate({
             top: y+'px',
             height: h+'px'
-        }, 800, function() {
+        }, 300, function() {
             newItem.children().addClass('menu-item-active')
         });
     },

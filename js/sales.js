@@ -575,6 +575,7 @@ var sales_charts = {
 
                 yAxis: {
                     title: {
+                        font: '22px PT Sans, sans-serif',
                         text: 'тыс ₽'
                     },
                     labels: {

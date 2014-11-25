@@ -314,6 +314,12 @@ ul{
     border-radius: 0;
 }
 
+.ui-page-theme-a .ui-btn:focus{
+    -webkit-box-shadow: 0 0 0px #38c;
+    -moz-box-shadow: 0 0 0px #38c;
+     box-shadow: 0 0 0px #38c;
+}
+
 .tabs-active .ui-btn,
 .tabs-active .ui-btn:hover,
 .tabs-active .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn.ui-last-child{

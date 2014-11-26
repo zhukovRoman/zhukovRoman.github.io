@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=0.5, maximum-scale=0.5,minimum-scale=0.5, target-densitydpi=medium-dpi" />
     <title></title>
     <link rel="stylesheet" href="css/fonts/PTSans/stylesheet.css" type="text/css">
@@ -67,22 +69,18 @@
     <script type="text/javascript" src="js/main_page.js"></script>
 
 </head>
-<body style="background-image: url(/css/images/main_bg.png);
-background-repeat: no-repeat;">
+<body >
 <div class="status-bar" style="background-image: none "></div>
 <div class="main-logo" id="main-logo"></div>
-<div id="left-menu" style="left: 612px;
-                            box-shadow: none;
-                            background-image: url('css/images/main-menu-bg.png');
-                            background-color: transparent">
+<div id="left-menu" style="left: 612px;" class="transparent-menu">
     <a href="index.html" data-transition="slide" >
-        <div id='logo' class="menu-picture" style="background-image: none"></div>
+        <div id='logo' class="menu-picture hide_image" ></div>
     </a>
     <div id="float_background" style="display: none"></div>
     <hr class="menu-item-devider" style="display: none">
     <div class="menu">
         <a href="empl.html" data-transition="slide" data-prefetch>
-            <div class="menu-item menu-item-active">
+            <div class="menu-item ">
                 <div class="menu-picture empl-menu-picture "></div>
                 <div class="menu-item-text">Кадры</div>
             </div>
@@ -232,14 +230,10 @@ background-repeat: no-repeat;">
         $(document).on('pageshow', "#main_page", function (event, data) {
             main_logic.animateInAll();
             main_logic.fillData();
-//           menu_float_background.changeActiveItem('employee')
-            // $('#empl_tabs').tabs("refresh")
         });
 
         $(document).on('pagebeforehide', "#main_page", function (event, data) {
             main_logic.animateOutAll();
-//           menu_float_background.changeActiveItem('employee')
-            // $('#empl_tabs').tabs("refresh")
         });
 
 
@@ -256,10 +250,11 @@ background-repeat: no-repeat;">
         });
 
         $(document).on('pagebeforeshow', "#charts", function (event, data) {
+
             menu_float_background.changeActiveItem('charts')
         });
         $(document).on('pageshow', "#charts", function (event, data) {
-            objects_logic.bindEvents();
+            setTimeout(function(){objects_logic.bindEvents()}, 100);
 //            menu_float_background.changeActiveItem('charts')
             FastClick.attach(document.getElementById('object-filter'))
             FastClick.attach(document.getElementById('list-button'))
@@ -267,14 +262,17 @@ background-repeat: no-repeat;">
         });
 
         $(document).on('pageshow', "#object_detail", function (event, data) {
-            object_shower.init($(this).data("url"))
+            var url = $(this).data("url")
+            setTimeout(function(){object_shower.init(url)}, 100);
+
         });
 
         $(document).on('pagebeforeshow', "#organization_page", function (event, data) {
             menu_float_background.changeActiveItem('organization_page')
         });
         $(document).on('pageshow', "#organization_page", function (event, data) {
-            organizations_logic.initList();
+            setTimeout(function(){organizations_logic.initList()}, 100);
+            ;
 //            menu_float_background.changeActiveItem('organization_page')
 
             $(document).on('pageshow', "#org_detail", function (event, data) {
@@ -283,10 +281,12 @@ background-repeat: no-repeat;">
         });
 
         $(document).on('pagebeforeshow', "#tenders", function (event, data) {
+
             menu_float_background.changeActiveItem('tenders')
         });
         $(document).on('pageshow', "#tenders", function (event, data) {
-            tenders_logic.init();
+            setTimeout(function(){tenders_logic.init()}, 100);
+            ;
 //            menu_float_background.changeActiveItem('tenders')
             FastClick.attach(document.getElementById('tender-filter'))
             FastClick.attach(document.getElementById('tender-charts-tabs'))
@@ -297,8 +297,10 @@ background-repeat: no-repeat;">
             menu_float_background.changeActiveItem('sales')
         });
         $(document).on('pageshow', "#sales", function (event, data) {
-            sales_filter.initFilter();
-            sales_logic.init();
+            setTimeout(function(){
+                sales_filter.initFilter();
+                sales_logic.init();}, 100);
+
 //            menu_float_background.changeActiveItem('sales')
 
             FastClick.attach(document.getElementById('sales-filter'))

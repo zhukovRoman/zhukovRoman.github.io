@@ -1,3 +1,20 @@
+/*new styles*/
+
+body.bg_body{
+    background-image: url('images/main_bg_jpeg.jpg');
+    background-repeat: no-repeat;
+}
+
+#left-menu.transparent-menu{
+    background-color: transparent !important;
+    background-image: url('images/main-menu-bg.png');
+    box-shadow: none !important;
+}
+
+#logo.hide_image{
+    background-image: none !important;
+}
+
 .main-logo{
     float: left;
     width: 612px;

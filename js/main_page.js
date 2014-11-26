@@ -45,7 +45,7 @@ var main_logic = {
     fillData: function(){
         $('#salary_avg').text(thousands_sep(avg_salary[avg_salary.length-1])+ '₽')
         $('#empl_count').text(empl_counts[empl_counts.length-1])
-        $('#vac_count').text(empl_counts[empl_counts.length-1])
+        $('#vac_count').text(vacancy_counts[empl_counts.length-1])
 
         var payed = 0;
         var payed_left = 0;

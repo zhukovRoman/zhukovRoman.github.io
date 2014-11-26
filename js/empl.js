@@ -137,7 +137,9 @@ var empl_logic = {
                 categories: departments,
                 labels: {
                     rotation: -0,
-                    formatter: function () {return this.value.length < 40 ? this.value : this.value.substring(0,40)+"...";}
+                    formatter: function () {
+                        console.log(this.value)
+                        return this.value.length < 40 ? this.value : this.value.substring(0,40)+"...";}
                 }
             },
             yAxis: {

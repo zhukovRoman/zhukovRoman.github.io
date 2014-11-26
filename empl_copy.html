@@ -67,7 +67,7 @@
     <script type="text/javascript" src="js/main_page.js"></script>
 
 </head>
-<body style="background-image: url(/css/images/main_bg.png);
+<body style="background-image: url(http://localhost:8000/css/images/main_bg.png);
 background-repeat: no-repeat;">
 <div class="status-bar" style="background-image: none "></div>
 <div class="main-logo" id="main-logo"></div>
@@ -75,7 +75,7 @@ background-repeat: no-repeat;">
                             box-shadow: none;
                             background-image: url('css/images/main-menu-bg.png');
                             background-color: transparent">
-    <a href="index.html" data-transition="slide" >
+    <a href="empl.html" data-transition="slide" >
         <div id='logo' class="menu-picture" style="background-image: none"></div>
     </a>
     <div id="float_background" style="display: none"></div>
@@ -118,103 +118,135 @@ background-repeat: no-repeat;">
     </div>
 </div>
 <div class="right-side" data-role="page" id='main_page' style="box-shadow: none">
-    <div class="search-img"></div>
-    <div class="main-content">
-        <div class="main-info-headers">
-            <div class="main-info-header-part" style="min-height: 140px;max-height: 140px;"></div>
-            <div class="main-info-header-part">
-                <div class="main-info-header-part-name">
-                    Кадры
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Средняя ЗП за последний месяц
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Общее число сотрудников
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Количество вакансий
-                </div>
-            </div>
-            <div class="main-info-header-part">
-                <div class="main-info-header-part-name">
-                    Объекты
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Осталось оплатить/оплачено
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Число активных объектов
-                </div>
-                <div class="main-info-header-part-value-name">
-                    % выполнения работ
-                </div>
-            </div>
-            <div class="main-info-header-part">
-                <div class="main-info-header-part-name">
-                    Подрядчики
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Число активных подрядчиков <br>
-                    (у которых есть хоть один объект)
-                </div>
+<div class="search-img"></div>
+<div class="main-content">
+      <div class="main-info-headers">
+          <div class="main-info-header-part" style="min-height: 140px;max-height: 140px;"></div>
+          <div class="main-info-header-part">
+              <div class="main-info-header-part-name">
+                  Кадры
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Средняя ЗП за последний месяц
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Общее число сотрудников
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Количество вакансий
+              </div>
+          </div>
+          <div class="main-info-header-part">
+              <div class="main-info-header-part-name">
+                  Объекты
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Осталось оплатить/оплачено
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Число активных объектов
+              </div>
+              <div class="main-info-header-part-value-name">
+                  % выполнения работ
+              </div>
+          </div>
+          <div class="main-info-header-part">
+              <div class="main-info-header-part-name">
+                  Подрядчики
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Число активных подрядчиков <br>
+                  (у которых есть хоть один объект)
+              </div>
 
+          </div>
+          <div class="main-info-header-part">
+              <div class="main-info-header-part-name">
+                  Торги
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Сумма / число конкурсов в текущем году
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Конкурсов с одной заявкой (от суммы)
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Средние понижение цены
+              </div>
+          </div>
+          <div class="main-info-header-part">
+              <div class="main-info-header-part-name">
+                  Продажи
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Средняя стоимость м2
+              </div>
+              <div class="main-info-header-part-value-name">
+                  Всего продано квартир
+              </div>
+          </div>
+      </div>
+    <div class="main-info-data">
+        <div class="main-info-data-part" style="min-height: 140px;max-height: 140px;"></div>
+        <div class="main-info-data-part">
+            <div class="main-info-data-part-value">
+                55 000
             </div>
-            <div class="main-info-header-part">
-                <div class="main-info-header-part-name">
-                    Торги (текущий год)
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Сумма / число конкурсов
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Конкурсов с одной заявкой (от суммы)
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Средние понижение цены
-                </div>
+            <div class="main-info-data-part-value">
+               254
             </div>
-            <div class="main-info-header-part">
-                <div class="main-info-header-part-name">
-                    Продажи
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Средняя стоимость м2
-                </div>
-                <div class="main-info-header-part-value-name">
-                    Всего продано квартир
-                </div>
+            <div class="main-info-data-part-value">
+                11
             </div>
         </div>
-        <div class="main-info-data">
-            <div class="main-info-data-part" style="min-height: 140px;max-height: 140px;"></div>
-            <div class="main-info-data-part">
-                <div class="main-info-data-part-value" id="salary_avg"></div>
-                <div class="main-info-data-part-value" id="empl_count"></div>
-                <div class="main-info-data-part-value" id ="vac_count"></div>
+        <div class="main-info-data-part">
+            <div class="main-info-data-part-value">
+                55 000
             </div>
-            <div class="main-info-data-part">
-                <div class="main-info-data-part-value" id="payed_status"></div>
-                <div class="main-info-data-part-value" id="active_obj_count"></div>
-                <div class="main-info-data-part-value" id="work_percent"></div>
+            <div class="main-info-data-part-value">
+                254
             </div>
-            <div class="main-info-data-part">
-                <div class="main-info-data-part-value" id="org_count"></div>
+            <div class="main-info-data-part-value">
+                11
             </div>
-            <div class="main-info-data-part">
-                <div class="main-info-data-part-value" id="summ_count_tenders"></div>
-                <div class="main-info-data-part-value" id="tenders_with_one_qty"></div>
-                <div class="main-info-data-part-value" id="tenders_percent"></div>
+        </div>
+        <div class="main-info-data-part">
+            <div class="main-info-data-part-value">
+                55 000
             </div>
-            <div class="main-info-data-part">
-                <div class="main-info-data-part-value" id="sales_avg_m2"></div>
-                <div class="main-info-data-part-value" id="sales_all_count"></div>
-
+            <div class="main-info-data-part-value">
+                254
             </div>
-
+            <div class="main-info-data-part-value">
+                11
+            </div>
+        </div>
+        <div class="main-info-data-part">
+            <div class="main-info-data-part-value">
+                55 000
+            </div>
+            <div class="main-info-data-part-value">
+                254
+            </div>
+            <div class="main-info-data-part-value">
+                11
+            </div>
+        </div>
+        <div class="main-info-data-part">
+            <div class="main-info-data-part-value">
+                55 000
+            </div>
+            <div class="main-info-data-part-value">
+                254
+            </div>
+            <div class="main-info-data-part-value">
+                11
+            </div>
         </div>
 
     </div>
+
+</div>
 
 </div>
 </body>
@@ -227,11 +259,9 @@ background-repeat: no-repeat;">
 
         //menu_float_background.bindEvents();
         main_logic.animateInAll();
-        main_logic.fillData();
         FastClick.attach(document.getElementById('left-menu'))
         $(document).on('pageshow', "#main_page", function (event, data) {
-            main_logic.animateInAll();
-            main_logic.fillData();
+             main_logic.animateInAll();
 //           menu_float_background.changeActiveItem('employee')
             // $('#empl_tabs').tabs("refresh")
         });
@@ -249,8 +279,7 @@ background-repeat: no-repeat;">
         });
         $(document).on('pageshow', "#employee", function (event, data) {
             FastClick.attach(document.getElementById('empl_tabs'))
-            setTimeout(function(){empl_logic.init()}, 100)
-
+            empl_logic.init();
 //            menu_float_background.changeActiveItem('employee')
             // $('#empl_tabs').tabs("refresh")
         });

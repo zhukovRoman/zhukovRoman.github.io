@@ -335,12 +335,22 @@
                     <div id="tenders_table_body"></div>
                 </div>
             </div>
-            <div data-tab='plan-tab'  style="display: none">
+            <div data-tab='plan-tab'  style="display: none; overflow-y: scroll; height: 1250px; float: left">
                 <div class="left-side-panel">
                     <div class="info-panel" id='documents_info'>
 
                     <h3 class="info-panel-header">Наличие документов</h3>
-
+                    <div class="tep tep-header">
+                        Предпроект
+                    </div>
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">ГПЗУ</div>
+                        <div class="document-date object-detail-value"  data-src='GPZU'>Нет данных</div>
+                    </div>
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">БСП</div>
+                        <div class="document-date object-detail-value" data-src='BSP'>-</div>
+                    </div>
                     <div class="tep">
                         <div class="document-date-label object-detail-label">ТнЗ</div>
                         <div class="document-date object-detail-value"  data-src='tnz'>Нет данных</div>
@@ -350,52 +360,91 @@
                         <div class="document-date object-detail-value"  data-src='tz'>Нет данных</div>
                     </div>
                     <div class="tep">
-                        <div class="document-date-label object-detail-label">Перечень оборудования</div>
-                        <div class="document-date object-detail-value"  data-src='stuff_list'>Нет данных</div>
+                        <div class="document-date-label object-detail-label">Решение коммиссии по техническим и технологическим заданиям</div>
+                        <div class="document-date object-detail-value"  data-src='tz_tnz'>Нет данных</div>
+                    </div>
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">Договоры тех. присоединений</div>
+                        <div class="document-date object-detail-value"  data-src='tech_join'>Нет данных</div>
+                    </div>
+
+                    <div class="tep tep-header">
+                        Проектирование
+                    </div>
+
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">Договор на проектирование </div>
+                        <div class="document-date object-detail-value"  data-src='project_contract'>Нет данных</div>
+                    </div>
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">ПОС</div>
+                        <div class="document-date object-detail-value"  data-src='POS'>Нет данных</div>
+                    </div>
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">АРГ</div>
+                        <div class="document-date object-detail-value"  data-src='ARG'>Нет данных</div>
+                    </div>
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">Заключение МГЭ</div>
+                        <div class="document-date object-detail-value"  data-src='MGE'>Нет данных</div>
+                    </div>
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">Утвреждени ПСД</div>
+                        <div class="document-date object-detail-value"  data-src='MGE'>Нет данных</div>
+                    </div>
+
+                    <div class="tep tep-header">
+                        Строительство
+                    </div>
+
+                    <div class="tep">
+                        <div class="document-date-label object-detail-label">Договор с генподрядчиком</div>
+                        <div class="document-date object-detail-value" data-src='genbuilder_contract'>Нет данных</div>
                     </div>
                     <div class="tep">
                         <div class="document-date-label object-detail-label">Разрешение на строительство</div>
                         <div class="document-date object-detail-value" data-src='build_access'>-</div>
                     </div>
                     <div class="tep">
-                        <div class="document-date-label object-detail-label">Задание на проектирование</div>
-                        <div class="document-date object-detail-value" data-src='project_task'>Нет данных</div>
+                        <div class="document-date-label object-detail-label">План сетей</div>
+                        <div class="document-date object-detail-value" data-src='net_plan'>-</div>
                     </div>
                     <div class="tep">
-                        <div class="document-date-label object-detail-label">БСП</div>
-                        <div class="document-date object-detail-value" data-src='BSP'>-</div>
+                        <div class="document-date-label object-detail-label">Извещение об окончании строительства</div>
+                        <div class="document-date object-detail-value" data-src='build_end'>-</div>
                     </div>
+                    <div class="tep tep-header">
+                        Ввод и передача на баланс
+                    </div>
+
                     <div class="tep">
-                        <div class=" document-date-label object-detail-label">Разрешения на ввод</div>
-                        <div class="document-date object-detail-value" data-src='razresh_enter'>-</div>
+                        <div class="document-date-label object-detail-label">Справка БТИ об адресе</div>
+                        <div class="document-date object-detail-value" data-src='BTI_sparvka'>Нет данных</div>
                     </div>
                     <div class="tep">
                         <div class=" document-date-label object-detail-label">ЗОС</div>
                         <div class="document-date object-detail-value" data-src='ZOS'>Нет данных</div>
                     </div>
                     <div class="tep">
-                        <div class="document-date-label object-detail-label">Стадия разработки П</div>
-                        <div class="document-date object-detail-value" data-src='step_p'>Нет данных</div>
+                        <div class=" document-date-label object-detail-label">Разрешения на ввод</div>
+                        <div class="document-date object-detail-value" data-src='razresh_enter'>-</div>
                     </div>
                     <div class="tep">
-                        <div class=" document-date-label object-detail-label">Стадия разработки РД</div>
-                        <div class="document-date object-detail-value" data-src='step_RD'>Нет данных</div>
+                        <div class="document-date-label object-detail-label">Акт о реализации БИ</div>
+                        <div class="document-date object-detail-value" data-src='BI_act'>Нет данных</div>
                     </div>
-                    <div class="tep">
-                        <div class="document-date-label object-detail-label">Тех условия</div>
-                        <div class="document-date object-detail-value" data-src='tech_conditionals'>Нет данных</div>
-                    </div>
-                    <div class="tep">
-                        <div class=" document-date-label object-detail-label">Договор на тех присоединение</div>
-                        <div class="document-date object-detail-value" data-src='tech_join'>Нет данных</div>
-                    </div>
+
                 </div>
                 </div>
                 <div class='right-side-panel'>
                     <div class=" info-panel" id='delaies_info'>
 
-                            <h3 class="info-panel-header">Движение по графику производства</h3>
+                        <h3 class="info-panel-header">Движение по графику производства</h3>
 
+                        <div class="tep">
+                            <div class="document-date-label object-detail-label">Выход подрядчика на строй площадку</div>
+                            <div class="document-date object-detail-value" data-src='gen_builder_start'>Нет данных</div>
+                        </div>
                         <div class="tep">
                             <div class="document-date-label object-detail-label">Сети</div>
                             <div class="document-date object-detail-value" data-src='SMR_network'>Нет данных</div>

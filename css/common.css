@@ -34,7 +34,7 @@ body.ui-mobile-viewport{
 
 .status-bar{
     height:40px;
-    background-color:white;
+    background-color: rgba(255,255,255, .3);
     width:2048px;
     background-image: url('images/status-bar-bg.png');
 }
@@ -314,10 +314,13 @@ ul{
     border-radius: 0;
 }
 
-.ui-page-theme-a .ui-btn:focus{
-    -webkit-box-shadow: 0 0 0px #38c;
-    -moz-box-shadow: 0 0 0px #38c;
-     box-shadow: 0 0 0px #38c;
+.ui-page-theme-a .ui-btn:focus,
+.ui-page-theme-a .ui-btn:hover,
+.ui-page-theme-a .ui-btn:active,
+.ui-page-theme-a .ui-btn:visited{
+    -webkit-box-shadow: 0 0 0px #fff;
+    -moz-box-shadow: 0 0 0px #fff;
+     box-shadow: 0 0 0px #fff;
 }
 
 .tabs-active .ui-btn,

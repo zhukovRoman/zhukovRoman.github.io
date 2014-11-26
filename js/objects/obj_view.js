@@ -300,12 +300,14 @@ var object_shower = {
     fillDocuments: function(){
         $.each($("#documents_info div[data-src]"), function(i, tep){
             var t = $(tep);
-            t.html(object_shower.object[t.attr('data-src')]);
+            t.html(object_shower.object[t.attr('data-src')][0]+'/'+object_shower.object[t.attr('data-src')][1]);
         })
 
         $.each($("#delaies_info div[data-src]"), function(i, tep){
             var t = $(tep);
-            t.html(object_shower.object[t.attr('data-src')]);
+            if (t.attr('data-src')=='gen_builder_start')
+                t.html(object_shower.object[t.attr('data-src')][0]+'/'+object_shower.object[t.attr('data-src')][1]);
+            else t.html(object_shower.object[t.attr('data-src')]);
         })
 
         $.each($("#destroy_info div[data-src]"), function(i, tep){

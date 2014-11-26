@@ -89,13 +89,12 @@ var filter = {
         })
     },
     bindCheckBoxesEvents: function(){
-
-
         $('#select-all-social').click(function(){
             if ($('#select-all-social').prop('checked'))
                 filter.selectAllSocialAppointments();
             else
                 filter.unselectAllSocialAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
         $('#select-all-social + label + span').click(function(){
@@ -103,6 +102,7 @@ var filter = {
                 filter.selectAllSocialAppointments();
             else
                 filter.unselectAllSocialAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
 
@@ -111,6 +111,7 @@ var filter = {
                 filter.selectAllLivingAppointments();
             else
                 filter.unselectAllLivingAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
         $('#select-all-living + label + span').click(function(){
@@ -118,6 +119,7 @@ var filter = {
                 filter.selectAllLivingAppointments();
             else
                 filter.unselectAllLivingAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
 
@@ -126,6 +128,7 @@ var filter = {
                 filter.selectAllOthersAppointments();
             else
                 filter.unselectAllOthersAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
         $('#select-all-other + label + span').click(function(){
@@ -133,6 +136,7 @@ var filter = {
                 filter.selectAllOthersAppointments();
             else
                 filter.unselectAllOthersAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
 
@@ -141,6 +145,7 @@ var filter = {
                 filter.selectAllDistincts();
             else
                 filter.unselectAllDistincts();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
         $('#select-all-distincts + label + span').click(function(){
@@ -148,6 +153,7 @@ var filter = {
                 filter.selectAllDistincts();
             else
                 filter.unselectAllDistincts();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
 
@@ -156,6 +162,7 @@ var filter = {
                 filter.selectAllYears();
             else
                 filter.unselectAllYears();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
         $('#select-all-years + label + span').click(function(){
@@ -163,6 +170,7 @@ var filter = {
                 filter.selectAllYears();
             else
                 filter.unselectAllYears();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
 
@@ -171,6 +179,7 @@ var filter = {
                 filter.selectAllObjectsAppointments();
             else
                 filter.unselectAllObjectsAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
         $('#checkbox-all-appointments + label + span').click(function(){
@@ -178,10 +187,12 @@ var filter = {
                 filter.selectAllObjectsAppointments();
             else
                 filter.unselectAllObjectsAppointments();
+            //filter.refreshCheckboxStatuses();
             charts.redrawAllCharts();
         })
 
-        //$('#object-filter input').change(filter.refreshCheckboxStatuses)
+        $('#object-filter .distincts.filter-items input').change(filter.refreshDistinctsChechboxes)
+        $('#object-filter .years-filter.filter-items input').change(filter.refreshYearsChechboxes)
     } ,
     selectAllSocialAppointments: function(){
         $("#object-filter .appointments.social input").prop( "checked", true );
@@ -215,13 +226,13 @@ var filter = {
     },
     selectAllDistincts: function(){
         $("#object-filter .distincts.filter-items input").prop( "checked", true );
-        $('#select-all-years').prop( "checked", true );
-        $('#select-all-years + label + span').text(filter.text_unselect)
+        $('#select-all-distincts').prop( "checked", true );
+        $('#select-all-distincts + label + span').text(filter.text_unselect)
     },
     unselectAllDistincts: function(){
         $("#object-filter .distincts.filter-items input").prop( "checked", false );
-        $('#select-all-years').prop( "checked", false );
-        $('#select-all-years + label + span').text(filter.text_select)
+        $('#select-all-distincts').prop( "checked", false );
+        $('#select-all-distincts + label + span').text(filter.text_select)
     } ,
     selectAllYears: function(){
         $("#object-filter .years-filter.filter-items input").prop( "checked", true );
@@ -246,6 +257,29 @@ var filter = {
         filter.unselectAllOthersAppointments();
         $('#checkbox-all-appointments').prop( "checked", false );
         $('#checkbox-all-appointments + label + span').text(filter.text_select)
+    },
+
+    refreshDistinctsChechboxes: function(){
+        if($('.distincts input').length ==
+            $('.distincts input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-distincts').prop( "checked", true );
+            $('#select-all-distincts + label + span').text(filter.text_unselect)
+        } else {
+            $('#select-all-distincts').prop( "checked", false );
+            $('#select-all-distincts + label + span').text(filter.text_select)
+        }
+    },
+    refreshYearsChechboxes: function(){
+        if($('.years input').length ==
+            $('.years input:checked').length){
+            //выделены все объекты в группе
+            $('#select-all-years').prop( "checked", true );
+            $('#select-all-years + label + span').text(filter.text_unselect)
+        } else {
+            $('#select-all-years').prop( "checked", false );
+            $('#select-all-years + label + span').text(filter.text_select)
+        }
     },
     refreshCheckboxStatuses: function(){
         if($('.appointments.appointment-filter.social input').length ==
@@ -277,24 +311,8 @@ var filter = {
             $('#select-all-living + label + span').text(filter.text_select)
         }
 
-        if($('.distincts input').length ==
-            $('.distincts input:checked').length){
-            //выделены все объекты в группе
-            $('#select-all-distincts').prop( "checked", true );
-            $('#select-all-distincts + label + span').text(filter.text_unselect)
-        } else {
-            $('#select-all-distincts').prop( "checked", false );
-            $('#select-all-distincts + label + span').text(filter.text_select)
-        }
-        if($('.years input').length ==
-            $('.years input:checked').length){
-            //выделены все объекты в группе
-            $('#select-all-years').prop( "checked", true );
-            $('#select-all-years + label + span').text(filter.text_unselect)
-        } else {
-            $('#select-all-years').prop( "checked", false );
-            $('#select-all-years + label + span').text(filter.text_select)
-        }
+
+
 
         if($('.appointment-filter input').length ==
             $('.appointment-filter input:checked').length){

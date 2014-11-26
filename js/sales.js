@@ -3,7 +3,8 @@ var sales_logic = {
     init: function(){
         this.setCurrentChart();
         $('#rooms-tabs input, #sales-filter div.objects input').change(sales_logic.applyFilters);
-        $('#measure-filter input, #interval-filter input, #statuses_detail_charts_tabs input').change(sales_logic.applyFilters);
+        $('#measure-filter input, #interval-filter input').change(sales_logic.applyFilters);
+        $('#statuses_detail_charts_tabs input').change(sales_logic.showAndDrawAddStatusChart);
         $('#select-all-objects + label + span').on('click',function(){
             $('#select-all-objects').prop('checked', !$('#select-all-objects').prop('checked'));
             sales_filter.toggleAllObject();
@@ -17,22 +18,22 @@ var sales_logic = {
         $('#'+div_id).show();
         var name = $("#sales-charts-tabs input:checked").attr('data-chart');
         sales_logic.current_chart = sales_charts[name];
-        if (name =='statusChart'){
-            $.mobile.loading( 'show', {
-                text: 'loading',
-                textVisible: true,
-                theme: 'a',
-                html: ""
-            });
-            setTimeout(
-                function(){
-                    sales_logic.current_chart.createChart();
-                    $.mobile.loading( 'hide' );
-                }
-                ,50);
-        }
-        else
-            sales_logic.current_chart.createChart();
+        //if (name =='statusChart'){
+        //    $.mobile.loading( 'show', {
+        //        text: 'loading',
+        //        textVisible: true,
+        //        theme: 'a',
+        //        html: ""
+        //    });
+        //    setTimeout(
+        //        function(){
+        //            sales_logic.current_chart.createChart();
+        //            $.mobile.loading( 'hide' );
+        //        }
+        //        ,50);
+        //}
+        //else
+        sales_logic.current_chart.createChart();
         sales_logic.current_chart.need_measure ?
                             sales_filter.showMeasureFilter() :
                             sales_filter.hideMeasureFilter();
@@ -43,6 +44,19 @@ var sales_logic = {
     applyFilters: function(){
         sales_filter.testAllObject();
         sales_logic.current_chart.redrawChart();
+    },
+    showAndDrawAddStatusChart: function(){
+        //alert ('show add chart');
+        $("#status_chart").animate({
+            height: 600+'px'
+        }, 300, function() {
+            sales_charts.statusChart.chart.reflow();
+            $('#status_detail_chart').show();
+            sales_charts.statusChart.redrawAddChart(sales_filter.getCurrentDetailStatus())
+        });
+        //$('#status_chart').height(600)
+        //sales_charts.statusChart.chart.reflow();
+
     },
     showCommonInfo: function(){
         $('#main_content').hide();
@@ -575,7 +589,12 @@ var sales_charts = {
 
                 yAxis: {
                     title: {
-                        font: '22px PT Sans, sans-serif',
+
+                        style: {
+                            fontSize: '22px',
+                            color: 'rgb(135,150,164)',
+                            font: '22px PT Sans, sans-serif'
+                        },
                         text: 'тыс ₽'
                     },
                     labels: {
@@ -971,7 +990,7 @@ var sales_charts = {
                 })
 
             })
-            console.log(weeks_data)
+            //console.log(weeks_data)
             series_fee = []
             series_get = []
             $.each(weeks_data, function(i,val){
@@ -1385,14 +1404,24 @@ var sales_charts = {
             })
             this.chart.redraw();
 
+            var current_status_detail = sales_filter.getCurrentDetailStatus();
+            if(current_status_detail) {
+                this.redrawAddChart(current_status_detail);
+            }
+
+        },
+        redrawAddChart: function(status){
             //redraw add chart
+
+            var data = sales_charts.statusChart.getAddDataForStatus(status)
             $.each(sales_charts.statusChart.add_chart.series, function(i,val){
-                val.setData(sales_charts.statusChart.getAddDataForObject(val.name), false)
+                val.setData(data[val.name], false)
             })
 
             sales_charts.statusChart.add_chart.setTitle(
                 { text: 'Динамика стутуса "'+sales_filter.getCurrentDetailStatus()+'"'},false)
             sales_charts.statusChart.add_chart.redraw();
+
 
         },
         getData: function(){
@@ -1464,7 +1493,7 @@ var sales_charts = {
 
             weeks_data = {};
             $.each(weeks_group, function(i,status_data){
-                console.log(status_data)
+                //console.log(status_data)
                 if(weeks_data[i]==null) weeks_data[i]={name: i,data:[]}
 
                 $.each(status_data, function(t, week_status_data){
@@ -1475,80 +1504,78 @@ var sales_charts = {
             return weeks_data;
 
         },
-        getAddDataForObject: function(obj){
-            var weeks_group={
-                'ПС':[],
-                'ДКП':[],
-                'Аукцион':[],
-                'Имеет заявку': [],
-                'Свободна': []
-            };
-            $.each(sales_filter.getFilteredApartments(), function(i,val){
+        getAddDataForStatus: function(status){
+            var res = {}
 
-                if(obj != val.object) return;
-                //ps_date = moment(val.ps_date)
-                dkp_date = moment(val.dkp_date)
-                auk_date = moment(val.auction_date)
-                has_qty_date = moment(val.has_qty_date)
-                free_date = moment(val.free_date)
-                $.each(sales_logic.getWeeksStarts(), function(t,week){
-                    //опрделяем статус квартиры на текущей неделе
-                    if (weeks_group['ПС'][t]==null) weeks_group['ПС'][t]={pcs:0, fin:0, m2:0}
-                    if (weeks_group['ДКП'][t]==null) weeks_group['ДКП'][t]={pcs:0, fin:0, m2:0}
-                    if (weeks_group['Аукцион'][t]==null) weeks_group['Аукцион'][t]={pcs:0, fin:0, m2:0}
-                    if (weeks_group['Имеет заявку'][t]==null) weeks_group['Имеет заявку'][t]={pcs:0, fin:0, m2:0}
-                    if (weeks_group['Свободна'][t]==null) weeks_group['Свободна'][t]={pcs:0, fin:0, m2:0}
+            //need return {objectName: [data in current measure]} for current status
 
-                    //доавляем квартиру в статус ПС если дата была когда либо до этой даты.
-                    if (sales_filter.getCurrentDetailStatus()=='ПС' && moment(val.ps_date).diff(week, 'days')<0)
-                    {
-                        weeks_group['ПС'][t]['pcs']++;
-                        weeks_group['ПС'][t]['fin']+=val.end_sum
-                        weeks_group['ПС'][t]['m2']+=val.square
-                        return;
-                    }
+            $.each(this.getObjectsCategories(), function(i,obj){
 
-                    //добавляем квартиру в дкп если дата у нее дата дкп была до это недели и она еще не перешла в статус ПС
-                    if (sales_filter.getCurrentDetailStatus()=='ДКП' && dkp_date.diff(week, 'days')<0 && (ps_date.diff(week, 'days')>=0 || ps_date==null))
-                    {
-                        weeks_group['ДКП'][t]['pcs']++;
-                        weeks_group['ДКП'][t]['fin']+=val.end_sum
-                        weeks_group['ДКП'][t]['m2']+=val.square
-                        return
-                    }
-
-                    //добавляем квартиру в аук если дата у нее дата аук была до это недели и она еще не перешла в статус ДКП
-                    if (sales_filter.getCurrentDetailStatus()=='Аукцион' && auk_date.diff(week, 'days')<0 && (dkp_date.diff(week, 'days')>=0 || dkp_date==null))
-                    {
-                        weeks_group['Аукцион'][t]['pcs']++;
-                        weeks_group['Аукцион'][t]['fin']+=val.end_sum
-                        weeks_group['Аукцион'][t]['m2']+=val.square
-                        return
-                    }
-
-                    if (sales_filter.getCurrentDetailStatus()=='Имеет заявку' && has_qty_date.diff(week, 'days')<0 && (auk_date.diff(week, 'days')>=0 || auk_date==null))
-                    {
-                        weeks_group['Имеет заявку'][t]['pcs']++;
-                        weeks_group['Имеет заявку'][t]['fin']+=val.end_sum
-                        weeks_group['Имеет заявку'][t]['m2']+=val.square
-                        return
-                    }
-
-                    if (sales_filter.getCurrentDetailStatus()=='Свободна' && free_date.diff(week, 'days')<0 && (has_qty_date.diff(week, 'days')<7 || has_qty_date==null))
-                    {
-                        weeks_group['Свободна'][t]['pcs']++;
-                        weeks_group['Свободна'][t]['fin']+=val.end_sum
-                        weeks_group['Свободна'][t]['m2']+=val.square
-                        return
-                    }
-                })
-
-
+                res[obj.name]=[];
             })
 
-            var res = []
-            $.each(weeks_group[sales_filter.getCurrentDetailStatus()],function(i,val){
-                res.push(val[sales_filter.getMeasureFilterValue()])
+            $.each(sales_filter.getFilteredApartments(), function(i,val){
+                    $.each(sales_logic.getWeeksStarts(), function(t,week){
+                        if (res[val.object][t]==null) res[val.object][t] = {pcs:0, fin:0, m2:0}
+
+                        if (status=='ПС') {
+                            var ps_date = moment(val.ps_date)
+                            if (ps_date.diff(week, 'days')<0) {
+                                res[val.object][t]['pcs']++;
+                                res[val.object][t]['fin']+=val.end_sum
+                                res[val.object][t]['m2']+=val.square
+                            }
+                        }
+
+                        if (status=='ДКП') {
+                            var ps_date = moment(val.ps_date)
+                            var dkp_date = moment(val.dkp_date)
+                            if (dkp_date.diff(week, 'days')<0 && (ps_date.diff(week, 'days')>=0 || ps_date==null)) {
+                                res[val.object][t]['pcs']++;
+                                res[val.object][t]['fin']+=val.end_sum
+                                res[val.object][t]['m2']+=val.square
+                            }
+                        }
+
+                        if (status=='Аукцион') {
+                            var auk_date = moment(val.auction_date)
+                            var dkp_date = moment(val.dkp_date)
+                            if (auk_date.diff(week, 'days')<0 && (dkp_date.diff(week, 'days')>=0 || dkp_date==null)) {
+                                res[val.object][t]['pcs']++;
+                                res[val.object][t]['fin']+=val.end_sum
+                                res[val.object][t]['m2']+=val.square
+                            }
+                        }
+
+                        if (status=='Имеет заявку') {
+                            var auk_date = moment(val.auction_date)
+                            var has_qty_date = moment(val.has_qty_date)
+                            if (has_qty_date.diff(week, 'days')<0 && (auk_date.diff(week, 'days')>=0 || auk_date==null)) {
+                                res[val.object][t]['pcs']++;
+                                res[val.object][t]['fin']+=val.end_sum
+                                res[val.object][t]['m2']+=val.square
+                            }
+                        }
+
+                        if (status=='Свободна') {
+                            var free_date = moment(val.free_date)
+                            var has_qty_date = moment(val.has_qty_date)
+                            if (free_date.diff(week, 'days')<0 && (has_qty_date.diff(week, 'days')<7 || has_qty_date==null)) {
+                                res[val.object][t]['pcs']++;
+                                res[val.object][t]['fin']+=val.end_sum
+                                res[val.object][t]['m2']+=val.square
+                            }
+                        }
+                    })
+            })
+            //console.log(res)
+
+            $.each(res, function(i,obj_data){
+                var data_array = []
+                $.each(obj_data, function(o, val){
+                    data_array.push (val[sales_filter.getMeasureFilterValue()])
+                })
+                 res[i]= data_array
             })
             return res;
         },

@@ -193,6 +193,10 @@ var filter = {
 
         $('#object-filter .distincts.filter-items input').change(filter.refreshDistinctsChechboxes)
         $('#object-filter .years-filter.filter-items input').change(filter.refreshYearsChechboxes)
+        $('#object-filter .appointments.filter-items input').change(filter.refreshAppointmentsChechboxes)
+        $('#object-filter .appointment-filter .sub-header input, #object-filter .appointment-filter .sub-header .add-filters-action').
+                                    click(filter.refreshAllObjectChecbox)
+
     } ,
     selectAllSocialAppointments: function(){
         $("#object-filter .appointments.social input").prop( "checked", true );
@@ -281,7 +285,7 @@ var filter = {
             $('#select-all-years + label + span').text(filter.text_select)
         }
     },
-    refreshCheckboxStatuses: function(){
+    refreshAppointmentsChechboxes: function(){
         if($('.appointments.appointment-filter.social input').length ==
         $('.appointments.appointment-filter.social input:checked').length){
             //выделены все объекты в группе
@@ -300,7 +304,7 @@ var filter = {
             $('#select-all-other').prop( "checked", false );
             $('#select-all-other + label + span').text(filter.text_select)
         }
-
+        //
         if($('.appointments.appointment-filter.living input').length ==
             $('.appointments.appointment-filter.living input:checked').length){
             //выделены все объекты в группе
@@ -311,11 +315,17 @@ var filter = {
             $('#select-all-living + label + span').text(filter.text_select)
         }
 
+        filter.refreshAllObjectChecbox();
 
 
 
-        if($('.appointment-filter input').length ==
-            $('.appointment-filter input:checked').length){
+
+
+    } ,
+    refreshAllObjectChecbox: function(){
+
+        if($('#object-filter .appointment-filter .sub-header input').length ==
+            $('#object-filter .appointment-filter .sub-header input:checked').length){
             //выделены все объекты в группе
             $('#checkbox-all-appointments').prop( "checked", true );
             $('#checkbox-all-appointments + label + span').text(filter.text_unselect)
@@ -323,8 +333,6 @@ var filter = {
             $('#checkbox-all-appointments').prop( "checked", false );
             $('#checkbox-all-appointments + label + span').text(filter.text_select)
         }
-
-
     }
 
 

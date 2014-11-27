@@ -118,7 +118,25 @@ var organizations_logic = {
                 reversed: true
             },
             tooltip:{
-                enabled: false
+                enabled: true,
+                shared: true,
+                useHTML: true,
+                formatter: function(){
+                    var result = generateTooltipHeader("Доля в "+this.x+" году")
+                    $.each(this.points, function(i, datum) {
+                        var text = '';
+                        if (this.series.name == 'Доля в объектах')
+                             text = this.y + ' из '+ organizations_logic.current_organization.tenders_parts.all[this.x]['count'] +
+                                 ' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['count']).toFixed(2) + '%)'
+
+                        if (this.series.name == 'Доля в финансах')
+                            text =  thousands_sep((this.y/1000000).toFixed(0)) + ' из '+ thousands_sep((organizations_logic.current_organization.tenders_parts.all[this.x]['sum']/1000000).toFixed(0)) + ' млрд'+
+                                ' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['sum']).toFixed(2) + '%)'
+
+                            result += generateTooltipLine (datum.series.name, text ,datum.point.series.color);
+                    });
+                    return result;
+                }
             },
             plotOptions: {
                 series: {
@@ -131,13 +149,15 @@ var organizations_logic = {
                         },
 
                         formatter: function(){
+                            var width = this.point.shapeArgs.height
+                            if(width<100) return
                             if (this.series.name == 'Доля в объектах')
                             return this.y + ' из '+ organizations_logic.current_organization.tenders_parts.all[this.x]['count'] +
-                                ' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['count']).toFixed(2) + '%)'
+                                ((width>=170) ? ' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['count']).toFixed(2) + '%)' : '')
 
                             if (this.series.name == 'Доля в финансах')
                                 return thousands_sep((this.y/1000000).toFixed(0)) + ' из '+ thousands_sep((organizations_logic.current_organization.tenders_parts.all[this.x]['sum']/1000000).toFixed(0)) +
-                                    ' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['sum']).toFixed(2) + '%)'
+                                    ( (width>=300)?' ('+(this.y*100/organizations_logic.current_organization.tenders_parts.all[this.x]['sum']).toFixed(2) + '%)': '')
                         }
                     }
                 }
@@ -146,7 +166,6 @@ var organizations_logic = {
             series: [{
                 name: 'Доля в объектах',
                 stack: 'obj',
-
                 data: counts
             }, {
                 name: 'Доля в финансах',

@@ -11,7 +11,8 @@ var objects_logic = {
         $('#map-button').click(function(){showLoaderAndCallFunction(objects_logic.showMap)})
         $('#chart-button').click(function(){showLoaderAndCallFunction(objects_logic.showCharts)})
         $('#list-button').click(function(){showLoaderAndCallFunction(objects_logic.showList)});
-        objs_map.initMap();
+        if (navigator.onLine)
+            objs_map.initMap();
     } ,
     showMap: function(){
         $("#charts-content").hide();

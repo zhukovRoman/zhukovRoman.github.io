@@ -72,6 +72,7 @@ var main_logic = {
         var year = new Date().getFullYear();
         $.each(tenders, function(i,val ){
             if(val.year_finish!=year) return
+            if(val.type=='прочие') return
             summ+= val.price_end;
             count++;
             percent+=val.percent

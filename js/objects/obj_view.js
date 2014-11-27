@@ -22,8 +22,8 @@ var object_shower = {
         this.fillDocuments();
         this.fillPlan();
         this.fillVisitInfo();
-
-        this.initMap();
+        if (navigator.onLine)
+            this.initMap();
     },
     changeContent: function(){
 
@@ -305,9 +305,11 @@ var object_shower = {
 
         $.each($("#delaies_info div[data-src]"), function(i, tep){
             var t = $(tep);
-            if (t.attr('data-src')=='gen_builder_start')
-                t.html(object_shower.object[t.attr('data-src')][0]+'/'+object_shower.object[t.attr('data-src')][1]);
-            else t.html(object_shower.object[t.attr('data-src')]);
+            //if (t.attr('data-src')=='gen_builder_start')
+            //    t.html(object_shower.object[moment(t.attr('data-src')).format('"MM-DD-YYYY"')]);
+            //else
+            t.html(object_shower.object[t.attr('data-src')]);
+
         })
 
         $.each($("#destroy_info div[data-src]"), function(i, tep){

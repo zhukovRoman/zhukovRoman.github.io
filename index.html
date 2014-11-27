@@ -71,8 +71,8 @@
 </head>
 <body >
 <div class="status-bar" style="background-image: none "></div>
-<div class="main-logo" id="main-logo"></div>
-<div id="left-menu" style="left: 612px;" class="transparent-menu">
+<div class="main-logo" id="main-logo" style="left: -888px"></div>
+<div id="left-menu" class="transparent-menu">
     <a href="index.html" data-transition="slide" >
         <div id='logo' class="menu-picture hide_image" ></div>
     </a>
@@ -222,10 +222,31 @@
 <script type="text/javascript">
 
     $(function(){
+        var t2 = [];
+        $.each(tender_filter.getFilteredTenders(), function(i,val){
+            if (val.year_finish=='2014'){
+                console.log(val)
+                t2.push(val);
+            }
+        })
+
+        function find (id){
+            var find = false
+            $.each (t2, function(i,val){
+                 if (val.id==id) find=true;
+            })
+            return find;
+        }
+        $.each(t2, function(i,val){
+            if(!find(val.id)) console.log(val)
+        })
 
         //menu_float_background.bindEvents();
-        main_logic.animateInAll();
-        main_logic.fillData();
+        setTimeout(function(){
+            main_logic.animateInAll();
+            main_logic.fillData();
+        },100)
+
         FastClick.attach(document.getElementById('left-menu'))
         $(document).on('pageshow', "#main_page", function (event, data) {
             main_logic.animateInAll();

@@ -2,6 +2,7 @@ var objs_map = {
     points:[],
     my_map: null,
     initMap: function(){
+        if (!navigator.onLine) return;
         ymaps.ready(function () {
             console.log('maps init')
             yamaps_ready_function();
@@ -11,6 +12,7 @@ var objs_map = {
         });
     },
     rebindMarkers: function(){
+        if (! navigator.onLine) return
         filter_map_points();
         clusterer.removeAll();
         clusterer.add(points);

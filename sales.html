@@ -87,9 +87,9 @@
         <div class='sales-tabs tabs tabs-active'>
             <form>
                 <fieldset data-role="controlgroup" data-type="horizontal" id="sales-charts-tabs">
-                    <input type="radio" name="sales_chart" id="s1" data-div="status_charts" data-chart="statusChart" >
+                    <input type="radio" name="sales_chart" id="s1" data-div="status_charts" data-chart="statusChart" checked="checked" >
                     <label for="s1">Динамика продаж</label>
-                    <input type="radio" name="sales_chart" id="s2" data-div="avg_m2_price" data-chart="avgM2Price" checked="checked">
+                    <input type="radio" name="sales_chart" id="s2" data-div="avg_m2_price" data-chart="avgM2Price" >
                     <label for="s2">Средняя стоимость м2</label>
                     <input type="radio" name="sales_chart" id="s3" data-div="plan_fact_chart" data-chart="planFactChart">
                     <label for="s3">Выполнение плана</label>
@@ -107,11 +107,11 @@
         <div id="sales-charts-content">
             <div>
                 <div id="status_charts" class="sales_chart" style="float: left; display: none;">
-                    <div id="status_chart" style="height: 600px; width: 1170px; float: left;"></div>
+                    <div id="status_chart" style="height: 1100px; width: 1170px; float: left;"></div>
                     <div class='sales-tabs tabs tabs-active' style="clear: both">
                         <form>
                             <fieldset data-role="controlgroup" data-type="horizontal" id="statuses_detail_charts_tabs">
-                                <input type="radio" name="detatil_chart" id="status_free" data-div="status_charts" data-status="Свободна" checked="checked">
+                                <input type="radio" name="detatil_chart" id="status_free" data-div="status_charts" data-status="Свободна">
                                 <label for="status_free">Свободна</label>
                                 <input type="radio" name="detatil_chart" id="status_has_qty" data-status="Имеет заявку">
                                 <label for="status_has_qty">Имеет заявку</label>
@@ -124,7 +124,7 @@
                             </fieldset>
                         </form>
                     </div>
-                    <div id="status_detail_chart" style="height: 600px; width: 1170px; float: left;"></div>
+                    <div id="status_detail_chart" style="height: 600px; width: 1170px; float: left; display: none"></div>
                 </div>
 
                 <div id="avg_m2_price" class="sales_chart" style="height: 1200px; width: 1170px; float: left; display: none;"></div>

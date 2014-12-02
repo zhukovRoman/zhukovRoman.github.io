@@ -22,7 +22,12 @@ var main_logic = {
 
         $('#search_field').on('focus',main_logic.searchOnFocus);
         //$('#search_field').on('blur',main_logic.searchOnBlur);
-        $('#search_cancel_button').on('click',main_logic.searchOnBlur )
+        $('#search_cancel_button').on('click',
+            function(){
+                main_logic.searchOnBlur();
+                $('#search_field').val('');
+            })
+        $("#search-result-bg").on('click', main_logic.searchOnBlur )
         $('#search_field').on('keyup',main_logic.search_items)
     },
     animateOutAll: function(){
@@ -110,18 +115,24 @@ var main_logic = {
         }, {
             duration: duration, queue: false
         })
+        $('#search-result-bg .search-wrapper').animate({
+            height: '725px'
+        }, {
+            duration: duration, queue: false
+        })
         $('#search_cancel_button').animate({
             right: '90px'
         }, {
             duration: duration, queue: false
         })
         $('#search_field').css('text-align', 'left')
-        $('#search-result-bg').css('overflow-y', 'scroll')
+        $('#search-result-bg .search-wrapper').css('overflow-y', 'scroll')
+        main_logic.search_items();
 
     },
     searchOnBlur: function(){
         var duration = 300;
-        $('#search_field').val('');
+
         $('#search_field').animate({
             width: '1960px',
             "background-position-x": '47.7%'
@@ -133,15 +144,21 @@ var main_logic = {
         }, {
             duration: duration, queue: false
         })
+        $('#search-result-bg .search-wrapper').animate({
+            height: '0px'
+        }, {
+            duration: duration, queue: false
+        })
         $('#search_cancel_button').animate({
             right: '-190px'
         }, {
             duration: duration, queue: false
         })
         $('#search_field').css('text-align', 'center')
+        $('#search-result-bg .search-wrapper').html('');
     },
     search_items: function(){
-        var input_str = $(this).val().toLowerCase();
+        var input_str = $("#search_field").val().toLowerCase();
         if (input_str.length<2) return;
         var res = [];
         //search objects by address
@@ -185,7 +202,7 @@ var main_logic = {
         $.each(arr, function(i,item){
             html+=generate_html_item(item);
         })
-        $('#search-result-bg').html(html);
+        $('#search-result-bg .search-wrapper').html(html);
 
     }
 }

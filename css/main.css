@@ -130,7 +130,14 @@ body.bg_body{
     background-color: rgba(255,255,255,0.5);
     background-image: url('images/search-bg.jpg');
     z-index: 5;
+    overflow: hidden;
+
+}
+.search-wrapper{
+    width: 1600px;
+    margin: 0 auto;
     overflow-y: scroll;
+    height: 0px;
 }
 #search_cancel_button{
     position: absolute;
@@ -143,8 +150,8 @@ body.bg_body{
     text-decoration: none;
 }
 .search-item{
-    width: 1525px;
-    margin: 0 auto;
+    /*width: 1525px;*/
+    /*margin: 0 auto;*/
     background-color: rgba(0,0,0,.2);
     padding-left: 35px;
     padding-right: 35px;

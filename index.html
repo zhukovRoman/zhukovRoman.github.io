@@ -120,7 +120,9 @@
         <input type="text" id="search_field" data-role="none" placeholder="Поиск"/>
         <span id="search_cancel_button">Отменить</span>
     </div>
-    <div class="search-result-bg" id="search-result-bg" style="overflow-y: scroll"></div>
+    <div class="search-result-bg" id="search-result-bg">
+        <div class="search-wrapper"></div>
+    </div>
     <div class="main-content">
         <div class="main-info-headers">
             <div class="main-info-header-part" style="min-height: 140px;max-height: 140px;"></div>
@@ -255,10 +257,12 @@
         $(document).on('pageshow', "#main_page", function (event, data) {
             main_logic.animateInAll();
             main_logic.fillData();
+
         });
 
         $(document).on('pagebeforehide', "#main_page", function (event, data) {
             main_logic.animateOutAll();
+            main_logic.searchOnBlur();
         });
 
 

@@ -11,7 +11,7 @@ var menu_float_background = {
         "objects.html": 253,
         "organizations.html": 254,
         "tenders.html": 254,
-        "sales.html": 300
+        "sales.html": 260
     },
     pages:{
         "employee": "empl.html",

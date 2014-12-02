@@ -174,7 +174,7 @@ var main_logic = {
         })
         //search orgs by name
         $.each(organizations, function(i, org){
-            console.log(org.name.toLowerCase(), input_str)
+            //console.log(org.name.toLowerCase(), input_str)
             if(org.name.toLowerCase().indexOf(input_str)==-1) return;
 
             res.push({
@@ -184,7 +184,7 @@ var main_logic = {
                 id: org.id
             })
         })
-        console.log(res)
+        //console.log(res)
         main_logic.bind_rows(res);
     },
     bind_rows: function(arr){

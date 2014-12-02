@@ -68,8 +68,11 @@
 
     <script type="text/javascript" src="js/main_page.js"></script>
 
+    <script type="text/javascript" src="js/api.js"></script>
+
 </head>
 <body >
+<div id="update_msg" style="display: none">Идет обновление данных</div>
 <div class="status-bar" style="background-image: none "></div>
 <div class="main-logo" id="main-logo" style="left: -888px"></div>
 <div id="left-menu" class="transparent-menu">
@@ -228,30 +231,18 @@
 <script type="text/javascript">
 
     $(function(){
-        var t2 = [];
-        $.each(tender_filter.getFilteredTenders(), function(i,val){
-            if (val.year_finish=='2014'){
-                console.log(val)
-                t2.push(val);
-            }
-        })
-
-        function find (id){
-            var find = false
-            $.each (t2, function(i,val){
-                 if (val.id==id) find=true;
-            })
-            return find;
-        }
-        $.each(t2, function(i,val){
-            if(!find(val.id)) console.log(val)
-        })
 
         //menu_float_background.bindEvents();
         setTimeout(function(){
             main_logic.animateInAll();
             main_logic.fillData();
         },100)
+
+        setTimeout(function(){
+            data_saver.getData();
+        },700)
+
+
 
         FastClick.attach(document.getElementById('left-menu'))
         $(document).on('pageshow', "#main_page", function (event, data) {

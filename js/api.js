@@ -39,7 +39,7 @@ var http_api = {
         });
 
     },
-    getHash: function(part){
+    checkHashAndUpdate: function(part){
         data_saver.active_request_counter++;
         data_saver.spinnerUpdate();
 
@@ -74,12 +74,12 @@ var data_saver = {
         if(true||new Date().getTime() - lastUpdate > mlInDay){
             //last update was yesterday … => execute update
             console.log('start update data from server')
+            http_api.checkHashAndUpdate('employee');
+            http_api.checkHashAndUpdate('tenders');
+            http_api.checkHashAndUpdate('organizations');
+            http_api.checkHashAndUpdate('apartments');
+            http_api.checkHashAndUpdate('objects');
 
-            //http_api.request('employee');
-            http_api.getHash('tenders');
-            //http_api.request('organizations');
-            //http_api.request('apartments');
-            //http_api.request('objects');
 
             data_saver.setNewValue('lastUpdateDate', new Date().getTime())
         }
@@ -93,6 +93,7 @@ var data_saver = {
         if (data_saver.getValue(part+'_md5')!= md5){
             http_api.request(part, md5);
         }
+
     },
     setNewValue: function(key, val){
         data_saver.setValue(key,val)
@@ -116,12 +117,13 @@ var data_saver = {
         })
     },
     getData: function(){
+        data_saver.evalAllData();
         data_saver.updateData();
         data_saver.evalAllData();
     },
     spinnerUpdate: function() {
         console.log(data_saver.active_request_counter, 'active count')
-        if(data_saver.active_request_counter>0) $(".spinner").show();
-        else $(".spinner").hide();
+        if(data_saver.active_request_counter>0) $("#update_msg").show();
+        else $("#update_msg").hide();
     }
 }

@@ -2,11 +2,10 @@ var main_logic = {
     animateInAll: function(){
         //alert(1)
         var duration = 300;
-
-
         $('#logo').addClass('hide_image')
         $('body').addClass('bg_body');
-        $('#left-menu').addClass('transparent-menu')
+        $('#left-menu').addClass('transparent-menu');
+        $('#main_page').css('background-color', 'transparent');
 
         $('#float_background').hide()
         $('#main-logo').animate({
@@ -19,14 +18,15 @@ var main_logic = {
         }, {
             duration: duration, queue: false
         })
-        $('#main_page').css('background-color', 'transparent');
 
 
+        $('#search_field').on('focus',main_logic.searchOnFocus);
+        //$('#search_field').on('blur',main_logic.searchOnBlur);
+        $('#search_cancel_button').on('click',main_logic.searchOnBlur )
+        $('#search_field').on('keyup',main_logic.search_items)
     },
     animateOutAll: function(){
         var duration = 300;
-
-
 
         $('#float_background').show()
         $('#main-logo').animate({
@@ -96,6 +96,97 @@ var main_logic = {
 
 
 
+    },
+    searchOnFocus: function(){
+       var duration = 300;
+        $('#search_field').animate({
+            width: '1550px',
+            "background-position-x": '1%'
+        }, {
+            duration: duration, queue: false
+        })
+        $('#search-result-bg').animate({
+            height: '725px'
+        }, {
+            duration: duration, queue: false
+        })
+        $('#search_cancel_button').animate({
+            right: '90px'
+        }, {
+            duration: duration, queue: false
+        })
+        $('#search_field').css('text-align', 'left')
+        $('#search-result-bg').css('overflow-y', 'scroll')
+
+    },
+    searchOnBlur: function(){
+        var duration = 300;
+        $('#search_field').val('');
+        $('#search_field').animate({
+            width: '1960px',
+            "background-position-x": '47.7%'
+        }, {
+            duration: duration, queue: false
+        })
+        $('#search-result-bg').animate({
+            height: '0px'
+        }, {
+            duration: duration, queue: false
+        })
+        $('#search_cancel_button').animate({
+            right: '-190px'
+        }, {
+            duration: duration, queue: false
+        })
+        $('#search_field').css('text-align', 'center')
+    },
+    search_items: function(){
+        var input_str = $(this).val().toLowerCase();
+        if (input_str.length<2) return;
+        var res = [];
+        //search objects by address
+        $.each(objects, function(i, o){
+            if(o.ObjectAdress.toLowerCase().indexOf(input_str)==-1) return;
+
+            res.push({
+                name:o.ObjectAdress,
+                type:'obj',
+                id: o.ObjectId,
+                add_info: o.ObjectRegionName+', '+ o.ObjectEnterYearCorrect+', '+ o.ObjectAppointmentName
+            })
+        })
+        //search orgs by name
+        $.each(organizations, function(i, org){
+            console.log(org.name.toLowerCase(), input_str)
+            if(org.name.toLowerCase().indexOf(input_str)==-1) return;
+
+            res.push({
+                name: org.name,
+                type:'org',
+                add_info: org.objects.length+' (объектов)',
+                id: org.id
+            })
+        })
+        console.log(res)
+        main_logic.bind_rows(res);
+    },
+    bind_rows: function(arr){
+       var html = '';
+       function generate_html_item(item){
+           return "<a href='"+
+               ((item.type=='org') ? "org_view.html?id="+item.id : "object_view.html?id="+item.id )
+               +"'>"+
+                "<div class='search-item search-item-"+item.type+"'>"+
+                    "<div class='search-item-name'>"+item.name+"</div>"+
+                    "<div class='search-item-add-info'>"+item.add_info+"</div>"+
+               "</div> </a>"
+       }
+
+        $.each(arr, function(i,item){
+            html+=generate_html_item(item);
+        })
+        $('#search-result-bg').html(html);
+
     }
 }
 
@@ -107,3 +198,4 @@ var main_logic = {
 //        width: '600px'
 //    }, { duration: 200, queue: false });
 //});
+

@@ -21,6 +21,7 @@ body{
     min-width: 2048px;
     min-height: 1536px;
     background-color: white;
+    overflow: hidden;
 }
 body.ui-mobile-viewport{
     /*overflow: hidden;*/

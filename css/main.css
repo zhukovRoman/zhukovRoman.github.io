@@ -137,6 +137,7 @@ body.bg_body{
     width: 1600px;
     margin: 0 auto;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     height: 0px;
 }
 #search_cancel_button{

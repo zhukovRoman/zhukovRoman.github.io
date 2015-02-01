@@ -29,6 +29,18 @@ var main_logic = {
             })
         $("#search-result-bg").on('click', main_logic.searchOnBlur )
         $('#search_field').on('keyup',main_logic.search_items)
+
+        $('#search-result-bg .search-wrapper, #search-result-bg').on("scrollstart",function(e){
+            $('#search_field').blur();
+            return;
+        });
+        //$('#search-result-bg').on("scrollstart",function(e){
+        //    console.log('a')
+        //    e.stopPropagation()
+        //    //$('#search_field').blur();
+        //    //main_logic.searchOnBlur();
+        //    return;
+        //});
     },
     animateOutAll: function(){
         var duration = 300;
@@ -49,6 +61,7 @@ var main_logic = {
         $('#left-menu').removeClass('transparent-menu')
     } ,
     fillData: function(){
+        console.log('fill!!!!')
         $('#salary_avg').text(thousands_sep(avg_salary[avg_salary.length-1])+ '₽')
         $('#empl_count').text(empl_counts[empl_counts.length-1])
         $('#vac_count').text(vacancy_counts[empl_counts.length-1])
@@ -111,12 +124,12 @@ var main_logic = {
             duration: duration, queue: false
         })
         $('#search-result-bg').animate({
-            height: '725px'
+            height: '1412px'
         }, {
             duration: duration, queue: false
         })
         $('#search-result-bg .search-wrapper').animate({
-            height: '725px'
+            height: '1400px'
         }, {
             duration: duration, queue: false
         })
@@ -163,7 +176,7 @@ var main_logic = {
         var res = [];
         //search objects by address
         $.each(objects, function(i, o){
-            if(o.ObjectAdress.toLowerCase().indexOf(input_str)==-1) return;
+            if((o.ObjectAdress||"").toLowerCase().indexOf(input_str)==-1) return;
 
             res.push({
                 name:o.ObjectAdress,

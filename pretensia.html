@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=0.5, maximum-scale=0.5,minimum-scale=0.5, target-densitydpi=medium-dpi" />
+    <title></title>
+    <link rel="stylesheet" href="css/fonts/PTSans/stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="css/jqmobile/jquery.mobile-1.4.4.min.css" />
+    <script src="js/jq.min.js"></script>
+    <script src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/hc-theme.js"></script>
+    <script type="text/javascript" src="js/my_common_scripts.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/filters.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+
+
+</head>
+<body style="overflow-x: auto">
+<div id="pret_3" style="width:2000px; height: 1000px"></div>
+<div id="pret_5" style="width:2000px; height: 1000px"></div>
+<div id="pret_1" style="width:2000px; height: 1000px"></div>
+<div id="pret_2" style="width:2000px; height: 1000px"></div>
+<div id="pret_4" style="width:2000px; height: 1000px"></div>
+<div id="pret_6" style="width:2000px; height: 1000px"></div>
+<div id="pret_7" style="width:2000px; height: 1000px"></div>
+<div id="table" style="width:2000px; height: 1000px; font-size: 30px; text-align: center;">
+    <h3>Всего 100 претензий к 21 организациям по 10 объектам</h3>
+    <input type="checkbox" checked id="test">
+    <label for="test" style="font-size: 25px;">Показывать только активные претензии</label>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Организация</th>
+            <th>Объект</th>
+            <th>Решено</th>
+            <th>Решение суда</th>
+            <th>Сумма</th>
+            <th>Оплачено</th>
+            <th>Не оплачено</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>ЗЕЛЕНОГРАДПРОЕКТ</td>
+            <td>Некрасовка</td>
+            <td>В суде</td>
+            <td>Положительное</td>
+            <td>100,45 млн Р</td>
+            <td>60 млн Р</td>
+            <td>40,45 млн Р</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>ЗАО "СУ-155"</td>
+            <td>ДОУ, Измайловский проспект</td>
+            <td>Досудебно</td>
+            <td>-</td>
+            <td>45,38 млн Р</td>
+            <td>45,38 млн Р</td>
+            <td>0 млн Р</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Теплотехстрой</td>
+            <td>ДОУ, Измайловский проспект</td>
+            <td>В Суде</td>
+            <td>Отрицательное</td>
+            <td>127,35 млн Р</td>
+            <td>0 млн Р</td>
+            <td>127,35 млн Р</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#pret_1').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Получение выплат по искам'
+            },
+            xAxis: {
+                categories: ['2013', '2014', '2015']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Сумма исков'
+                },
+                stackLabels: {
+                    enabled: true,
+                    formatter: function (){return million_to_text(this.total)},
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray',
+                        font: '30px PT Sans, sans-serif',
+                        'font-size': '30px'
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                            this.series.name + ': ' + million_to_text(this.y) + '<br/>' +
+                            'Всего: ' + million_to_text(this.point.stackTotal);
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: false,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black',
+                            fontSize: "20px"
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Оплачено добровольно',
+                data: [2375000, 22557131, 0]
+            }, {
+                name: 'В судебном производстве',
+                data: [44570624, 94191296, 0]
+            }, {
+                name: 'Полуено решение судов о взыскании',
+                data: [23205200, 27047281, 0]
+            }]
+        });
+
+        $('#pret_2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Число удовлетворенных исков'
+        },
+        xAxis: {
+            categories: ['2013', '2014', '2015']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'число исков'
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray',
+                    fontSize: "20px"
+                }
+            }
+
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + 'претензий<br/>' +
+                        ' Всего: ' + this.point.stackTotal;
+            }
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        fontSize: "20px"
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Оплачено добровольно',
+            data: [17, 12, 0]
+        }, {
+            name: 'В судебном производстве',
+            data: [11, 17, 0]
+        }, {
+            name: 'Решение судов о взыскании',
+            data: [10, 17, 0]
+        }]
+    });
+
+        $('#pret_3').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Текущее состояние претензий (с переключением по сумме)'
+            },
+            xAxis: {
+                categories: ['2015 год']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'количество'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                            this.series.name + ': ' +(this.y) + '<br/>'
+
+                }
+            },
+            plotOptions: {
+                series: {
+                    //stacking: 'percent'
+                }
+            },
+            series: [ {
+                name: 'Положительное решение суда но не оплачено ',
+                data: [20]
+            }, {
+                name: 'На рассмотрении в суде',
+                data: [30]
+            },{
+                name: 'Компенсация получена',
+                data: [50]
+            }, {
+                name: 'Претензий предъявлено',
+                data: [100]
+            }]
+        });
+
+        $('#pret_4').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,//null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Решение претензий в добровольном порядке (с переключением по сумме)'
+            },
+//            tooltip: {
+//                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+//            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                            fontSize: "20px"
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                    ['Добровольно',   45.0],
+                    ['По решению суда',       26.8]
+                ]
+            }]
+        });
+
+        $('#pret_5').highcharts({
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: 'Динамика удовлетворение претензий (с переключение по количеству)'
+            },
+            xAxis: {
+                categories: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                allowDecimals: false,
+                labels: {
+                    formatter: function () {
+                        return this.value; // clean, unformatted number for year
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Сумма'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value / 1 + ' млн';
+                    }
+                }
+            },
+//            tooltip: {
+//                pointFormat: '{series.name}  <b>{point.y:,.0f}</b><br/> {point.x}'
+//            },
+            plotOptions: {
+                area: {
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Предъявлено',
+                data: [0, 15, 23, 45, 55, 62, 76, 80]
+            }, {
+                name: 'Удовлетворено',
+                data: [0, 10, 20, 35, 47, 53, 68, 75]
+            }]
+        });
+    });
+
+    $(function () {
+
+        var colors = Highcharts.getOptions().colors,
+                categories = ['топ 5', 'остальные'],
+                data = [{
+                    y: 10.85+7.35+33.06,
+                    color: colors[0],
+                    drilldown: {
+                        name: 'топ 3 ',
+                        categories: ['ЗЕЛЕНОГРАДПРОЕКТ', 'ЗАО "СУ-155"', 'ТЕПЛОТЕХСТРОЙ'],
+                        data: [10.85, 7.35, 33.06],
+                        color: colors[0]
+                    }
+                }, {
+                    y: 21.16,
+                    color: colors[1],
+                    drilldown: {
+                        name: 'остальные',
+                        categories: ['остальные'],
+                        data: [0.20+0.83+1.58+13.12+5.43],
+                        color: colors[1]
+                    }
+                }
+                ],
+                browserData = [],
+                versionsData = [],
+                i,
+                j,
+                dataLen = data.length,
+                drillDataLen,
+                brightness;
+
+
+        // Build the data arrays
+        for (i = 0; i < dataLen; i += 1) {
+
+            // add browser data
+            browserData.push({
+                name: categories[i],
+                y: data[i].y,
+                color: data[i].color
+            });
+
+            // add version data
+            drillDataLen = data[i].drilldown.data.length;
+            for (j = 0; j < drillDataLen; j += 1) {
+                brightness = 0.2 - (j / drillDataLen) / 5;
+                versionsData.push({
+                    name: data[i].drilldown.categories[j],
+                    y: data[i].drilldown.data[j],
+                    color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                });
+            }
+        }
+
+        // Create the chart
+        $('#pret_6').highcharts({
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Распределение числа претензий по подрядчикам (с переключением по сумме)'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total percent market share'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false,
+                    center: ['50%', '50%']
+                }
+            },
+            tooltip: {
+                enabled: false,
+                valueSuffix: '%'
+            },
+            series: [{
+                name: 'Претензий по подрядчика',
+                data: browserData,
+                size: '60%',
+                dataLabels: {
+                    formatter: function () {
+                        return this.y > 5 ? this.point.y.toFixed(0)+'%' : null;
+                    },
+                    color: 'white',
+                    distance: -60 ,
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                        fontSize: "20px"
+                    }
+                }
+            }, {
+                name: 'Претензий на подрядчика',
+                data: versionsData,
+                size: '80%',
+                innerSize: '60%',
+                dataLabels: {
+                    formatter: function () {
+                        // display only if larger than 1
+                        return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                    },
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                        fontSize: "20px"
+                    }
+                }
+            }]
+        });
+
+        $('#pret_7').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Доля положительного решения суда (с переключением по сумме)'
+            },
+            tooltip: {
+                enabled: false,
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                    ['Положительное',   45.0],
+                    ['Отрицательное',       26.8]
+                ] ,
+                dataLabels: {
+                    formatter: function () {
+                        return this.y > 5 ? this.point.y.toFixed(0)+'%' : null;
+                    },
+                    color: 'white',
+                    distance: -60 ,
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                        fontSize: "20px"
+                    }
+                }
+            }]
+        });
+    });
+</script>
+
+
+</html>

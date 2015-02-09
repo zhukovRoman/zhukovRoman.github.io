@@ -128,28 +128,33 @@
                     <label for="claim_c2">Динамика</label>
                     <input type="radio" name="cliam-chart" id="claim_c3" data-div="payment" >
                     <label for="claim_c3">Получение выплат</label>
-                    <input type="radio" name="cliam-chart" id="claim_c4" data-div="koef_chart" >
-                    <label for="claim_c4">Дошло до суда</label>
-                    <input type="radio" name="cliam-chart" id="claim_c5" data-div="koef_chart" >
+                    <input type="radio" name="cliam-chart" id="claim_c4" data-div="court" >
+                    <label for="claim_c4">Суд</label>
+                    <input type="radio" name="cliam-chart" id="claim_c5" data-div="contragent" >
                     <label for="claim_c5">Подрядчики</label>
                     <input type="radio" name="cliam-chart" id="claim_c6" data-div="koef_chart" >
-                    <label for="claim_c6">Решения суда</label>
-                    <input type="radio" name="cliam-chart" id="claim_c7" data-div="koef_chart" >
-                    <label for="claim_c7">Список</label>
+                    <label for="claim_c6">Список</label>
                 </fieldset>
             </form>
         </div>
 
-        <div id="claim-charts-content" style="margin-top: 150px">
+        <div id="claim-charts-content" style="margin-top: 50px">
             <div>
                 <div id="summary" class="claim-tab" style="display:none">
-                    <div class="claim_chart" id="summary_chart" style="height: 1100px; width: 1800px; float: left"></div>
+                    <div class="claim_chart" id="summary_chart" style="height: 1200px; width: 1800px; float: left"></div>
                 </div>
                 <div id="dynamics" class="claim-tab" style="display:none">
-                    <div class="claim_chart" id="dynamics_chart" style="height: 1100px; width: 1800px; float: left;"></div>
+                    <div class="claim_chart" id="dynamics_chart" style="height: 1200px; width: 1800px; float: left;"></div>
                 </div>
                 <div id="payment" class="claim-tab" style="display:none">
-                    <div class="claim_chart" id="payment_chart" style="height: 1100px; width: 1800px; float: left;"></div>
+                    <div class="claim_chart" id="payment_chart" style="height: 1200px; width: 1800px; float: left;"></div>
+                </div>
+                <div id="court" class="claim-tab" style="display:none">
+                    <div class="claim_chart" id="court_chart" style="height: 1200px; width: 900px; float: left;"></div>
+                    <div class="claim_chart" id="court_desicion_chart" style="height: 1200px; width: 900px; float: left;"></div>
+                </div>
+                <div id="contragent" class="claim-tab" style="display:none">
+                    <div class="claim_chart" id="contragent_chart" style="height: 1200px; width: 1800px; float: left;"></div>
                 </div>
 
                 <!--<div id="empl_department_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
@@ -362,7 +367,159 @@
                     }]
                 });
             }
-        }
+        },
+         court: {
+             chart1: null,
+             chart2: null,
+             fill: function(){
+                this.createCharts();
+             },
+             createCharts: function(){
+                 this.chart1 = new Highcharts.Chart({
+                     chart: {
+                         plotBackgroundColor: null,
+                         plotBorderWidth: 0,//null,
+                         plotShadow: false,
+                         renderTo:'court_chart'
+                     },
+                     title: {
+                         text: 'Решение претензий в добровольном порядке (с переключением по сумме)'
+                     },
+                     tooltip: {
+                         enabled: false,
+                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                     },
+                     plotOptions: {
+                         pie: {
+                             allowPointSelect: false,
+                             cursor: 'pointer',
+                             dataLabels: {
+                                 enabled: true
+                             },
+                             showInLegend: true
+                         }
+                     },
+                     series: [{
+                         type: 'pie',
+                         name: 'Browser share',
+                         data: [
+                             ['Добровольно',   45.0],
+                             ['По решению суда',       26.8]
+                         ],
+                         size: '60%',
+                         dataLabels: {
+                             formatter: function () {
+                                 return this.y > 5 ? this.point.y.toFixed(0)+'%' : null;
+                             },
+                             color: 'white',
+                             distance: -60 ,
+                             style: {
+                                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                                 fontSize: "20px"
+                             }
+                         }
+                     }]
+                 });
+                 this.chart2 = new Highcharts.Chart({
+                     chart: {
+                         plotBackgroundColor: null,
+                         plotBorderWidth: null,
+                         plotShadow: false,
+                         renderTo: 'court_desicion_chart'
+                     },
+                     title: {
+                         text: 'Доля положительного решения суда (с переключением по сумме)'
+                     },
+                     tooltip: {
+                         enabled: false,
+                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                     },
+                     plotOptions: {
+                         pie: {
+                             allowPointSelect: false,
+                             cursor: 'pointer',
+                             dataLabels: {
+                                 enabled: true
+                             },
+                             showInLegend: true
+                         }
+                     },
+                     series: [{
+                         type: 'pie',
+                         name: 'Browser share',
+                         size: '60%',
+                         data: [
+                             ['Положительное',   45.0],
+                             ['Отрицательное',       26.8]
+                         ] ,
+                         dataLabels: {
+                             formatter: function () {
+                                 return this.y > 5 ? this.point.y.toFixed(0)+'%' : null;
+                             },
+                             color: 'white',
+                             distance: -60 ,
+                             style: {
+                                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                                 fontSize: "20px"
+                             }
+                         }
+                     }]
+                 });
+             }
+         },
+         contragent: {
+             chart: null,
+             fill: function(){
+                 this.createChart();
+             },
+             createChart: function(){
+                 this.chart = new Highcharts.Chart({
+                     chart: {
+                         type: 'pie',
+                         renderTo: 'contragent_chart'
+                     },
+                     title: {
+                         text: 'Распределение числа претензий по подрядчикам (с переключением по сумме)'
+                     },
+                     yAxis: {
+                         title: {
+                             text: 'Total percent market share'
+                         }
+                     },
+                     plotOptions: {
+                         pie: {
+                             shadow: false,
+                             center: ['50%', '50%']
+                         }
+                     },
+                     tooltip: {
+                         enabled: false,
+                         valueSuffix: '%'
+                     },
+                     series: [ {
+                         name: 'Претензий на подрядчика',
+                         data: [
+                               ['ЗЕЛЕНОГРАДПРОЕКТ', 14],
+                               ['ЗАО "СУ-155"',12],
+                               ['ТЕПЛОТЕХСТРОЙ',4],
+                               ['Остальные', 70]
+                           ],
+                         size: '80%',
+                         innerSize: '60%',
+                         dataLabels: {
+                             formatter: function () {
+                                 // display only if larger than 1
+                                 return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                             },
+                             style: {
+                                 color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                                 fontSize: "20px"
+                             }
+                         }
+                     }]
+                 });
+             }
+         }
     }
     $(function(){
         kpApp.claims.initClaims();

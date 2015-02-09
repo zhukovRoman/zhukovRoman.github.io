@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=0.5, maximum-scale=0.5,minimum-scale=0.5, target-densitydpi=medium-dpi" />
+    <title></title>
+    <link rel="stylesheet" href="css/fonts/PTSans/stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="css/jqmobile/jquery.mobile-1.4.4.min.css" />
+    <script src="js/jq.min.js"></script>
+    <script src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/hc-theme.js"></script>
+    <script type="text/javascript" src="js/my_common_scripts.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/filters.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+    <!--empl css-->
+    <link rel="stylesheet" type="text/css" href="css/empl.css">
+
+    <script type="text/javascript" src="js/empl.js"></script>
+    <script type="text/javascript" src="js/data/empl.js"></script>
+
+    <!--objects -->
+
+    <link rel="stylesheet" type="text/css" href="css/objects.css">
+    <link rel="stylesheet" type="text/css" href="css/object_view.css">
+
+    <script src="http://api-maps.yandex.ru/2.0.18/?load=package.standard,package.clusters&lang=ru-RU" type="text/javascript"></script>
+    <script type="text/javascript" src="js/data/objects.js"></script>
+    <script type="text/javascript" src="js/objects/filter.js"></script>
+    <script type="text/javascript" src="js/objects/charts.js"></script>
+    <script type="text/javascript" src="js/objects/map_marker.js"></script>
+    <script type="text/javascript" src="js/objects/objects_logic.js"></script>
+
+    <script type="text/javascript" src="js/objects/obj_view.js"></script>
+
+
+    <!--oranizations-->
+    <link rel="stylesheet" type="text/css" href="css/organization.css">
+
+    <script type="text/javascript" src="js/data/organizations.js"></script>
+    <script type="text/javascript" src="js/organizations_logic.js"></script>
+
+
+    <!--tenders-->
+    <link rel="stylesheet" type="text/css" href="css/tenders.css">
+
+    <script type="text/javascript" src="js/tenders.js"></script>
+    <script type="text/javascript" src="js/data/tenders.js"></script>
+
+
+    <!--sales-->
+    <link rel="stylesheet" type="text/css" href="css/sales.css">
+
+    <script type="text/javascript" src="js/highcharts-more.js"></script>
+    <script type="text/javascript" src="js/sales.js"></script>
+    <script type="text/javascript" src="js/my_common_scripts.js"></script>
+    <script type="text/javascript" src="js/data/sales.js"></script>
+
+</head>
+<body >
+<div class="status-bar"></div>
+<div id="left-menu">
+    <a href="empl.html" data-transition="slide">
+        <div id='logo' class="menu-picture"></div>
+    </a>
+    <div id="float_background"></div>
+    <hr class="menu-item-devider">
+    <div class="menu">
+        <a href="empl.html" data-transition="slide" data-prefetch>
+            <div class="menu-item menu-item-active">
+                <div class="menu-picture empl-menu-picture "></div>
+                <div class="menu-item-text">Кадры</div>
+            </div>
+        </a>
+        <hr class="menu-item-devider">
+        <a href="objects.html" data-transition="slide" data-prefetch>
+            <div class="menu-item">
+                <div class="menu-picture obj-menu-picture"></div>
+                <div class="menu-item-text">Объекты</div>
+            </div>
+        </a>
+        <hr class="menu-item-devider">
+        <a href="organizations.html" data-transition="slide" data-prefetch>
+            <div class="menu-item">
+                <div class="menu-picture contractors-menu-picture "></div>
+                <div class="menu-item-text">Подрядчики</div>
+            </div>
+        </a>
+        <hr class="menu-item-devider">
+        <a href="tenders.html" data-transition="slide" data-prefetch>
+            <div class="menu-item ">
+                <div class="menu-picture tenders-menu-picture "></div>
+                <div class="menu-item-text">Конкурсы</div>
+            </div>
+        </a>
+        <hr class="menu-item-devider">
+        <a href="sales.html" data-transition="slide" data-prefetch>
+            <div class="menu-item">
+                <div class="menu-picture sales-menu-picture "></div>
+                <div class="menu-item-text">Продажи</div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="right-side" data-role="page" id='claim'>
+    <!--<div data-role="header" data-position="fixed">-->
+    <div class="header">
+        <div class="header-paginator"></div>
+        <div class="header-title header-item">
+            Претензии
+        </div>
+    </div>
+    <div data-role="content " style="padding: 15px; margin-left: 180px;">
+
+        <div class='claim-tabs tabs' id="claim_tabs">
+            <form>
+                <!--<div class="empl-tabs-group-name"></div>-->
+                <fieldset data-role="controlgroup" data-type="horizontal" id="claim-charts-tabs" class="tabs tabs-active">
+                    <input type="radio" name="cliam-chart" id="claim_c1" data-div="summary" checked="checked">
+                    <label for="claim_c1">Сводка по статусам</label>
+                    <input type="radio" name="cliam-chart" id="claim_c2" data-div="dynamics" >
+                    <label for="claim_c2">Динамика</label>
+                    <input type="radio" name="cliam-chart" id="claim_c3" data-div="payment" >
+                    <label for="claim_c3">Получение выплат</label>
+                    <input type="radio" name="cliam-chart" id="claim_c4" data-div="koef_chart" >
+                    <label for="claim_c4">Дошло до суда</label>
+                    <input type="radio" name="cliam-chart" id="claim_c5" data-div="koef_chart" >
+                    <label for="claim_c5">Подрядчики</label>
+                    <input type="radio" name="cliam-chart" id="claim_c6" data-div="koef_chart" >
+                    <label for="claim_c6">Решения суда</label>
+                    <input type="radio" name="cliam-chart" id="claim_c7" data-div="koef_chart" >
+                    <label for="claim_c7">Список</label>
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="claim-charts-content" style="margin-top: 150px">
+            <div>
+                <div id="summary" class="claim-tab" style="display:none">
+                    <div class="claim_chart" id="summary_chart" style="height: 1100px; width: 1800px; float: left"></div>
+                </div>
+                <div id="dynamics" class="claim-tab" style="display:none">
+                    <div class="claim_chart" id="dynamics_chart" style="height: 1100px; width: 1800px; float: left;"></div>
+                </div>
+                <div id="payment" class="claim-tab" style="display:none">
+                    <div class="claim_chart" id="payment_chart" style="height: 1100px; width: 1800px; float: left;"></div>
+                </div>
+
+                <!--<div id="empl_department_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
+                <!--<div id="personal_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
+                <!--<div id="koef_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
+                <!--<div id="aup_salary_structure_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
+                <!--<div id="attitude_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+
+<script type="text/javascript">
+    var kpApp ={};
+    kpApp.claims = {
+        current_tab: null,
+        initClaims: function(){
+            $('#claim-charts-tabs input').change(kpApp.claims.changeTab);
+            kpApp.claims.changeTab();
+        },
+        changeTab: function (){
+            $('.claim-tab').hide();
+            $('#'+$('#claim-charts-tabs input:checked').attr('data-div')).show();
+            kpApp.claims.current_tab =  kpApp.claims.tabs[$('#claim-charts-tabs input:checked').attr('data-div')]
+            kpApp.claims.current_tab.fill();
+        }
+    }
+
+    kpApp.claims.tabs={
+         summary:{
+            chart: null,
+            fill:function(){
+                this.createChart();
+            },
+            createChart: function(){
+                this.chart = new Highcharts.Chart({
+                    chart: {
+                        type: 'bar',
+                        renderTo: 'summary_chart'
+                    },
+                    title: {
+                        text: 'Текущее состояние претензий (с переключением по сумме)'
+                    },
+                    xAxis: {
+                        categories: ['2015 год']
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'количество'
+                        }
+                    },
+                    legend: {
+                        reversed: true
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.x + '</b><br/>' +
+                                    this.series.name + ': ' +(this.y) + '<br/>'
+
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            //stacking: 'percent'
+                        }
+                    },
+                    series: [ {
+                        name: 'Положительное решение суда но не оплачено ',
+                        data: [20]
+                    }, {
+                        name: 'На рассмотрении в суде',
+                        data: [30]
+                    },{
+                        name: 'Компенсация получена',
+                        data: [50]
+                    }, {
+                        name: 'Претензий предъявлено',
+                        data: [100]
+                    }]
+                });
+            },
+            redrawChart: function(){
+
+            }
+         },
+         dynamics:{
+            chart: null,
+            fill:function(){
+                console.log('dynamics fill');
+                this.createChart();
+            },
+            createChart:function(){
+                console.log('re')
+                this.chart =  new Highcharts.Chart({
+                    chart: {
+                        type: 'area',
+                        renderTo: 'dynamics_chart'
+                    },
+                    title: {
+                        text: 'Динамика удовлетворение претензий (с переключение по количеству)'
+                    },
+                    xAxis: {
+                        categories: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                        allowDecimals: false,
+                        labels: {
+                            formatter: function () {
+                                return this.value; // clean, unformatted number for year
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Сумма'
+                        },
+                        labels: {
+                            formatter: function () {
+                                return this.value / 1 + ' млн';
+                            }
+                        }
+                    },
+                    plotOptions: {
+                        area: {
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                radius: 2,
+                                states: {
+                                    hover: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Предъявлено',
+                        data: [0, 15, 23, 45, 55, 62, 76, 80]
+                    }, {
+                        name: 'Удовлетворено',
+                        data: [0, 10, 20, 35, 47, 53, 68, 75]
+                    }]
+                });
+            }
+         },
+         payment:{
+            chart: null,
+            fill: function(){
+                this.createChart();
+            },
+            createChart: function(){
+                this.chart = new Highcharts.Chart({
+                    chart: {
+                        type: 'column',
+                        renderTo: 'payment_chart'
+                    },
+                    title: {
+                        text: 'Получение выплат по искам'
+                    },
+                    xAxis: {
+                        categories: ['2013', '2014', '2015']
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Сумма исков'
+                        },
+                        stackLabels: {
+                            enabled: true,
+                            formatter: function (){return million_to_text(this.total)},
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray',
+                                font: '30px PT Sans, sans-serif',
+                                'font-size': '30px'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.x + '</b><br/>' +
+                                    this.series.name + ': ' + million_to_text(this.y) + '<br/>' +
+                                    'Всего: ' + million_to_text(this.point.stackTotal);
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            stacking: 'normal',
+                            dataLabels: {
+                                enabled: false,
+                                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                                style: {
+                                    textShadow: '0 0 3px black',
+                                    fontSize: "20px"
+                                }
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Оплачено добровольно',
+                        data: [2375000, 22557131, 0]
+                    }, {
+                        name: 'В судебном производстве',
+                        data: [44570624, 94191296, 0]
+                    }, {
+                        name: 'Полуено решение судов о взыскании',
+                        data: [23205200, 27047281, 0]
+                    }]
+                });
+            }
+        }
+    }
+    $(function(){
+        kpApp.claims.initClaims();
+    })
+
+
+</script>
+</html>

@@ -61,6 +61,7 @@
     <script type="text/javascript" src="js/sales.js"></script>
     <script type="text/javascript" src="js/my_common_scripts.js"></script>
     <script type="text/javascript" src="js/data/sales.js"></script>
+    <script type="text/javascript" src="js/data/claims.js"></script>
 
 </head>
 <body >
@@ -135,6 +136,13 @@
                     <input type="radio" name="cliam-chart" id="claim_c6" data-div="koef_chart" >
                     <label for="claim_c6">Список</label>
                 </fieldset>
+
+                <fieldset data-role="controlgroup" data-type="horizontal" id="claim-measure-tabs" class="tabs tabs-active">
+                    <input type="radio" name="claim-measure" id="summ" checked="checked">
+                    <label for="summ">Сумма</label>
+                    <input type="radio" name="claim-measure" id="count" >
+                    <label for="count">Количество</label>
+                </fieldset>
             </form>
         </div>
 
@@ -174,23 +182,61 @@
     var kpApp ={};
     kpApp.claims = {
         current_tab: null,
+        claims: claims,
         initClaims: function(){
             $('#claim-charts-tabs input').change(kpApp.claims.changeTab);
             kpApp.claims.changeTab();
+            $('#claim-measure-tabs input').change(function(){
+                kpApp.claims.current_tab.redrawChart();
+            });
         },
         changeTab: function (){
             $('.claim-tab').hide();
             $('#'+$('#claim-charts-tabs input:checked').attr('data-div')).show();
             kpApp.claims.current_tab =  kpApp.claims.tabs[$('#claim-charts-tabs input:checked').attr('data-div')]
             kpApp.claims.current_tab.fill();
+        },
+        getCurrentMeasure: function(){
+            return  $('#claim-measure-tabs input:checked').attr('id')
         }
     }
 
     kpApp.claims.tabs={
          summary:{
             chart: null,
+             data: null,
             fill:function(){
+                this.data = this.getData();
                 this.createChart();
+            },
+            getData: function(){
+                var currentDate = moment();
+                var res = {
+                    'init': {count:0,summ:0},
+                    'end': {count:0,summ:0},
+                    'in_court': {count:0,summ:0},
+                    'court_decision': {count:0,summ:0}
+                }
+                $.each(kpApp.claims.claims, function(i, c){
+                    if (moment(c.date_init).year()!=currentDate.year()) return;
+                    res.init.count++;
+                    res.init.summ+= c.summ;
+                    if(c.date_compensation_get && moment(c.date_compensation_get).isBefore(currentDate)){
+                        res.end.count++;
+                        res.end.summ+= c.summ;
+                    }
+                    if(c.date_go_to_court && moment(c.date_go_to_court).isBefore(currentDate) &&
+                            (c.date_court_decision==null || (c.date_court_decision && moment(c.date_court_decision).isBefore(currentDate)))){
+                        res.in_court.count++;
+                        res.in_court.summ+= c.summ;
+                    }
+                    if(c.date_court_decision && moment(c.date_court_decision).isBefore(currentDate)){
+                        res.court_decision.count++;
+                        res.court_decision.summ+= c.summ;
+                    }
+
+                })
+                return res;
             },
             createChart: function(){
                 this.chart = new Highcharts.Chart({
@@ -227,31 +273,64 @@
                     },
                     series: [ {
                         name: 'Положительное решение суда но не оплачено ',
-                        data: [20]
+                        data: [10]
                     }, {
                         name: 'На рассмотрении в суде',
-                        data: [30]
+                        data: [0]
                     },{
                         name: 'Компенсация получена',
-                        data: [50]
+                        data: [0]
                     }, {
                         name: 'Претензий предъявлено',
-                        data: [100]
+                        data: [0]
                     }]
                 });
+                this.redrawChart();
             },
             redrawChart: function(){
-
+                var currentMeasure = kpApp.claims.getCurrentMeasure();
+                this.chart.series[0].setData([this.data.court_decision[currentMeasure]],false)
+                this.chart.series[1].setData([this.data.in_court[currentMeasure]],false)
+                this.chart.series[2].setData([this.data['end'][currentMeasure]],false)
+                this.chart.series[3].setData([this.data['init'][currentMeasure]])
             }
          },
          dynamics:{
             chart: null,
+            data: null,
             fill:function(){
-                console.log('dynamics fill');
                 this.createChart();
             },
+            getData: function(){
+                var res  = {
+                    request : {
+                        count: [0,0,0,0,0,0,0,0,0,0,0,0],
+                        summ: [0,0,0,0,0,0,0,0,0,0,0,0]
+                    },
+                    gets: {
+                        count: [0,0,0,0,0,0,0,0,0,0,0,0],
+                        summ: [0,0,0,0,0,0,0,0,0,0,0,0]
+                    }
+                }
+                $.each(claims, function(i,c){
+                    if(c.date_init){
+                        res.request.count[moment(c.date_init).month()]++;
+                        res.request.summ[moment(c.date_init).month()] += c.summ;
+                    }
+                    if (c.date_compensation_get){
+                        res.gets.count[moment(c.date_compensation_get).month()]++;
+                        res.gets.summ[moment(c.date_compensation_get).month()] += c.summ;
+                    }
+                })
+                for (var i = 1; i<12; i++){
+                    res.request.count[i]+=res.request.count[i-1]
+                    res.request.summ[i]+=res.request.summ[i-1]
+                    res.gets.count[i]+=res.gets.count[i-1]
+                    res.gets.summ[i]+=res.gets.summ[i-1]
+                }
+                return res;
+            },
             createChart:function(){
-                console.log('re')
                 this.chart =  new Highcharts.Chart({
                     chart: {
                         type: 'area',
@@ -275,7 +354,7 @@
                         },
                         labels: {
                             formatter: function () {
-                                return this.value / 1 + ' млн';
+                                return this.value / 1000000 + ' млн';
                             }
                         }
                     },
@@ -295,20 +374,66 @@
                     },
                     series: [{
                         name: 'Предъявлено',
-                        data: [0, 15, 23, 45, 55, 62, 76, 80]
+                        data: [0]
                     }, {
                         name: 'Удовлетворено',
-                        data: [0, 10, 20, 35, 47, 53, 68, 75]
+                        data: [0]
                     }]
                 });
+                this.redrawChart();
+            },
+            redrawChart: function(){
+                this.data = this.getData();
+                var currentMeasure = kpApp.claims.getCurrentMeasure();
+                this.chart.series[0].setData(this.data.request[currentMeasure], false)
+                this.chart.series[1].setData(this.data.gets[currentMeasure])
+
             }
          },
          payment:{
-            chart: null,
+             chart: null,
+             data: null,
             fill: function(){
+                this.data = this.getData();
+
                 this.createChart();
             },
+            getData: function(){
+                var xaxis = [];
+                var data = {};
+                $.each(kpApp.claims.claims, function(i,c){
+                    var year = moment(c.date_init).year()+'';
+                    if (xaxis.indexOf(year)<0) xaxis.push(year);
+                    if (!data[year]) data[year] = {voluntarily: {summ: 0, count:0}, in_court: {summ:0, count:0}}
+                    if (c.is_voluntarily) {
+                        data[year].voluntarily.summ += c.summ;
+                        data[year].voluntarily.count++;
+                    }
+                    else {
+                        data[year].in_court.summ += c.summ;
+                        data[year].in_court.count++;
+                    }
+                })
+
+                var voluntarily = {summ: [], count: []}
+                var in_court = {summ: [], count: []}
+                $.each(data, function(year, val){
+
+                    voluntarily.summ.push(val.voluntarily.summ)
+                    voluntarily.count.push(val.voluntarily.count)
+                    in_court.summ.push(val.voluntarily.summ)
+                    in_court.count.push(val.voluntarily.count)
+                })
+                return {
+                    xaxis: xaxis,
+                    data: {
+                        voluntarily: voluntarily,
+                        in_court: in_court
+                    }
+                }
+            },
             createChart: function(){
+                var x = this.data.xaxis;
                 this.chart = new Highcharts.Chart({
                     chart: {
                         type: 'column',
@@ -318,7 +443,7 @@
                         text: 'Получение выплат по искам'
                     },
                     xAxis: {
-                        categories: ['2013', '2014', '2015']
+                        categories:  x
                     },
                     yAxis: {
                         min: 0,
@@ -357,24 +482,66 @@
                     },
                     series: [{
                         name: 'Оплачено добровольно',
-                        data: [2375000, 22557131, 0]
+                        data: [0]
                     }, {
-                        name: 'В судебном производстве',
-                        data: [44570624, 94191296, 0]
-                    }, {
-                        name: 'Полуено решение судов о взыскании',
-                        data: [23205200, 27047281, 0]
+                        name: 'Опалчено по решению суда',
+                        data: [0]
                     }]
                 });
+                this.redrawChart();
+            },
+            redrawChart: function(){
+                var currentMeasure = kpApp.claims.getCurrentMeasure();
+                this.chart.series[0].setData(this.data.data.voluntarily[currentMeasure],false)
+                this.chart.series[1].setData(this.data.data.in_court[currentMeasure],true)
             }
         },
          court: {
              chart1: null,
              chart2: null,
+             data: null,
              fill: function(){
-                this.createCharts();
+
+                 this.createChart();
              },
-             createCharts: function(){
+             getData: function(){
+                 var voluntarily = {
+                     summ: [["Добровольно",0], ['По решению суда', 0]],
+                     count: [["Добровольно",0], ['По решению суда', 0]]
+                 }
+                 var court_decision = {
+                     summ: [["Положительное",0], ["Отрицательное",0]],
+                     count: [["Положительное",0], ["Отрицательное",0]]
+                 }
+                 var currentDate = moment();
+                 $.each(kpApp.claims.claims, function(i,c){
+                     if (moment(c.date_init).year()!=currentDate.year()) return;
+                     if (!c.date_compensation_get) return;
+                     if (c.is_voluntarily){
+                         voluntarily.summ[0][1]+= c.summ;
+                         voluntarily.count[0][1]++;
+                     }
+                     else{
+                         voluntarily.summ[1][1]+= c.summ;
+                         voluntarily.count[1][1]++;
+                     }
+                     if (!c.date_go_to_court) return;
+                     console.log('court')
+                     if (c.court_decision!='отриц'){
+                         court_decision.summ[0][1]+= c.summ;
+                         court_decision.count[0][1]++;
+                     }
+                     else{
+                         court_decision.summ[1][1]+= c.summ;
+                         court_decision.count[1][1]++;
+                     }
+                 })
+                 return {
+                     voluntarily: voluntarily,
+                     court_decision: court_decision
+                 }
+             },
+             createChart: function(){
                  this.chart1 = new Highcharts.Chart({
                      chart: {
                          plotBackgroundColor: null,
@@ -402,14 +569,11 @@
                      series: [{
                          type: 'pie',
                          name: 'Browser share',
-                         data: [
-                             ['Добровольно',   45.0],
-                             ['По решению суда',       26.8]
-                         ],
+                         data: [ ],
                          size: '60%',
                          dataLabels: {
                              formatter: function () {
-                                 return this.y > 5 ? this.point.y.toFixed(0)+'%' : null;
+                                 return this.percentage > 5 ? this.point.percentage.toFixed(0)+'%' : null;
                              },
                              color: 'white',
                              distance: -60 ,
@@ -448,13 +612,10 @@
                          type: 'pie',
                          name: 'Browser share',
                          size: '60%',
-                         data: [
-                             ['Положительное',   45.0],
-                             ['Отрицательное',       26.8]
-                         ] ,
+                         data: [] ,
                          dataLabels: {
                              formatter: function () {
-                                 return this.y > 5 ? this.point.y.toFixed(0)+'%' : null;
+                                 return this.percentage > 5 ? this.point.percentage.toFixed(0)+'%' : null;
                              },
                              color: 'white',
                              distance: -60 ,
@@ -465,12 +626,62 @@
                          }
                      }]
                  });
+                 this.redrawChart();
+             },
+             redrawChart: function(){
+                 this.data= this.getData();
+                 var currentMeasure = kpApp.claims.getCurrentMeasure();
+                 this.chart1.series[0].setData(this.data.voluntarily[currentMeasure])
+                 this.chart2.series[0].setData(this.data.court_decision[currentMeasure])
              }
          },
          contragent: {
              chart: null,
+             data: null,
              fill: function(){
+
                  this.createChart();
+             },
+             getData: function(){
+                 var by_summ = {};
+                 var by_count = {};
+
+                 $.each(kpApp.claims.claims, function(i, c){
+                     if (!by_summ[c.contragent])  by_summ[c.contragent] = 0
+                     if (!by_count[c.contragent])  by_count[c.contragent] = 0
+                     by_count[c.contragent]++;
+                     by_summ[c.contragent]+= c.summ;
+                 })
+
+                 var res = {
+                     summ: [],
+                     count: []
+                 }
+                 $.each(by_summ, function (comp, summ){
+                     res.summ.push([comp, summ]);
+                 });
+                 $.each(by_count, function (comp, count){
+                     res.count.push([comp, count]);
+                 });
+                 function sortFunction(a, b){
+                     if(a[1]<b[1])
+                     return 1
+                     if(a[1]>b[1])
+                     return -1
+                     return 0
+                 }
+
+                 res.summ.sort(sortFunction)
+                 res.count.sort(sortFunction)
+                 for (var i = res.summ.length-1; i>3; i --){
+                     res.summ[i-1][1]+=res.summ[i][1];
+                     res.summ.length = i;
+                     res.count[i-1][1]+=res.count[i][1];
+                     res.count.length = i;
+                 }
+                 res.summ[3][0] = 'Остальные';
+                 res.count[3][0] = 'Остальные';
+                 return res;
              },
              createChart: function(){
                  this.chart = new Highcharts.Chart({
@@ -499,17 +710,14 @@
                      series: [ {
                          name: 'Претензий на подрядчика',
                          data: [
-                               ['ЗЕЛЕНОГРАДПРОЕКТ', 14],
-                               ['ЗАО "СУ-155"',12],
-                               ['ТЕПЛОТЕХСТРОЙ',4],
-                               ['Остальные', 70]
+
                            ],
                          size: '80%',
                          innerSize: '60%',
                          dataLabels: {
                              formatter: function () {
                                  // display only if larger than 1
-                                 return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                                 return this.percentage > 3 ? '<b>' + this.point.name + ':</b> ' + this.percentage.toFixed() + '%'  : null;
                              },
                              style: {
                                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
@@ -518,6 +726,12 @@
                          }
                      }]
                  });
+                 this.redrawChart();
+             },
+             redrawChart: function(){
+                 this.data = this.getData();
+                 console.log(this.data)
+                 this.chart.series[0].setData(this.data[kpApp.claims.getCurrentMeasure()])
              }
          }
     }

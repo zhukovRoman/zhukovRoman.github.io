@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <script type="application/javascript" src="/js/jq.min.js"></script>
+    <script type="application/javascript" src="html2canvas.js"></script>
+    <script type="application/javascript" src="fabric.js"></script>
+    <script type="application/javascript" src="fileSaver.js"></script>
+    <script type="application/javascript" src="canvas2Blob.js"></script>
+    <script type="application/javascript" src="/js/moment.js"></script>
+    <style>
+    html, body{
+         padding: 0; margin: 0;
+    }
+    #map {
+        width: 900px;
+        height: 500px;
+    }
+    </style>
+</head>
+<body>
+<div id="settings">
+    Идентификатор маршрута: <input id="name" value="1"> <button id="save">сохранить</button> <button id="load">загрузить</button><br/>
+    Координаты начала <input id="lat_start" type="text" value="55.761464">
+    <input id="lng_start" type="text" value="37.687276"> <br/>
+
+    Координаты конца <input id="lat_end" type="text" value="55.753772">
+    <input id="lng_end" type="text" value="37.715317"> <br/>
+
+    <button id="start">начать</button>
+</div>
+<div id="content">
+    <div id="map"></div>
+    <div id="t"></div>
+</div>
+
+<div id="results">
+
+</div>
+<textarea id = 'vcs' rows="10" cols="60" name="text" style="position: absolute;
+  top: 10px;
+  right: 10px;"></textarea>
+</body>
+
+<script>
+
+    var latlng_start= [55.761464, 37.687276];
+    var latlng_end= [55.753772, 37.715317];
+    var route_name = '';
+    var myMap, route ;
+
+
+    $(document).ready(function(){
+        ymaps.ready(initMap);
+
+
+        $('#start').click(start)
+        $('#save').click(save)
+        $('#load').click(load)
+        function initMap () {
+            myMap = new ymaps.Map("map", {
+                center: [55.734876, 37.59308],
+                zoom: 12
+            });
+        }
+
+        function save(){
+            var obj = {};
+            setCoord();
+            obj.name =  $('#name').val();
+            obj.start = latlng_start;
+            obj.end =  latlng_end;
+            obj.data =  $('#vcs').val();
+            localStorage.setItem(obj.name,JSON.stringify(obj));
+        }
+
+        function setCoord (){
+            latlng_start = [ $('#lat_start').val(), $('#lng_start').val()];
+            latlng_end = [ $('#lat_end').val(), $('#lng_end').val()]
+        }
+
+        function load(){
+            var res = JSON.parse(localStorage[$('#name').val()])
+            $('#vcs').val(res.data);
+            latlng_start = res.start;
+            latlng_end = res.end;
+            console.log(res)
+            $('#lat_start').val(res.start[0])
+            $('#lng_start').val(res.start[1])
+            $('#lat_end').val(res.end[0])
+            $('#lng_end').val(res.end[1]);
+        }
+        function start(){
+
+            route_name = $('#name').val();
+            load();
+            iterate();
+
+        }
+        function iterate (){
+            date = moment().format('YYYYMDDHHmm');
+            file_name =  'ROUTE'+route_name+'_'+date+".png";
+            if (!navigator.onLine) {
+                setVCS("N/A", "N/A");
+            }
+            else {
+                getRoute();
+            }
+            setTimeout(iterate, 1000*60*0.5) ;
+        }
+
+        function setVCS(time, leng){
+            var string =  'ROUTE'+route_name+ ";" + date+ ";" + time+ ";" + leng +";\n";
+            $('#vcs').val($('#vcs').val()+string)
+            save();
+        }
+        function getRoute() {
+
+            var actualProvider = new ymaps.traffic.provider.Actual({}, {infoLayerShown: true});
+            actualProvider.setMap(myMap);
+            ymaps.route([latlng_start, latlng_end ], {mapStateAutoApply: true})
+                    .then(function (router) {
+                        route && myMap.geoObjects.remove(route);
+                        route = router;
+                        route.options.set({opacity: 0.7, strokeWidth: 3, strokeColor: '2121b5ff'});
+                        myMap.geoObjects.add(route);
+                        document.getElementById("t").innerHTML = "Время в пути: " + route.getHumanJamsTime() + " ,  Расстояние: " + route.getLength().toFixed() + " метров";
+                        setTimeout(function(){
+                            generateCanvas(date,route.getJamsTime(),route.getLength().toFixed() )
+                        },2000);
+
+                    }, function (error) {
+                        alert("Возникла ошибка: " + error.message);
+                    });
+
+        }
+
+        function generateCanvas (date, time, leng){
+
+            html2canvas(document.getElementById('content'), {
+                allowTaint: true,
+                "logging": true,
+                useCORS: true
+            }).then(function(canvas) {
+                $(canvas).attr('id','test_c');
+                $('#results').html('');
+                $('#results').append(canvas);
+
+                  canvas.toBlob(function(blob) {
+                    saveAs(blob, file_name);
+                  });
+                setVCS(time,leng);
+
+
+            });
+        }
+    });
+
+
+</script>
+</html>
+
+<!--55.761464,37.687276;55.753772,37.715317 55.753772,37.715317;55.761464,37.687276 55.756519,37.690869;55.765197,37.701217 55.765197,37.701217;55.756519,37.690869 55.758206,37.685899;55.755646,37.691967 55.755646,37.691967;55.758206,37.685899 55.758831,37.820056;55.770783,37.820403-->
+<!--55.770783,37.820403;55.758831,37.820056 55.783422,37.688079;55.786547,37.689916-->
+<!--55.786547,37.689916;55.783422,37.688079 55.783525,37.688244;55.785665,37.676914 55.785665,37.676914;55.783525,37.688244 55.783162,37.694591;55.78662,37.682066 55.78662,37.682066;55.783162,37.694591-->

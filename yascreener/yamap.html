@@ -101,8 +101,9 @@
 
         }
         function iterate (){
-            date = moment().format('YYYYMDDHHmm');
-            file_name =  'ROUTE'+route_name+'_'+date+".png";
+
+            date = moment();
+            file_name =  'ROUTE'+route_name+'_'+date.format('YYYY-MM-DD HH:mm')+".png";
             if (!navigator.onLine) {
                 setVCS("N/A", "N/A");
             }
@@ -113,7 +114,7 @@
         }
 
         function setVCS(time, leng){
-            var string =  'ROUTE'+route_name+ ";" + date+ ";" + time+ ";" + leng +";\n";
+            var string =  'ROUTE'+route_name+ ";" + date.format('YYYY-MM-DD;HH:mm')+ ";" + time+ ";" + leng +";\n";
             $('#vcs').val($('#vcs').val()+string)
             save();
         }

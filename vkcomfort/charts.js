@@ -124,7 +124,7 @@ $(function () {
     function setData (index){
         var res = [];
         $.each(data[index], function (i,val){
-            res.push({y:val, color: (val>=0) ? '#90ed7d' : '#f15c80'})
+            res.push({y:val, color: (val<=0) ? '#90ed7d' : '#f15c80'})
         })
         return res;
     }

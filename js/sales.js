@@ -813,7 +813,7 @@ var sales_charts = {
                 series: [{
                     name: 'Как покупают',
                     data: [],
-                    size: '60%',
+                    size: '50%',
                     dataLabels: {
                         formatter: function() {
                             return this.y > 5 ? this.point.name : null;
@@ -828,8 +828,8 @@ var sales_charts = {
                 }, {
                     name: 'Доля',
                     data: [],
-                    size: '80%',
-                    innerSize: '60%',
+                    size: '65%',
+                    innerSize: '50%',
                     dataLabels: {
                         style:{
                             fontSize: '20px',
@@ -837,7 +837,7 @@ var sales_charts = {
                         },
                         formatter: function() {
                             // display only if larger than 1
-                            return this.y > 1 ? '<b>'+ this.point.name +':</b> '+ this.percentage +'%'  : null;
+                            return this.y > 0 ? '<b>'+ this.point.name +':</b> '+ this.percentage.toFixed(2) +'%'  : null;
                         }
                     }
                 }]
@@ -873,7 +873,7 @@ var sales_charts = {
             })
 
             return {
-                common_data: [['Ипотека', mortrage_count],['Личные средства', not_mortrage_count]],
+                common_data: [['Личные средства', not_mortrage_count], ['Ипотека', mortrage_count]],
                 detail_data: details
             }
 

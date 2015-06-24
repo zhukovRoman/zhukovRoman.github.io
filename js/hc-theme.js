@@ -6,6 +6,9 @@ Highcharts.kpugs = {
     chart: {
         backgroundColor: 'rgba(0,0,0,0)'
     },
+    credits:  {
+        enabled: false
+    },
     title: {
         style: {
             fontSize:'30px',

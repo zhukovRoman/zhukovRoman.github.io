@@ -13,7 +13,24 @@ var objects_logic = {
         $('#list-button').click(function(){showLoaderAndCallFunction(objects_logic.showList)});
         if (navigator.onLine)
             objs_map.initMap();
+
+        var url =  document.location.href
+        if(url.indexOf('?')>=0)
+        {
+            var parameters = url.split("?")[1];
+            var tab = parameters.replace("tab=","");
+            objects_logic.setActiveDocument(tab)
+        }
+
+
     } ,
+    setActiveDocument: function(doc){
+
+        $('#documents-filter input').prop('checked', false);
+        $('#documents-filter input[data-value='+doc+']').prop('checked', true);
+        $("#documents-filter input").checkboxradio("refresh");
+        charts.redrawDocumentChart();
+    },
     showMap: function(){
         $("#charts-content").hide();
         $("#list-content").hide();

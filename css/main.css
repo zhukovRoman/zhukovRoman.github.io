@@ -182,7 +182,7 @@ body.bg_body{
     color: rgba(255,255,255,0.5);
 }
 
-.search-item.search-item-obj{
+.search-item.search-item-obj,.search-item.search-item-doc{
     background-image: url('images/search-object-item.png');
     background-repeat: no-repeat;
     background-position-y: 25px;

@@ -171,9 +171,28 @@ var main_logic = {
         $('#search-result-bg .search-wrapper').html('');
     },
     search_items: function(){
+
+        function pushDocumentsToRes(){
+            //GPZU
+            //MGE
+            //razresh
+            //bank_garant
+            //destroy
+            return [
+                {name:'ГПЗУ', type:'doc', id:'GPZU', add_info:"Анализ получение ГПЗУ"},
+                {name:'МГЭ', type:'doc', id:'MGE', add_info:"Анализ получение МГЭ"},
+                {name:'Разрешение на строительство', type:'doc', id:'razresh', add_info:"Анализ получение разрешения на строительство"},
+                {name:'Банковская гарантия', type:'doc', id:'bank_garant', add_info:"Анализ состояния банковских гарантий"},
+                {name:'Выполнение сноса', type:'doc', id:'destroy', add_info:"Анализ сноса"},
+            ] ;
+        }
+
+        var res = pushDocumentsToRes();
         var input_str = $("#search_field").val().toLowerCase();
-        if (input_str.length<2) return;
-        var res = [];
+        if (input_str.length<2) {
+            main_logic.bind_rows(res);
+            return;
+        }
         //search objects by address
         $.each(objects, function(i, o){
             if((o.ObjectAdress||"").toLowerCase().indexOf(input_str)==-1) return;
@@ -197,19 +216,24 @@ var main_logic = {
                 id: org.id
             })
         })
-        //console.log(res)
+
         main_logic.bind_rows(res);
     },
     bind_rows: function(arr){
+        console.log(arr)
        var html = '';
        function generate_html_item(item){
-           return "<a href='"+
-               ((item.type=='org') ? "org_view.html?id="+item.id : "object_view.html?id="+item.id )
-               +"'>"+
-                "<div class='search-item search-item-"+item.type+"'>"+
-                    "<div class='search-item-name'>"+item.name+"</div>"+
-                    "<div class='search-item-add-info'>"+item.add_info+"</div>"+
-               "</div> </a>"
+           var row = "<a href='";
+           if (item.type=='org') row +=  "org_view.html?id="+item.id;
+           if (item.type=='obj') row +=  "object_view.html?id="+item.id;
+           if (item.type=='doc') row +=  "objects.html?tab="+item.id;
+
+           return row +"'>"+
+           "<div class='search-item search-item-"+item.type+"'>"+
+               "<div class='search-item-name'>"+item.name+"</div>"+
+               "<div class='search-item-add-info'>"+item.add_info+"</div>"+
+           "</div> </a>";
+
        }
 
         $.each(arr, function(i,item){

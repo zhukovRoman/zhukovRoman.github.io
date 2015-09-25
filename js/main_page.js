@@ -179,9 +179,9 @@ var main_logic = {
             //bank_garant
             //destroy
             return [
-                {name:'ГПЗУ', type:'doc', id:'GPZU', add_info:"Анализ получение ГПЗУ"},
-                {name:'МГЭ', type:'doc', id:'MGE', add_info:"Анализ получение МГЭ"},
-                {name:'Разрешение на строительство', type:'doc', id:'razresh', add_info:"Анализ получение разрешения на строительство"},
+                {name:'ГПЗУ', type:'doc', id:'GPZU', add_info:"Анализ получения ГПЗУ"},
+                {name:'МГЭ', type:'doc', id:'MGE', add_info:"Анализ получения МГЭ"},
+                {name:'Разрешение на строительство', type:'doc', id:'razresh', add_info:"Анализ получения разрешения на строительство"},
                 {name:'Банковская гарантия', type:'doc', id:'bank_garant', add_info:"Анализ состояния банковских гарантий"},
                 {name:'Выполнение сноса', type:'doc', id:'destroy', add_info:"Анализ сноса"},
             ] ;

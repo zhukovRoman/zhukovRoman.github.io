@@ -23,14 +23,19 @@ var object_shower = {
         this.fillPlan();
         this.fillVisitInfo();
         if (navigator.onLine)
+        {
+            window.http_api.get_photos(this._id, this.fillPhoto)
+        }
+        if (navigator.onLine)
             this.initMap();
     },
     changeContent: function(){
 
-
         $('div[data-tab="fin-tab"]').hide();
         $('div[data-tab="tenders-tab"]').hide();
         $('div[data-tab="plan-tab"]').hide();
+        $('div[data-tab="photo-tab"]').hide();
+        $('div[data-tab="video-tab"]').hide();
         $('div[data-tab="ing-prepare-tab"]').hide();
         $('div[data-tab="'+$(this).attr("id")+'"]').show();
     },
@@ -365,5 +370,21 @@ var object_shower = {
         })
         $("h3 span[data-src]").html(object_shower.object['visit_date'])
 
+    },
+    fillPhoto: function(images) {
+
+        var container =  $('#photos_list');
+        var html ='';
+        $.each(images.images, function(i, img){
+        
+           html += "<a href='"+img.src_big+"' class='swipebox' title='"+img.title+"'>" +
+               '<div class="image-preview" style="background-image:url('+img.src+')"></div></a>';
+        })
+        //console.log(html)
+        container.append($.parseHTML(html))
+        $( '.swipebox' ).swipebox({
+            hideBarsDelay : 0
+        });
     }
+
 }

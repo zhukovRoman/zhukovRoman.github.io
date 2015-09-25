@@ -10,9 +10,15 @@
     <script type="text/javascript" src="js/highcharts.js"></script>
     <script type="text/javascript" src="js/hc-theme.js"></script>
     <script type="text/javascript" src="js/my_common_scripts.js"></script>
+    <script type="text/javascript" src="js/api.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/common.css">
     <link rel="stylesheet" type="text/css" href="css/object_view.css">
+
+    <!--photo-swipe-->
+    <script src="js/jquery.swipebox.min.js"></script>
+    <link rel="stylesheet" href="css/swipe-box/css/swipebox.min.css">
+
 
 </head>
 <body>
@@ -85,6 +91,10 @@
                         <label for="ing-prepare-tab">Инженерная подготовка и объезд</label>
                         <input type="radio" name="present" id="tenders-tab">
                         <label for="tenders-tab">Торги</label>
+                        <input type="radio" name="present" id="photo-tab">
+                        <label for="photo-tab">Фото</label>
+                        <input type="radio" name="present" id="video-tab">
+                        <label for="video-tab">Видео</label>
                     </fieldset>
                 </form>
             </div>
@@ -500,6 +510,18 @@
             </div>
 
             </div>
+            <div data-tab='photo-tab' id="photos_list"  style="display: none; overflow-y: scroll; height: 1250px; width:97% ;float: left; clear: both"></div>
+            <div data-tab='video-tab' style="display: none; overflow-y: scroll; height: 1250px; float: left; clear: both">
+                <video width="1200" height="700" controls="controls" >
+                    <!--<source src="http://85.30.244.9:2039/rtsp___10.103.52.10_axis_media_media.amp/live" type='video/ogg; codecs="theora, vorbis"'>-->
+                    <!--<source src="http://85.30.244.9:2039/rtsp___10.103.52.10_axis_media_media.amp/live" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>-->
+                    <!--<source src="http://85.30.244.9:2039/rtsp___10.103.52.10_axis_media_media.amp/live" type='video/webm; codecs="vp8, vorbis"'>-->
+                    <source src="http://r1---sn-jvhnu5g-n8vz.googlevideo.com/videoplayback?initcwndbps=1026250&ipbits=0&expire=1443214765&sver=3&fexp=9407537,9408210,9408710,9409069,9412774,9412780,9415365,9415485,9416023,9416126,9416344,9416729,9417707,9417740,9418153,9418448,9418679,9418896,9420348,9420381,9420630,9420638,9421013,9421150,9421248,9421665&key=yt6&lmt=1425979223339344&upn=6nQ-z7176q8&itag=43&mn=sn-jvhnu5g-n8vz&mm=31&source=youtube&sparams=dur,id,initcwndbps,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,ratebypass,source,upn,expire&ip=217.26.0.98&pl=20&mv=m&ratebypass=yes&mt=1443193130&ms=au&signature=14EFEFCD132B78D97346FF4AB08F3D74F63EF4B1.6674A90E3DBAA8411EA998BB28E63401272839CD&mime=video/webm&dur=0.000&id=o-AB3RJEwW6U_8HYNzGdBl67Tr2B-_NnwJHKZ4x7dYkUHg" type="video/mp4">
+                    Тег video не поддерживается вашим браузером.
+                </video>
+            </div>
+
+        </div>
 
 
 

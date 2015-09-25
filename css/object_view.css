@@ -133,15 +133,7 @@
     margin-top: 30px;
 }
 
-/*#documents_info{*/
-/*width: 850px;*/
-/*float: left;*/
-/*}*/
 
-/*#delaies_info, #destroy_info{*/
-    /*width: 850px;*/
-    /*float: right;*/
-/*}*/
 
 .left-side-panel{
     width: 888px;
@@ -216,3 +208,29 @@
 .object-tenders_list_column:last-child{
     width: 240px;
 }
+
+#photos_list{
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+#photos_list a{
+    margin: 5px;
+    /*display: block;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#photos_list .image-preview{
+    width: 570px;
+    height: 300px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+
+
+#swipebox-top-bar{font-size: 30px}
+#swipebox-title{margin-top: 30px}
+#swipebox-close{width: 70px; height: 70px; background-size: cover;background-position: 0px 5px;}

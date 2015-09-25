@@ -1,14 +1,15 @@
 var http_api = {
     url: 'http://213.85.34.118',
     port: ':50080',
-    //url: 'http://0.0.0.0',
+    //url: 'http://localhost',
     //port: ':3000',
     methods: {
         employee: '/api/employee',
         tenders: '/api/tenders',
         objects: '/api/objects',
         organizations: '/api/organizations',
-        apartments: '/api/apartments'
+        apartments: '/api/apartments',
+        photos: '/api/photos_by_object'
     },
     hash_url: '/api/gethash',
     getUrl: function(method_name){
@@ -78,6 +79,25 @@ var http_api = {
             },
             dataType: 'jsonp'
         });
+    },
+    get_photos : function (obj_id, callback){
+        console.log('start get photos', obj_id)
+        data_saver.active_request_counter++;
+        data_saver.spinnerUpdate();
+
+        $.ajax({
+            url: http_api.url+http_api.port+http_api.methods.photos+'?obj_id='+obj_id,
+            success: function(data) {
+                callback(eval(data))
+            },
+            error:function(){
+                console.log('error while pending photos '+ part);
+                data_saver.active_request_counter--;
+                data_saver.spinnerUpdate();
+            },
+            dataType: 'jsonp'
+        });
+        console.log('stop get photos')
     }
 }
 
@@ -172,7 +192,6 @@ var data_saver = {
         //добавить проверку на наличие такого значиния
         data_saver.db.transaction(function(tx) {
             tx.executeSql("SELECT * FROM INFO where key=?", [key], querySuccess, data_saver.errorDB);
-            console.log('inserted or update ' + key)
         });
         function querySuccess(tx, results) {
             if (results.rows.length == 0 ) {

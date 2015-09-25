@@ -201,51 +201,7 @@
         }]
     });
 
-        $('#pret_3').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Текущее состояние претензий (с переключением по сумме)'
-            },
-            xAxis: {
-                categories: ['2015 год']
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'количество'
-                }
-            },
-            legend: {
-                reversed: true
-            },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.x + '</b><br/>' +
-                            this.series.name + ': ' +(this.y) + '<br/>'
 
-                }
-            },
-            plotOptions: {
-                series: {
-                    //stacking: 'percent'
-                }
-            },
-            series: [ {
-                name: 'Положительное решение суда но не оплачено ',
-                data: [20]
-            }, {
-                name: 'На рассмотрении в суде',
-                data: [30]
-            },{
-                name: 'Компенсация получена',
-                data: [50]
-            }, {
-                name: 'Претензий предъявлено',
-                data: [100]
-            }]
-        });
 
         $('#pret_4').highcharts({
             chart: {
@@ -283,57 +239,7 @@
             }]
         });
 
-        $('#pret_5').highcharts({
-            chart: {
-                type: 'area'
-            },
-            title: {
-                text: 'Динамика удовлетворение претензий (с переключение по количеству)'
-            },
-            xAxis: {
-                categories: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                allowDecimals: false,
-                labels: {
-                    formatter: function () {
-                        return this.value; // clean, unformatted number for year
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Сумма'
-                },
-                labels: {
-                    formatter: function () {
-                        return this.value / 1 + ' млн';
-                    }
-                }
-            },
-//            tooltip: {
-//                pointFormat: '{series.name}  <b>{point.y:,.0f}</b><br/> {point.x}'
-//            },
-            plotOptions: {
-                area: {
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        }
-                    }
-                }
-            },
-            series: [{
-                name: 'Предъявлено',
-                data: [0, 15, 23, 45, 55, 62, 76, 80]
-            }, {
-                name: 'Удовлетворено',
-                data: [0, 10, 20, 35, 47, 53, 68, 75]
-            }]
-        });
+
     });
 
     $(function () {

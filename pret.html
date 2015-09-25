@@ -57,6 +57,10 @@
     <!--sales-->
     <link rel="stylesheet" type="text/css" href="css/sales.css">
 
+    <link rel="stylesheet" type="text/css" href="css/claims.css">
+
+
+
     <script type="text/javascript" src="js/highcharts-more.js"></script>
     <script type="text/javascript" src="js/sales.js"></script>
     <script type="text/javascript" src="js/my_common_scripts.js"></script>
@@ -122,27 +126,32 @@
         <div class='claim-tabs tabs' id="claim_tabs">
             <form>
                 <!--<div class="empl-tabs-group-name"></div>-->
-                <fieldset data-role="controlgroup" data-type="horizontal" id="claim-charts-tabs" class="tabs tabs-active">
+                <fieldset data-role="controlgroup" data-type="horizontal" id="claim-charts-tabs" class="tabs tabs-active" style="float: left;">
                     <input type="radio" name="cliam-chart" id="claim_c1" data-div="summary" checked="checked">
                     <label for="claim_c1">Сводка по статусам</label>
                     <input type="radio" name="cliam-chart" id="claim_c2" data-div="dynamics" >
-                    <label for="claim_c2">Динамика</label>
+                    <label for="claim_c2">Динамика за год</label>
                     <input type="radio" name="cliam-chart" id="claim_c3" data-div="payment" >
-                    <label for="claim_c3">Получение выплат</label>
+                    <label for="claim_c3">История выплат</label>
                     <input type="radio" name="cliam-chart" id="claim_c4" data-div="court" >
                     <label for="claim_c4">Суд</label>
                     <input type="radio" name="cliam-chart" id="claim_c5" data-div="contragent" >
                     <label for="claim_c5">Подрядчики</label>
-                    <input type="radio" name="cliam-chart" id="claim_c6" data-div="koef_chart" >
-                    <label for="claim_c6">Список</label>
+                    <input type="radio" name="cliam-chart" id="claim_c6" data-div="claims_list" >
+                    <label for="claim_c6">Списком</label>
                 </fieldset>
 
-                <fieldset data-role="controlgroup" data-type="horizontal" id="claim-measure-tabs" class="tabs tabs-active">
+                <fieldset data-role="controlgroup" data-type="horizontal" id="claim-measure-tabs" class="tabs tabs-active" style="float: right">
                     <input type="radio" name="claim-measure" id="summ" checked="checked">
                     <label for="summ">Сумма</label>
                     <input type="radio" name="claim-measure" id="count" >
                     <label for="count">Количество</label>
                 </fieldset>
+                <div id="show_all_toogle" data-role="none">
+                    <input type="checkbox" id="show_all" data-role="none">
+                    <label for="show_all">Показать претензии за все года</label>
+                </div>
+
             </form>
         </div>
 
@@ -164,12 +173,21 @@
                 <div id="contragent" class="claim-tab" style="display:none">
                     <div class="claim_chart" id="contragent_chart" style="height: 1200px; width: 1800px; float: left;"></div>
                 </div>
+                <div id="claims_list" class="claim-tab" style="display:none">
+                    <div class="claims-list-wrapper">
+                        <div class="claims-list-header">
+                            <span>Организация</span>
+                            <span>Объект</span>
+                            <span>Решено</span>
+                            <span>Решение суда</span>
+                            <span>Сумма</span>
+                            <span>Оплачено</span>
+                            <span>Не оплачено</span>
+                        </div>
+                        <div class="claims-list" id="claims-list"> </div>
+                    </div>
+                </div>
 
-                <!--<div id="empl_department_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
-                <!--<div id="personal_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
-                <!--<div id="koef_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
-                <!--<div id="aup_salary_structure_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
-                <!--<div id="attitude_chart" class="empl_chart" style="height: 1100px; width: 1800px; float: left; display: none;"></div>-->
             </div>
         </div>
     </div>
@@ -189,15 +207,34 @@
             $('#claim-measure-tabs input').change(function(){
                 kpApp.claims.current_tab.redrawChart();
             });
+            $('#show_all').change(function(){
+                kpApp.claims.current_tab.fillTable();
+            });
+
         },
         changeTab: function (){
             $('.claim-tab').hide();
             $('#'+$('#claim-charts-tabs input:checked').attr('data-div')).show();
             kpApp.claims.current_tab =  kpApp.claims.tabs[$('#claim-charts-tabs input:checked').attr('data-div')]
             kpApp.claims.current_tab.fill();
+            kpApp.claims.checkShowToggles();
         },
         getCurrentMeasure: function(){
             return  $('#claim-measure-tabs input:checked').attr('id')
+        },
+        checkShowToggles: function(){
+            if ($('#claim-charts-tabs input:checked').attr('data-div')!='claims_list')
+                this.showMeasureTabs();
+            else
+                this.showListToggle();
+        },
+        showListToggle: function(){
+            $('#claim-measure-tabs').hide();
+            $('#show_all_toogle').show();
+        },
+        showMeasureTabs: function(){
+            $('#show_all_toogle').hide();
+            $('#claim-measure-tabs').show();
         }
     }
 
@@ -733,7 +770,40 @@
                  console.log(this.data)
                  this.chart.series[0].setData(this.data[kpApp.claims.getCurrentMeasure()])
              }
-         }
+         },
+         claims_list:{
+             fill: function(){
+                 kpApp.claims.showListToggle();
+                 this.fillTable();
+             },
+             fillTable: function(){
+                 var table = $('#claims-list').html('')
+                 var show_all =  $('#show_all').prop( "checked" );
+                 $.each(kpApp.claims.claims, function(i,c){
+                     if (!show_all && moment(c.date_init).year() != moment().year()) return;
+                     var row = $(document.createElement('div')).addClass('claims-row')
+                     $(document.createElement('span')).text(c.contragent).appendTo(row)
+                     $(document.createElement('span')).text(c.object).appendTo(row)
+                     $(document.createElement('span')).text((c.is_voluntarily)? 'Добровольно' : 'В суде').appendTo(row)
+                     $(document.createElement('span')).text((c.court_decision=='отриц')? 'Отрицательное' : 'Положительное').appendTo(row)
+                     $(document.createElement('span')).text(million_to_text(c.summ)).appendTo(row)
+                     $(document.createElement('span')).text(million_to_text(c.summ_get)).appendTo(row)
+                     $(document.createElement('span')).text(million_to_text(c.summ - c.summ_get)).appendTo(row)
+                     row.appendTo(table);
+                 })
+                 $.each(kpApp.claims.claims, function(i,c){
+                     var row = $(document.createElement('div')).addClass('claims-row')
+                     $(document.createElement('span')).text(c.contragent).appendTo(row)
+                     $(document.createElement('span')).text(c.object).appendTo(row)
+                     $(document.createElement('span')).text((c.is_voluntarily)? 'Добровольно' : 'В суде').appendTo(row)
+                     $(document.createElement('span')).text((c.court_decision=='отриц')? 'Отрицательное' : 'Положительное').appendTo(row)
+                     $(document.createElement('span')).text(million_to_text(c.summ)).appendTo(row)
+                     $(document.createElement('span')).text(million_to_text(c.summ_get)).appendTo(row)
+                     $(document.createElement('span')).text(million_to_text(c.summ - c.summ_get)).appendTo(row)
+                     row.appendTo(table);
+                 })
+             }
+        }
     }
     $(function(){
         kpApp.claims.initClaims();

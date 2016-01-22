@@ -61,7 +61,7 @@
             $.ajax({
             dataType: "jsonp",
             cors: true,
-            url: "https://api.vk.com/method/groups.getMembers?group_id=smartcost&offset="+offset+"&fields=sex,age&version=5.27",
+            url: "https://api.vk.com/method/groups.getMembers?group_id=90876156&offset="+offset+"&fields=sex,age&version=5.27",
             success: function(data){
                 console.log(data.response)
                 $.each(data.response.users, function(i,user){

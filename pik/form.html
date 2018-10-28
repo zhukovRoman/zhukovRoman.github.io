@@ -1,0 +1,270 @@
+<!doctype html>
+
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+
+  <title>Анкета подрядчика</title>
+  <meta name="description" content="Анкета подрядчика">
+  <meta name="author" content="ПИК">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <style>
+    .employee{
+      margin-bottom: 16px;
+    }
+  </style>
+
+</head>
+
+<body>
+<div style="display:none">
+    <div class="row employee employee_template">
+        <div class="col-md-3 mb-3">
+            <label for="user_lc_XYZ">ЖК</label>
+            <select class="custom-select d-block w-100 user-lc-input" id="user_lc_XYZ" required>
+                <option value="20AC1B46-A71B-11E6-8483-001EC9D8C6A2">1 Мая</option>
+                <option value="7506BA8D-BE36-E511-A64E-001EC9D5643C">Green Park</option>
+                <option value="C37A42B8-4A70-11E5-9B3C-001EC9D8C6A2">Vander Park</option>
+                <option value="897DCAAB-773A-11E5-8124-001EC9D8C6A2">Академика Павлова</option>
+                <option value="FFBA12F6-CB4E-11E5-8124-001EC9D8C6A2">Аннино парк</option>
+                <option value="9EDDDB94-DC28-11E7-AC2A-001EC9D8C6A2">Белая Дача парк</option>
+                <option value="1A8D0E8C-CE62-BA0F-5A06-C99A56AD921C">Бунинские луга</option>
+                <option value="20AC1B4C-A71B-11E6-8483-001EC9D8C6A2">Бутово парк</option>
+                <option value="17FE0ECA-4308-6B73-946E-5C1FE3211CEC">Бутово парк 2</option>
+                <option value="5BBD38DF-7412-11E5-8124-001EC9D8C6A2">Вавилова 4</option>
+                <option value="A6260BAD-A0DE-11E6-8483-001EC9D8C6A2">Влюблино</option>
+                <option value="13042644-D313-BD24-14CB-C51593C10DE1">Восточное Бутово</option>
+                <option value="C3C2B9DB-987E-11E7-B49C-001EC9D8C6A2">Дмитровский парк</option>
+                <option value="C186A9B8-81FA-11E5-8124-001EC9D8C6A2">Ельнинская 14А</option>
+                <option value="F316EDF2-A041-11E6-8483-001EC9D8C6A2">Жемчужина Зеленограда</option>
+                <option value="F7FDE0E1-6E9C-11E6-8592-001EC9D8C6A2">Жулебино парк</option>
+                <option value="7E2350D0-4F20-11E6-B816-001EC9D8C6A2">Западные ворота столицы</option>
+                <option value="29E228B0-FB6B-11E7-AC2A-001EC9D8C6A2">Западный порт</option>
+                <option value="897DCAA7-773A-11E5-8124-001EC9D8C6A2">Измайловский 11</option>
+                <option value="4B185531-225D-11E6-9EDF-001EC9D8C6A2">Измайловский лес</option>
+                <option value="F04FD2BC-969A-11E6-8483-001EC9D8C6A2">Ильинские луга</option>
+                <option value="FF4C117B-E175-11E7-AC2A-001EC9D8C6A2">Кузьминский лес</option>
+                <option value="1EABAEB9-9DF2-2E6C-8476-C0EDEDF8503A">Левобережный</option>
+                <option value="D09DB077-580E-11E7-BDB8-001EC9D8C6A2">Лефортово парк</option>
+                <option value="E6E85614-A599-11E6-8483-001EC9D8C6A2">Люберецкий</option>
+                <option value="BAD69C33-7FCD-11E6-B308-001EC9D8C6A2">Люберцы парк</option>
+                <option value="F7FDE0DB-6E9C-11E6-8592-001EC9D8C6A2">Люблинский парк</option>
+                <option value="87F6144C-052B-E511-82D8-001EC9D5643C">Мещерский лес</option>
+                <option value="2F731369-385E-11E6-9EDF-001EC9D8C6A2">Митино парк</option>
+                <option value="B7E93A0A-AE6A-11E7-B49C-001EC9D8C6A2">Михайловский парк</option>
+                <option value="65098928-A7F6-11E6-8483-001EC9D8C6A2">мкр. Бутово, 2-я очередь</option>
+                <option value="649100F3-DE43-11E6-8483-001EC9D8C6A2">Мякинино парк</option>
+                <option value="65098911-A7F6-11E6-8483-001EC9D8C6A2">Нахабино</option>
+                <option value="102C34F4-CBBF-5D7C-92EE-79B38C0C0FE0">Новокуркино</option>
+                <option value="BEEB5E56-52EB-11E5-9B3C-001EC9D8C6A2">Одинцово-1</option>
+                <option value="926EE8C4-E62A-E511-82D8-001EC9D5643C">Оранж парк</option>
+                <option value="0D1D42AA-5A54-11E7-BDB8-001EC9D8C6A2">Павлова 40</option>
+                <option value="B06ECC48-9C44-11E6-8483-001EC9D8C6A2">Пётр I</option>
+                <option value="F7FDE0DC-6E9C-11E6-8592-001EC9D8C6A2">Полярная 25</option>
+                <option value="897DCAA9-773A-11E5-8124-001EC9D8C6A2">Пресненский вал 21</option>
+                <option value="E6E85625-A599-11E6-8483-001EC9D8C6A2">Путилково</option>
+                <option value="FFBA12F5-CB4E-11E5-8124-001EC9D8C6A2">Римского-Корсакова 11</option>
+                <option value="B26ACD55-A652-11E6-8483-001EC9D8C6A2">Рождественский</option>
+                <option value="51BB6DBE-773E-11E5-8124-001EC9D8C6A2">Саларьево парк</option>
+                <option value="0BADC0DC-9C59-11E6-8483-001EC9D8C6A2">Северный</option>
+                <option value="1B8C3AA9-0B1D-11E8-AC2A-001EC9D8C6A2">СолидСтрой Дубна</option>
+                <option value="FF4C117C-E175-11E7-AC2A-001EC9D8C6A2">СолидСтрой Котельники</option>
+                <option value="1E560F92-1C32-AC01-35DF-F8FEFE03FB61">Солнцево парк</option>
+                <option value="F316EE06-A041-11E6-8483-001EC9D8C6A2">Столичные поляны</option>
+                <option value="5050C5ED-06F8-11E6-8124-001EC9D8C6A2">Черняховского 19</option>
+                <option value="65098906-A7F6-11E6-8483-001EC9D8C6A2">Щитниково Изумрудный</option>
+                <option value="1C13E8BD-54C3-131E-0FE4-55156056F664">Ярославский</option>
+                <option value="D9BC4B36-95CD-11E6-8483-001EC9D8C6A2">Ярцевская 12</option>
+                <option value="578DC0E3-911E-11E6-B167-001EC9D8C6A2">Ясеневая 14</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="user_obj_XYZ">Объект</label>
+            <select class="custom-select d-block w-100 user-obj-input" id="user_obj_XYZ" required>
+            <option value='cal'>California</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="user_email_XYZ">Email</label>
+            <input type="text" class="form-control user-email-input" id="user_email_XYZ" placeholder="" value="" required>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="user_fio_XYZ">ФИО</label>
+            <input type="text" class="form-control user-fio-input" id="user_fio_XYZ" placeholder="" value="" required>
+        </div>
+        <div class="custom-control custom-checkbox col-md-12">
+            <input type="checkbox" class="custom-control-input user-tn-acc" id="user_tn_acc_XYZ">
+            <label class="custom-control-label" for="user_tn_acc_XYZ">Сотруднику необходим доступ к предписаниям по объекту</label>
+        </div>
+        <div class="custom-control custom-checkbox col-md-12">
+            <input type="checkbox" class="custom-control-input user-rd-acc" id="user_rd_acc_XYZ">
+            <label class="custom-control-label" for="user_rd_acc_XYZ">Сотруднику необходим доступ к рабочей документации для ознакомления</label>
+        </div>
+        <div class="custom-control custom-checkbox col-md-12">
+            <input type="checkbox" class="custom-control-input user-edupl-acc" id="user_edupld_acc_XYZ">
+            <label class="custom-control-label" for="user_edupld_acc_XYZ">Сотрудник будет загружать исполнительную документацию</label>
+        </div>
+        <div class="custom-control custom-checkbox col-md-12">
+            <input type="checkbox" class="custom-control-input user-edsign-acc" id="user_edsign_acc_XYZ">
+            <label class="custom-control-label" for="user_edsign_acc_XYZ">Сотрудник будет подписывать исполнительную документацию</label>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="py-5 text-center">
+                  <img class="d-block mx-auto mb-4" src="https://mail.google.com/mail/u/0?ui=2&ik=20530d99c9&attid=0.1&permmsgid=msg-f:1615324274682128301&th=166ac8de957e67ad&view=fimg&sz=w1600-h1000&attbid=ANGjdJ9URyFBFCmQMUGneNmu2RQQ6UEowvagbA1WbnKoluU9wLu6MTzCxsSQxi-QdAG9ClWoeZbzkpwRdxpO16ZHq0jc81PRNu_0BEvgkL-SGsxz8lIJ2I46nQNmHSA&disp=emb&realattid=166ac8d44f8ec6c794b1" alt="" width="72" height="72">
+                  <h2>Анкета подрядчика ГК ПИК</h2>
+                  <p class="lead">После заполнения данной формы мы предоставим доступ к информационным системам ГК ПИК для обмена документацией и работе с предписаниями. Форму можно заполнять несколько раз, главное укажите реквизиты вашей компании</p>
+                </div>
+          
+                <div class="row">
+                  <div class="col-md-12 order-md-1">
+                    <h4 class="mb-3">Общая информация о вашей компании</h4>
+                    <form class="needs-validation" novalidate>
+                      <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="company_name">Наименование компании</label>
+                            <input type="text" class="form-control" id="company_name" placeholder="" value="" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="INN">ИНН</label>
+                          <input type="text" class="form-control" id="INN" placeholder="" value="" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="KPP">КПП</label>
+                          <input type="text" class="form-control" id="KPP" placeholder="" value="" required>
+                        </div>
+                      </div>
+          
+                      <div class="mb-3">
+                        <label for="email">Email контактного лица</label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        <small class="text-muted">Для уточнения введенных данных при необходимоити</small>
+                      </div>
+          
+                      <hr class="mb-4">
+          
+                      <h4 class="mb-3">Сотрудники по объектам</h4>
+                      
+                      <p>Далее для каждого объекта, где вы выполняете работы, укажите ваших сотрудников и выполняемую им роль:</p>
+                      <div id="employee_list">
+
+                      </div>              
+                      <button class="btn btn-primary btn-sm btn-block" onclick="addNewEmployee()" type='button'>Добавить</button>
+                      <hr class="mb-4">
+                      <button class="btn btn-success btn-lg btn-block" type="button" onclick="collectAndSendData()">Отправить</button>
+                    </form>
+                  </div>
+                </div>
+          
+                <footer class="my-5 pt-5 text-muted text-center text-small">
+                  <p class="mb-1">&copy; 2018 ГК ПИК</p>
+                </footer>
+              </div>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCZDAE03Tl0x_MbeFqvykWONsChXI_YiU8",
+        authDomain: "conrtactors-pik.firebaseapp.com",
+        databaseURL: "https://conrtactors-pik.firebaseio.com",
+        projectId: "conrtactors-pik",
+        storageBucket: "conrtactors-pik.appspot.com",
+        messagingSenderId: "1021765200613"
+    };
+    firebase.initializeApp(config);
+
+
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    // Disable deprecated features
+    db.settings({
+        timestampsInSnapshots: true
+    });
+</script>
+
+
+<script>
+    var template = document.getElementsByClassName('employee_template')[0];
+    var list = document.getElementById('employee_list');
+
+    function generateUniqId (){
+      return new Date().getTime()+'_'+Math.floor(Math.random()*100)
+    }
+
+    function addNewEmployee(){
+      var clone = template.cloneNode(true);
+      clone.classList.remove("employee_template");
+      replaceIdsInChilds(clone, generateUniqId());
+      list.appendChild(clone);
+    }
+
+    function replaceIdsInChilds(elem, newUniqId){
+      var child = elem.getElementsByTagName("*");
+      elem.setAttribute('id', 'user_'+newUniqId);
+      for (var i = 0; i<child.length; i++){
+        var forAttr = child[i].getAttribute('for');
+        var idAttr = child[i].id;
+        if( idAttr && idAttr.indexOf('XYZ')) child[i].setAttribute('id', idAttr.replace('XYZ', newUniqId));
+        if( forAttr && forAttr.indexOf('XYZ')) child[i].setAttribute('for', forAttr.replace('XYZ', newUniqId))
+      }
+    }
+
+    function collectData(){
+      var con = {};
+      con.company_name = document.getElementById('company_name').value;
+      con.company_inn = document.getElementById('INN').value;
+      con.company_kpp = document.getElementById('KPP').value;
+      con.company_email = document.getElementById('email').value;
+      con.fillDate = new Date().toISOString();
+      con.users = {};
+
+      var usersForms = list.getElementsByClassName('employee');
+      for (var i = 0; i<usersForms.length; i++){
+
+        user_uniq_id = usersForms[i].id;
+
+        user = {};
+        user.id = user_uniq_id;
+        user.lc = usersForms[i].getElementsByClassName('user-lc-input')[0].value;
+        user.obj = usersForms[i].getElementsByClassName('user-obj-input')[0].value;;
+        user.fio = usersForms[i].getElementsByClassName('user-fio-input')[0].value;
+        user.email = usersForms[i].getElementsByClassName('user-email-input')[0].value;
+        user.tn_access = usersForms[i].getElementsByClassName('user-tn-acc')[0].checked || false;
+        user.rd_access = usersForms[i].getElementsByClassName('user-rd-acc')[0].checked || false;
+        user.edupl_access = usersForms[i].getElementsByClassName('user-edupl-acc')[0].checked || false;
+        user.edsign_access = usersForms[i].getElementsByClassName('user-edsign-acc')[0].checked || false;
+
+        con.users[user_uniq_id] = user;
+      }
+
+      return con;
+
+    }
+
+    function collectAndSendData(){
+        var data = collectData();
+        db.collection("contractors_test").add(data)
+                                        .then(function(docRef) {console.log("Document written with ID: ", docRef.id);})
+                                        .catch(function(error) {console.error("Error adding document: ", error);});
+    }
+
+    addNewEmployee();
+
+
+    
+</script>
+</html>

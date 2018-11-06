@@ -51,7 +51,7 @@
         </div>
         <div class="col-md-5">
           <label for="user_obj_XYZ">Сотрудник работает на объектах:</label>
-          <select class="custom-select d-block w-100 user-obj-input" id="user_obj_XYZ" required multiple="multiple">
+          <select class="custom-select d-block user-obj-input" id="user_obj_XYZ" required multiple="multiple">
             <option value='214DFB0D-C6B1-11E6-8483-001EC9D8C6A2_1 Мая, Школа на 550 мест'>1 Мая, Школа на 550 мест</option>
               <option value='AF780495-ECB4-11E4-90B1-001EC9D8C6A2_Green Park, Блок 1'>Green Park, Блок 1</option>
               <option value='F953FDED-0925-11E5-9B3C-001EC9D8C6A2_Green Park, Блок 2'>Green Park, Блок 2</option>
@@ -468,10 +468,10 @@
           </select>
         </div> 
         <div class="row">
-          <div class="col-12"><h6>Сотруднику необходимо предоставить доступ к:</h6></div>
+          <div class="col-12"><h6>Сотруднику необходимо предоставить:</h6></div>
 
           <div class="col-6">
-            <b>Общий доступ:</b>
+            <b>Общий доступ к:</b>
             <div class="custom-control custom-checkbox col-md-12">
               <input type="checkbox" class="custom-control-input user-tn-acc" id="user_tn_acc_XYZ" checked>
               <label class="custom-control-label" for="user_tn_acc_XYZ">предписаниям по объекту</label>
@@ -490,7 +490,7 @@
             </div>
           </div>
           <div class="col-6">
-            <b>Наряд-Заказы:</b>
+            <b>Доступ к Наряд-Заказам:</b>
             <div class="custom-control custom-checkbox col-md-12">
               <input type="checkbox" class="custom-control-input user-nz-execute-accept" id="user_nz_execute_XYZ">
               <label class="custom-control-label" for="user_nz_execute_XYZ">сотрудник будет подтверждать готовность выполнить Наряд-Заказ</label>
@@ -507,7 +507,7 @@
           </div>
 
           <div class="col-12">
-            <b>Исполнительная документация:</b>
+            <b>Доступ к исполнительной документации:</b>
             <div class="custom-control custom-checkbox col-md-12">
               <input type="checkbox" class="custom-control-input user-edupl-acc" id="user_edupld_acc_XYZ">
               <label class="custom-control-label" for="user_edupld_acc_XYZ">Сотрудник будет загружать исполнительную документацию</label>
@@ -518,11 +518,11 @@
             </div>
             <div class="custom-control custom-checkbox col-md-12">
               <input type="checkbox" class="custom-control-input user-gp-control-edsign-acc" id="user_gp_control_edsign_acc_XYZ">
-              <label class="custom-control-label" for="user_gp_control_edsign_acc_XYZ">Вы являетесь ГП на объекте и сотрудник будет подписывать исполнительную документацию (стройконтроль) </label>
+              <label class="custom-control-label" for="user_gp_control_edsign_acc_XYZ">Вы являетесь ГП на объекте, и сотрудник будет подписывать исполнительную документацию (стройконтроль) </label>
             </div>
             <div class="custom-control custom-checkbox col-md-12">
                 <input type="checkbox" class="custom-control-input user-gp-executor-edsign-acc" id="user_gp_executor_edsign_acc_XYZ">
-                <label class="custom-control-label" for="user_gp_executor_edsign_acc_XYZ">Вы являетесь ГП на объекте и сотрудник будет подписывать исполнительную документацию (исполнитель работ) </label>
+                <label class="custom-control-label" for="user_gp_executor_edsign_acc_XYZ">Вы являетесь ГП на объекте, и сотрудник будет подписывать исполнительную документацию (исполнитель работ) </label>
             </div>
           </div>
         </div> 
@@ -541,7 +541,7 @@
                 <div class="row congrats text-center hide">
                     <div class="col-md-12 order-md-1">
                       <h2>Спасибо!</h2>
-                      <h4>Мы обработаем данные ближайшее время. Сотрудникам придут письма о предоставлении доступа в системы. Мы так же сообщим о предоставлении доступа на email контактного лица</h4>
+                      <h4>Мы обработаем данные в ближайшее время. Сотрудникам придут письма о предоставлении доступа в системы. Мы также сообщим о предоставлении доступа на email контактного лица</h4>
                       <a href="#" onclick="location.reload();">Заполнить еще раз</a>
                     </div>
 
@@ -568,14 +568,14 @@
                       <div class="mb-3">
                         <label for="email">Email контактного лица</label>
                         <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                        <small class="text-muted">Для уточнения введенных данных при необходимоити</small>
+                        <small class="text-muted">Для уточнения введенных данных при необходимости</small>
                       </div>
           
                       <hr class="mb-4">
           
                       <h4 class="mb-3">Сотрудники по объектам</h4>
                       
-                      <p>Далее для каждого объекта, где вы выполняете работы, укажите ваших сотрудников и выполняемую им роль:</p>
+                      <p>Укажите всех ваших сотридников, которые работают на наших объектах и которым нужен доступ к системам ГК ПИК:</p>
                       <div id="employee_list">
 
                       </div>              
@@ -620,7 +620,13 @@
       
       $('#user_obj_'+uniqEmployeeId).select2({
         placeholder: 'Выберите не менее одного объекта',
-        allowClear: true
+        allowClear: true,
+        language: {
+          noResults: function(){
+            return "Такой объект не найден. Сообщите об этом на <a href='mailto:kis@pik.ru'>kis@pik.ru</a>";
+          },
+       },
+       escapeMarkup: function (markup) { return markup;}
       });
     }
 
@@ -641,7 +647,7 @@
       con.company_inn = document.getElementById('INN').value;
       con.company_kpp = document.getElementById('KPP').value;
       con.company_email = document.getElementById('email').value;
-      con.fillDate = new Date().toISOString();
+      con.fillDate = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
       con.users = {};
 
       var usersForms = list.getElementsByClassName('employee');

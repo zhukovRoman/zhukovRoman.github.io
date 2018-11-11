@@ -1,0 +1,189 @@
+<!doctype html>
+
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+
+  <title>Список подрядчика</title>
+  <meta name="description" content="Анкета подрядчика">
+  <meta name="author" content="ПИК">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <style>
+    .user{
+      margin-bottom: 16px;
+      border-top: 1px solid gray;
+    }
+    
+    .company-card{
+        margin-bottom: 32px;
+    }
+    .hide{
+      display: none;
+    }
+    
+  </style>
+
+</head>
+
+<body>
+
+<div style="display:none">
+
+        <div class="card col-12 company-card" id="company-card-template">
+                <div class="card-body">
+                    <h5 class="card-title"> <span data-attr="company_name"></span> </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">ИНН: <span data-attr="company_inn"></span> КПП: <span data-attr="company_kpp"></span></h6>
+                    <p><span data-attr="company_email"></span></p>
+                    
+                    
+                </div>
+            </div>
+        <div class="user" id = "user-template" >
+                <div class="user-info">
+                    <span data-attr="fio"></span> <i><span data-attr="email"></span></i>
+                </div>
+                <h5>Объекты</h5>
+                <div class="user-objects">
+                        
+                </div> 
+                <h5>Доступы</h5>
+                <div class="user-access">
+                    <div>предписаниям по объекту: <span data-attr="tn_access" data-boolean></span></div>
+                    <div>рабочей документации для ознакомления: <span data-attr="rd_access" data-boolean></span></div>
+                    <div>проектной документации для ознакомления: <span data-attr="pd_access" data-boolean></span></div>
+                    <div>Наряд-Заказам для ознакомления: <span data-attr="nz_view_access" data-boolean></span></div>
+
+                    <div>сотрудник будет подтверждать готовность выполнить Наряд-Заказ: <span data-attr="nz_execute_accept_access" data-boolean></span></div>
+                    <div>сотрудник будет передавать объёмы работ по Наряд-Заказу заказчику: <span data-attr="user_nz_delegate_access" data-boolean></span></div>
+                    <div>сотрудник будет передавать стоимость работ по Наряд-Заказу заказчику: <span data-attr="user_nz_delegate_price_access" data-boolean></span></div>
+
+                    
+                    <div>Сотрудник будет загружать исполнительную документацию: <span data-attr="edupl_access" data-boolean></span></div>
+                    <div>Сотрудник будет подписывать исполнительную документацию: <span data-attr="edsign_access" data-boolean></span></div>
+                    <div>Вы являетесь ГП на объекте, и сотрудник будет подписывать исполнительную документацию (стройконтроль): <span data-attr="user_gp_control_edsign_access" data-boolean></span></div>
+                    <div>Вы являетесь ГП на объекте, и сотрудник будет подписывать исполнительную документацию (исполнитель работ): <span data-attr="user_gp_executor_edsign_access" data-boolean></span></div>
+                    
+                </div>  
+            </div>    
+
+</div>
+        <div class="container">
+            <div class="row" id="result-list">
+                    
+            </div>         
+                
+          
+            <footer class="my-5 pt-5 text-muted text-center text-small">
+                <p class="mb-1">&copy; 2018 ГК ПИК</p>
+            </footer>
+        </div>
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+</body>
+<script>
+
+    var list = document.getElementById('result-list');
+    var companyTemplate = document.getElementById('company-card-template');
+    companyTemplate.removeAttribute('id');
+    var userTemplate = document.getElementById('user-template');
+    userTemplate.removeAttribute('id');
+
+
+    function getData(){
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCZDAE03Tl0x_MbeFqvykWONsChXI_YiU8",
+            authDomain: "conrtactors-pik.firebaseapp.com",
+            databaseURL: "https://conrtactors-pik.firebaseio.com",
+            projectId: "conrtactors-pik",
+            storageBucket: "conrtactors-pik.appspot.com",
+            messagingSenderId: "1021765200613"
+        };
+        firebase.initializeApp(config);
+
+
+        // Initialize Cloud Firestore through Firebase
+        var db = firebase.firestore();
+
+        // Disable deprecated features
+        db.settings({
+            timestampsInSnapshots: true
+        });
+        db.collection("contractors_test").get()
+                                        .then(function(data) {console.log("Data got"); updateTable(data);})
+                                        .catch(function(error) {console.error("Error adding document: ", error);});
+    }
+
+    function updateTable(data){
+        data.forEach(function(doc){
+            console.log(doc.data())
+            appendDataToList(doc.data())
+        })
+    }
+
+    function appendDataToList(companyData){
+        var companyBlock = companyTemplate.cloneNode(true);
+        var allSpans = companyBlock.querySelectorAll('span[data-attr]')
+        for (var i = 0; i<allSpans.length; i++){
+            var currentSpan = allSpans[i];
+            var attr = currentSpan.getAttribute('data-attr');
+            var newVal = companyData[attr];
+            currentSpan.innerHTML = newVal;
+        }
+
+
+        for (var key in companyData.users) {
+            console.log(companyData.users[key]);
+            companyBlock.appendChild(generateUserBlock(companyData.users[key]));
+            // console.log("User " + companyData.users[key] + " is #" + key); // "User john is #234"
+        }
+        //console.log(Array.from(companyData.users.values()));
+        // Array.from(companyData.users.values()).forEach(function(user, ind, arr){
+        //     console.log(user);
+        //     companyBlock.appendChild(generateUserBlock(user));
+        // })
+        
+
+
+        list.appendChild(companyBlock);
+    }
+
+    function generateUserBlock(userData){
+        var userBlock = userTemplate.cloneNode(true);
+        var allSpans = userBlock.querySelectorAll('span[data-attr]')
+        for (var i = 0; i<allSpans.length; i++){
+            var currentSpan = allSpans[i];
+            var attr = currentSpan.getAttribute('data-attr');
+            var newVal = userData[attr];
+            
+            if(currentSpan.hasAttribute('data-boolean')){
+                currentSpan.innerHTML = (newVal ? 'Да' : 'Нет');
+            }
+            else currentSpan.innerHTML = newVal;
+        }
+
+        var objectBlock = userBlock.getElementsByClassName('user-objects')[0];
+        var objectsString = '';
+        userData.obj.forEach(function(object, index){
+
+            var objectName = object.slice(37);
+            var objectGuid = object.slice(0,36);
+            objectsString += objectName + ' (' + objectGuid + ')' + '</br>';
+        })
+        objectBlock.innerHTML = objectsString;
+        return userBlock;
+
+    }
+    $(document).ready(function() {
+        getData();
+    });
+</script>
+</html>

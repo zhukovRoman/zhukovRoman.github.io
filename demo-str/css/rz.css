@@ -1,0 +1,219 @@
+.rz-chart{
+    min-height: 250px;
+    padding: 5px;
+    display: inline-block;
+    float: none;
+}
+
+#map {
+    width: 100%;
+    height: 550px;
+}
+
+
+.tab{
+    padding: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tab a{
+    margin-right: 0px !important;
+}
+
+.tab-content {
+    padding: 5px;
+    border: 1px solid #dddddd;
+    border-top: 0;
+}
+
+.map-legend{
+    margin: 26px 0;
+    padding-top: 1px;
+}
+
+.map-legend .legend-item{
+    text-align: center;
+}
+
+.map-legend .legend-item .marker.green{
+    border-radius: 5px;
+    background-color: #85aa3d;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+
+.map-legend .legend-item .marker.yellow{
+    border-radius: 5px;
+    background-color: #fca100;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.map-legend .legend-item .marker.red{
+    border-radius: 5px;
+    background-color: #ef735b;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+
+.tooltip-btn{
+    color: #ffffff;
+    background-color: #2ecc71;
+}
+a.tooltip-btn, a.tooltip-btn:hover, a.tooltip-btn:visited{
+    color: #ffffff;
+}
+
+.radio-button{
+    width: 40%;
+    margin: 0 auto;
+}
+
+.radio-button label{
+    width: 49%;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.radio-button input:checked + label{
+    border-bottom: 2px solid #2ecc71;
+}
+
+.radio-button input{
+    display: none;
+}
+
+
+.table>tbody>tr.warning-important>td, 
+.table>tbody>tr.warning-important>th, 
+.table>tbody>tr>td.warning-important, 
+.table>tbody>tr>th.warning-important, 
+.table>tfoot>tr.warning-important>td, 
+.table>tfoot>tr.warning-important>th, 
+.table>tfoot>tr>td.warning-important, 
+.table>tfoot>tr>th.warning-important, 
+.table>thead>tr.warning-important>td, 
+.table>thead>tr.warning-important>th, 
+.table>thead>tr>td.warning-important, 
+.table>thead>tr>th.warning-important{
+    background-color: #FCDA99;
+}
+
+
+/**
+ * adding sorting ability to HTML tables with Bootstrap styling
+ * @summary HTML tables sorting ability
+ * @version 2.0.0
+ * @requires tinysort, moment.js, jQuery
+ * @license MIT
+ * @author Matus Brlit (drvic10k)
+ * @copyright Matus Brlit (drvic10k), bootstrap-sortable contributors
+ */
+
+table.sortable span.sign {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    font-size: 12px;
+    margin-top: -10px;
+    color: #bfbfc1;
+}
+
+table.sortable th:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    font-size: 12px;
+    margin-top: -10px;
+    color: #bfbfc1;
+}
+
+table.sortable th.arrow:after {
+    content: '';
+}
+
+table.sortable span.arrow, span.reversed, th.arrow.down:after, th.reversedarrow.down:after, th.arrow.up:after, th.reversedarrow.up:after {
+    border-style: solid;
+    border-width: 5px;
+    font-size: 0;
+    border-color: #ccc transparent transparent transparent;
+    line-height: 0;
+    height: 0;
+    width: 0;
+    margin-top: -2px;
+}
+
+table.sortable span.arrow.up, th.arrow.up:after {
+    border-color: transparent transparent #ccc transparent;
+    margin-top: -7px;
+}
+
+table.sortable span.reversed, th.reversedarrow.down:after {
+    border-color: transparent transparent #ccc transparent;
+    margin-top: -7px;
+}
+
+table.sortable span.reversed.up, th.reversedarrow.up:after {
+    border-color: #ccc transparent transparent transparent;
+    margin-top: -2px;
+}
+
+table.sortable span.az:before, th.az.down:after {
+    content: "a .. z";
+}
+
+table.sortable span.az.up:before, th.az.up:after {
+    content: "z .. a";
+}
+
+table.sortable th.az.nosort:after, th.AZ.nosort:after, th._19.nosort:after, th.month.nosort:after {
+    content: "..";
+}
+
+table.sortable span.AZ:before, th.AZ.down:after {
+    content: "A .. Z";
+}
+
+table.sortable span.AZ.up:before, th.AZ.up:after {
+    content: "Z .. A";
+}
+
+table.sortable span._19:before, th._19.down:after {
+    content: "1 .. 9";
+}
+
+table.sortable span._19.up:before, th._19.up:after {
+    content: "9 .. 1";
+}
+
+table.sortable span.month:before, th.month.down:after {
+    content: "jan .. dec";
+}
+
+table.sortable span.month.up:before, th.month.up:after {
+    content: "dec .. jan";
+}
+
+table.sortable>thead th:not([data-defaultsort=disabled]) {
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+table.sortable>thead th:hover:not([data-defaultsort=disabled]) {
+    background: #efefef;
+}
+
+table.sortable>thead th div.mozilla {
+    position: relative;
+}

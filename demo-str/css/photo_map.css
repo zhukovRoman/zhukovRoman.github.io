@@ -1,0 +1,60 @@
+.photo{
+    height: 250px;
+    background-size: cover;
+    max-width: 400px;
+    width: 400px;
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.inline{
+    display: inline-block;
+    padding: 0;
+}
+
+#project_map{
+    height: 300px;
+}
+
+.photo-video-card{
+    text-align: center;
+}
+
+.photo-video-content{
+    padding-top: 10px;
+}
+
+.photo-progress{
+    background-image: url(http://zenit.acceleration.ru/prj4/PhotoProgress/IMG_3719.JPG);
+}
+
+.photo-camera-screen{
+    background-image: url(images/photo_screen.jpg);
+}
+
+
+a.tooltip-btn, a.tooltip-btn:hover, a.tooltip-btn:visited{
+    color: #ffffff;
+}
+
+.radio-button{
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.radio-button label{
+    width: 49%;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.radio-button input:checked + label{
+    border-bottom: 2px solid #2ecc71;
+}
+
+.radio-button input{
+    display: none;
+}
+

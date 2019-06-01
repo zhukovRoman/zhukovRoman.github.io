@@ -1,0 +1,42 @@
+.filter-block{
+    background-color: rgba(255,255,255,0.6);
+    padding-bottom: 10px;
+    left: 82.25%;
+    position: fixed;
+    font-size: 0.94em;
+}
+
+.touch-filter input{
+    display: none;
+}
+
+.touch-filter .tf-filter-group-header{
+    text-transform: uppercase;
+    color: red;
+}
+
+.tf-header{
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.touch-filter label{
+    display: block;
+    background-image: url('images/tf-checked.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 25px;
+}
+
+.touch-filter input:checked+label{
+    background-image: url('images/tf-header-checked.png')
+}
+
+.touch-filter .tf-filter-group-item,.touch-filter .tf-filter-subgroup, .tf-body{
+    margin-left: 10px;
+}
+
+
+
+

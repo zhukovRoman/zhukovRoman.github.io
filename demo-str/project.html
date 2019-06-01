@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Перинатальный центр в г. Нарофоминск</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/leaflet.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/project.css">
+    <link rel="stylesheet" type="text/css" href="css/photo_map.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header id="header" class="header">
+      <a href="/">
+        <div id="logo" class="logo">
+          <div class="text">
+            Министерство строительного комплекса
+          </div>
+        </div>
+      </a>
+      <div class="current">
+        <span>Перинатальный центр (кад. №50:26:0100212:864)</span><br/>
+        Регион > Наро-Фоминский район > Наро-Фоминск
+      </div>
+    </header>
+    <nav id="menu" class="menu">
+      <div class="item"><a class="anchor" href="#" data-anchor="#dashboard"><span>Сводка</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#gantt"><span>Сроки</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#budget"><span>Бюджет</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#mto"><span>МТО</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#hr"><span>Мобилизация</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#managers"><span>Ответственные</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#tasks"><span>Задачи</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#passport"><span>Паспорт</span></a></div>
+      <div class="item"><a class="anchor" href="#" data-anchor="#photo"><span>Фото и видео</span></a></div>
+    </nav>
+
+    <div class="container">
+      <div id="dashboard" class="card">
+        <div class="card-header">Сводка по проекту</div>
+        <div class="dashboard">
+          <div class="terms-container">
+            <div class="deviation">
+              Отклонение производства<br/>
+              <span>20</span><br/>
+              дней
+            </div>
+            <div class="terms">
+              Директивные сроки: <b>01.04.2014 — 01.05.2016</b><br/>
+              Прогнозируемый срок оконачания: <div class="inline red"><b>21.05.2015</b></div>
+            </div>
+          </div>
+
+          <div class="budget-container">
+            <div class="budget-deviation">
+              К освоению<br/>
+              <span>6 429 млн ₽</span><br/>
+              дней
+            </div>
+            <div class="budget">
+              Запланировано: <b>12 000 185 300 ₽</b><br/>
+              Освоено: <b>5 571 000 000 ₽</b><br/>
+              Остаток: <div class="inline green"><b>6 429 185 300 ₽</b><br/></div>
+            </div>
+          </div>
+
+          <div class="indicators">
+            Общая площадь: <b>35 000 м²</b><br/>
+            Койкомест: <b>150 шт.</b>
+          </div>
+
+          <div class="tasks">
+            Отклонение по задачам<br/>
+            <span>9</span><br/>
+            дней
+          </div>
+
+          <div class="milestones-progress">
+<!--             <ul>
+              <li class="completed"><span>Получение ГПЗУ</span></li>
+              <li class="completed"><span>Разработка проектной документации</span></li>
+              <li class="completed"><span>Переоформление договора аренды земельного участка на SPV</span></li>
+              <li class="completed"><span>Получение свидетельства о собственности на SPV</span></li>
+              <li class="completed"><span>Оформления доп. соглашения с измененным РИЗУ</span></li>
+              <li class="completed"><span>Получение положительного заключения экспертизы ПД</span></li>
+              <li class="completed"><span>Получение свидетельства об утверждении АГР</span></li>
+              <li class="completed"><span>Снос здания и сооружений</span></li>
+              <li class="completed"><span>Получение разрешения на строительство</span></li>
+              <li class="completed"><span>Ограждение котлована</span></li>
+              <li class="completed"><span>Строительство подземной части здания</span></li>
+              <li class="completed"><span>Строительство надземной части здания</span></li>
+              <li><span>Устройство внутренних инженерных систем</span></li>
+              <li><span>Монтаж ограждающих конструкций</span></li>
+              <li><span>Монтаж внутренних стен и перегородок</span></li>
+              <li><span>Устройство кровли</span></li>
+              <li><span>Устройство фасада</span></li>
+              <li><span>Выполнение внутренней отделки</span></li>
+              <li><span>Получение заключения о соответствии</span></li>
+              <li><span>Благоустройство</span></li>
+              <li><span>Ввод в эксплуатацию</span></li>
+            </ul> -->
+            <img src="css/images/milestones.png">
+          </div>
+          <div class="milestones-current">
+            Сейчас делается: <b>Устройство внутренних инженерных систем</b><br/>
+            Окончание по плану: <b>13.04.2015</b><br/>
+            Окончанию по прогнозу: <div class="inline red"><b>03.05.2015</b></div><br/>
+            Осталось <b>2 мес. 7 д.</b>
+          </div>          
+          <div class="milestones-next">
+            Следующий этап: Монтаж ограждающих конструкций<br/>
+            Начало по плану: <b>14.04.2015</b><br/>
+            Окончанию по прогнозу: <div class="inline red"><b>04.05.2015</b></div><br/>
+          </div>
+        </div>
+      </div>
+
+      <div id="gantt" class="card">
+        <div class="card-header">Сроки выполнения работ</div>
+        <div id="gantt_chart" class="gantt-chart"></div>
+        <div class="card-header">Другие отчёты</div>
+        <div class="zenit">
+          <div class="row">
+            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">Качество проработки проекта</a>
+            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">Выполнение основных работ по проекту​</a>
+            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">Текущие работы​</a>
+          </div>
+          <div class="row">
+  ​​​​​          <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">Пакеты работ</a>
+            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">Смещенные контрольные точки​</a>
+            <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">Отклонение оперативного плана от базового плана</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="budget" class="card">
+        <div class="card-header">Бюджет</div>
+        <div id="budget_dynamics" class="budget-dynamics"></div>
+        <div id="budget_planfact" class="budget-planfact"></div>
+        <div id="payment_statuses" class="payment-statuses"></div>
+        <div class="card-header">Рейтинг категорий бюджета</div>
+        <div class="radio-button">
+          <input type="radio" name="view" value="fin" id="measure_count" checked>
+          <label for="measure_count">По затратам</label>
+          <input type="radio" name="view" value="delay" id="measure_sum">
+          <label for="measure_sum">По отставанию</label>
+        </div>
+        <div id="budget_report_chart_fin_delay" ></div>
+        <div class="card-header">Другие отчёты</div>
+          <div class="zenit">
+            <div class="row">
+              <a href="http://zenit.acceleration.ru/prj4/reports/SitePages/Отчет%20по%20овоению%20бюджета.aspx">Освоение бюджета</a>
+              <a href="http://zenit.acceleration.ru/prj4/reports/SitePages/Отчет%20Освоение%20физических%20объемов%20СМР%E2%80%8B.aspx">Освоение физических объемов СМР​​ в стоимостном выражении</a>
+              <a></a>
+<!-- <a href="http://zenit.acceleration.ru/prj4/reports/SitePages/Освоение%20физических%20объемов,%20м2.aspx">Освоение физических объемов С​МР​​, м2</a> -->
+            </div>
+          </div>
+      </div>
+
+      <div id="mto" class="card">
+        <div class="card-header">Отчёт о выполненных графиках МТО (на 25.02.2016)</div>
+        <div id="smo_report_chart"></div>
+      </div>
+
+      <div id="hr" class="card">
+        <div class="card-header">Отчёт о мобилизации</div>
+        <div id="hr_report_chart"></div>
+      </div>
+
+      <div id="managers" class="card">
+        <div class="card-header">Участники проекта</div>
+        <table class="curators table table-condensed">
+          <thead>
+            <tr>
+              <th>Организация</th>
+              <th>Роль</th>
+              <th>ФИО</th>
+              <th>Должность</th>
+              <th>Телефон</th>
+              <th>Почта</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="success">
+              <td>Министерство здравоохранения Московской области</td>
+              <td>Заказчик</td>
+              <td>Суслонова Нина Владимировна</td>
+              <td>Министр</td>
+              <td>+7 498 602-03-01</td>
+              <td>minzdrav@mosreg.ru</td> 
+            </tr>
+            <tr class="success">
+              <td>Отдел стратегического развития здравоохранения и государственных программ</td>
+              <td>Руководитель проекта</td>
+              <td>Ивашова Наталья Алексеевна</td>
+              <td>Руководитель отдела</td>
+              <td>+7 498 602-04-19</td>
+              <td>minzdrav@mosreg.ru</td> 
+            </tr>
+            <tr class="info">
+              <td>ЗАО ГК «НДТ»</td>
+              <td>Застройщик</td>
+              <td>Иванов Иван Иванович</td>
+              <td>Руководитель проекта</td>
+              <td>+7 999 123-45-67</td>
+              <td>ivanov@ndt.ru</td> 
+            </tr>
+            <tr class="info">
+              <td>ООО «Подряд»</td>
+              <td>Генподрядчик</td>
+              <td>Петров Пётр Петрович</td>
+              <td>Руководитель проекта</td>
+              <td>+7 999 234-56-89</td>
+              <td>petrov@podryad.ru</td> 
+            </tr>
+            <tr class="info">
+              <td>ОАО «Техзак»</td>
+              <td>Технический заказчик</td>
+              <td>Денисов Денис Денисович</td>
+              <td>Руководитель проекта</td>
+              <td>+7 999 345-67-89</td>
+              <td>denisov@techzak.ru</td> 
+            </tr>
+            <tr class="info">
+              <td>ПАО «Докс»</td>
+              <td>Разработчик документации</td>
+              <td>Нинова Нина Валерьевна</td>
+              <td>Руководитель проекта</td>
+              <td>+7 999 987-65-43</td>
+              <td>ninova@docs.ru</td> 
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="tasks" class="card tasks">
+        <div class="card-header">Поручения</div>
+        <table class="table table-condensed">
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>Поручение</th>
+            <th>Плановая дата</th>
+            <th>Фактическая дата</th>
+          </tr>
+          </thead>
+          <tbody id="tasks_table">
+            <tr class="success">
+              <td>1</td>
+              <td>Навести порядок на прилежащих территориях</td>
+              <td>05.02.2016</td>
+              <td>22.01.2016</td>
+            </tr>
+            <tr class="warning">
+              <td>2</td>
+              <td>Догнать график строительтва</td>
+              <td>17.02.2016</td>
+              <td>21.02.2016</td>
+            </tr>
+            <tr class="danger">
+              <td>3</td>
+              <td>Вывести мусор с территории</td>
+              <td>24.02.2016</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-header">Добавить поручение</div>
+        <form>
+          <table class="table table-condensed">
+            <tbody>
+              <tr>
+                <td>&nbsp;</td>
+                <td style="width: 55%">
+                  <input type="text" class="form-control" id="task_decs" value="Провести инструктаж по ТБ">
+                </td>
+                <td style="width: 19%">
+                  <input type="date" class="form-control" id="task_date" value="2016-03-12">
+                </td>
+                <td><div id="task_add" class="btn btn-default">Назначить</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+
+      <div id="passport" class="card">
+        <div class="card-header">Паспорт объекта</div>
+        <div class="passport">
+          <div class="fields">
+            Отрасль: <b>Здравоохранение</b><br/>
+            Тип: <b>Перинатальный центр</b><br/>
+            Программа: <b>АИП</b><br/>
+            Адрес: <b>Московская обл., г. Наро-Фоминск, ул. Калинина, участок 32</b><br/>
+            Номер разрешения на строительство: <b>RU50-17-2015-47</b><br/>
+            Дата выдачи разрешения на строительство: <b>18.02.2015</b><br/>
+            Дата окончания разрешения на строительство: <b>01.04.2016</b><br/>
+            Кадастровый номер: <b>50:26:0100212:864</b><br/>
+            Кадастровый номер 2: <b>50:26:0100212:873</b><br/>
+            Вид строительной деятельности: <b>Новое строительство</b><br/>
+            Способ строительства (фасет 6322): <b>Собственными силами</b><br/>
+            УИДО: <b>50:26:0100212:864-0001</b><br/>
+          </div>
+          <div class="description">
+            Строительство перинатального центра на 150 коек с консультативно-диагностическим отделением для женщин на 250 посещений в смену для обеспечения безопасной, комфорнотной и высокотехнологичной среды объекта родовспоможения.<br/><br/>
+            В состав центра входят диагностическое, акушерское и реанимационное отделения, корпус для недоношенных детей, отделения интенсивной терапии, паталогии беременности, лечения бесплодия и ЭКО. Комплексом предусмотрено строительство шестиэтажного здания с подвальным этажом.
+          </div>
+          <div id="project_map" class="map"></div>
+        </div>
+      </div>
+
+      <div id="photo" class="card">
+        <div class="card-header">Фото и видео объекта</div>
+        <div class="photo-video-content photo-video-card">
+          <iframe class="iv-i"
+            style="display:inline-block;margin:0;padding:0;border:0;"
+            src="https://open.ivideon.com/embed/v2/?server=200-c806511b6843d2ce359518ee96888be7&camera=196608&width=1920&height=1080&lang=ru&ap=&fs=&noibw="
+            width="440" height="250" frameborder="0"
+            allowfullscreen></iframe>
+          <div class="photo inline photo-camera-screen"></div>
+          <div class="photo inline photo-progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer id="footer" class="footer">
+      <img src="css/images/isb.png">
+    </footer>
+<!-- 
+    <div id="milestones_table" class="chart milestones">
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Получение ГПЗУ</div>
+          <div class="plan-dates">План: 15.07.2013 — 15.08.2013 (31 д.)</div>
+          <div class="fact-dates">Факт: 15.07.2013 — 15.08.2013 (31 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Разработка проектной документации</div>
+          <div class="plan-dates">План: 27.01.2014 — 30.09.2014 (8 мес. и 3 д.)</div>
+          <div class="fact-dates">Факт: 27.01.2014 — 30.09.2014 (8 мес. и 3 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Оформление передачи участка</div>
+          <div class="plan-dates">План: 01.03.2014 — 01.05.2014 (2 мес.)</div>
+          <div class="fact-dates">Факт: 01.03.2014 — 01.05.2014 (2 мес.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Оформление изменений РИЗУ</div>
+          <div class="plan-dates">План: 01.08.2014 — 05.09.2014 (1 мес. 4 д.)</div>
+          <div class="fact-dates">Факт: 01.08.2014 — 05.09.2014 (1 мес. 4 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Получение положительного заключения экспертизы ПД</div>
+          <div class="plan-dates">План: 15.09.2014 — 27.11.2014 (2 мес. 12 д.)</div>
+          <div class="fact-dates">Факт: 15.09.2014 — 27.11.2014 (2 мес. 12 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Получение свидетельства об утверждении АГР</div>
+          <div class="plan-dates">План: 15.10.2014 — 12.11.2014 (28 д.)</div>
+          <div class="fact-dates">Факт: 15.10.2014 — 12.11.2014 (28 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Снос здания и сооружений</div>
+          <div class="plan-dates">План: 10.04.2015 — 15.12.2015 (8 мес. 5 д.)</div>
+          <div class="fact-dates">Факт: 10.04.2015 — 15.12.2015 (8 мес. 5 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Получение разрешения на строительство</div>
+          <div class="plan-dates">План: 20.09.2015 — 02.10.2015 (13 д.)</div>
+          <div class="fact-dates">Факт: 20.09.2015 — 02.10.2015 (13 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Получение разрешения на строительство</div>
+          <div class="plan-dates">План: 20.09.2015 — 02.10.2015 (13 д.)</div>
+          <div class="fact-dates">Факт: 20.09.2015 — 02.10.2015 (13 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Ограждение котлована</div>
+          <div class="plan-dates">План: 21.12.2015 — 15.03.2016 (2 мес. 25 д.)</div>
+          <div class="fact-dates">Факт: 21.12.2015 — 15.03.2016 (2 мес. 25 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Строительство подземной части здания</div>
+          <div class="plan-dates">План: 10.03.2016 — 01.10.2016 (6 мес. 21 д.)</div>
+          <div class="fact-dates">Факт: 10.03.2016 — 01.10.2016 (6 мес. 21 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-progress"></div>
+        <div class="left-side">
+          <div class="name">Строительство надземной части здания</div>
+          <div class="plan-dates">План: 22.08.2016 — 10.11.2016 (2 мес. 19 д.)</div>
+          <div class="fact-dates">Факт: 22.08.2016 — 10.11.2016 (2 мес. 19 д.)</div>
+        </div>
+        <div class="right-side">
+          <div class="percentage">Этап выполнен на 100%</div>
+          <div class="deviation">Отклонение от графика отсутствует</div>
+          <div class="comment"></div>
+        </div>
+      </div>
+
+    </div> -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/hs/highcharts.js"></script> -->
+    <script src="js/hs/highstock.js"></script>
+    <script src="js/hs/highcharts-more.js"></script>
+    <script type="text/javascript" src="https://www.highcharts.com/samples/data/large-dataset.js"></script>
+    <script src="js/leaflet.js"></script>
+
+    <script src="js/project/colors.js"></script>
+    <script src="js/project/options.js"></script>
+    <script src="js/project/budget_dynamics.js"></script>
+    <script src="js/project/budget_planfact.js"></script>
+    <script src="js/project/payment_statuses.js"></script>
+    <!-- <script src="js/project/payment_structure.js"></script> -->
+    <script src="js/project/gantt_chart.js"></script>
+    <script src="js/xrange.js"></script>
+    <script src="js/project.js"></script>
+    <script src="js/scrollspy.js"></script>
+    <!--скрипты по обработке формы поручений-->
+    <script type="application/javascript">
+        $(function(){
+           $("#task_add").click(addTaskToTable);
+
+            function addTaskToTable(){
+                var date = $('#task_date').val();
+                var desc = $('#task_decs').val();
+
+                date = Date.parse(date);
+                date = new Date(date);
+                date = date.toLocaleDateString("ru-RU")
+                var table = $('#tasks_table');
+                var tr = $(document.createElement('tr'));
+                tr.append($(document.createElement('td')).text(4));
+                tr.append($(document.createElement('td')).text(desc));
+                tr.append($(document.createElement('td')).text(date));
+                tr.append($(document.createElement('td')).text(""));
+                table.append(tr)
+
+            }
+        })
+    </script>
+    <!--скрипты для карты-->
+    <script type="application/javascript">
+      $(function(){
+        initMap();
+        function initMap() {
+          map = L.map('project_map',{maximumAge: 1000000,
+            zoomControl: false,
+            dragging: false,
+            touchZoom: false,
+            scrollWheelZoom: false,
+            doubleClickZoom: false}).setView([55.388511, 36.720580], 17);
+          L.tileLayer(
+            //'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw'
+            // 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw'
+            'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+            , {
+                maxZoom: 18,
+                attribution: '',
+                id: 'examples.map-i86l3621',
+                detectRetina: true,
+                reuseTiles: true,
+                unloadInvisibleTiles: true
+            }).addTo(map);
+
+          var icon = L.icon({
+            iconUrl: 'css/images/marker_green.png',
+            iconRetinaUrl: 'css/images/marker_green@2x.png',
+            shadowUrl: 'css/images/marker_shadow.png',
+            iconSize:     [24, 39], // size of the icon
+            shadowSize:   [72, 61], // size of the shadow
+            iconAnchor:   [12, 20], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 39],  // the same for the shadow
+            popupAnchor:  [-0, -10] // point from which the popup should open relative to the iconAnchor
+          });
+          L.marker([55.388511, 36.720580], {icon: icon}).addTo(map)
+        }
+      })
+    </script>
+    <script type="application/javascript">
+    $(function(){
+
+        $("input[type='radio'][name='view']").on('change',function(){
+            console.log('fdsf')
+            var view =  $("input[type='radio'][name='view']:checked").val();
+            if (view=='fin'){
+//                $('#budget_report_chart_fin').show();
+//                $('#budget_report_chart_delay').hide();
+                drawFinanceChart();
+
+            }
+            if (view=='delay'){
+//                $('#budget_report_chart_delay').show();
+//                $('#budget_report_chart_fin').hide();
+                drawDelayChart();
+            }
+
+        })
+
+        var cat_fin = ['Внутренние слаботочные системы', 'Внутренние инженерные системы', 'Благоустройство', 'Внутриплощадочные сети',
+                        'Монтаж технологического оборудования','Монтаж мебели', 'Внутренняя отделка', 'Монтаж лифтового оборудования',
+                        'Монтаж окон и витражей','Устройство кровли', 'Устройство фасадов' ];
+
+        var values_fin = [[319.7403588, 265.8412698,  209.0710428,195.7594034, 128.4181686, 96.31362645, 35.7036506, 19.520633, 9.115941, 7.753484, 3.228983,     ],
+            [66.54663289,18.5273685, 5.11930912, 28.25044177, 0, 0, 0,11.88080241,  2.2112172, 0, 2.4928893,         ]
+        ]
+        var cat_delay = ['Внутренние слаботочные системы', 'Внутренние инженерные системы', 'Благоустройство', 'Внутриплощадочные сети',
+                            'Монтаж технологического оборудования', 'Монтаж мебели', 'Внутренняя отделка','Устройство кровли', 'Монтаж лифтового оборудования',
+                            'Монтаж окон и витражей', 'Устройство фасадов' ];
+
+        var values_delay = [
+            [319.7403588, 265.8412698,  209.0710428,195.7594034, 128.4181686, 96.31362645, 35.7036506, 7.753484,19.520633, 9.115941,  3.228983, ],
+            [66.54663289,18.5273685, 5.11930912, 28.25044177, 0, 0, 0,0, 11.88080241, 2.2112172,    2.4928893,         ]
+        ];
+
+        function delays (){
+            var delays=[]
+            for (var i = 0; i<values_delay[0].length; i++){
+              delays.push(values_delay[0][i]-values_delay[1][i])
+            }
+            return delays;
+        }
+
+        var values_delays_add = delays();
+        drawFinanceChart();
+        function drawFinanceChart () {
+            var chart = new Highcharts.Chart({
+                chart: {
+                    type: 'column',
+                    renderTo: 'budget_report_chart_fin_delay'
+                },
+                title: false,
+                xAxis: {
+                    categories: cat_fin
+                },
+                yAxis: {title: {text: 'млн Р'}},
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    shared: true,
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b> млн Р<br/>'
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return this.y.toFixed(2)
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: values_fin[0],
+                    color: colors[7]
+                }, {
+                    name: 'Факт',
+                    data: values_fin[1],
+                    color: colors[2]
+                }]
+            });
+        }
+
+
+        function drawDelayChart() {
+            var chart = new Highcharts.Chart({
+                chart: {
+                    type: 'column',
+                    renderTo: 'budget_report_chart_fin_delay'
+                },
+                title: false,
+                xAxis: {
+                    categories: cat_delay
+                },
+                yAxis: {title: {text: 'млн Р'}},
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    shared: true,
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b> млн Р<br/>'
+                },
+                plotOptions: {
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return this.y.toFixed(2)
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'План',
+                    data: values_delay[0],
+                    color: colors[7]
+                }, {
+                    name: 'Факт',
+                    data: values_delay[1],
+                    color: colors[2]
+                }, {
+                    name: 'Отставание',
+                    data: values_delays_add,
+                    color: colors[3]
+                }]
+            });
+        }
+    })
+</script>
+<script type="application/javascript">
+    $(function(){
+
+        var chart = new Highcharts.Chart({
+
+            chart: {
+                type: 'column',
+                renderTo: 'hr_report_chart'
+            },
+            title: false,
+            xAxis: {
+                categories: options.lang.months
+            },
+            yAxis: { title: { text: 'Человек' } },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b> человек<br/>'
+            },
+            plotOptions: {
+                column: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(){
+                            return this.y.toFixed()
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Требуемая чиленность',
+                data: [542,621,634, 765,798,805,812,734,628, 0 , 0 ,0],
+                color: colors[7]
+            }, {
+                name: 'Фактическая численность',
+                data: [526, 512, 0,0,0,0,0,0,0,0,0,0],
+                color: colors[2]
+            }]
+        });
+    })
+</script>
+<script type="application/javascript">
+    $(function(){
+
+        var chart = new Highcharts.Chart({
+
+            chart: {
+                type: 'column',
+                renderTo: 'smo_report_chart'
+            },
+            title: false,
+            xAxis: {
+                categories: ['Исходная информация выдана (спецификации)', 'Договор заключен', 'Поставки начаты (на склад)', 'Поставки начаты (на объект)']
+            },
+            yAxis: { title: { text: 'Объектов' } },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b> объектов<br/>'
+            },
+            plotOptions: {
+                column: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function(){
+                            return this.y.toFixed()
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'План на дату',
+                data: [33, 33, 33, 29],
+                color: colors[7]
+            }, {
+                name: 'Факт на дату',
+                data: [27, 21, 17, 12],
+                color: colors[2]
+            }]
+        });
+    })
+</script>
+  </body>
+</html>
